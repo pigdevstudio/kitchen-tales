@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://actors/PlatformActor.tscn" type="PackedScene" id=1]
+
+[node name="Playground" type="Node2D"]
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2( 0, 512 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ground"]
+polygon = PoolVector2Array( 0, 88, 1024, 88, 1024, 0, 0, 0 )
+
+[node name="Polygon2D" type="Polygon2D" parent="Ground"]
+polygon = PoolVector2Array( 0, 0, 0, 88, 1024, 88, 1024, 0 )
+
+[node name="PlatformActor" parent="." instance=ExtResource( 1 )]
+position = Vector2( 168, 232 )
+
