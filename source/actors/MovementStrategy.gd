@@ -12,7 +12,6 @@ func _ready():
 
 func _unhandled_input(event):
 	if event.is_action_pressed(dash.action):
-		dash.initial_position = dash.kinematic_body2d.position
 		set_current_strategy(dash)
 	elif event.is_action_released(dash.action):
 		set_current_strategy(walk)
