@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "Geometry2D",
 "language": "GDScript",
 "path": "res://utility/Geometry2D.gd"
+}, {
+"base": "Node",
+"class": "PlaformPhysics",
+"language": "GDScript",
+"path": "res://actors/PlatformPhysics.gd"
 } ]
 _global_script_class_icons={
-"Geometry2D": ""
+"Geometry2D": "",
+"PlaformPhysics": ""
 }
 
 [application]

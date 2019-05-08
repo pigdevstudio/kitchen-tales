@@ -1,4 +1,4 @@
-extends "res://actors/PlatformPhysics.gd"
+extends PlaformPhysics
 
 export (float) var strength = 1200.0
 export (Vector2) var direction = Vector2.DOWN

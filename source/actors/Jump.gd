@@ -1,4 +1,4 @@
-extends "res://actors/PlatformPhysics.gd"
+extends PlaformPhysics
 
 export (String) var action = "jump"
 

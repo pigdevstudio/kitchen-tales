@@ -1,4 +1,4 @@
-extends "res://actors/PlatformPhysics.gd"
+extends PlaformPhysics
 
 export (float) var speed = 400.0
 var movement_direction = 0 setget set_movement_direction
