@@ -5,6 +5,5 @@ export (Vector2) var direction = Vector2.DOWN
 
 func _physics_process(delta):
 	if kinematic_body2d.is_on_floor():
-		kinematic_body2d.velocity.y = 0
 		return
 	kinematic_body2d.velocity += (direction * strength) * delta

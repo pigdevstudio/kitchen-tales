@@ -4,7 +4,7 @@
 [ext_resource path="res://utility/Geometry2D.gd" type="Script" id=2]
 [ext_resource path="res://actors/Gravity.gd" type="Script" id=3]
 [ext_resource path="res://actors/Jump.gd" type="Script" id=4]
-[ext_resource path="res://actors/MovementStrategy.gd" type="Script" id=5]
+[ext_resource path="res://actors/ActionBus.gd" type="Script" id=5]
 [ext_resource path="res://actors/Walk.gd" type="Script" id=6]
 [ext_resource path="res://actors/Dash.gd" type="Script" id=7]
 
@@ -27,18 +27,26 @@ strength = 1800.0
 [node name="Jump" type="Node" parent="."]
 script = ExtResource( 4 )
 
-[node name="MovementStrategy" type="Node" parent="."]
+[node name="ActionBus" type="Node" parent="."]
 script = ExtResource( 5 )
 
-[node name="Walk" type="Node" parent="MovementStrategy"]
+[node name="Walk" type="Node" parent="."]
 script = ExtResource( 6 )
-kinematic_body2d_path = NodePath("../..")
 speed = 800.0
 
-[node name="Dash" type="Node" parent="MovementStrategy"]
+[node name="Dash" type="Node" parent="."]
 script = ExtResource( 7 )
-kinematic_body2d_path = NodePath("../..")
 speed = 2400.0
 distance = 400.0
 
-[connection signal="finished" from="MovementStrategy/Dash" to="MovementStrategy" method="_on_Dash_finished"]
+[connection signal="dash_pressed" from="ActionBus" to="Walk" method="set_physics_process" binds= [ false ]]
+[connection signal="dash_pressed" from="ActionBus" to="Dash" method="set_physics_process" binds= [ true ]]
+[connection signal="dash_released" from="ActionBus" to="Walk" method="set_physics_process" binds= [ true ]]
+[connection signal="dash_released" from="ActionBus" to="Dash" method="set_physics_process" binds= [ false ]]
+[connection signal="jump_pressed" from="ActionBus" to="Jump" method="apply"]
+[connection signal="jump_released" from="ActionBus" to="Jump" method="cancel"]
+[connection signal="walk_pressed" from="ActionBus" to="Walk" method="set_movement_direction"]
+[connection signal="walk_pressed" from="ActionBus" to="Dash" method="set_movement_direction"]
+[connection signal="walk_released" from="ActionBus" to="Walk" method="stop"]
+[connection signal="finished" from="Dash" to="Walk" method="set_physics_process" binds= [ true ]]
+[connection signal="ready" from="Dash" to="Dash" method="set_physics_process" binds= [ false ]]

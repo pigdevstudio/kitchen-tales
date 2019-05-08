@@ -12,12 +12,12 @@ func _physics_process(delta):
 		_available_jumps = max_jumps
 
 
-func _unhandled_input(event):
-	if event.is_action_pressed(action):
-		apply()
-
-
 func apply():
 	if _available_jumps > 0:
 		kinematic_body2d.velocity.y = -strength
 		_available_jumps -= 1
+
+
+func cancel():
+	if kinematic_body2d.velocity.y < 0.0:
+		kinematic_body2d.velocity.y = 0.0
