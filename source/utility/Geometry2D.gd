@@ -10,7 +10,8 @@ func set_color(new_color):
 
 func _ready():
 	update()
-	
+
+
 func _draw():
 	var offset_position = Vector2(0, 0)
 	 
@@ -29,6 +30,8 @@ func _draw():
 		var rect_position = offset_position - Vector2(shape.radius, shape.height * 0.5)
 		var rect = Rect2(rect_position, Vector2(shape.radius * 2, shape.height))
 		draw_rect(rect, color)
+	elif shape is ConvexPolygonShape2D:
+		draw_colored_polygon(shape.points, color, shape.points)
 
 func _on_draw():
 	update()

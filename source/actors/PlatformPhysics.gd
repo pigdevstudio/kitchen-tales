@@ -1,6 +1,6 @@
 class_name PlaformPhysics
 extends Node
 
-onready var kinematic_body2d = get_node(kinematic_body2d_path)
+onready var plaform_actor = get_node(plaform_actor_path)
 
-export (NodePath) var kinematic_body2d_path = ".."
+export (NodePath) var plaform_actor_path = ".."
