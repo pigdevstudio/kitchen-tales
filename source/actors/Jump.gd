@@ -8,16 +8,16 @@ onready var _available_jumps = max_jumps
 
 
 func _physics_process(delta):
-	if kinematic_body2d.is_on_floor():
+	if plaform_actor.is_on_floor():
 		_available_jumps = max_jumps
 
 
 func apply():
 	if _available_jumps > 0:
-		kinematic_body2d.velocity.y = -strength
+		plaform_actor.velocity.y = -strength
 		_available_jumps -= 1
 
 
 func cancel():
-	if kinematic_body2d.velocity.y < 0.0:
-		kinematic_body2d.velocity.y = 0.0
+	if plaform_actor.velocity.y < 0.0:
+		plaform_actor.velocity.y = 0.0

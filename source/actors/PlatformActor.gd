@@ -1,3 +1,4 @@
+class_name PlatformActor
 extends KinematicBody2D
 
 const FLOOR_NORMAL = Vector2(0, -1)

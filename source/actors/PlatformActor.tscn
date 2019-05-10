@@ -25,6 +25,7 @@ strength = 1800.0
 
 [node name="Jump" type="Node" parent="."]
 script = ExtResource( 4 )
+strength = 850.0
 
 [node name="ActionBus" type="Node" parent="."]
 script = ExtResource( 5 )
