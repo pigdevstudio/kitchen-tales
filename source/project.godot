@@ -18,15 +18,22 @@ _global_script_classes=[ {
 "class": "PlaformPhysics",
 "language": "GDScript",
 "path": "res://actors/PlatformPhysics.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "PlatformActor",
+"language": "GDScript",
+"path": "res://actors/PlatformActor.gd"
 } ]
 _global_script_class_icons={
 "Geometry2D": "",
-"PlaformPhysics": ""
+"PlaformPhysics": "",
+"PlatformActor": ""
 }
 
 [application]
 
 config/name="Kitchen Tales"
+run/main_scene="res://levels/Playground.tscn"
 config/icon="res://icon.png"
 
 [display]
