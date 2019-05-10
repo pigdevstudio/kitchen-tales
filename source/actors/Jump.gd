@@ -10,12 +10,14 @@ onready var _available_jumps = max_jumps
 func _physics_process(delta):
 	if plaform_actor.is_on_floor():
 		_available_jumps = max_jumps
+		plaform_actor.snap_normal = Vector2.DOWN
 
 
 func apply():
 	if _available_jumps > 0:
 		plaform_actor.velocity.y = -strength
 		_available_jumps -= 1
+		plaform_actor.snap_normal = Vector2.ZERO
 
 
 func cancel():
