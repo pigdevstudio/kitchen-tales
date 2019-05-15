@@ -1,6 +1,6 @@
 class_name PlaformPhysics
 extends Node
 
-onready var plaform_actor = get_node(plaform_actor_path)
+onready var platform_actor = get_node(platform_actor_path)
 
-export (NodePath) var plaform_actor_path = ".."
+export (NodePath) var platform_actor_path = ".."

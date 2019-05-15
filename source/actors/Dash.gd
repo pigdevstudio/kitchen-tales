@@ -3,19 +3,27 @@ extends "res://actors/Walk.gd"
 signal finished
 
 export (float) var distance = 300.0
+export (bool) var air_dash = true setget set_air_dash
 
 var initial_position = Vector2(0, 0)
 
-
 func _physics_process(delta):
-	if plaform_actor.is_on_floor():
-		if (initial_position.distance_to(plaform_actor.position) 
-				> distance):
-			emit_signal("finished")
-			set_physics_process(false)
+	if (initial_position.distance_to(platform_actor.position) 
+			> distance):
+		emit_signal("finished")
+		set_physics_process(false)
 
 
 func set_physics_process(enable):
 	if enable:
-		initial_position = plaform_actor.position
+		if not platform_actor.is_on_floor() and not air_dash:
+			return
+		emit_signal("started")
+		initial_position = platform_actor.position
+	else:
+		emit_signal("finished")
 	.set_physics_process(enable)
+
+
+func set_air_dash(enabled):
+	air_dash = enabled
