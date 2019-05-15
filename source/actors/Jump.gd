@@ -18,12 +18,12 @@ func _physics_process(delta):
 
 
 func apply():
-	if _available_jumps > 0:
+	if _available_jumps > 0 or max_jumps == -1:
 		platform_actor.velocity.y = -strength
 		_available_jumps -= 1
 		platform_actor.snap_normal = Vector2.ZERO
 		set_physics_process(true)
-		if _available_jumps < 1:
+		if _available_jumps < 1 and max_jumps > -1:
 			emit_signal("available_jumps_depleted")
 
 
