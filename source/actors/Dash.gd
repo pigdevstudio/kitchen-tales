@@ -1,5 +1,6 @@
 extends "res://actors/Walk.gd"
 
+signal started
 signal finished
 
 export (float) var distance = 300.0
@@ -8,6 +9,7 @@ export (bool) var air_dash = true setget set_air_dash
 var initial_position = Vector2(0, 0)
 
 func _physics_process(delta):
+	platform_actor.velocity.y = 0
 	if (initial_position.distance_to(platform_actor.position) 
 			> distance):
 		emit_signal("finished")
