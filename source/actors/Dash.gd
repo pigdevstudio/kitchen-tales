@@ -11,7 +11,7 @@ var initial_position = Vector2(0, 0)
 func _physics_process(delta):
 	platform_actor.velocity.y = 0
 	if (initial_position.distance_to(platform_actor.position) 
-			> distance):
+			> distance or platform_actor.is_on_wall()):
 		emit_signal("finished")
 		set_physics_process(false)
 
