@@ -1,7 +1,7 @@
 extends PlaformPhysics
 
 export (float) var speed = 400.0
-var movement_direction = 0 setget set_movement_direction
+var movement_direction = Vector2.ZERO setget set_movement_direction
 
 func _physics_process(delta):
 	apply()
@@ -16,4 +16,4 @@ func set_movement_direction(new_direction):
 
 
 func stop():
-	movement_direction = 0
+	movement_direction = Vector2.ZERO

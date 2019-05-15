@@ -13,12 +13,17 @@ func _physics_process(delta):
 
 
 func apply():
-	platform_actor.velocity.y = 0.0
 	platform_actor.velocity.x = movement_direction.x * speed
+	platform_actor.velocity.y = movement_direction.y * speed
 		
 	if (initial_position.distance_to(platform_actor.position) 
 			> distance or platform_actor.is_on_wall()):
 		stop()
+
+
+func stop():
+	emit_signal("finished")
+	set_physics_process(false)
 
 
 func set_physics_process(enable):
@@ -34,9 +39,3 @@ func set_physics_process(enable):
 
 func set_air_dash(enabled):
 	air_dash = enabled
-
-
-func stop():
-	.stop()
-	emit_signal("finished")
-	set_physics_process(false)
