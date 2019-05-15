@@ -16,8 +16,18 @@ func apply():
 	platform_actor.velocity.x = movement_direction.x * speed
 	platform_actor.velocity.y = movement_direction.y * speed
 		
+	check_distance()
+	check_walls()
+
+
+func check_distance():
 	if (initial_position.distance_to(platform_actor.position) 
-			> distance or platform_actor.is_on_wall()):
+			> distance):
+		stop()
+
+
+func check_walls():
+	if platform_actor.is_on_wall():
 		stop()
 
 
