@@ -21,11 +21,11 @@ script = ExtResource( 2 )
 
 [node name="Gravity" type="Node" parent="."]
 script = ExtResource( 3 )
-strength = 1800.0
+strength = 4000.0
 
 [node name="Jump" type="Node" parent="."]
 script = ExtResource( 4 )
-strength = 850.0
+strength = 1000.0
 
 [node name="ActionBus" type="Node" parent="."]
 script = ExtResource( 5 )
