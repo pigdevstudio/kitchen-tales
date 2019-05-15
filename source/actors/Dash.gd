@@ -9,11 +9,16 @@ export (bool) var air_dash = true setget set_air_dash
 var initial_position = Vector2(0, 0)
 
 func _physics_process(delta):
-	platform_actor.velocity.y = 0
+	apply()
+
+
+func apply():
+	platform_actor.velocity.y = 0.0
+	platform_actor.velocity.x = movement_direction.x * speed
+		
 	if (initial_position.distance_to(platform_actor.position) 
 			> distance or platform_actor.is_on_wall()):
-		emit_signal("finished")
-		set_physics_process(false)
+		stop()
 
 
 func set_physics_process(enable):
@@ -29,3 +34,9 @@ func set_physics_process(enable):
 
 func set_air_dash(enabled):
 	air_dash = enabled
+
+
+func stop():
+	.stop()
+	emit_signal("finished")
+	set_physics_process(false)

@@ -4,7 +4,11 @@ export (float) var speed = 400.0
 var movement_direction = 0 setget set_movement_direction
 
 func _physics_process(delta):
-	platform_actor.velocity.x = movement_direction * speed
+	apply()
+
+
+func apply():
+	platform_actor.velocity.x = movement_direction.x * speed
 
 
 func set_movement_direction(new_direction):
