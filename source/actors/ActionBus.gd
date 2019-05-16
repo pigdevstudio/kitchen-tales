@@ -52,16 +52,14 @@ func handle_walk_action(event):
 		direction = Vector2.RIGHT
 	elif event.is_action_released(walk_left):
 		if not Input.is_action_pressed(walk_right):
-			direction = Vector2.ZERO
+			emit_signal("walk_released")
 		else:
 			direction = Vector2.RIGHT
 	elif event.is_action_released(walk_right):
 		if not Input.is_action_pressed(walk_left):
-			direction = Vector2.ZERO
+			emit_signal("walk_released")
 		else:
 			direction = Vector2.LEFT
 	
-	if direction.length() > 0.0:
+	if not direction == Vector2.ZERO:
 		emit_signal("walk_pressed", direction)
-	else:
-		emit_signal("walk_released")
