@@ -21,11 +21,11 @@ script = ExtResource( 2 )
 
 [node name="Gravity" type="Node" parent="."]
 script = ExtResource( 3 )
-strength = 1800.0
+strength = 4000.0
 
 [node name="Jump" type="Node" parent="."]
 script = ExtResource( 4 )
-strength = 850.0
+strength = 1000.0
 
 [node name="ActionBus" type="Node" parent="."]
 script = ExtResource( 5 )
@@ -39,14 +39,16 @@ script = ExtResource( 7 )
 speed = 2400.0
 distance = 400.0
 
-[connection signal="dash_pressed" from="ActionBus" to="Dash" method="set_physics_process" binds= [ true ]]
+[connection signal="available_jumps_depleted" from="Jump" to="Dash" method="set_air_dash" binds= [ false ]]
+[connection signal="available_jumps_replenished" from="Jump" to="Dash" method="set_air_dash" binds= [ true ]]
 [connection signal="dash_pressed" from="ActionBus" to="Walk" method="set_physics_process" binds= [ false ]]
-[connection signal="dash_released" from="ActionBus" to="Dash" method="set_physics_process" binds= [ false ]]
+[connection signal="dash_pressed" from="ActionBus" to="Dash" method="set_physics_process" binds= [ true ]]
 [connection signal="dash_released" from="ActionBus" to="Walk" method="set_physics_process" binds= [ true ]]
+[connection signal="dash_released" from="ActionBus" to="Dash" method="set_physics_process" binds= [ false ]]
 [connection signal="jump_pressed" from="ActionBus" to="Jump" method="apply"]
 [connection signal="jump_released" from="ActionBus" to="Jump" method="cancel"]
-[connection signal="walk_pressed" from="ActionBus" to="Dash" method="set_movement_direction"]
 [connection signal="walk_pressed" from="ActionBus" to="Walk" method="set_movement_direction"]
+[connection signal="walk_pressed" from="ActionBus" to="Dash" method="set_movement_direction"]
 [connection signal="walk_released" from="ActionBus" to="Walk" method="stop"]
 [connection signal="finished" from="Dash" to="Walk" method="set_physics_process" binds= [ true ]]
 [connection signal="ready" from="Dash" to="Dash" method="set_physics_process" binds= [ false ]]

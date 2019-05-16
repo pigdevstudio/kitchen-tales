@@ -45,17 +45,23 @@ func handle_jump_action(event):
 
 
 func handle_walk_action(event):
+	var direction = Vector2.ZERO
 	if event.is_action_pressed(walk_left):
-		emit_signal("walk_pressed", -1)
+		direction = Vector2.LEFT
 	elif event.is_action_pressed(walk_right):
-		emit_signal("walk_pressed", 1)
+		direction = Vector2.RIGHT
 	elif event.is_action_released(walk_left):
 		if not Input.is_action_pressed(walk_right):
-			emit_signal("walk_released")
+			direction = Vector2.ZERO
 		else:
-			emit_signal("walk_pressed", 1)
+			direction = Vector2.RIGHT
 	elif event.is_action_released(walk_right):
 		if not Input.is_action_pressed(walk_left):
-			emit_signal("walk_released")
+			direction = Vector2.ZERO
 		else:
-			emit_signal("walk_pressed", -1)
+			direction = Vector2.LEFT
+	
+	if direction.length() > 0.0:
+		emit_signal("walk_pressed", direction)
+	else:
+		emit_signal("walk_released")
