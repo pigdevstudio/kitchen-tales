@@ -94,6 +94,7 @@ position = Vector2( 880, 1024 )
 [node name="Geometry2D" type="CollisionShape2D" parent="Ground"]
 shape = SubResource( 2 )
 script = ExtResource( 1 )
+color = Color( 1, 1, 1, 1 )
 
 [node name="Ground2" type="StaticBody2D" parent="."]
 editor/display_folded = true
@@ -102,6 +103,7 @@ position = Vector2( 2028, 56 )
 [node name="Geometry2D" type="CollisionShape2D" parent="Ground2"]
 shape = SubResource( 3 )
 script = ExtResource( 1 )
+color = Color( 1, 1, 1, 1 )
 
 [node name="Ground3" type="StaticBody2D" parent="."]
 editor/display_folded = true
@@ -110,6 +112,7 @@ position = Vector2( 1560, -88 )
 [node name="Geometry2D" type="CollisionShape2D" parent="Ground3"]
 shape = SubResource( 4 )
 script = ExtResource( 1 )
+color = Color( 1, 1, 1, 1 )
 
 [node name="Platform" type="StaticBody2D" parent="."]
 position = Vector2( 2328, 1008 )
@@ -231,6 +234,7 @@ editor/display_folded = true
 position = Vector2( 1876, 0 )
 shape = SubResource( 9 )
 script = ExtResource( 1 )
+color = Color( 1, 1, 1, 1 )
 
 [node name="Slope2" type="StaticBody2D" parent="."]
 editor/display_folded = true
@@ -239,6 +243,7 @@ editor/display_folded = true
 position = Vector2( 1700, -88 )
 shape = SubResource( 9 )
 script = ExtResource( 1 )
+color = Color( 1, 1, 1, 1 )
 
 [node name="Wall" type="StaticBody2D" parent="."]
 editor/display_folded = true

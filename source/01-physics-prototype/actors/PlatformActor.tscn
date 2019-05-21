@@ -38,7 +38,6 @@ speed = 800.0
 script = ExtResource( 7 )
 speed = 2400.0
 distance = 400.0
-
 [connection signal="available_jumps_depleted" from="Jump" to="Dash" method="set_air_dash" binds= [ false ]]
 [connection signal="available_jumps_replenished" from="Jump" to="Dash" method="set_air_dash" binds= [ true ]]
 [connection signal="dash_pressed" from="ActionBus" to="Walk" method="set_physics_process" binds= [ false ]]
