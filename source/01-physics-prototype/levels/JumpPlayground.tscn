@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://actors/PlatformActor.gd" type="Script" id=1]
 [ext_resource path="res://utility/Geometry2D.gd" type="Script" id=2]
@@ -12,14 +12,15 @@
 [ext_resource path="res://objects/StaticPlatform.tscn" type="PackedScene" id=10]
 [ext_resource path="res://objects/VerticalMovingPlatform.tscn" type="PackedScene" id=11]
 [ext_resource path="res://objects/HorizontalMovingPlatform.tscn" type="PackedScene" id=12]
+[ext_resource path="res://objects/CircularMovingPlatform.tscn" type="PackedScene" id=13]
 
-[sub_resource type="RectangleShape2D" id=9]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 40, 64 )
 
-[sub_resource type="LineShape2D" id=7]
+[sub_resource type="LineShape2D" id=2]
 normal = Vector2( 1, 0 )
 
-[sub_resource type="LineShape2D" id=8]
+[sub_resource type="LineShape2D" id=3]
 normal = Vector2( -1, 0 )
 
 [node name="JumpPlayground" type="Node2D"]
@@ -31,13 +32,14 @@ __meta__ = {
 [node name="SingleJumpPlatformActor" type="KinematicBody2D" parent="." groups=[
 "player",
 ]]
+editor/display_folded = true
 position = Vector2( 464, 800 )
 collision_layer = 3
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SingleJumpPlatformActor"]
 position = Vector2( 0, -64 )
-shape = SubResource( 9 )
+shape = SubResource( 1 )
 script = ExtResource( 2 )
 
 [node name="Gravity" type="Node" parent="SingleJumpPlatformActor"]
@@ -103,11 +105,11 @@ polygon = PoolVector2Array( 928, 0, 928, 200, 1920, 200, 1920, 0 )
 editor/display_folded = true
 
 [node name="Left" type="CollisionShape2D" parent="Wall"]
-shape = SubResource( 7 )
+shape = SubResource( 2 )
 
 [node name="Right" type="CollisionShape2D" parent="Wall"]
 position = Vector2( 8248, -168 )
-shape = SubResource( 8 )
+shape = SubResource( 3 )
 
 [node name="Void" parent="." instance=ExtResource( 9 )]
 position = Vector2( 0, 1282.4 )
@@ -155,8 +157,8 @@ position = Vector2( 5504, -384 )
 editor/display_folded = false
 position = Vector2( 5160, -440 )
 
-[node name="VerticalMovingPlatform3" parent="Platforms" instance=ExtResource( 11 )]
-position = Vector2( 4784, -488 )
+[node name="CircularMovingPlatform" parent="." instance=ExtResource( 13 )]
+position = Vector2( 4720, -488 )
 
 [node name="Goal" type="Label" parent="."]
 margin_left = 3816.0
