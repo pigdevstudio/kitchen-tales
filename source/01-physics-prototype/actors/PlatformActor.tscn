@@ -18,6 +18,7 @@ script = ExtResource( 1 )
 position = Vector2( 0, -64 )
 shape = SubResource( 1 )
 script = ExtResource( 2 )
+color = Color( 1, 1, 1, 1 )
 
 [node name="Gravity" type="Node" parent="."]
 script = ExtResource( 3 )
@@ -51,3 +52,4 @@ distance = 400.0
 [connection signal="walk_released" from="ActionBus" to="Walk" method="stop"]
 [connection signal="finished" from="Dash" to="Walk" method="set_physics_process" binds= [ true ]]
 [connection signal="ready" from="Dash" to="Dash" method="set_enabled" binds= [ false ]]
+[connection signal="started" from="Dash" to="Jump" method="deplete"]
