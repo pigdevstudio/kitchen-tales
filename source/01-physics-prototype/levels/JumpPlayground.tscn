@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://actors/PlatformActor.gd" type="Script" id=1]
 [ext_resource path="res://utility/Geometry2D.gd" type="Script" id=2]
@@ -9,10 +9,11 @@
 [ext_resource path="res://areas/Ground.tscn" type="PackedScene" id=7]
 [ext_resource path="res://areas/Stairs.tscn" type="PackedScene" id=8]
 [ext_resource path="res://objects/InfiniteVoid.tscn" type="PackedScene" id=9]
-[ext_resource path="res://objects/StaticPlatform.tscn" type="PackedScene" id=10]
-[ext_resource path="res://objects/VerticalMovingPlatform.tscn" type="PackedScene" id=11]
-[ext_resource path="res://objects/HorizontalMovingPlatform.tscn" type="PackedScene" id=12]
-[ext_resource path="res://objects/CircularMovingPlatform.tscn" type="PackedScene" id=13]
+[ext_resource path="res://objects/platforms/StaticPlatform.tscn" type="PackedScene" id=10]
+[ext_resource path="res://objects/platforms/moving_platform/MovingPlatform.tscn" type="PackedScene" id=11]
+[ext_resource path="res://objects/platforms/moving_platform/movement_paths/VerticalPath.tres" type="Curve2D" id=12]
+[ext_resource path="res://objects/platforms/moving_platform/movement_paths/HorizontalPath.tres" type="Curve2D" id=13]
+[ext_resource path="res://objects/platforms/moving_platform/movement_animations/CircularPlatformMovement.tres" type="Animation" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 40, 64 )
@@ -26,7 +27,7 @@ normal = Vector2( -1, 0 )
 [node name="JumpPlayground" type="Node2D"]
 __meta__ = {
 "_edit_horizontal_guides_": [ 960.0, 1280.0, 168.0, -264.0, -432.0, -488.0, -360.0, -792.0, -1320.0 ],
-"_edit_vertical_guides_": [ 1920.0, 2240.0, 4424.0, 8248.0, 4160.0, 4904.0 ]
+"_edit_vertical_guides_": [ 1920.0, 2240.0, 4424.0, 8248.0, 4160.0, 4904.0, 6104.0 ]
 }
 
 [node name="SingleJumpPlatformActor" type="KinematicBody2D" parent="." groups=[
@@ -83,9 +84,11 @@ editor/display_folded = true
 position = Vector2( 0, 960 )
 
 [node name="Ground" parent="Floor" instance=ExtResource( 7 )]
+color = Color( 1, 1, 1, 1 )
 
 [node name="Ground2" parent="Floor" instance=ExtResource( 7 )]
 position = Vector2( 2240, 0 )
+color = Color( 1, 1, 1, 1 )
 
 [node name="Stairs" parent="Floor" instance=ExtResource( 8 )]
 position = Vector2( 2864, -248 )
@@ -93,6 +96,7 @@ position = Vector2( 2864, -248 )
 [node name="Ground3" parent="Floor" instance=ExtResource( 7 )]
 position = Vector2( 4904, -88 )
 polygon = PoolVector2Array( 0, 0, 0, 408, 1920, 408, 1920, 0 )
+color = Color( 1, 1, 1, 1 )
 
 [node name="Stairs2" parent="Floor" instance=ExtResource( 8 )]
 position = Vector2( 5528, -336 )
@@ -100,6 +104,7 @@ position = Vector2( 5528, -336 )
 [node name="Ground4" parent="Floor" instance=ExtResource( 7 )]
 position = Vector2( 2504, -1648 )
 polygon = PoolVector2Array( 928, 0, 928, 200, 1920, 200, 1920, 0 )
+color = Color( 1, 1, 1, 1 )
 
 [node name="Wall" type="StaticBody2D" parent="."]
 editor/display_folded = true
@@ -117,48 +122,46 @@ position = Vector2( 0, 1282.4 )
 [node name="Platforms" type="Node2D" parent="."]
 
 [node name="StaticPlatform" parent="Platforms" instance=ExtResource( 10 )]
-editor/display_folded = false
-position = Vector2( 4544, 824 )
+position = Vector2( 4544, 872 )
 
-[node name="VerticalMovingPlatform" parent="Platforms" instance=ExtResource( 11 )]
-position = Vector2( 6704, 643.2 )
+[node name="MovingPlatform" parent="Platforms" instance=ExtResource( 11 )]
+editor/display_folded = true
+position = Vector2( 6704, 696 )
+movement_curve = ExtResource( 12 )
 
 [node name="StaticPlatform2" parent="Platforms" instance=ExtResource( 10 )]
-editor/display_folded = false
-position = Vector2( 7198.4, 216 )
+position = Vector2( 7198.4, 264 )
 
 [node name="StaticPlatform3" parent="Platforms" instance=ExtResource( 10 )]
-editor/display_folded = false
-position = Vector2( 7696, 216 )
-
-[node name="VerticalMovingPlatform2" parent="Platforms" instance=ExtResource( 11 )]
-position = Vector2( 8128, 208 )
+position = Vector2( 7696, 264 )
 
 [node name="StaticPlatform5" parent="Platforms" instance=ExtResource( 10 )]
-editor/display_folded = false
-position = Vector2( 7198.4, -216 )
+position = Vector2( 7198.4, -168 )
+
+[node name="MovingPlatform2" parent="Platforms" instance=ExtResource( 11 )]
+editor/display_folded = true
+position = Vector2( 8128, 264 )
+movement_curve = ExtResource( 12 )
+
+[node name="MovingPlatform3" parent="Platforms" instance=ExtResource( 11 )]
+position = Vector2( 6744, -168 )
+movement_curve = ExtResource( 13 )
 
 [node name="StaticPlatform4" parent="Platforms" instance=ExtResource( 10 )]
-editor/display_folded = false
-position = Vector2( 7696, -216 )
-
-[node name="HorizontalMovingPlatform" parent="Platforms" instance=ExtResource( 12 )]
-position = Vector2( 6168, -216 )
+position = Vector2( 7696, -168 )
 
 [node name="StaticPlatform6" parent="Platforms" instance=ExtResource( 10 )]
-editor/display_folded = false
-position = Vector2( 5840, -312 )
+position = Vector2( 5840, -264 )
 
 [node name="StaticPlatform7" parent="Platforms" instance=ExtResource( 10 )]
-editor/display_folded = false
-position = Vector2( 5504, -384 )
+position = Vector2( 5504, -336 )
 
 [node name="StaticPlatform8" parent="Platforms" instance=ExtResource( 10 )]
-editor/display_folded = false
-position = Vector2( 5160, -440 )
+position = Vector2( 5160, -392 )
 
-[node name="CircularMovingPlatform" parent="." instance=ExtResource( 13 )]
-position = Vector2( 4720, -488 )
+[node name="MovingPlatform4" parent="Platforms" instance=ExtResource( 11 )]
+position = Vector2( 4784, -488 )
+movement = ExtResource( 14 )
 
 [node name="Goal" type="Label" parent="."]
 margin_left = 3816.0

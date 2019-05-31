@@ -2,6 +2,8 @@
 
 [ext_resource path="res://objects/InfiniteVoid.gd" type="Script" id=1]
 
+
+
 [sub_resource type="LineShape2D" id=1]
 
 [node name="Void" type="Area2D"]
