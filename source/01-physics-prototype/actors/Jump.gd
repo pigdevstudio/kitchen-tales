@@ -18,9 +18,13 @@ func _physics_process(delta):
 
 
 func apply():
+	if not platform_actor.is_on_floor():
+		_available_jumps -= 1
+	
 	if _available_jumps > 0 or max_jumps == -1:
 		platform_actor.velocity.y = -strength
 		_available_jumps -= 1
+		_available_jumps = clamp(_available_jumps, -1, max_jumps)
 		platform_actor.snap_normal = Vector2.ZERO
 		set_physics_process(true)
 		if _available_jumps < 1 and max_jumps > -1:
