@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://objects/platforms/moving_platform/movement_animations/PingPongPathFollow.tres" type="Animation" id=1]
 [ext_resource path="res://objects/platforms/moving_platform/movement_paths/CirclePath.tres" type="Curve2D" id=2]
@@ -42,6 +42,11 @@ func set_movement_curve(new_movement_curve):
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 120, 47.9999 )
 
+[sub_resource type="Curve2D" id=3]
+_data = {
+"points": PoolVector2Array(  )
+}
+
 [node name="MovingPlatform" type="Node2D"]
 script = SubResource( 1 )
 __meta__ = {
@@ -59,9 +64,6 @@ anims/PingPongPathFollow = ExtResource( 1 )
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
 motion/sync_to_physics = true
 
-[node name="Sprite" type="Sprite" parent="KinematicBody2D"]
-offset = Vector2( 0, -32 )
-
 [node name="Geometry2D" type="CollisionShape2D" parent="KinematicBody2D"]
 position = Vector2( 0, -48 )
 shape = SubResource( 2 )
@@ -70,6 +72,7 @@ script = ExtResource( 4 )
 color = Color( 0.552941, 0.407843, 1, 1 )
 
 [node name="Path2D" type="Path2D" parent="."]
+curve = SubResource( 3 )
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
 rotate = false
