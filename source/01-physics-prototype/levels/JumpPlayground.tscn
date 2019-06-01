@@ -35,6 +35,7 @@ __meta__ = {
 ]]
 editor/display_folded = true
 position = Vector2( 464, 800 )
+z_index = 1
 collision_layer = 3
 script = ExtResource( 1 )
 
@@ -84,11 +85,9 @@ editor/display_folded = true
 position = Vector2( 0, 960 )
 
 [node name="Ground" parent="Floor" instance=ExtResource( 7 )]
-color = Color( 1, 1, 1, 1 )
 
 [node name="Ground2" parent="Floor" instance=ExtResource( 7 )]
 position = Vector2( 2240, 0 )
-color = Color( 1, 1, 1, 1 )
 
 [node name="Stairs" parent="Floor" instance=ExtResource( 8 )]
 position = Vector2( 2864, -248 )
@@ -96,7 +95,6 @@ position = Vector2( 2864, -248 )
 [node name="Ground3" parent="Floor" instance=ExtResource( 7 )]
 position = Vector2( 4904, -88 )
 polygon = PoolVector2Array( 0, 0, 0, 408, 1920, 408, 1920, 0 )
-color = Color( 1, 1, 1, 1 )
 
 [node name="Stairs2" parent="Floor" instance=ExtResource( 8 )]
 position = Vector2( 5528, -336 )
@@ -104,7 +102,6 @@ position = Vector2( 5528, -336 )
 [node name="Ground4" parent="Floor" instance=ExtResource( 7 )]
 position = Vector2( 2504, -1648 )
 polygon = PoolVector2Array( 928, 0, 928, 200, 1920, 200, 1920, 0 )
-color = Color( 1, 1, 1, 1 )
 
 [node name="Wall" type="StaticBody2D" parent="."]
 editor/display_folded = true
