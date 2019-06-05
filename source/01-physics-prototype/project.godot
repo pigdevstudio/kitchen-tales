@@ -33,7 +33,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Kitchen Tales"
-run/main_scene="res://levels/Playground.tscn"
+run/main_scene="res://levels/JumpPlayground.tscn"
 config/icon="res://icon.png"
 
 [display]
