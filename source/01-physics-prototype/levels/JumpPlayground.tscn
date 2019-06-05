@@ -12,8 +12,7 @@
 [ext_resource path="res://objects/platforms/StaticPlatform.tscn" type="PackedScene" id=10]
 [ext_resource path="res://objects/platforms/moving_platform/MovingPlatform.tscn" type="PackedScene" id=11]
 [ext_resource path="res://objects/platforms/moving_platform/movement_paths/VerticalPath.tres" type="Curve2D" id=12]
-[ext_resource path="res://objects/platforms/moving_platform/movement_paths/HorizontalPath.tres" type="Curve2D" id=13]
-[ext_resource path="res://objects/platforms/moving_platform/movement_animations/CircularPlatformMovement.tres" type="Animation" id=14]
+[ext_resource path="res://objects/platforms/moving_platform/movement_paths/CirclePath.tres" type="Curve2D" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 40, 64 )
@@ -23,6 +22,11 @@ normal = Vector2( 1, 0 )
 
 [sub_resource type="LineShape2D" id=3]
 normal = Vector2( -1, 0 )
+
+[sub_resource type="Curve2D" id=4]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -144, -368, 0, 0, 0, 0, 160, -672, 0, 0, 0, 0, -144, -1136, 0, 0, 0, 0, 144, -1648, 0, 0, 0, 0, 1328, -1648 )
+}
 
 [node name="JumpPlayground" type="Node2D"]
 __meta__ = {
@@ -34,7 +38,7 @@ __meta__ = {
 "player",
 ]]
 editor/display_folded = true
-position = Vector2( 464, 800 )
+position = Vector2( 1600, 848 )
 z_index = 1
 collision_layer = 3
 script = ExtResource( 1 )
@@ -67,7 +71,7 @@ speed = 800.0
 remote_path = NodePath("../../Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 464, 800 )
+position = Vector2( 1600, 848 )
 current = true
 limit_left = 0
 limit_top = -1320
@@ -124,7 +128,16 @@ position = Vector2( 4544, 872 )
 [node name="MovingPlatform" parent="Platforms" instance=ExtResource( 11 )]
 editor/display_folded = true
 position = Vector2( 6704, 696 )
-movement_curve = ExtResource( 12 )
+
+[node name="KinematicBody2D" parent="Platforms/MovingPlatform" index="0"]
+position = Vector2( 0.000488281, -427.876 )
+
+[node name="Path2D" parent="Platforms/MovingPlatform" index="1"]
+curve = ExtResource( 12 )
+
+[node name="PathFollow2D" parent="Platforms/MovingPlatform/Path2D" index="0"]
+position = Vector2( 0.000483619, -427.876 )
+offset = 427.703
 
 [node name="StaticPlatform2" parent="Platforms" instance=ExtResource( 10 )]
 position = Vector2( 7198.4, 264 )
@@ -138,11 +151,13 @@ position = Vector2( 7198.4, -168 )
 [node name="MovingPlatform2" parent="Platforms" instance=ExtResource( 11 )]
 editor/display_folded = true
 position = Vector2( 8128, 264 )
-movement_curve = ExtResource( 12 )
+
+[node name="Path2D" parent="Platforms/MovingPlatform2" index="1"]
+curve = ExtResource( 12 )
 
 [node name="MovingPlatform3" parent="Platforms" instance=ExtResource( 11 )]
+editor/display_folded = true
 position = Vector2( 6744, -168 )
-movement_curve = ExtResource( 13 )
 
 [node name="StaticPlatform4" parent="Platforms" instance=ExtResource( 10 )]
 position = Vector2( 7696, -168 )
@@ -157,8 +172,30 @@ position = Vector2( 5504, -336 )
 position = Vector2( 5160, -392 )
 
 [node name="MovingPlatform4" parent="Platforms" instance=ExtResource( 11 )]
-position = Vector2( 4784, -488 )
-movement = ExtResource( 14 )
+editor/display_folded = true
+position = Vector2( 4712, -392 )
+
+[node name="KinematicBody2D" parent="Platforms/MovingPlatform4" index="0"]
+position = Vector2( 25.9678, -301.221 )
+
+[node name="Path2D" parent="Platforms/MovingPlatform4" index="1"]
+curve = ExtResource( 13 )
+
+[node name="PathFollow2D" parent="Platforms/MovingPlatform4/Path2D" index="0"]
+position = Vector2( 25.968, -301.221 )
+offset = 535.128
+
+[node name="AnimationPlayer" parent="Platforms/MovingPlatform4" index="2"]
+autoplay = "LoopEndPathFollow"
+
+[node name="MovingPlatform5" parent="Platforms" instance=ExtResource( 11 )]
+position = Vector2( 2080, 960 )
+
+[node name="Path2D" parent="Platforms/MovingPlatform5" index="1"]
+curve = SubResource( 4 )
+
+[node name="AnimationPlayer" parent="Platforms/MovingPlatform5" index="2"]
+playback_speed = 0.5
 
 [node name="Goal" type="Label" parent="."]
 margin_left = 3816.0
@@ -176,3 +213,13 @@ autowrap = true
 [connection signal="jump_released" from="SingleJumpPlatformActor/ActionBus" to="SingleJumpPlatformActor/Jump" method="cancel"]
 [connection signal="walk_pressed" from="SingleJumpPlatformActor/ActionBus" to="SingleJumpPlatformActor/Walk" method="set_movement_direction"]
 [connection signal="walk_released" from="SingleJumpPlatformActor/ActionBus" to="SingleJumpPlatformActor/Walk" method="stop"]
+
+[editable path="Platforms/MovingPlatform"]
+
+[editable path="Platforms/MovingPlatform2"]
+
+[editable path="Platforms/MovingPlatform3"]
+
+[editable path="Platforms/MovingPlatform4"]
+
+[editable path="Platforms/MovingPlatform5"]

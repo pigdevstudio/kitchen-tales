@@ -1,81 +1,41 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://objects/platforms/moving_platform/movement_animations/PingPongPathFollow.tres" type="Animation" id=1]
-[ext_resource path="res://objects/platforms/moving_platform/movement_paths/CirclePath.tres" type="Curve2D" id=2]
-[ext_resource path="res://objects/platforms/moving_platform/movement_animations/CircularPlatformMovement.tres" type="Animation" id=3]
-[ext_resource path="res://utility/Geometry2D.gd" type="Script" id=4]
+[ext_resource path="res://utility/Geometry2D.gd" type="Script" id=1]
+[ext_resource path="res://objects/platforms/moving_platform/movement_paths/HorizontalPath.tres" type="Curve2D" id=2]
+[ext_resource path="res://objects/platforms/moving_platform/movement_animations/LoopEndPathFollow.tres" type="Animation" id=3]
+[ext_resource path="res://objects/platforms/moving_platform/movement_animations/PingPongPathFollow.tres" type="Animation" id=4]
 
-[sub_resource type="GDScript" id=1]
-script/source = "extends Node2D
-
-export (float) var movement_playback_speed = 1.0 setget set_movement_playback_speed
-export (Animation) var movement setget set_movement
-export (Curve2D) var movement_curve setget set_movement_curve
-
-func set_movement_playback_speed(new_movement_playback_speed):
-	if is_inside_tree():
-		$AnimationPlayer.playback_speed = new_movement_playback_speed
-	else:
-		yield(self, \"ready\")
-		set_movement_playback_speed(new_movement_playback_speed)
-
-
-func set_movement(new_movement_animation):
-	movement = new_movement_animation
-	if is_inside_tree():
-		$AnimationPlayer.add_animation(\"movement\", movement)
-		$AnimationPlayer.play(\"movement\")
-	else:
-		yield(self, \"ready\")
-		set_movement(new_movement_animation)
-
-
-func set_movement_curve(new_movement_curve):
-	movement_curve = new_movement_curve
-	if is_inside_tree():
-		$Path2D.curve = movement_curve
-	else:
-		yield(self, \"ready\")
-		set_movement_curve(new_movement_curve)
-"
-
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 120, 47.9999 )
 
-[sub_resource type="Curve2D" id=3]
-_data = {
-"points": PoolVector2Array(  )
-}
-
 [node name="MovingPlatform" type="Node2D"]
-script = SubResource( 1 )
 __meta__ = {
 "_edit_horizontal_guides_": [  ],
 "_edit_vertical_guides_": [  ]
 }
-movement = ExtResource( 1 )
-movement_curve = ExtResource( 2 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-playback_process_mode = 0
-anims/CircularPlatformMovement = ExtResource( 3 )
-anims/PingPongPathFollow = ExtResource( 1 )
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
 motion/sync_to_physics = true
 
 [node name="Geometry2D" type="CollisionShape2D" parent="KinematicBody2D"]
 position = Vector2( 0, -48 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 one_way_collision = true
-script = ExtResource( 4 )
-color = Color( 0.552941, 0.407843, 1, 1 )
+script = ExtResource( 1 )
+color = Color( 0.662745, 0.211765, 1, 1 )
 
 [node name="Path2D" type="Path2D" parent="."]
-curve = SubResource( 3 )
+editor/display_folded = true
+curve = ExtResource( 2 )
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
 rotate = false
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Path2D/PathFollow2D"]
 remote_path = NodePath("../../../KinematicBody2D")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "PingPongPathFollow"
+playback_process_mode = 0
+anims/LoopEndPathFollow = ExtResource( 3 )
+anims/PingPongPathFollow = ExtResource( 4 )
