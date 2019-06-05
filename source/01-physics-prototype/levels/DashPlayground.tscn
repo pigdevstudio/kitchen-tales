@@ -1,0 +1,240 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://objects/InfiniteVoid.tscn" type="PackedScene" id=1]
+[ext_resource path="res://actors/PlatformActor.gd" type="Script" id=2]
+[ext_resource path="res://utility/Geometry2D.gd" type="Script" id=3]
+[ext_resource path="res://actors/Gravity.gd" type="Script" id=4]
+[ext_resource path="res://actors/Jump.gd" type="Script" id=5]
+[ext_resource path="res://actors/ActionBus.gd" type="Script" id=6]
+[ext_resource path="res://actors/Walk.gd" type="Script" id=7]
+[ext_resource path="res://actors/Dash.gd" type="Script" id=8]
+[ext_resource path="res://areas/Ground.tscn" type="PackedScene" id=9]
+[ext_resource path="res://objects/platforms/StaticPlatform.tscn" type="PackedScene" id=10]
+[ext_resource path="res://objects/platforms/FallingPlatform.tscn" type="PackedScene" id=11]
+[ext_resource path="res://areas/SpikeWall.tscn" type="PackedScene" id=12]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 40, 64 )
+
+[sub_resource type="LineShape2D" id=2]
+normal = Vector2( -1, 0 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "Push"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("KillingArea2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 1920, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("KillingArea2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("TriggingArea/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 32, 960.001 )
+
+[node name="DashPlayground" type="Node2D"]
+__meta__ = {
+"_edit_horizontal_guides_": [ 1056.0, 960.0, 136.0 ],
+"_edit_vertical_guides_": [ 15768.0 ]
+}
+
+[node name="Void" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, 1280 )
+
+[node name="Void2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 3864, 1280 )
+
+[node name="Void3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 8072, 1280 )
+
+[node name="Void4" parent="." instance=ExtResource( 1 )]
+position = Vector2( 13160, 1280 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 1112, 944 )
+current = true
+limit_left = 0
+limit_top = -1320
+limit_right = 15768
+limit_bottom = 1280
+limit_smoothed = true
+smoothing_enabled = true
+drag_margin_left = 0.0
+drag_margin_right = 0.0
+editor_draw_limits = true
+editor_draw_drag_margin = true
+
+[node name="DashPlatformActor" type="KinematicBody2D" parent="." groups=[
+"player",
+]]
+editor/display_folded = true
+position = Vector2( 1112, 944 )
+collision_mask = 0
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DashPlatformActor"]
+position = Vector2( 0, -64 )
+shape = SubResource( 1 )
+script = ExtResource( 3 )
+
+[node name="Gravity" type="Node" parent="DashPlatformActor"]
+script = ExtResource( 4 )
+platform_actor_path = NodePath("../../DashPlatformActor")
+strength = 4000.0
+
+[node name="Jump" type="Node" parent="DashPlatformActor"]
+script = ExtResource( 5 )
+platform_actor_path = NodePath("../../DashPlatformActor")
+strength = 1000.0
+max_jumps = 1
+
+[node name="ActionBus" type="Node" parent="DashPlatformActor"]
+script = ExtResource( 6 )
+
+[node name="Walk" type="Node" parent="DashPlatformActor"]
+script = ExtResource( 7 )
+platform_actor_path = NodePath("../../DashPlatformActor")
+speed = 800.0
+
+[node name="Dash" type="Node" parent="DashPlatformActor"]
+script = ExtResource( 8 )
+platform_actor_path = NodePath("../../DashPlatformActor")
+speed = 2400.0
+distance = 400.0
+
+[node name="CameraRig" type="RemoteTransform2D" parent="DashPlatformActor"]
+remote_path = NodePath("../../Camera2D")
+
+[node name="Topolography" type="StaticBody2D" parent="."]
+
+[node name="Ground" parent="Topolography" instance=ExtResource( 9 )]
+position = Vector2( 0, 960 )
+
+[node name="Ground2" parent="Topolography" instance=ExtResource( 9 )]
+position = Vector2( 2248, 960 )
+polygon = PoolVector2Array( 0, 0, 0, 320, 624, 320, 624, 0 )
+
+[node name="Ground3" parent="Topolography" instance=ExtResource( 9 )]
+position = Vector2( 4904, 960 )
+polygon = PoolVector2Array( 0, 0, 0, 320, 2728, 320, 2728, 0 )
+
+[node name="Ground4" parent="Topolography" instance=ExtResource( 9 )]
+position = Vector2( 8464, 959 )
+polygon = PoolVector2Array( 0, 0, 0, 320, 3056, 321, 3056, -823, 2728, -823, 1080, 1 )
+
+[node name="Ground5" parent="Topolography" instance=ExtResource( 9 )]
+editor/display_folded = true
+position = Vector2( 14240, 128 )
+polygon = PoolVector2Array( 0, 0, 0, 320, 2728, 320, 2728, 0 )
+
+[node name="Label" type="Label" parent="Topolography/Ground5"]
+margin_left = 128.0
+margin_top = -168.0
+margin_right = 390.0
+margin_bottom = -154.0
+rect_scale = Vector2( 3, 3 )
+text = "Congratulations, you mastered dashing!"
+
+[node name="Ceilling" parent="Topolography" instance=ExtResource( 9 )]
+position = Vector2( 1192, 492 )
+polygon = PoolVector2Array( 4, -500, 4, 332, 2408, 332, 2408, -500 )
+
+[node name="Wall" type="StaticBody2D" parent="."]
+
+[node name="Right" type="CollisionShape2D" parent="Wall"]
+position = Vector2( 15760, 72 )
+shape = SubResource( 2 )
+
+[node name="Platforms" type="Node2D" parent="."]
+
+[node name="StaticPlatform" parent="Platforms" instance=ExtResource( 10 )]
+position = Vector2( 3120, 1056 )
+
+[node name="StaticPlatform2" parent="Platforms" instance=ExtResource( 10 )]
+position = Vector2( 3480, 1056 )
+
+[node name="StaticPlatform3" parent="Platforms" instance=ExtResource( 10 )]
+position = Vector2( 4224, 1056 )
+
+[node name="StaticPlatform4" parent="Platforms" instance=ExtResource( 10 )]
+position = Vector2( 3864, 1056 )
+
+[node name="StaticPlatform5" parent="Platforms" instance=ExtResource( 10 )]
+position = Vector2( 4616, 1056 )
+
+[node name="FallingPlatform" parent="Platforms" instance=ExtResource( 11 )]
+position = Vector2( 12048, 232 )
+
+[node name="FallingPlatform2" parent="Platforms" instance=ExtResource( 11 )]
+position = Vector2( 12824, 232 )
+
+[node name="FallingPlatform3" parent="Platforms" instance=ExtResource( 11 )]
+position = Vector2( 13600, 232 )
+
+[node name="SpikeWall" parent="." instance=ExtResource( 12 )]
+position = Vector2( 4904, 0 )
+
+[node name="SpikeFloor" parent="." instance=ExtResource( 12 )]
+position = Vector2( 10232, 2072 )
+rotation = -1.57079
+
+[node name="TriggingArea" parent="SpikeFloor" index="0"]
+position = Vector2( 1112, -1760 )
+
+[node name="AnimationPlayer" parent="SpikeFloor" index="2"]
+playback_speed = 1.5
+anims/Push = SubResource( 3 )
+
+[node name="CollisionShape2D" parent="SpikeFloor/KillingArea2D" index="0"]
+position = Vector2( 88, 0 )
+shape = SubResource( 4 )
+
+[node name="Polygon2D2" type="Polygon2D" parent="SpikeFloor/KillingArea2D" index="2"]
+position = Vector2( 55.9979, -960 )
+color = Color( 1, 0.258824, 0.160784, 1 )
+polygon = PoolVector2Array( -56, 0, 0, 0, 64, 32, 0, 64, 64, 96, 0, 128, 64, 159, 64, 160, 0, 192, 64, 224, 0, 256, 64, 288, 0, 320, 64, 352, 0, 384, 64, 416, 0, 448, 64, 480, 0, 512, 64, 544, 0, 576, 64, 608, 0, 640, 64, 672, 0, 704, 64, 736, 0, 768, 64, 800, 0, 832, 64, 864, 0, 895, 64, 927, 0, 960, -56, 960 )
+[connection signal="available_jumps_replenished" from="DashPlatformActor/Jump" to="DashPlatformActor/Dash" method="set_air_dash" binds= [ true ]]
+[connection signal="dash_pressed" from="DashPlatformActor/ActionBus" to="DashPlatformActor/Walk" method="set_physics_process" binds= [ false ]]
+[connection signal="dash_pressed" from="DashPlatformActor/ActionBus" to="DashPlatformActor/Dash" method="set_enabled" binds= [ true ]]
+[connection signal="dash_released" from="DashPlatformActor/ActionBus" to="DashPlatformActor/Walk" method="set_physics_process" binds= [ true ]]
+[connection signal="dash_released" from="DashPlatformActor/ActionBus" to="DashPlatformActor/Dash" method="stop"]
+[connection signal="jump_pressed" from="DashPlatformActor/ActionBus" to="DashPlatformActor/Jump" method="apply"]
+[connection signal="jump_released" from="DashPlatformActor/ActionBus" to="DashPlatformActor/Jump" method="cancel"]
+[connection signal="walk_pressed" from="DashPlatformActor/ActionBus" to="DashPlatformActor/Walk" method="set_movement_direction"]
+[connection signal="walk_pressed" from="DashPlatformActor/ActionBus" to="DashPlatformActor/Dash" method="set_movement_direction"]
+[connection signal="walk_released" from="DashPlatformActor/ActionBus" to="DashPlatformActor/Walk" method="stop"]
+[connection signal="finished" from="DashPlatformActor/Dash" to="DashPlatformActor/Walk" method="set_physics_process" binds= [ true ]]
+[connection signal="ready" from="DashPlatformActor/Dash" to="DashPlatformActor/Dash" method="set_enabled" binds= [ false ]]
+[connection signal="started" from="DashPlatformActor/Dash" to="DashPlatformActor/Jump" method="deplete"]
+
+[editable path="SpikeFloor"]
