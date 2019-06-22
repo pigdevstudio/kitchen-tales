@@ -1,0 +1,67 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://areas/Ground.tscn" type="PackedScene" id=1]
+[ext_resource path="res://actors/PlatformCombatActor.tscn" type="PackedScene" id=2]
+[ext_resource path="res://levels/Spawner.gd" type="Script" id=3]
+
+[sub_resource type="LineShape2D" id=1]
+normal = Vector2( 1, 0 )
+
+[sub_resource type="LineShape2D" id=2]
+normal = Vector2( -1, 0 )
+
+[node name="CombatPlayground" type="Node2D"]
+
+[node name="Walls" type="StaticBody2D" parent="."]
+
+[node name="Left" type="CollisionShape2D" parent="Walls"]
+shape = SubResource( 1 )
+
+[node name="Right" type="CollisionShape2D" parent="Walls"]
+position = Vector2( 1920, 0 )
+shape = SubResource( 2 )
+
+[node name="Floor" type="StaticBody2D" parent="."]
+
+[node name="Ground" parent="Floor" instance=ExtResource( 1 )]
+position = Vector2( 0, 749.25 )
+color = Color( 1, 1, 1, 1 )
+
+[node name="PlatformCombatActor" parent="." instance=ExtResource( 2 )]
+position = Vector2( 760, 680 )
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label" type="Label" parent="Control"]
+anchor_right = 1.0
+margin_top = 40.0
+margin_right = 480.0
+margin_bottom = 54.0
+rect_scale = Vector2( 4, 4 )
+size_flags_horizontal = 3
+text = "COMBAT PLAYGROUND"
+align = 1
+valign = 1
+
+[node name="Spawner" type="Position2D" parent="."]
+position = Vector2( 110, 653.25 )
+script = ExtResource( 3 )
+
+[node name="Timer" type="Timer" parent="Spawner"]
+wait_time = 5.0
+one_shot = true
+
+[node name="Spawner2" type="Position2D" parent="."]
+position = Vector2( 1810, 653.25 )
+script = ExtResource( 3 )
+
+[node name="Timer" type="Timer" parent="Spawner2"]
+wait_time = 5.0
+one_shot = true
+autostart = true
+[connection signal="timeout" from="Spawner/Timer" to="Spawner" method="spawn"]
+[connection signal="timeout" from="Spawner/Timer" to="Spawner2/Timer" method="start"]
+[connection signal="timeout" from="Spawner2/Timer" to="Spawner2" method="spawn"]
+[connection signal="timeout" from="Spawner2/Timer" to="Spawner/Timer" method="start"]
