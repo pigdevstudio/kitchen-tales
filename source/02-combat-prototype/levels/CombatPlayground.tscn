@@ -25,7 +25,6 @@ shape = SubResource( 2 )
 
 [node name="Ground" parent="Floor" instance=ExtResource( 1 )]
 position = Vector2( 0, 749.25 )
-color = Color( 1, 1, 1, 1 )
 
 [node name="PlatformCombatActor" parent="." instance=ExtResource( 2 )]
 position = Vector2( 760, 680 )

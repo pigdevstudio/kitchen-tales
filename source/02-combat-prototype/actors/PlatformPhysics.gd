@@ -10,6 +10,7 @@ export (NodePath) var platform_actor_path = ".."
 func apply(): #virtual method
 	pass
 
+
 func set_enabled(enable):
 	enabled = enable
 	set_physics_process(enabled)

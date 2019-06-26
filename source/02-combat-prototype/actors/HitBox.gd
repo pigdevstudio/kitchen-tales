@@ -1,5 +1,7 @@
 extends Node2D
 
+signal hit_started
+signal hit_finished
 onready var duration_timer = $Duration
 onready var area = $Area2D
 
@@ -22,16 +24,13 @@ func activate_hit_box():
 	current_hit_box.disabled = false
 	current_hit_box.visible = true
 	duration_timer.start(hit_duration)
+	emit_signal("hit_started")
 
 
 func disable_hit_boxes():
 	for shape in area.get_children():
 		shape.disabled = true
 		shape.visible = false
-
-
-func _on_Area2D_area_shape_entered(area_id, area, area_shape, self_shape):
-	area.get_parent().get_hurt(damage)
 
 
 func set_hit_direction(direction):
@@ -49,3 +48,12 @@ func set_hit_direction(direction):
 		Vector2.ZERO:
 			if current_hit_box_index == HitShapes.UP or current_hit_box_index == HitShapes.DOWN:
 				current_hit_box_index = last_horizontal_hit
+
+
+func _on_Area2D_area_shape_entered(area_id, area, area_shape, self_shape):
+	area.get_parent().get_hurt(damage)
+
+
+func _on_Duration_timeout():
+	emit_signal("hit_finished")
+	disable_hit_boxes()
