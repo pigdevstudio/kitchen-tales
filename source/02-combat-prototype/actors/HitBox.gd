@@ -3,11 +3,14 @@ extends Node2D
 signal hit_started
 signal hit_finished
 onready var duration_timer = $Duration
+onready var cooldown_timer = $Cooldown
 onready var area = $Area2D
 
 enum HitShapes{RIGHT, LEFT, UP, DOWN}
 export (float) var hit_duration = 0.1
+export (float) var cooldown = 0.1
 export (int) var damage = 1
+export (String) var team = "player"
 
 var current_hit_box_index = 0
 var last_horizontal_hit = 0
@@ -20,10 +23,13 @@ func activate_hit_box():
 	disable_hit_boxes()
 	if current_hit_box_index == -1:
 		return
+	if not cooldown_timer.is_stopped():
+		return
 	var current_hit_box = area.get_child(current_hit_box_index)
 	current_hit_box.disabled = false
 	current_hit_box.visible = true
 	duration_timer.start(hit_duration)
+	cooldown_timer.start(cooldown)
 	emit_signal("hit_started")
 
 
@@ -51,6 +57,8 @@ func set_hit_direction(direction):
 
 
 func _on_Area2D_area_shape_entered(area_id, area, area_shape, self_shape):
+	if area.is_in_group(team):
+		return
 	area.get_parent().get_hurt(damage)
 
 

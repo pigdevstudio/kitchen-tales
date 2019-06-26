@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://actors/PlatformActor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/CombatActionBus.gd" type="Script" id=2]
@@ -6,12 +6,14 @@
 [ext_resource path="res://utility/Geometry2D.gd" type="Script" id=4]
 [ext_resource path="res://actors/HurtBox.gd" type="Script" id=5]
 [ext_resource path="res://actors/Health.gd" type="Script" id=6]
+[ext_resource path="res://actors/SpecialMove.gd" type="Script" id=7]
+[ext_resource path="res://actors/special_moves/radouken.tres" type="Resource" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 40, 40 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 32, 80 )
+extents = Vector2( 32, 88 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 48, 64 )
@@ -34,26 +36,29 @@ platform_actor_path = NodePath("../../PlatformCombatActor")
 script = ExtResource( 2 )
 
 [node name="HitBoxes" type="Node2D" parent="." index="7"]
+editor/display_folded = true
 script = ExtResource( 3 )
 damage = 3
 
 [node name="Duration" type="Timer" parent="HitBoxes" index="0"]
-wait_time = 0.2
 one_shot = true
 
-[node name="Area2D" type="Area2D" parent="HitBoxes" index="1"]
+[node name="Cooldown" type="Timer" parent="HitBoxes" index="1"]
+one_shot = true
+
+[node name="Area2D" type="Area2D" parent="HitBoxes" index="2"]
 collision_layer = 0
 collision_mask = 2
 
 [node name="Right" type="CollisionShape2D" parent="HitBoxes/Area2D" index="0"]
-position = Vector2( 104, -56 )
+position = Vector2( 136, -96 )
 shape = SubResource( 1 )
 disabled = true
 script = ExtResource( 4 )
 color = Color( 1, 0.27451, 0.27451, 0.666667 )
 
 [node name="Left" type="CollisionShape2D" parent="HitBoxes/Area2D" index="1"]
-position = Vector2( -104, -56 )
+position = Vector2( -136, -96 )
 shape = SubResource( 1 )
 disabled = true
 script = ExtResource( 4 )
@@ -68,7 +73,7 @@ script = ExtResource( 4 )
 color = Color( 1, 0.27451, 0.27451, 0.666667 )
 
 [node name="Bottom" type="CollisionShape2D" parent="HitBoxes/Area2D" index="3"]
-position = Vector2( 0, 40 )
+position = Vector2( 0, -32 )
 rotation = 1.57079
 shape = SubResource( 2 )
 disabled = true
@@ -78,7 +83,9 @@ color = Color( 1, 0.27451, 0.27451, 0.666667 )
 [node name="HurtBoxes" type="Node2D" parent="." index="8"]
 script = ExtResource( 5 )
 
-[node name="Area2D" type="Area2D" parent="HurtBoxes" index="0"]
+[node name="Area2D" type="Area2D" parent="HurtBoxes" index="0" groups=[
+"player",
+]]
 collision_layer = 2
 collision_mask = 0
 
@@ -90,13 +97,23 @@ color = Color( 1, 0.364706, 0.364706, 0.623529 )
 
 [node name="Health" type="Node" parent="." index="9"]
 script = ExtResource( 6 )
+
+[node name="SpecialMove" type="Node" parent="." index="10"]
+script = ExtResource( 7 )
+special_move_data = ExtResource( 8 )
+
+[node name="Timer" type="Timer" parent="SpecialMove" index="0"]
+one_shot = true
 [connection signal="attack_pressed" from="CombatActionBus" to="HitBoxes" method="activate_hit_box"]
 [connection signal="attack_released" from="CombatActionBus" to="HitBoxes" method="disable_hit_boxes"]
 [connection signal="direction_pressed" from="CombatActionBus" to="HitBoxes" method="set_hit_direction"]
 [connection signal="direction_released" from="CombatActionBus" to="HitBoxes" method="set_hit_direction"]
 [connection signal="hit_finished" from="HitBoxes" to="Walk" method="set_enabled" binds= [ true ]]
+[connection signal="hit_finished" from="HitBoxes" to="Gravity" method="set_enabled" binds= [ true ]]
 [connection signal="hit_started" from="HitBoxes" to="Walk" method="set_enabled" binds= [ false ]]
+[connection signal="hit_started" from="HitBoxes" to="Gravity" method="set_enabled" binds= [ false ]]
 [connection signal="ready" from="HitBoxes" to="HitBoxes" method="disable_hit_boxes"]
 [connection signal="timeout" from="HitBoxes/Duration" to="HitBoxes" method="_on_Duration_timeout"]
 [connection signal="area_shape_entered" from="HitBoxes/Area2D" to="HitBoxes" method="_on_Area2D_area_shape_entered"]
-[connection signal="area_shape_entered" from="HurtBoxes/Area2D" to="HurtBoxes" method="_on_Area2D_area_shape_entered"]
+[connection signal="died" from="Health" to="." method="queue_free"]
+[connection signal="timeout" from="SpecialMove/Timer" to="SpecialMove" method="resolve_actions"]
