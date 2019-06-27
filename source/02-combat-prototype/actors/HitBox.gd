@@ -56,12 +56,6 @@ func set_hit_direction(direction):
 				current_hit_box_index = last_horizontal_hit
 
 
-func _on_Area2D_area_shape_entered(area_id, area, area_shape, self_shape):
-	if area.is_in_group(team):
-		return
-	area.get_parent().get_hurt(damage)
-
-
 func _on_Duration_timeout():
 	emit_signal("hit_finished")
 	disable_hit_boxes()
