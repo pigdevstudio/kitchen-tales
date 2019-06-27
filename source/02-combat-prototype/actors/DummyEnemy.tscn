@@ -73,4 +73,5 @@ script = ExtResource( 6 )
 [node name="Brain" type="Node" parent="."]
 script = ExtResource( 7 )
 [connection signal="hurt" from="HurtBoxes" to="AnimationPlayer" method="play" binds= [ "hurt" ]]
+[connection signal="area_shape_entered" from="HurtBoxes/Area2D" to="HurtBoxes" method="_on_Area2D_area_shape_entered"]
 [connection signal="died" from="Health" to="." method="queue_free"]

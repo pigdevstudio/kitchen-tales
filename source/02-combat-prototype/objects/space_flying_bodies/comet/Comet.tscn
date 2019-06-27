@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://objects/space_flying_bodies/SpaceFlyingBody.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/space_flying_bodies/comet/sprite_frames.tres" type="SpriteFrames" id=2]
+
+[node name="Comet" instance=ExtResource( 1 )]
+flying_speed = 1200.0
+
+[node name="Sprite" parent="." index="1"]
+frames = ExtResource( 2 )
+[connection signal="hit" from="DamageArea" to="." method="queue_free"]
