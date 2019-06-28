@@ -60,16 +60,17 @@ one_shot = true
 autostart = true
 
 [node name="PlatformCombatActor" parent="." instance=ExtResource( 3 )]
+editor/display_folded = true
 position = Vector2( 760, 680 )
 
-[node name="RightFireBallSpawner" parent="PlatformCombatActor/SpecialActionCaster" index="0"]
+[node name="RightFireBallSpawner" parent="PlatformCombatActor/SpecialActionCast" index="0"]
 container_path = NodePath("../../..")
 
-[node name="LeftFireBallSpawner" parent="PlatformCombatActor/SpecialActionCaster" index="1"]
+[node name="LeftFireBallSpawner" parent="PlatformCombatActor/SpecialActionCast" index="1"]
 container_path = NodePath("../../..")
-[connection signal="timeout" from="Spawner/Timer" to="Spawner" method="spawn"]
 [connection signal="timeout" from="Spawner/Timer" to="Spawner2/Timer" method="start"]
-[connection signal="timeout" from="Spawner2/Timer" to="Spawner2" method="spawn"]
+[connection signal="timeout" from="Spawner/Timer" to="Spawner" method="spawn"]
 [connection signal="timeout" from="Spawner2/Timer" to="Spawner/Timer" method="start"]
+[connection signal="timeout" from="Spawner2/Timer" to="Spawner2" method="spawn"]
 
 [editable path="PlatformCombatActor"]
