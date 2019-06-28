@@ -7,4 +7,4 @@ func spawn():
 	var spawnling = spawnling_scene.instance()
 	spawnling.global_position = global_position
 	get_node(container_path).add_child(spawnling)
-
+	return spawnling

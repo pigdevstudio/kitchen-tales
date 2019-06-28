@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://actors/special_moves/SpecialMoves.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+moves_list = {
+"dash_attack_left": PoolStringArray( "left", "left", "attack" ),
+"dash_attack_right": PoolStringArray( "right", "right", "attack" ),
+"fireball_left": PoolStringArray( "down", "left", "attack" ),
+"fireball_right": PoolStringArray( "down", "right", "attack" ),
+"fireball_up": PoolStringArray( "up", "up", "attack" )
+}

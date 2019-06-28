@@ -15,3 +15,4 @@ func _physics_process(delta):
 
 func set_snap_normal(new_snap_normal):
 	snap_normal = new_snap_normal
+

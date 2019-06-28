@@ -17,3 +17,9 @@ func set_movement_direction(new_direction):
 
 func stop():
 	movement_direction = Vector2.ZERO
+
+
+func set_enabled(enable):
+	.set_enabled(enable)
+	
+	platform_actor.velocity.x = 0.0

@@ -13,8 +13,8 @@ signal walk_released
 
 export (String) var jump = "jump"
 export (String) var dash = "dash"
-export (String) var walk_left = "walk_left"
-export (String) var walk_right = "walk_right"
+export (String) var walk_left = "left"
+export (String) var walk_right = "right"
 
 func _unhandled_input(event):
 	if not event.is_action_type():
