@@ -8,10 +8,11 @@
 [ext_resource path="res://actors/Health.gd" type="Script" id=6]
 [ext_resource path="res://actors/ActionBuffer.gd" type="Script" id=7]
 [ext_resource path="res://actors/ActionChainResolver.gd" type="Script" id=8]
-[ext_resource path="res://actors/special_moves/radouken.tres" type="Resource" id=9]
+[ext_resource path="res://actors/special_moves/basic_special_actions.tres" type="Resource" id=9]
 [ext_resource path="res://actors/SpecialActionCast.gd" type="Script" id=10]
 [ext_resource path="res://actors/FireBallSpawner.gd" type="Script" id=11]
 [ext_resource path="res://objects/space_flying_bodies/comet/Comet.tscn" type="PackedScene" id=12]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 40, 40 )
