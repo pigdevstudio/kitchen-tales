@@ -1,7 +1,7 @@
 extends Node
 
 """
-Stores a chain of actions with a timespam
+Stores a chain of actions within a timespam
 """
 
 signal actions_chain_changed(action_chain)
@@ -34,12 +34,12 @@ func stack_input_event(event):
 
 func get_event_action(event):
 	var action_name = ""
-	for action in InputMap.get_actions():
+	var actions = InputMap.get_actions()
+	for action in actions:
+		if not action in valid_input_actions:
+			continue
 		if InputMap.action_has_event(action, event):
-			if action in valid_input_actions:
-				action_name = action
-			else:
-				continue
+			action_name = action
 	return action_name
 
 

@@ -68,8 +68,8 @@ container_path = NodePath("../../..")
 
 [node name="LeftFireBallSpawner" parent="PlatformCombatActor/SpecialActionCast" index="1"]
 container_path = NodePath("../../..")
-[connection signal="timeout" from="Spawner/Timer" to="Spawner2/Timer" method="start"]
 [connection signal="timeout" from="Spawner/Timer" to="Spawner" method="spawn"]
+[connection signal="timeout" from="Spawner/Timer" to="Spawner2/Timer" method="start"]
 [connection signal="timeout" from="Spawner2/Timer" to="Spawner/Timer" method="start"]
 [connection signal="timeout" from="Spawner2/Timer" to="Spawner2" method="spawn"]
 

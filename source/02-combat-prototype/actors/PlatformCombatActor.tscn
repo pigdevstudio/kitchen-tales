@@ -7,7 +7,7 @@
 [ext_resource path="res://actors/HurtBox.gd" type="Script" id=5]
 [ext_resource path="res://actors/Health.gd" type="Script" id=6]
 [ext_resource path="res://actors/ActionBuffer.gd" type="Script" id=7]
-[ext_resource path="res://actors/ActionChainResolver.gd" type="Script" id=8]
+[ext_resource path="res://actors/ActionChainSolver.gd" type="Script" id=8]
 [ext_resource path="res://actors/special_moves/basic_special_actions.tres" type="Resource" id=9]
 [ext_resource path="res://actors/SpecialActionCast.gd" type="Script" id=10]
 [ext_resource path="res://actors/FireBallSpawner.gd" type="Script" id=11]
@@ -104,14 +104,13 @@ color = Color( 1, 0.364706, 0.364706, 0.623529 )
 script = ExtResource( 6 )
 
 [node name="ActionBuffer" type="Node" parent="." index="10"]
-editor/display_folded = true
 script = ExtResource( 7 )
 valid_input_actions = PoolStringArray( "up", "down", "left", "right", "attack" )
 
 [node name="Timer" type="Timer" parent="ActionBuffer" index="0"]
 one_shot = true
 
-[node name="ActionChainResolver" type="Node" parent="." index="11"]
+[node name="ActionChainSolver" type="Node" parent="." index="11"]
 script = ExtResource( 8 )
 moves_list_container = ExtResource( 9 )
 
@@ -139,7 +138,7 @@ cast_direction = Vector2( -1, 0 )
 [connection signal="ready" from="HitBoxes" to="HitBoxes" method="disable_hit_boxes"]
 [connection signal="timeout" from="HitBoxes/Duration" to="HitBoxes" method="_on_Duration_timeout"]
 [connection signal="died" from="Health" to="." method="queue_free"]
-[connection signal="actions_chain_changed" from="ActionBuffer" to="ActionChainResolver" method="resolve_action_chain"]
+[connection signal="actions_chain_changed" from="ActionBuffer" to="ActionChainSolver" method="resolve_action_chain"]
 [connection signal="timeout" from="ActionBuffer/Timer" to="ActionBuffer" method="clear_unsolved_actions"]
-[connection signal="action_chain_solved" from="ActionChainResolver" to="ActionBuffer" method="clear_unsolved_actions"]
-[connection signal="special_action_executed" from="ActionChainResolver" to="SpecialActionCast" method="cast_special_action"]
+[connection signal="action_chain_solved" from="ActionChainSolver" to="ActionBuffer" method="clear_unsolved_actions"]
+[connection signal="special_action_executed" from="ActionChainSolver" to="SpecialActionCast" method="cast_special_action"]

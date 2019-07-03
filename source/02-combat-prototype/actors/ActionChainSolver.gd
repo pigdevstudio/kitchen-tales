@@ -1,6 +1,6 @@
 extends Node
 """
-Checks for the presence of special moves in an ActionChain
+Checks for the presence of a special move combination in an ActionChain
 """
 
 signal action_chain_solved
@@ -16,8 +16,10 @@ func _ready():
 func render_move_strings(pool_string_array_dictionary):
 	for key in pool_string_array_dictionary:
 		var value = pool_string_array_dictionary[key]
+		value = String(value)
+		value.trim_prefix("[")
+		value.trim_suffix("]")
 		pool_string_array_dictionary[key] = String(value)
-		
 
 
 func resolve_action_chain(action_chain):
@@ -25,8 +27,6 @@ func resolve_action_chain(action_chain):
 	
 	for special_move in moves_list:
 		var move = moves_list[special_move]
-		move = move.trim_prefix("[")
-		move = move.trim_suffix("]")
 		if move in action_chain:
 			emit_signal("action_chain_solved")
 			emit_signal("special_action_executed", special_move)
