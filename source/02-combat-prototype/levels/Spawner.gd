@@ -1,6 +1,6 @@
 extends Position2D
 
-export (PackedScene) var spawnling_scene = preload("res://actors/DummyEnemy.tscn")
+export (PackedScene) var spawnling_scene
 export (NodePath) var container_path = ".."
 
 func spawn():

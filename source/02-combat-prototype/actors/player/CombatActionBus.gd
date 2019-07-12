@@ -2,10 +2,9 @@ extends Node
 
 signal attack_pressed
 signal defend_pressed
-signal direction_pressed(direction)
 signal attack_released
 signal defend_released
-signal direction_released(direction)
+signal direction_changed(direction)
 
 export (String) var attack = "attack"
 export (String) var defend = "defend"
@@ -66,7 +65,7 @@ func handle_direction_pressed(event):
 		_direction.x = 1
 	elif event.is_action(down):
 		_direction.y = 1
-	emit_signal("direction_pressed", _direction)
+	emit_signal("direction_changed", _direction)
 
 
 func handle_direction_released(event):
@@ -78,4 +77,4 @@ func handle_direction_released(event):
 		_direction.x = 0
 	elif event.is_action(down):
 		_direction.y = 0
-	emit_signal("direction_released", _direction)
+	emit_signal("direction_changed", _direction)

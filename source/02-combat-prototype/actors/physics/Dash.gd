@@ -1,7 +1,4 @@
-extends "res://actors/Walk.gd"
-
-signal started
-signal finished
+extends "res://actors/physics/Walk.gd"
 
 export (float) var distance = 300.0
 export (bool) var air_dash = true setget set_air_dash
@@ -12,9 +9,23 @@ var air_dash_available = true
 func apply():
 	if not enabled:
 		return
-	platform_actor.velocity.x = movement_direction.x * speed
-	platform_actor.velocity.y = movement_direction.y * speed
-		
+	if not platform_actor.is_on_floor():
+		if not air_dash:
+			return
+		elif not air_dash_available:
+			return
+	initial_position = platform_actor.position
+	set_physics_process(true)
+	emit_signal("started")
+	
+	check_distance()
+	check_walls()
+
+
+func move():
+	if not enabled:
+		return
+	platform_actor.velocity = movement_direction * speed
 	check_distance()
 	check_walls()
 
@@ -33,22 +44,9 @@ func check_walls():
 func stop():
 	if not platform_actor.is_on_floor():
 		air_dash_available = false
+	platform_actor.velocity.x = 0.0
+	set_physics_process(false)
 	emit_signal("finished")
-	set_enabled(false)
-
-
-func set_enabled(enable):
-	if enable:
-		if not platform_actor.is_on_floor() and not air_dash:
-			return
-		if not platform_actor.is_on_floor() and air_dash:
-			if not air_dash_available:
-				return
-		emit_signal("started")
-		initial_position = platform_actor.position
-	else:
-		emit_signal("finished")
-	set_physics_process(enable)
 
 
 func set_air_dash(enable):
