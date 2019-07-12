@@ -1,13 +1,13 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://areas/Ground.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/Spawner.gd" type="Script" id=2]
 [ext_resource path="res://actors/non_player/MovingDummy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://actors/non_player/CombatDummy.tscn" type="PackedScene" id=4]
-[ext_resource path="res://actors/player/Player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://actors/combat/SpecialActionCaster.tscn" type="PackedScene" id=6]
-[ext_resource path="res://actors/combat/FireBallSpawner.gd" type="Script" id=7]
-[ext_resource path="res://objects/space_flying_bodies/comet/Comet.tscn" type="PackedScene" id=8]
+[ext_resource path="res://actors/physics/PlatformActor.gd" type="Script" id=5]
+[ext_resource path="res://utility/Geometry2D.gd" type="Script" id=6]
+[ext_resource path="res://actors/physics/Walk.gd" type="Script" id=7]
+[ext_resource path="res://actors/player/Player.tscn" type="PackedScene" id=8]
 
 [sub_resource type="LineShape2D" id=1]
 normal = Vector2( 1, 0 )
@@ -26,6 +26,14 @@ extents = Vector2( 30, 30 )
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 40, 66 )
+
+[sub_resource type="GDScript" id=7]
+script/source = "extends Label
+
+func set_text(new_text):
+	var final_text = \"Combo: %s\"%new_text
+	text = final_text
+"
 
 [node name="CombatPlayground" type="Node2D"]
 
@@ -79,9 +87,16 @@ one_shot = true
 
 [node name="CombatDummy" parent="." instance=ExtResource( 4 )]
 position = Vector2( 1056, 628.876 )
+script = ExtResource( 5 )
 
 [node name="CollisionShape2D" parent="CombatDummy" index="0"]
+position = Vector2( 0, -64 )
 shape = SubResource( 3 )
+script = ExtResource( 6 )
+
+[node name="Walk" parent="CombatDummy" index="5"]
+script = ExtResource( 7 )
+speed = 800.0
 
 [node name="Health" parent="CombatDummy" index="8"]
 max_health = 100
@@ -96,8 +111,13 @@ shape = SubResource( 4 )
 process_mode = 1
 wait_time = 0.2
 
-[node name="Player" parent="." instance=ExtResource( 5 )]
+[node name="Player" parent="." instance=ExtResource( 8 )]
 position = Vector2( 360, 620 )
+script = ExtResource( 5 )
+
+[node name="Walk" parent="Player" index="5"]
+script = ExtResource( 7 )
+speed = 800.0
 
 [node name="HitBox" parent="Player" index="10"]
 editor/display_folded = false
@@ -118,27 +138,18 @@ shape = SubResource( 5 )
 [node name="Geometry2D" parent="Player/HurtBox" index="0"]
 shape = SubResource( 6 )
 
-[node name="SpecialActionCast" parent="Player" instance=ExtResource( 6 )]
-editor/display_folded = false
-
-[node name="RightFireballSpawner" type="Position2D" parent="Player/SpecialActionCast"]
-position = Vector2( 136, -96 )
-script = ExtResource( 7 )
-spawnling_scene = ExtResource( 8 )
-container_path = NodePath("../../..")
-
-[node name="LeftFireballSpawner" type="Position2D" parent="Player/SpecialActionCast"]
-position = Vector2( -136, -96 )
-script = ExtResource( 7 )
-spawnling_scene = ExtResource( 8 )
-container_path = NodePath("../../..")
-cast_direction = Vector2( -1, 0 )
-[connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="LeftMovingDummySpawner" method="spawn"]
+[node name="ComboLabel" type="Label" parent="."]
+margin_top = 43.0
+margin_bottom = 57.0
+rect_scale = Vector2( 4, 4 )
+text = "Combo: 0"
+script = SubResource( 7 )
 [connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="RightMovingDummySpawner/Timer" method="start"]
+[connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="LeftMovingDummySpawner" method="spawn"]
 [connection signal="timeout" from="RightMovingDummySpawner/Timer" to="RightMovingDummySpawner" method="spawn"]
 [connection signal="timeout" from="RightMovingDummySpawner/Timer" to="LeftMovingDummySpawner/Timer" method="start"]
 [connection signal="tree_exited" from="CombatDummy" to="RightMovingDummySpawner/Timer" method="start"]
-[connection signal="special_action_executed" from="Player/ActionChainSolver" to="Player/SpecialActionCast" method="cast_special_action"]
+[connection signal="changed" from="Player/HitCount" to="ComboLabel" method="set_text"]
 
 [editable path="CombatDummy"]
 

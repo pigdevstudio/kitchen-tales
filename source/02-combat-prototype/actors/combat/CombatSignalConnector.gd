@@ -11,6 +11,7 @@ export (NodePath) var jump_path = "../Jump"
 export (NodePath) var walk_path = "../Walk"
 export (NodePath) var dash_path = "../Dash"
 export (NodePath) var hitlag_path = "../HitLag"
+export (NodePath) var hitcount_path = "../HitCount"
 
 func connect_signals():
 	var attack = get_node(attack_path)
@@ -24,11 +25,11 @@ func connect_signals():
 	var walk = get_node(walk_path)
 	var dash = get_node(dash_path)
 	var hitlag = get_node(hitlag_path)
+	var hitcount = get_node(hitcount_path)
 	
 	attack.connect("started", guard, "set_enabled", [false])
 	attack.connect("finished", guard, "set_enabled", [true])
 	attack.connect("started", walk, "set_enabled", [false])
-	attack.connect("started", walk, "stop")
 	attack.connect("finished", walk, "set_enabled", [true])
 	attack.connect("started", jump, "set_enabled", [false])
 	attack.connect("finished", jump, "set_enabled", [true])
@@ -53,5 +54,8 @@ func connect_signals():
 	
 	hitbox.connect("landed", hitlag, "start")
 	hitbox.connect("finished", hitlag, "stop")
+	hitbox.connect("landed", hitcount, "increase")
+	hitbox.connect("missed", hitcount, "reset")
+	
 	hurtbox.connect("hit_landed", guard, "check_for_weakness")
 	hurtbox.connect("damage_inflicted", health, "damage")

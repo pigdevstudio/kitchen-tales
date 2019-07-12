@@ -11,6 +11,8 @@ export (Resource) var hit
 var current_hit_box_index = 0
 var last_horizontal_hit = 0
 
+var _landed = false
+
 func set_current_hit_box_index(new_hit_box_index):
 	new_hit_box_index = new_hit_box_index
 
@@ -24,14 +26,15 @@ func activate_hit_box():
 	current_hit_box.disabled = false
 	current_hit_box.visible = true
 	emit_signal("started")
-	if get_overlapping_areas().size() < 1:
-		emit_signal("missed")
+	_landed = false
 
 
 func disable_hit_boxes():
 	for shape in get_children():
 		shape.disabled = true
 		shape.visible = false
+	if not _landed:
+		emit_signal("missed")
 
 
 func set_hit_direction(direction):
@@ -53,4 +56,5 @@ func set_hit_direction(direction):
 
 func _on_area_entered(hurtbox):
 	if not hurtbox.is_in_group(hit.team) and not hurtbox.is_invincible:
+		_landed = true
 		emit_signal("landed")
