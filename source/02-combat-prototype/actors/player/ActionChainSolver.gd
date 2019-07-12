@@ -17,8 +17,8 @@ func render_move_strings(pool_string_array_dictionary):
 	for key in pool_string_array_dictionary:
 		var value = pool_string_array_dictionary[key]
 		value = String(value)
-		value.trim_prefix("[")
-		value.trim_suffix("]")
+		value = value.trim_prefix("[")
+		value = value.trim_suffix("]")
 		pool_string_array_dictionary[key] = String(value)
 
 

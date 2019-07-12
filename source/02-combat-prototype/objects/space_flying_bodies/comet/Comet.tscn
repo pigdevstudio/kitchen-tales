@@ -8,4 +8,5 @@ flying_speed = 1200.0
 
 [node name="Sprite" parent="." index="1"]
 frames = ExtResource( 2 )
-[connection signal="hit" from="DamageArea" to="." method="queue_free"]
+frame = 3
+[connection signal="landed" from="HitBox" to="." method="queue_free"]

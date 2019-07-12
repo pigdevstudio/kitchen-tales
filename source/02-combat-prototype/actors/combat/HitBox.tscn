@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://actors/combat/HitBox.gd" type="Script" id=1]
+[ext_resource path="res://actors/combat/Hit.tres" type="Resource" id=2]
+
+[node name="HitBox" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource( 1 )
+hit = ExtResource( 2 )
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

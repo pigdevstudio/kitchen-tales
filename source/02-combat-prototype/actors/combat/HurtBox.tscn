@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://actors/combat/HurtBox.gd" type="Script" id=1]
+
+[node name="HurtBox" type="Area2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource( 1 )
+[connection signal="area_shape_entered" from="." to="." method="_on_area_shape_entered"]

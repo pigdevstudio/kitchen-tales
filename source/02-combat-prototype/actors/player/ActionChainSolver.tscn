@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://actors/player/ActionChainSolver.gd" type="Script" id=1]
+[ext_resource path="res://actors/combat/special_moves/basic_special_actions.tres" type="Resource" id=2]
+
+[node name="ActionChainSolver" type="Node"]
+script = ExtResource( 1 )
+moves_list_container = ExtResource( 2 )

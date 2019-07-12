@@ -8,8 +8,9 @@ signal dash_released
 signal dash_pressed
 signal jump_pressed
 signal jump_released
-signal walk_pressed(direction)
+signal walk_pressed
 signal walk_released
+signal direction_changed(direction)
 
 export (String) var jump = "jump"
 export (String) var dash = "dash"
@@ -67,4 +68,13 @@ func handle_walk_action(event):
 			direction = Vector2.LEFT
 	
 	if not direction == Vector2.ZERO:
-		emit_signal("walk_pressed", direction)
+		emit_signal("walk_pressed")
+		emit_signal("direction_changed", direction)
+
+
+func handle_walk_action_pressed():
+	if Input.is_action_pressed("left") or Input.is_action_pressed("right"):
+		emit_signal("walk_pressed")
+	else:
+		emit_signal("walk_released")
+		

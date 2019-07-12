@@ -1,16 +1,12 @@
-extends Node2D
+extends Area2D
 
-signal hit_started
-signal hit_finished
-onready var duration_timer = $Duration
-onready var cooldown_timer = $Cooldown
-onready var area = $Area2D
+signal started
+signal finished
+signal landed
+signal missed
 
 enum HitShapes{RIGHT, LEFT, UP, DOWN}
-export (float) var hit_duration = 0.1
-export (float) var cooldown = 0.1
-export (int) var damage = 1
-export (String) var team = "player"
+export (Resource) var hit
 
 var current_hit_box_index = 0
 var last_horizontal_hit = 0
@@ -23,18 +19,17 @@ func activate_hit_box():
 	disable_hit_boxes()
 	if current_hit_box_index == -1:
 		return
-	if not cooldown_timer.is_stopped():
-		return
-	var current_hit_box = area.get_child(current_hit_box_index)
+
+	var current_hit_box = get_child(current_hit_box_index)
 	current_hit_box.disabled = false
 	current_hit_box.visible = true
-	duration_timer.start(hit_duration)
-	cooldown_timer.start(cooldown)
-	emit_signal("hit_started")
+	emit_signal("started")
+	if get_overlapping_areas().size() < 1:
+		emit_signal("missed")
 
 
 func disable_hit_boxes():
-	for shape in area.get_children():
+	for shape in get_children():
 		shape.disabled = true
 		shape.visible = false
 
@@ -56,6 +51,6 @@ func set_hit_direction(direction):
 				current_hit_box_index = last_horizontal_hit
 
 
-func _on_Duration_timeout():
-	emit_signal("hit_finished")
-	disable_hit_boxes()
+func _on_area_entered(hurtbox):
+	if not hurtbox.is_in_group(hit.team) and not hurtbox.is_invincible:
+		emit_signal("landed")
