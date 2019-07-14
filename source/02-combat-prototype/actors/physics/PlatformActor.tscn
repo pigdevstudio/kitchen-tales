@@ -3,11 +3,11 @@
 [ext_resource path="res://actors/physics/PlatformActor.gd" type="Script" id=1]
 [ext_resource path="res://utility/Geometry2D.gd" type="Script" id=2]
 [ext_resource path="res://actors/physics/PhysicsSignalConnector.gd" type="Script" id=3]
-[ext_resource path="res://actors/physics/Gravity.gd" type="Script" id=4]
-[ext_resource path="res://actors/physics/Jump.gd" type="Script" id=5]
-[ext_resource path="res://actors/physics/Fall.gd" type="Script" id=6]
-[ext_resource path="res://actors/physics/Walk.gd" type="Script" id=7]
-[ext_resource path="res://actors/physics/Dash.gd" type="Script" id=8]
+[ext_resource path="res://actors/physics/Gravity.tscn" type="PackedScene" id=4]
+[ext_resource path="res://actors/physics/Jump.tscn" type="PackedScene" id=5]
+[ext_resource path="res://actors/physics/Fall.tscn" type="PackedScene" id=6]
+[ext_resource path="res://actors/physics/Walk.tscn" type="PackedScene" id=7]
+[ext_resource path="res://actors/physics/Dash.tscn" type="PackedScene" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 40, 64 )
@@ -24,22 +24,12 @@ color = Color( 1, 1, 1, 1 )
 [node name="PhysicsSignalConnector" type="Node" parent="."]
 script = ExtResource( 3 )
 
-[node name="Gravity" type="Node" parent="."]
-script = ExtResource( 4 )
-strength = 4000.0
+[node name="Gravity" parent="." instance=ExtResource( 4 )]
 
-[node name="Jump" type="Node" parent="."]
-script = ExtResource( 5 )
-strength = 1000.0
+[node name="Jump" parent="." instance=ExtResource( 5 )]
 
-[node name="Fall" type="Node" parent="."]
-script = ExtResource( 6 )
+[node name="Fall" parent="." instance=ExtResource( 6 )]
 
-[node name="Walk" type="Node" parent="."]
-script = ExtResource( 7 )
-speed = 800.0
+[node name="Walk" parent="." instance=ExtResource( 7 )]
 
-[node name="Dash" type="Node" parent="."]
-script = ExtResource( 8 )
-speed = 2400.0
-distance = 400.0
+[node name="Dash" parent="." instance=ExtResource( 8 )]

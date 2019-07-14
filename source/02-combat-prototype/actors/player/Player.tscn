@@ -8,7 +8,7 @@
 [ext_resource path="res://actors/player/ActionChainSolver.tscn" type="PackedScene" id=6]
 [ext_resource path="res://actors/player/ActionsSignalConnector.gd" type="Script" id=7]
 
-[node name="Player" index="0" instance=ExtResource( 1 )]
+[node name="Player" instance=ExtResource( 1 )]
 
 [node name="PhysicsSignalConnector" parent="." index="1"]
 gravity_path = NodePath("../../Player/Gravity")
@@ -22,6 +22,7 @@ platform_actor_path = NodePath("../../Player")
 
 [node name="Jump" parent="." index="3"]
 platform_actor_path = NodePath("../../Player")
+strength = 1000.0
 
 [node name="Walk" parent="." index="5"]
 platform_actor_path = NodePath("../../Player")
@@ -29,24 +30,8 @@ platform_actor_path = NodePath("../../Player")
 [node name="Dash" parent="." index="6"]
 platform_actor_path = NodePath("../../Player")
 
-[node name="CombatSignalConnector" parent="." index="7"]
-attack_path = NodePath("../../Player/Attack")
-guard_path = NodePath("../../Player/Guard")
-health_path = NodePath("../../Player/Health")
-hitbox_path = NodePath("../../Player/HitBox")
-hurtbox_path = NodePath("../../Player/HurtBox")
-actor_path = NodePath("../../Player")
-gravity_path = NodePath("../../Player/Gravity")
-jump_path = NodePath("../../Player/Jump")
-walk_path = NodePath("../../Player/Walk")
-dash_path = NodePath("../../Player/Dash")
-
-[node name="HitBox" parent="." index="10"]
+[node name="HitBox" parent="Attack" index="3"]
 hit = ExtResource( 2 )
-
-[node name="HurtBox" parent="." index="11" groups=[
-"player",
-]]
 
 [node name="CombatActionBus" type="Node" parent="." index="12"]
 script = ExtResource( 3 )
@@ -60,3 +45,4 @@ script = ExtResource( 4 )
 
 [node name="ActionsSignalConnector" type="Node" parent="." index="16"]
 script = ExtResource( 7 )
+hitbox_path = NodePath("../Attack/HitBox")

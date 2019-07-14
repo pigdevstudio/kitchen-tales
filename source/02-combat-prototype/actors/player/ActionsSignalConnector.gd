@@ -30,7 +30,6 @@ func connect_signals():
 	combat_action_bus.connect("attack_released", attack, "cancel")
 	combat_action_bus.connect("defend_pressed", guard, "execute")
 	combat_action_bus.connect("defend_released", guard, "cancel")
-	combat_action_bus.connect("direction_changed", hitbox, "set_hit_direction")
 	
 	physics_action_bus.connect("dash_pressed", dash, "apply")
 	physics_action_bus.connect("dash_released", dash, "stop")

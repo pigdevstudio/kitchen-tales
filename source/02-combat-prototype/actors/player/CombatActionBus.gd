@@ -4,6 +4,14 @@ signal attack_pressed
 signal defend_pressed
 signal attack_released
 signal defend_released
+signal up_pressed
+signal up_released
+signal down_pressed
+signal down_released
+signal left_pressed
+signal left_released
+signal right_pressed
+signal right_released
 signal direction_changed(direction)
 
 export (String) var attack = "attack"
@@ -59,22 +67,30 @@ func handle_direction_action(event):
 func handle_direction_pressed(event):
 	if event.is_action(up):
 		_direction.y = -1
+		emit_signal("up_pressed")
 	elif event.is_action(left):
 		_direction.x = -1
+		emit_signal("left_pressed")
 	elif event.is_action(right):
 		_direction.x = 1
+		emit_signal("right_pressed")
 	elif event.is_action(down):
 		_direction.y = 1
+		emit_signal("down_pressed")
 	emit_signal("direction_changed", _direction)
 
 
 func handle_direction_released(event):
 	if event.is_action(up):
 		_direction.y = 0
+		emit_signal("up_released")
 	elif event.is_action(left):
 		_direction.x = 0
+		emit_signal("left_released")
 	elif event.is_action(right):
 		_direction.x = 0
+		emit_signal("right_released")
 	elif event.is_action(down):
 		_direction.y = 0
+		emit_signal("down_released")
 	emit_signal("direction_changed", _direction)

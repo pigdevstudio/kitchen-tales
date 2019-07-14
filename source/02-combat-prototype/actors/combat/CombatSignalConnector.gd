@@ -35,8 +35,8 @@ func connect_signals():
 	attack.connect("finished", jump, "set_enabled", [true])
 	attack.connect("started", dash, "set_enabled", [false])
 	attack.connect("finished", dash, "set_enabled", [true])
-	attack.connect("started", hitbox, "activate_hit_box")
-	attack.connect("finished", hitbox, "disable_hit_boxes")
+	attack.connect("started", hitbox, "enable")
+	attack.connect("finished", hitbox, "disable")
 	
 	guard.connect("started", attack, "set_enabled", [false])
 	guard.connect("finished", attack, "set_enabled", [true])

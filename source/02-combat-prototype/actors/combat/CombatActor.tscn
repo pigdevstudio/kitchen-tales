@@ -2,20 +2,20 @@
 
 [ext_resource path="res://actors/physics/PlatformActor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/combat/CombatSignalConnector.gd" type="Script" id=2]
-[ext_resource path="res://actors/combat/Health.gd" type="Script" id=3]
+[ext_resource path="res://actors/combat/Health.tscn" type="PackedScene" id=3]
 [ext_resource path="res://actors/combat/Attack.tscn" type="PackedScene" id=4]
-[ext_resource path="res://actors/combat/HitBox.tscn" type="PackedScene" id=5]
-[ext_resource path="res://utility/Geometry2D.gd" type="Script" id=6]
-[ext_resource path="res://actors/combat/HurtBox.tscn" type="PackedScene" id=7]
+[ext_resource path="res://actors/combat/HitLag.tscn" type="PackedScene" id=5]
+[ext_resource path="res://actors/combat/HitBox.tscn" type="PackedScene" id=6]
+[ext_resource path="res://utility/Geometry2D.gd" type="Script" id=7]
 [ext_resource path="res://actors/combat/Guard.tscn" type="PackedScene" id=8]
 [ext_resource path="res://actors/combat/Hit.tres" type="Resource" id=9]
-[ext_resource path="res://actors/combat/HitLag.gd" type="Script" id=10]
+[ext_resource path="res://actors/combat/HurtBox.tscn" type="PackedScene" id=10]
 [ext_resource path="res://actors/combat/HitCount.tscn" type="PackedScene" id=11]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 30, 30 )
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 40, 66 )
 
 [node name="CombatActor" instance=ExtResource( 1 )]
@@ -37,64 +37,43 @@ enabled = true
 
 [node name="CombatSignalConnector" type="Node" parent="." index="7"]
 script = ExtResource( 2 )
+hitbox_path = NodePath("../Attack/HitBox")
+hurtbox_path = NodePath("../Guard/HurtBox")
+hitlag_path = NodePath("../Attack/HitLag")
 
-[node name="Health" type="Node" parent="." index="8"]
-script = ExtResource( 3 )
+[node name="Health" parent="." index="8" instance=ExtResource( 3 )]
 
 [node name="Attack" parent="." index="9" instance=ExtResource( 4 )]
 
-[node name="HitBox" parent="." index="10" instance=ExtResource( 5 )]
-editor/display_folded = true
+[node name="HitLag" parent="Attack" index="2" instance=ExtResource( 5 )]
+actor_path = NodePath("../..")
 
-[node name="Right" type="CollisionShape2D" parent="HitBox" index="0"]
+[node name="HitBox" parent="Attack" index="3" instance=ExtResource( 6 )]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack/HitBox" index="0"]
 visible = false
 position = Vector2( 90, -64 )
-shape = SubResource( 1 )
+shape = SubResource( 11 )
 disabled = true
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 color = Color( 1, 0.152941, 0.152941, 0.623529 )
 
-[node name="Left" type="CollisionShape2D" parent="HitBox" index="1"]
-visible = false
-position = Vector2( -90, -60 )
-shape = SubResource( 1 )
-disabled = true
-script = ExtResource( 6 )
-color = Color( 1, 0.152941, 0.152941, 0.623529 )
-
-[node name="Top" type="CollisionShape2D" parent="HitBox" index="2"]
-visible = false
-position = Vector2( 0, -180 )
-shape = SubResource( 1 )
-disabled = true
-script = ExtResource( 6 )
-color = Color( 1, 0.152941, 0.152941, 0.623529 )
-
-[node name="Down" type="CollisionShape2D" parent="HitBox" index="3"]
-visible = false
-position = Vector2( 0, 50 )
-shape = SubResource( 1 )
-disabled = true
-script = ExtResource( 6 )
-color = Color( 1, 0.152941, 0.152941, 0.623529 )
-
-[node name="HurtBox" parent="." index="11" instance=ExtResource( 7 )]
-editor/display_folded = true
-
-[node name="Geometry2D" type="CollisionShape2D" parent="HurtBox" index="0"]
-visible = false
-position = Vector2( 0, -64 )
-shape = SubResource( 2 )
-script = ExtResource( 6 )
-color = Color( 1, 0.145098, 0.145098, 0.686275 )
-
-[node name="Guard" parent="." index="12" instance=ExtResource( 8 )]
+[node name="Guard" parent="." index="10" instance=ExtResource( 8 )]
 weakness_hit = ExtResource( 9 )
 
-[node name="HitLag" type="Timer" parent="." index="13"]
-process_mode = 0
-wait_time = 0.1
-one_shot = true
-script = ExtResource( 10 )
+[node name="HurtBox" parent="Guard" index="1" instance=ExtResource( 10 )]
 
-[node name="HitCount" parent="." index="14" instance=ExtResource( 11 )]
+[node name="Geometry2D" type="CollisionShape2D" parent="Guard/HurtBox" index="0"]
+visible = false
+position = Vector2( 0, -64 )
+shape = SubResource( 12 )
+script = ExtResource( 7 )
+color = Color( 1, 0.145098, 0.145098, 0.686275 )
+
+[node name="HurtLag" parent="Guard/HurtBox" index="1" instance=ExtResource( 5 )]
+wait_time = 0.2
+actor_path = NodePath("../../..")
+
+[node name="HitCount" parent="." index="11" instance=ExtResource( 11 )]
+[connection signal="started" from="Attack" to="Attack/HitLag" method="start"]
+[connection signal="hurt" from="Guard/HurtBox" to="Guard/HurtBox/HurtLag" method="start"]

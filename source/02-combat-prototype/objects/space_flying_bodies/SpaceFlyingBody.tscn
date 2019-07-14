@@ -5,10 +5,6 @@
 [ext_resource path="res://objects/space_flying_bodies/comet/PlayerFireBallHit.tres" type="Resource" id=3]
 [ext_resource path="res://utility/Geometry2D.gd" type="Script" id=4]
 
-
-
-
-
 [sub_resource type="CircleShape2D" id=1]
 radius = 35.2124
 
@@ -49,4 +45,4 @@ script = ExtResource( 4 )
 color = Color( 1, 0.27451, 0.27451, 0.666667 )
 [connection signal="screen_exited" from="Sprite/Visibility" to="." method="queue_free"]
 [connection signal="area_entered" from="HitBox" to="HitBox" method="_on_area_entered"]
-[connection signal="hit_landed" from="HitBox" to="." method="queue_free"]
+[connection signal="landed" from="HitBox" to="." method="queue_free"]

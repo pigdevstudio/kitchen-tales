@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://areas/Ground.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/Spawner.gd" type="Script" id=2]
@@ -6,8 +6,7 @@
 [ext_resource path="res://actors/non_player/CombatDummy.tscn" type="PackedScene" id=4]
 [ext_resource path="res://actors/physics/PlatformActor.gd" type="Script" id=5]
 [ext_resource path="res://utility/Geometry2D.gd" type="Script" id=6]
-[ext_resource path="res://actors/physics/Walk.gd" type="Script" id=7]
-[ext_resource path="res://actors/player/Player.tscn" type="PackedScene" id=8]
+[ext_resource path="res://actors/player/Player.tscn" type="PackedScene" id=7]
 
 [sub_resource type="LineShape2D" id=1]
 normal = Vector2( 1, 0 )
@@ -21,13 +20,16 @@ extents = Vector2( 214, 184.876 )
 [sub_resource type="CircleShape2D" id=4]
 radius = 219.51
 
-[sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 30, 30 )
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 214, 184.876 )
 
-[sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 40, 66 )
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 1, 0.203922, 0.203922, 1 )
 
-[sub_resource type="GDScript" id=7]
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.12549, 0.12549, 0.12549, 1 )
+
+[sub_resource type="GDScript" id=9]
 script/source = "extends Label
 
 func set_text(new_text):
@@ -35,9 +37,17 @@ func set_text(new_text):
 	text = final_text
 "
 
+[sub_resource type="GDScript" id=10]
+script/source = "extends Label
+
+func set_text(new_text):
+	text = str(new_text)
+"
+
 [node name="CombatPlayground" type="Node2D"]
 
 [node name="Walls" type="StaticBody2D" parent="."]
+editor/display_folded = true
 
 [node name="Left" type="CollisionShape2D" parent="Walls"]
 shape = SubResource( 1 )
@@ -47,12 +57,14 @@ position = Vector2( 1920, 0 )
 shape = SubResource( 2 )
 
 [node name="Floor" type="StaticBody2D" parent="."]
+editor/display_folded = true
 
 [node name="Ground" parent="Floor" instance=ExtResource( 1 )]
 position = Vector2( 0, 749.25 )
 color = Color( 1, 1, 1, 1 )
 
 [node name="Control" type="Control" parent="."]
+editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -68,6 +80,7 @@ align = 1
 valign = 1
 
 [node name="LeftMovingDummySpawner" type="Position2D" parent="."]
+editor/display_folded = true
 position = Vector2( 110, 653.25 )
 script = ExtResource( 2 )
 spawnling_scene = ExtResource( 3 )
@@ -77,6 +90,7 @@ wait_time = 5.0
 one_shot = true
 
 [node name="RightMovingDummySpawner" type="Position2D" parent="."]
+editor/display_folded = true
 position = Vector2( 1810, 653.25 )
 script = ExtResource( 2 )
 spawnling_scene = ExtResource( 3 )
@@ -94,65 +108,67 @@ position = Vector2( 0, -64 )
 shape = SubResource( 3 )
 script = ExtResource( 6 )
 
-[node name="Walk" parent="CombatDummy" index="5"]
-script = ExtResource( 7 )
-speed = 800.0
+[node name="Jump" parent="CombatDummy" index="3"]
+strength = 1000.0
 
 [node name="Health" parent="CombatDummy" index="8"]
 max_health = 100
 
-[node name="Geometry2D" parent="CombatDummy/HurtBox" index="0"]
-shape = SubResource( 3 )
+[node name="HitBox" parent="CombatDummy/Attack" index="4"]
+editor/display_folded = true
 
 [node name="FakeShield" parent="CombatDummy/Guard" index="0"]
 shape = SubResource( 4 )
 
-[node name="HitLag" parent="CombatDummy" index="15"]
-process_mode = 1
-wait_time = 0.2
+[node name="Trigger" parent="CombatDummy/Guard" index="1"]
+autostart = false
 
-[node name="Player" parent="." instance=ExtResource( 8 )]
-position = Vector2( 360, 620 )
-script = ExtResource( 5 )
+[node name="Geometry2D" parent="CombatDummy/Guard/HurtBox" index="0"]
+shape = SubResource( 11 )
 
-[node name="Walk" parent="Player" index="5"]
-script = ExtResource( 7 )
-speed = 800.0
+[node name="HealthBar" type="ProgressBar" parent="CombatDummy"]
+margin_left = -186.0
+margin_top = -309.0
+margin_right = 184.0
+margin_bottom = -279.0
+custom_styles/fg = SubResource( 5 )
+custom_styles/bg = SubResource( 6 )
+value = 50.0
+rounded = true
+percent_visible = false
 
-[node name="HitBox" parent="Player" index="10"]
-editor/display_folded = false
-position = Vector2( 2, 0 )
-
-[node name="Right" parent="Player/HitBox" index="0"]
-shape = SubResource( 5 )
-
-[node name="Left" parent="Player/HitBox" index="1"]
-shape = SubResource( 5 )
-
-[node name="Top" parent="Player/HitBox" index="2"]
-shape = SubResource( 5 )
-
-[node name="Down" parent="Player/HitBox" index="3"]
-shape = SubResource( 5 )
-
-[node name="Geometry2D" parent="Player/HurtBox" index="0"]
-shape = SubResource( 6 )
+[node name="Label" type="Label" parent="CombatDummy/HealthBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Boss"
+align = 1
+valign = 1
 
 [node name="ComboLabel" type="Label" parent="."]
 margin_top = 43.0
 margin_bottom = 57.0
 rect_scale = Vector2( 4, 4 )
 text = "Combo: 0"
-script = SubResource( 7 )
+script = SubResource( 9 )
+
+[node name="Label" type="Label" parent="."]
+margin_top = 150.0
+margin_right = 61.0
+margin_bottom = 164.0
+rect_scale = Vector2( 4, 4 )
+text = "Action Chain"
+script = SubResource( 10 )
+
+[node name="Player" parent="." instance=ExtResource( 7 )]
+position = Vector2( 230, 620 )
+script = ExtResource( 5 )
 [connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="RightMovingDummySpawner/Timer" method="start"]
 [connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="LeftMovingDummySpawner" method="spawn"]
-[connection signal="timeout" from="RightMovingDummySpawner/Timer" to="RightMovingDummySpawner" method="spawn"]
 [connection signal="timeout" from="RightMovingDummySpawner/Timer" to="LeftMovingDummySpawner/Timer" method="start"]
+[connection signal="timeout" from="RightMovingDummySpawner/Timer" to="RightMovingDummySpawner" method="spawn"]
 [connection signal="tree_exited" from="CombatDummy" to="RightMovingDummySpawner/Timer" method="start"]
-[connection signal="changed" from="Player/HitCount" to="ComboLabel" method="set_text"]
+[connection signal="changed" from="CombatDummy/Health" to="CombatDummy/HealthBar" method="set_value"]
 
 [editable path="CombatDummy"]
 
 [editable path="CombatDummy/Guard"]
-
-[editable path="Player"]
