@@ -4,11 +4,15 @@ signal changed(new_health)
 signal died
 
 
-onready var _current = max_health setget set_current
+var _current = max_health setget set_current
 
 export (int) var max_health = 10
 
 var invulnerable = false
+
+func _ready():
+	set_current(max_health)
+
 
 func set_current(new_value):
 	_current = max(0, new_value)

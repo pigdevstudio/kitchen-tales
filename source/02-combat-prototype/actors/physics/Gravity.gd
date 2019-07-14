@@ -26,6 +26,7 @@ func set_enabled(enable):
 	
 	if enable:
 		emit_signal("started")
+		velocity = Vector2.ZERO
 		platform_actor.velocity = Vector2.ZERO
 	else:
 		emit_signal("finished")
