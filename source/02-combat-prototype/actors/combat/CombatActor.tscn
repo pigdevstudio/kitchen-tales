@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://actors/physics/PlatformActor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/combat/CombatSignalConnector.gd" type="Script" id=2]
@@ -10,12 +10,13 @@
 [ext_resource path="res://actors/combat/Guard.tscn" type="PackedScene" id=8]
 [ext_resource path="res://actors/combat/Hit.tres" type="Resource" id=9]
 [ext_resource path="res://actors/combat/HurtBox.tscn" type="PackedScene" id=10]
-[ext_resource path="res://actors/combat/HitCount.tscn" type="PackedScene" id=11]
+[ext_resource path="res://actors/combat/HurtLag.tscn" type="PackedScene" id=11]
+[ext_resource path="res://actors/combat/HitCount.tscn" type="PackedScene" id=12]
 
-[sub_resource type="RectangleShape2D" id=11]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 30, 30 )
 
-[sub_resource type="RectangleShape2D" id=12]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 40, 66 )
 
 [node name="CombatActor" instance=ExtResource( 1 )]
@@ -53,7 +54,7 @@ actor_path = NodePath("../..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Attack/HitBox" index="0"]
 visible = false
 position = Vector2( 90, -64 )
-shape = SubResource( 11 )
+shape = SubResource( 1 )
 disabled = true
 script = ExtResource( 7 )
 color = Color( 1, 0.152941, 0.152941, 0.623529 )
@@ -66,14 +67,11 @@ weakness_hit = ExtResource( 9 )
 [node name="Geometry2D" type="CollisionShape2D" parent="Guard/HurtBox" index="0"]
 visible = false
 position = Vector2( 0, -64 )
-shape = SubResource( 12 )
+shape = SubResource( 2 )
 script = ExtResource( 7 )
 color = Color( 1, 0.145098, 0.145098, 0.686275 )
 
-[node name="HurtLag" parent="Guard/HurtBox" index="1" instance=ExtResource( 5 )]
-wait_time = 0.2
-actor_path = NodePath("../../..")
+[node name="HurtLag" parent="Guard/HurtBox" index="1" instance=ExtResource( 11 )]
 
-[node name="HitCount" parent="." index="11" instance=ExtResource( 11 )]
+[node name="HitCount" parent="." index="11" instance=ExtResource( 12 )]
 [connection signal="started" from="Attack" to="Attack/HitLag" method="start"]
-[connection signal="hurt" from="Guard/HurtBox" to="Guard/HurtBox/HurtLag" method="start"]

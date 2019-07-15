@@ -12,6 +12,7 @@ signal increased
 signal reset
 
 var _current_attack_index = 0
+var _hit_landed = false setget _set_hit_landed
 
 func _ready():
 	connect_hitboxes()
@@ -33,15 +34,19 @@ func cancel():
 
 
 func increase():
+	if not _hit_landed:
+		return
 	if _current_attack_index + 1 < get_child_count():
 		_current_attack_index += 1
 		emit_signal("increased")
 	else:
 		emit_signal("reset")
 		reset()
+	_hit_landed = false
 
 
 func reset():
+	_hit_landed = false
 	_current_attack_index = 0
 
 
@@ -50,21 +55,26 @@ func connect_hitboxes():
 		if not attack.has_node("HitBox"):
 			continue
 		var hitbox = attack.get_node("HitBox")
-		hitbox.connect("landed", self, "increase")
+		hitbox.connect("landed", self, "_set_hit_landed", [true])
 		hitbox.connect("missed", self, "reset")
 		attack.connect("started", hitbox, "enable")
 		attack.connect("finished", hitbox, "disable")
 		if attack.has_node("HitLag"):
 			var hitlag = attack.get_node("HitLag")
 			hitbox.connect("landed", hitlag, "start")
+			hitbox.connect("missed", hitlag, "stop")
+			hitlag.connect("timeout", hitbox, "toggle")
 
 
 func connect_attacks():
 	for attack in get_children():
 		attack.connect("started", self, "set_enabled", [false])
 		attack.connect("finished", self, "set_enabled", [true])
+		attack.connect("finished", self, "increase")
 		if attack.has_node("HitLag"):
 			var hitlag = attack.get_node("HitLag")
-#			hitlag.wait_time = attack.duration
 			attack.connect("finished", hitlag, "stop")
 			
+
+func _set_hit_landed(landed):
+	_hit_landed = landed

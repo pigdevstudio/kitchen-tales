@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://actors/combat/CombatActor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/player/PlayerHit.tres" type="Resource" id=2]
-[ext_resource path="res://actors/non_player/Brain.tscn" type="PackedScene" id=3]
+[ext_resource path="res://actors/combat/HurtLag.gd" type="Script" id=3]
+[ext_resource path="res://actors/non_player/Brain.tscn" type="PackedScene" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "hurt"
@@ -46,7 +47,12 @@ autostart = true
 wait_time = 5.0
 one_shot = true
 
-[node name="Brain" parent="." index="12" instance=ExtResource( 3 )]
+[node name="HurtLag" parent="Guard/HurtBox" index="1"]
+one_shot = true
+script = ExtResource( 3 )
+actor_path = NodePath("..")
+
+[node name="Brain" parent="." index="12" instance=ExtResource( 4 )]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="13"]
 playback_speed = 2.0
@@ -54,6 +60,6 @@ anims/hurt = SubResource( 1 )
 [connection signal="timeout" from="Attack/Trigger" to="Attack" method="execute"]
 [connection signal="timeout" from="Guard/Trigger" to="Guard" method="execute"]
 [connection signal="timeout" from="Guard/Trigger" to="Guard/Duration" method="start"]
-[connection signal="timeout" from="Guard/Duration" to="Guard" method="cancel"]
 [connection signal="timeout" from="Guard/Duration" to="Guard/Trigger" method="start"]
+[connection signal="timeout" from="Guard/Duration" to="Guard" method="cancel"]
 [connection signal="hurt" from="Guard/HurtBox" to="AnimationPlayer" method="play" binds= [ "hurt" ]]

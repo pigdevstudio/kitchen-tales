@@ -35,8 +35,8 @@ func connect_signals():
 	attack.connect("finished", jump, "set_enabled", [true])
 	attack.connect("started", dash, "set_enabled", [false])
 	attack.connect("finished", dash, "set_enabled", [true])
-	attack.connect("started", hitbox, "enable")
-	attack.connect("finished", hitbox, "disable")
+#	attack.connect("started", hitbox, "enable")
+#	attack.connect("finished", hitbox, "disable")
 	
 	guard.connect("started", attack, "set_enabled", [false])
 	guard.connect("finished", attack, "set_enabled", [true])
@@ -52,10 +52,10 @@ func connect_signals():
 	
 	health.connect("died", actor, "queue_free")
 	
-	hitbox.connect("landed", hitlag, "start")
-	hitbox.connect("finished", hitlag, "stop")
-	hitbox.connect("landed", hitcount, "increase")
-	hitbox.connect("missed", hitcount, "reset")
+#	hitbox.connect("landed", hitlag, "start")
+#	hitbox.connect("finished", hitlag, "stop")
+#	hitbox.connect("landed", hitcount, "increase")
+#	hitbox.connect("missed", hitcount, "reset")
 	
 	hurtbox.connect("hit_landed", guard, "check_for_weakness")
 	hurtbox.connect("damage_inflicted", health, "damage")
