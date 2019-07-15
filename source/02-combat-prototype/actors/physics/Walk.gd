@@ -1,7 +1,7 @@
 extends PlatformPhysics
 
 export (float) var speed = 400.0
-var movement_direction = Vector2.ZERO setget set_movement_direction
+export (Vector2) var movement_direction = Vector2.ZERO setget set_movement_direction
 
 func _physics_process(delta):
 	move()

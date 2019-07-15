@@ -2,8 +2,10 @@
 
 [ext_resource path="res://actors/combat/HitLag.gd" type="Script" id=1]
 
-[node name="HitLag" type="Timer"]
+[node name="HurtLag" type="Timer"]
 process_mode = 0
-wait_time = 0.1
+wait_time = 0.2
+one_shot = true
 script = ExtResource( 1 )
+actor_path = NodePath("../../..")
 [connection signal="timeout" from="." to="." method="_on_timeout"]

@@ -10,8 +10,7 @@ func start(time_sec = -1):
 
 func stop():
 	actor.set_physics_process(true)
-	.stop()
 
 
 func _on_timeout():
-	actor.set_physics_process(not actor.is_physics_processing())
+	actor.set_physics_process(true)

@@ -64,4 +64,7 @@ func connect_attacks():
 		attack.connect("started", self, "set_enabled", [false])
 		attack.connect("finished", self, "set_enabled", [true])
 		if attack.has_node("HitLag"):
-			attack.get_node("HitLag").wait_time = attack.duration
+			var hitlag = attack.get_node("HitLag")
+#			hitlag.wait_time = attack.duration
+			attack.connect("finished", hitlag, "stop")
+			
