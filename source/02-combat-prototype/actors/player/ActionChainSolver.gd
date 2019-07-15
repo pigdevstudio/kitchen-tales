@@ -4,33 +4,25 @@ Checks for the presence of a special move combination in an ActionChain
 """
 
 signal action_chain_solved
-signal special_action_executed(special_action)
 
-export (Resource) var moves_list_container
-onready var moves_list = moves_list_container.moves_list
+export (Resource) var special_move
+onready var special_move_action_chain = special_move.action_chain
 
 func _ready():
-	render_move_strings(moves_list)
+	render_special_move()
 	
 
-func render_move_strings(pool_string_array_dictionary):
-	for key in pool_string_array_dictionary:
-		var value = pool_string_array_dictionary[key]
-		value = String(value)
-		value = value.trim_prefix("[")
-		value = value.trim_suffix("]")
-		pool_string_array_dictionary[key] = String(value)
+func render_special_move():
+	var string = String(special_move_action_chain)
+	string = string.trim_prefix("[")
+	string = string.trim_suffix("]")
+	special_move_action_chain = string
 
 
 func resolve_action_chain(action_chain):
 	action_chain = get_treated_action_chain(action_chain)
-	
-	for special_move in moves_list:
-		var move = moves_list[special_move]
-		if move in action_chain:
-			emit_signal("action_chain_solved")
-			emit_signal("special_action_executed", special_move)
-			break
+	if special_move_action_chain in action_chain:
+		emit_signal("action_chain_solved")
 
 
 func get_treated_action_chain(action_chain):

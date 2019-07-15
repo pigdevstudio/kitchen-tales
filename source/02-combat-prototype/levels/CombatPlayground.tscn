@@ -1,12 +1,10 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://areas/Ground.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/Spawner.gd" type="Script" id=2]
 [ext_resource path="res://actors/non_player/MovingDummy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://actors/non_player/CombatDummy.tscn" type="PackedScene" id=4]
-[ext_resource path="res://actors/physics/PlatformActor.gd" type="Script" id=5]
-[ext_resource path="res://utility/Geometry2D.gd" type="Script" id=6]
-[ext_resource path="res://actors/player/Player.tscn" type="PackedScene" id=7]
+[ext_resource path="res://actors/player/Player.tscn" type="PackedScene" id=5]
 
 [sub_resource type="LineShape2D" id=1]
 normal = Vector2( 1, 0 )
@@ -20,16 +18,16 @@ extents = Vector2( 214, 184.876 )
 [sub_resource type="CircleShape2D" id=4]
 radius = 219.51
 
-[sub_resource type="RectangleShape2D" id=11]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 214, 184.876 )
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 1, 0.203922, 0.203922, 1 )
 
-[sub_resource type="StyleBoxFlat" id=6]
+[sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0.12549, 0.12549, 0.12549, 1 )
 
-[sub_resource type="GDScript" id=9]
+[sub_resource type="GDScript" id=8]
 script/source = "extends Label
 
 func set_text(new_text):
@@ -37,7 +35,7 @@ func set_text(new_text):
 	text = final_text
 "
 
-[sub_resource type="GDScript" id=10]
+[sub_resource type="GDScript" id=9]
 script/source = "extends Label
 
 func set_text(new_text):
@@ -100,13 +98,11 @@ wait_time = 5.0
 one_shot = true
 
 [node name="CombatDummy" parent="." instance=ExtResource( 4 )]
+editor/display_folded = true
 position = Vector2( 1056, 628.876 )
-script = ExtResource( 5 )
 
 [node name="CollisionShape2D" parent="CombatDummy" index="0"]
-position = Vector2( 0, -64 )
 shape = SubResource( 3 )
-script = ExtResource( 6 )
 
 [node name="Jump" parent="CombatDummy" index="3"]
 strength = 1000.0
@@ -124,15 +120,15 @@ shape = SubResource( 4 )
 autostart = false
 
 [node name="Geometry2D" parent="CombatDummy/Guard/HurtBox" index="0"]
-shape = SubResource( 11 )
+shape = SubResource( 5 )
 
 [node name="HealthBar" type="ProgressBar" parent="CombatDummy"]
 margin_left = -186.0
 margin_top = -309.0
 margin_right = 184.0
 margin_bottom = -279.0
-custom_styles/fg = SubResource( 5 )
-custom_styles/bg = SubResource( 6 )
+custom_styles/fg = SubResource( 6 )
+custom_styles/bg = SubResource( 7 )
 value = 50.0
 rounded = true
 percent_visible = false
@@ -145,27 +141,28 @@ align = 1
 valign = 1
 
 [node name="ComboLabel" type="Label" parent="."]
+visible = false
 margin_top = 43.0
 margin_bottom = 57.0
 rect_scale = Vector2( 4, 4 )
 text = "Combo: 0"
-script = SubResource( 9 )
+script = SubResource( 8 )
 
 [node name="Label" type="Label" parent="."]
+visible = false
 margin_top = 150.0
 margin_right = 61.0
 margin_bottom = 164.0
 rect_scale = Vector2( 4, 4 )
 text = "Action Chain"
-script = SubResource( 10 )
+script = SubResource( 9 )
 
-[node name="Player" parent="." instance=ExtResource( 7 )]
+[node name="Player" parent="." instance=ExtResource( 5 )]
 position = Vector2( 230, 620 )
-script = ExtResource( 5 )
-[connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="RightMovingDummySpawner/Timer" method="start"]
 [connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="LeftMovingDummySpawner" method="spawn"]
-[connection signal="timeout" from="RightMovingDummySpawner/Timer" to="LeftMovingDummySpawner/Timer" method="start"]
+[connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="RightMovingDummySpawner/Timer" method="start"]
 [connection signal="timeout" from="RightMovingDummySpawner/Timer" to="RightMovingDummySpawner" method="spawn"]
+[connection signal="timeout" from="RightMovingDummySpawner/Timer" to="LeftMovingDummySpawner/Timer" method="start"]
 [connection signal="tree_exited" from="CombatDummy" to="RightMovingDummySpawner/Timer" method="start"]
 [connection signal="changed" from="CombatDummy/Health" to="CombatDummy/HealthBar" method="set_value"]
 
