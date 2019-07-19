@@ -11,7 +11,9 @@ var _landed = false
 var _active = false
 
 func _ready():
-	disable()
+	for shape in get_children():
+		shape.disabled = true
+		shape.visible = false
 
 
 func toggle():
@@ -19,7 +21,8 @@ func toggle():
 		disable()
 	else:
 		enable()
-	
+
+
 func enable():
 	for shape in get_children():
 		shape.disabled = false
