@@ -6,15 +6,15 @@ export (bool) var air_dash = true setget set_air_dash
 var initial_position = Vector2(0, 0)
 var air_dash_available = true
 
-func apply():
+func execute():
 	if not enabled:
 		return
-	if not platform_actor.is_on_floor():
+	if not actor.is_on_floor():
 		if not air_dash:
 			return
 		elif not air_dash_available:
 			return
-	initial_position = platform_actor.position
+	initial_position = actor.position
 	set_physics_process(true)
 	emit_signal("started")
 	
@@ -25,26 +25,26 @@ func apply():
 func move():
 	if not enabled:
 		return
-	platform_actor.velocity = movement_direction * speed
+	actor.velocity = movement_direction * speed
 	check_distance()
 	check_walls()
 
 
 func check_distance():
-	if (initial_position.distance_to(platform_actor.position) 
+	if (initial_position.distance_to(actor.position) 
 			> distance):
-		stop()
+		cancel()
 
 
 func check_walls():
-	if platform_actor.is_on_wall():
-		stop()
+	if actor.is_on_wall():
+		cancel()
 
 
-func stop():
-	if not platform_actor.is_on_floor():
+func cancel():
+	if not actor.is_on_floor():
 		air_dash_available = false
-	platform_actor.velocity.x = 0.0
+	actor.velocity.x = 0.0
 	set_physics_process(false)
 	emit_signal("finished")
 

@@ -1,18 +1,18 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://actors/physics/PlatformActor.gd" type="Script" id=1]
 [ext_resource path="res://utility/Geometry2D.gd" type="Script" id=2]
-[ext_resource path="res://actors/physics/PhysicsSignalConnector.gd" type="Script" id=3]
-[ext_resource path="res://actors/physics/Gravity.tscn" type="PackedScene" id=4]
-[ext_resource path="res://actors/physics/Jump.tscn" type="PackedScene" id=5]
-[ext_resource path="res://actors/physics/Fall.tscn" type="PackedScene" id=6]
-[ext_resource path="res://actors/physics/Walk.tscn" type="PackedScene" id=7]
-[ext_resource path="res://actors/physics/Dash.tscn" type="PackedScene" id=8]
+[ext_resource path="res://actors/physics/Gravity.tscn" type="PackedScene" id=3]
+[ext_resource path="res://actors/physics/Jump.tscn" type="PackedScene" id=4]
+[ext_resource path="res://actors/physics/Fall.tscn" type="PackedScene" id=5]
+[ext_resource path="res://actors/physics/Walk.tscn" type="PackedScene" id=6]
+[ext_resource path="res://actors/physics/Dash.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 40, 64 )
 
 [node name="PlatformActor" type="KinematicBody2D"]
+collision_layer = 2
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -21,15 +21,15 @@ shape = SubResource( 1 )
 script = ExtResource( 2 )
 color = Color( 1, 1, 1, 1 )
 
-[node name="PhysicsSignalConnector" type="Node" parent="."]
-script = ExtResource( 3 )
+[node name="Gravity" parent="." instance=ExtResource( 3 )]
 
-[node name="Gravity" parent="." instance=ExtResource( 4 )]
+[node name="Jump" parent="." instance=ExtResource( 4 )]
 
-[node name="Jump" parent="." instance=ExtResource( 5 )]
+[node name="Fall" parent="." instance=ExtResource( 5 )]
 
-[node name="Fall" parent="." instance=ExtResource( 6 )]
+[node name="Walk" parent="." instance=ExtResource( 6 )]
 
-[node name="Walk" parent="." instance=ExtResource( 7 )]
-
-[node name="Dash" parent="." instance=ExtResource( 8 )]
+[node name="Dash" parent="." instance=ExtResource( 7 )]
+[connection signal="available_jumps_depleted" from="Jump" to="Dash" method="set_air_dash" binds= [ false ]]
+[connection signal="available_jumps_replenished" from="Jump" to="Dash" method="set_air_dash" binds= [ true ]]
+[connection signal="started" from="Jump" to="Fall" method="set_enabled" binds= [ true ]]

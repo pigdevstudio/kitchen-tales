@@ -19,4 +19,3 @@ func set_snap_normal(new_snap_normal):
 
 func set_velocity(new_velocity):
 	velocity = new_velocity
-

@@ -1,142 +1,131 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://actors/combat/CombatActor.tscn" type="PackedScene" id=1]
-[ext_resource path="res://actors/player/PlayerHit.tres" type="Resource" id=2]
-[ext_resource path="res://actors/player/CombatActionBus.gd" type="Script" id=3]
-[ext_resource path="res://actors/player/PhysicsActionBus.gd" type="Script" id=4]
-[ext_resource path="res://actors/player/ActionBuffer.tscn" type="PackedScene" id=5]
-[ext_resource path="res://actors/player/ActionChainSolver.tscn" type="PackedScene" id=6]
-[ext_resource path="res://actors/combat/special_moves/shuryuken.tres" type="Resource" id=7]
-[ext_resource path="res://actors/player/ActionsSignalConnector.gd" type="Script" id=8]
-[ext_resource path="res://actors/combat/Combo.tscn" type="PackedScene" id=9]
-[ext_resource path="res://actors/combat/Attack.tscn" type="PackedScene" id=10]
-[ext_resource path="res://actors/combat/HitBox.tscn" type="PackedScene" id=11]
-[ext_resource path="res://utility/Geometry2D.gd" type="Script" id=12]
-[ext_resource path="res://actors/combat/HitLag.tscn" type="PackedScene" id=13]
-[ext_resource path="res://actors/physics/Jump.tscn" type="PackedScene" id=14]
-[ext_resource path="res://actors/physics/Dash.tscn" type="PackedScene" id=15]
+[ext_resource path="res://actors/combat/Attack.tscn" type="PackedScene" id=2]
+[ext_resource path="res://actors/combat/HitBox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://utility/Geometry2D.gd" type="Script" id=4]
+[ext_resource path="res://actors/combat/HitLag.tscn" type="PackedScene" id=5]
+[ext_resource path="res://actors/player/ActionBuffer.tscn" type="PackedScene" id=6]
+[ext_resource path="res://actors/player/Controls.gd" type="Script" id=7]
+[ext_resource path="res://actors/player/PlayerAction.tscn" type="PackedScene" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 30, 20 )
-
-[sub_resource type="CapsuleShape2D" id=2]
-radius = 30.0
-height = 60.0
-
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 30, 60 )
+extents = Vector2( 40, 20 )
 
 [node name="Player" instance=ExtResource( 1 )]
+position = Vector2( 260, 170 )
 
-[node name="PhysicsSignalConnector" parent="." index="1"]
-gravity_path = NodePath("../../Player/Gravity")
-jump_path = NodePath("../../Player/Jump")
-walk_path = NodePath("../../Player/Walk")
-dash_path = NodePath("../../Player/Dash")
-actor_path = NodePath("../../Player")
-
-[node name="Gravity" parent="." index="2"]
-platform_actor_path = NodePath("../../Player")
-
-[node name="Jump" parent="." index="3"]
-platform_actor_path = NodePath("../../Player")
+[node name="Jump" parent="." index="2"]
 strength = 1000.0
 
-[node name="Walk" parent="." index="5"]
-platform_actor_path = NodePath("../../Player")
-
-[node name="Dash" parent="." index="6"]
-platform_actor_path = NodePath("../../Player")
-
-[node name="CombatSignalConnector" parent="." index="7"]
-attack_path = NodePath("../Combo")
-
-[node name="HitBox" parent="Attack" index="3"]
-hit = ExtResource( 2 )
-
-[node name="Guard" parent="." index="10"]
-editor/display_folded = true
-
-[node name="CombatActionBus" type="Node" parent="." index="12"]
-script = ExtResource( 3 )
-
-[node name="PhysicsActionBus" type="Node" parent="." index="13"]
-script = ExtResource( 4 )
-
-[node name="ActionBuffer" parent="." index="14" instance=ExtResource( 5 )]
-
-[node name="ActionChainSolver" parent="." index="15" instance=ExtResource( 6 )]
-special_move = ExtResource( 7 )
-
-[node name="ActionsSignalConnector" type="Node" parent="." index="16"]
-script = ExtResource( 8 )
-attack_path = NodePath("../Combo")
-hitbox_path = NodePath("../Combo/Jab/HitBox")
-
-[node name="Combo" parent="." index="17" instance=ExtResource( 9 )]
-
-[node name="Jab" parent="Combo" index="0" instance=ExtResource( 10 )]
-position = Vector2( 90, -60 )
-cooldown = 0.05
-
-[node name="HitBox" parent="Combo/Jab" index="2" instance=ExtResource( 11 )]
-
-[node name="Geometry2D" type="CollisionShape2D" parent="Combo/Jab/HitBox" index="0"]
-shape = SubResource( 1 )
-script = ExtResource( 12 )
-color = Color( 1, 0.180392, 0.180392, 0.776471 )
-
-[node name="HitLag" parent="Combo/Jab" index="3" instance=ExtResource( 13 )]
-actor_path = NodePath("../../..")
-
-[node name="UpperCut" parent="Combo" index="1" instance=ExtResource( 10 )]
-position = Vector2( 100, -130 )
-duration = 1.5
-
-[node name="HitBox" parent="Combo/UpperCut" index="2" instance=ExtResource( 11 )]
-
-[node name="Geometry2D" type="CollisionShape2D" parent="Combo/UpperCut/HitBox" index="0"]
-shape = SubResource( 2 )
-script = ExtResource( 12 )
-color = Color( 0.180392, 1, 0.788235, 0.776471 )
-
-[node name="Jump" parent="Combo/UpperCut" index="3" instance=ExtResource( 14 )]
-platform_actor_path = NodePath("../../..")
-enabled = true
-strength = 300.0
-max_jumps = 1
-
-[node name="HitLag" parent="Combo/UpperCut" index="4" instance=ExtResource( 13 )]
-wait_time = 0.2
-actor_path = NodePath("../../..")
-
-[node name="FlyingKick" parent="Combo" index="2" instance=ExtResource( 10 )]
-position = Vector2( 80, 50 )
+[node name="AttackLeft" parent="CombatActions" index="1" instance=ExtResource( 2 )]
+position = Vector2( -100, -64 )
 duration = 2.0
-cooldown = 0.3
 
-[node name="HitBox" parent="Combo/FlyingKick" index="2" instance=ExtResource( 11 )]
+[node name="HitBox" parent="CombatActions/AttackLeft" index="2" instance=ExtResource( 3 )]
 
-[node name="Geometry2D" type="CollisionShape2D" parent="Combo/FlyingKick/HitBox" index="0"]
-rotation = -0.785397
-shape = SubResource( 3 )
-script = ExtResource( 12 )
-color = Color( 0.180392, 0.423529, 1, 0.776471 )
+[node name="Geometry2D" type="CollisionShape2D" parent="CombatActions/AttackLeft/HitBox" index="0"]
+shape = SubResource( 1 )
+script = ExtResource( 4 )
+color = Color( 1, 0.219608, 0.219608, 0.678431 )
 
-[node name="Dash" parent="Combo/FlyingKick" index="3" instance=ExtResource( 15 )]
-platform_actor_path = NodePath("../../..")
-enabled = true
-speed = 200.0
-movement_direction = Vector2( 1, 1 )
-distance = 250.0
-
-[node name="HitLag" parent="Combo/FlyingKick" index="4" instance=ExtResource( 13 )]
-wait_time = 0.2
+[node name="HitLag" parent="CombatActions/AttackLeft" index="3" instance=ExtResource( 5 )]
 actor_path = NodePath("../../..")
-[connection signal="finished" from="Combo/UpperCut" to="Gravity" method="set_enabled" binds= [ true ]]
-[connection signal="started" from="Combo/UpperCut" to="Combo/UpperCut/Jump" method="apply"]
-[connection signal="started" from="Combo/UpperCut" to="Gravity" method="set_enabled" binds= [ false ]]
-[connection signal="finished" from="Combo/FlyingKick" to="Combo/FlyingKick/Dash" method="set_air_dash" binds= [ true ]]
-[connection signal="finished" from="Combo/FlyingKick" to="Gravity" method="set_enabled" binds= [ true ]]
-[connection signal="started" from="Combo/FlyingKick" to="Combo/FlyingKick/Dash" method="apply"]
-[connection signal="started" from="Combo/FlyingKick" to="Gravity" method="set_enabled" binds= [ false ]]
+
+[node name="AttackRight" parent="CombatActions" index="2" instance=ExtResource( 2 )]
+position = Vector2( 100, -64 )
+duration = 2.0
+
+[node name="HitBox" parent="CombatActions/AttackRight" index="2" instance=ExtResource( 3 )]
+
+[node name="Geometry2D" type="CollisionShape2D" parent="CombatActions/AttackRight/HitBox" index="0"]
+shape = SubResource( 1 )
+script = ExtResource( 4 )
+color = Color( 1, 0.219608, 0.219608, 0.678431 )
+
+[node name="HitLag" parent="CombatActions/AttackRight" index="3" instance=ExtResource( 5 )]
+actor_path = NodePath("../../..")
+
+[node name="AttackUp" parent="CombatActions" index="3" instance=ExtResource( 2 )]
+position = Vector2( 0, -180 )
+
+[node name="HitBox" parent="CombatActions/AttackUp" index="2" instance=ExtResource( 3 )]
+
+[node name="Geometry2D" type="CollisionShape2D" parent="CombatActions/AttackUp/HitBox" index="0"]
+shape = SubResource( 1 )
+script = ExtResource( 4 )
+color = Color( 1, 0.219608, 0.219608, 0.678431 )
+
+[node name="HitLag" parent="CombatActions/AttackUp" index="3" instance=ExtResource( 5 )]
+actor_path = NodePath("../../..")
+
+[node name="AttackDown" parent="CombatActions" index="4" instance=ExtResource( 2 )]
+position = Vector2( 0, 30 )
+
+[node name="HitBox" parent="CombatActions/AttackDown" index="2" instance=ExtResource( 3 )]
+
+[node name="Geometry2D" type="CollisionShape2D" parent="CombatActions/AttackDown/HitBox" index="0"]
+shape = SubResource( 1 )
+script = ExtResource( 4 )
+color = Color( 1, 0.219608, 0.219608, 0.678431 )
+
+[node name="HitLag" parent="CombatActions/AttackDown" index="3" instance=ExtResource( 5 )]
+actor_path = NodePath("../../..")
+
+[node name="ActionBuffer" parent="." index="8" instance=ExtResource( 6 )]
+
+[node name="Controls" type="Node" parent="." index="9"]
+script = ExtResource( 7 )
+
+[node name="LeftAction" parent="Controls" index="0" instance=ExtResource( 8 )]
+action = "left"
+command_path = NodePath("../../Walk")
+
+[node name="RightAction" parent="Controls" index="1" instance=ExtResource( 8 )]
+action = "right"
+command_path = NodePath("../../Walk")
+
+[node name="JumpAction" parent="Controls" index="2" instance=ExtResource( 8 )]
+action = "jump"
+command_path = NodePath("../../Jump")
+
+[node name="AttackAction" parent="Controls" index="3" instance=ExtResource( 8 )]
+action = "attack"
+command_path = NodePath("../../CombatActions")
+
+[node name="DefendAction" parent="Controls" index="4" instance=ExtResource( 8 )]
+action = "defend"
+command_path = NodePath("../../CombatActions")
+
+[node name="UpAction" parent="Controls" index="5" instance=ExtResource( 8 )]
+action = "up"
+
+[node name="DownAction" parent="Controls" index="6" instance=ExtResource( 8 )]
+action = "down"
+
+[node name="DashAction" parent="Controls" index="7" instance=ExtResource( 8 )]
+action = "dash"
+command_path = NodePath("../../Dash")
+[connection signal="finished" from="CombatActions/AttackLeft" to="CombatActions/AttackLeft/HitBox" method="disable"]
+[connection signal="started" from="CombatActions/AttackLeft" to="CombatActions/AttackLeft/HitBox" method="enable"]
+[connection signal="landed" from="CombatActions/AttackLeft/HitBox" to="CombatActions/AttackLeft/HitLag" method="start"]
+[connection signal="finished" from="CombatActions/AttackRight" to="CombatActions/AttackRight/HitBox" method="disable"]
+[connection signal="started" from="CombatActions/AttackRight" to="CombatActions/AttackRight/HitBox" method="enable"]
+[connection signal="landed" from="CombatActions/AttackRight/HitBox" to="CombatActions/AttackRight/HitLag" method="start"]
+[connection signal="finished" from="CombatActions/AttackUp" to="CombatActions/AttackUp/HitBox" method="disable"]
+[connection signal="started" from="CombatActions/AttackUp" to="CombatActions/AttackUp/HitBox" method="enable"]
+[connection signal="landed" from="CombatActions/AttackUp/HitBox" to="CombatActions/AttackUp/HitLag" method="start"]
+[connection signal="finished" from="CombatActions/AttackDown" to="CombatActions/AttackDown/HitBox" method="disable"]
+[connection signal="started" from="CombatActions/AttackDown" to="CombatActions/AttackDown/HitBox" method="enable"]
+[connection signal="landed" from="CombatActions/AttackDown/HitBox" to="CombatActions/AttackDown/HitLag" method="start"]
+[connection signal="handling" from="Controls/LeftAction" to="CombatActions" method="set_current" binds= [ "AttackLeft" ]]
+[connection signal="pressed" from="Controls/LeftAction" to="Walk" method="set_movement_direction" binds= [ Vector2( -1, 0 ) ]]
+[connection signal="pressed" from="Controls/LeftAction" to="Dash" method="set_movement_direction" binds= [ Vector2( -1, 0 ) ]]
+[connection signal="released" from="Controls/LeftAction" to="Controls/RightAction" method="is_holding"]
+[connection signal="handling" from="Controls/RightAction" to="CombatActions" method="set_current" binds= [ "AttackRight" ]]
+[connection signal="pressed" from="Controls/RightAction" to="Walk" method="set_movement_direction" binds= [ Vector2( 1, 0 ) ]]
+[connection signal="pressed" from="Controls/RightAction" to="Dash" method="set_movement_direction" binds= [ Vector2( 1, 0 ) ]]
+[connection signal="released" from="Controls/RightAction" to="Controls/LeftAction" method="is_holding"]
+[connection signal="handling" from="Controls/DefendAction" to="CombatActions" method="set_current" binds= [ "Guard" ]]
+[connection signal="handling" from="Controls/UpAction" to="CombatActions" method="set_current" binds= [ "AttackUp" ]]
+[connection signal="handling" from="Controls/DownAction" to="CombatActions" method="set_current" binds= [ "AttackDown" ]]

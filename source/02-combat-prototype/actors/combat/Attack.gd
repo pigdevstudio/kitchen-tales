@@ -1,4 +1,4 @@
-extends CombatAction
+extends Command
 
 signal cooled
 onready var duration_timer = $Duration

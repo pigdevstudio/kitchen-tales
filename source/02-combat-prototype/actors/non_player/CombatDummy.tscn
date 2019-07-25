@@ -1,12 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://actors/combat/CombatActor.tscn" type="PackedScene" id=1]
-[ext_resource path="res://actors/player/PlayerHit.tres" type="Resource" id=2]
-[ext_resource path="res://actors/combat/HurtLag.gd" type="Script" id=3]
-[ext_resource path="res://actors/non_player/Brain.tscn" type="PackedScene" id=4]
+[ext_resource path="res://actors/non_player/Brain.tscn" type="PackedScene" id=2]
 
 [sub_resource type="Animation" id=1]
-resource_name = "hurt"
+resource_name = "Hurt"
 length = 0.35
 step = 0.05
 tracks/0/type = "value"
@@ -27,39 +25,13 @@ tracks/0/keys = {
 [node name="CollisionShape2D" parent="." index="0"]
 color = Color( 1, 0.145098, 0.321569, 1 )
 
-[node name="Walk" parent="." index="5"]
-enabled = false
-
-[node name="Health" parent="." index="8"]
+[node name="Health" parent="." index="6"]
 max_health = 50
 
-[node name="Trigger" type="Timer" parent="Attack" index="2"]
-wait_time = 2.0
+[node name="Brain" parent="." index="8" instance=ExtResource( 2 )]
 
-[node name="Guard" parent="." index="10"]
-weakness_hit = ExtResource( 2 )
-
-[node name="Trigger" type="Timer" parent="Guard" index="1"]
-one_shot = true
-autostart = true
-
-[node name="Duration" type="Timer" parent="Guard" index="2"]
-wait_time = 5.0
-one_shot = true
-
-[node name="HurtLag" parent="Guard/HurtBox" index="1"]
-one_shot = true
-script = ExtResource( 3 )
-actor_path = NodePath("..")
-
-[node name="Brain" parent="." index="12" instance=ExtResource( 4 )]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="13"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
 playback_speed = 2.0
-anims/hurt = SubResource( 1 )
-[connection signal="timeout" from="Attack/Trigger" to="Attack" method="execute"]
-[connection signal="timeout" from="Guard/Trigger" to="Guard" method="execute"]
-[connection signal="timeout" from="Guard/Trigger" to="Guard/Duration" method="start"]
-[connection signal="timeout" from="Guard/Duration" to="Guard/Trigger" method="start"]
-[connection signal="timeout" from="Guard/Duration" to="Guard" method="cancel"]
-[connection signal="hurt" from="Guard/HurtBox" to="AnimationPlayer" method="play" binds= [ "hurt" ]]
+anims/Hurt = SubResource( 1 )
+[connection signal="died" from="Health" to="." method="queue_free"]
+[connection signal="hurt" from="CombatActions/Guard/HurtBox" to="AnimationPlayer" method="play" binds= [ "Hurt" ]]

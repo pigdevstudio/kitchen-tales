@@ -1,4 +1,4 @@
-extends PlatformPhysics
+extends "res://actors/physics/PlatformCommand.gd"
 
 signal available_jumps_depleted
 signal available_jumps_replenished
@@ -12,23 +12,23 @@ func _physics_process(delta):
 	replenish()
 
 
-func apply():
+func execute():
 	if not enabled:
 		return
 	if _available_jumps > 0 or max_jumps == -1:
-		platform_actor.velocity.y = -strength
+		actor.velocity.y = -strength
 		_available_jumps -= 1
 		_available_jumps = clamp(_available_jumps, -1, max_jumps)
-		platform_actor.snap_normal = Vector2.ZERO
+		actor.snap_normal = Vector2.ZERO
 		set_physics_process(true)
 		emit_signal("started")
 		if _available_jumps < 1 and max_jumps > -1:
 			deplete()
 
 
-func stop():
-	if platform_actor.velocity.y < 0.0:
-		platform_actor.velocity.y = 0.0
+func cancel():
+	if actor.velocity.y < 0.0:
+		actor.velocity.y = 0.0
 		emit_signal("finished")
 
 
@@ -39,8 +39,8 @@ func deplete():
 
 
 func replenish():
-	if platform_actor.is_on_floor():
+	if actor.is_on_floor():
 		_available_jumps = max_jumps
-		platform_actor.snap_normal = Vector2.DOWN
+		actor.snap_normal = Vector2.DOWN
 		set_physics_process(false)
 		emit_signal("available_jumps_replenished")
