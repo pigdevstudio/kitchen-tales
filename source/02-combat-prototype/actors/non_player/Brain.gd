@@ -12,4 +12,4 @@ func calculate_movement_direction():
 	if get_parent().global_position.x > get_viewport().size.x * 0.5:
 		direction = -1
 	walk.set_movement_direction(Vector2(direction, 0))
-	walk.apply()
+	walk.execute()

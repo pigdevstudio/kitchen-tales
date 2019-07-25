@@ -10,9 +10,9 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node",
-"class": "CombatAction",
+"class": "Command",
 "language": "GDScript",
-"path": "res://actors/combat/CombatAction.gd"
+"path": "res://actors/Command.gd"
 }, {
 "base": "CollisionShape2D",
 "class": "Geometry2D",
@@ -28,18 +28,12 @@ _global_script_classes=[ {
 "class": "PlatformPhysics",
 "language": "GDScript",
 "path": "res://actors/physics/PlatformPhysics.gd"
-}, {
-"base": "Node",
-"class": "SignalConnector",
-"language": "GDScript",
-"path": "res://actors/SignalConnector.gd"
 } ]
 _global_script_class_icons={
-"CombatAction": "",
+"Command": "",
 "Geometry2D": "",
 "PlatformActor": "",
-"PlatformPhysics": "",
-"SignalConnector": ""
+"PlatformPhysics": ""
 }
 
 [application]

@@ -1,4 +1,4 @@
-extends CombatAction
+extends Command
 
 export (Resource) var weakness_hit
 

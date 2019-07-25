@@ -1,25 +1,23 @@
 class_name PlatformPhysics
 extends Node
 
-signal started
-signal finished
-
-export (NodePath) var platform_actor_path = ".."
-onready var platform_actor = get_node(platform_actor_path)
+export (NodePath) var actor_path = ".."
+onready var actor = get_node(actor_path)
 
 export (bool) var enabled = false setget set_enabled
 
 func _ready():
-	set_physics_process(false)
+	set_physics_process(enabled)
 
 
-func apply(): #virtual method
+func apply():
 	pass
 
 
-func stop(): #virtual method
+func stop():
 	pass
 
 
 func set_enabled(enable):
 	enabled = enable
+	set_physics_process(enabled)

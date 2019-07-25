@@ -1,4 +1,4 @@
-extends CombatAction
+extends Command
 
 """
 A set of Attacks that are executed in an indexed order.
