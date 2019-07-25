@@ -21,13 +21,8 @@ func apply():
 
 func set_enabled(enable):
 	.set_enabled(enable)
-	set_physics_process(enable)
 	if not is_inside_tree():
 		return
-
 	if enable:
-		emit_signal("started")
 		velocity = Vector2.ZERO
 		actor.velocity = Vector2.ZERO
-	else:
-		emit_signal("finished")

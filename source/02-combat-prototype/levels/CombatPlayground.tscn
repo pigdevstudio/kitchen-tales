@@ -95,6 +95,7 @@ wait_time = 5.0
 one_shot = true
 
 [node name="CombatDummy" parent="." instance=ExtResource( 4 )]
+editor/display_folded = true
 position = Vector2( 1056, 628.876 )
 
 [node name="CollisionShape2D" parent="CombatDummy" index="0"]
@@ -152,10 +153,10 @@ script = SubResource( 8 )
 
 [node name="Player" parent="." instance=ExtResource( 5 )]
 position = Vector2( 90, 530 )
-[connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="RightMovingDummySpawner/Timer" method="start"]
 [connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="LeftMovingDummySpawner" method="spawn"]
-[connection signal="timeout" from="RightMovingDummySpawner/Timer" to="LeftMovingDummySpawner/Timer" method="start"]
+[connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="RightMovingDummySpawner/Timer" method="start"]
 [connection signal="timeout" from="RightMovingDummySpawner/Timer" to="RightMovingDummySpawner" method="spawn"]
+[connection signal="timeout" from="RightMovingDummySpawner/Timer" to="LeftMovingDummySpawner/Timer" method="start"]
 [connection signal="tree_exited" from="CombatDummy" to="RightMovingDummySpawner/Timer" method="start"]
 [connection signal="changed" from="CombatDummy/Health" to="CombatDummy/HealthBar" method="set_value"]
 
