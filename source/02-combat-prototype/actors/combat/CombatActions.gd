@@ -1,7 +1,7 @@
 extends Command
 
 var current setget set_current
-var _combat_action
+onready var _combat_action = get_child(1)
 
 func _ready():
 	set_current("Attack")
@@ -17,8 +17,7 @@ func cancel():
 
 func set_current(new_combat_action_name):
 	if has_node(new_combat_action_name):
-		if _combat_action:
-			_combat_action.cancel()
+		_combat_action.cancel()
 		disable_all()
 		current = new_combat_action_name
 		_combat_action = get_node(current)

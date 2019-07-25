@@ -1,6 +1,7 @@
 extends Command
 
 signal cooled
+signal heated
 onready var duration_timer = $Duration
 onready var cooldown_timer = $Cooldown
 
@@ -11,6 +12,7 @@ func execute():
 	if not enabled:
 		return
 	if not cooldown_timer.is_stopped():
+		emit_signal("heated")
 		return
 	duration_timer.start(duration)
 	emit_signal("started")

@@ -18,7 +18,11 @@ position = Vector2( 260, 170 )
 [node name="Jump" parent="." index="2"]
 strength = 1000.0
 
+[node name="Guard" parent="CombatActions" index="0"]
+editor/display_folded = true
+
 [node name="AttackLeft" parent="CombatActions" index="1" instance=ExtResource( 2 )]
+editor/display_folded = true
 position = Vector2( -100, -64 )
 duration = 2.0
 
@@ -33,6 +37,7 @@ color = Color( 1, 0.219608, 0.219608, 0.678431 )
 actor_path = NodePath("../../..")
 
 [node name="AttackRight" parent="CombatActions" index="2" instance=ExtResource( 2 )]
+editor/display_folded = true
 position = Vector2( 100, -64 )
 duration = 2.0
 
@@ -47,6 +52,7 @@ color = Color( 1, 0.219608, 0.219608, 0.678431 )
 actor_path = NodePath("../../..")
 
 [node name="AttackUp" parent="CombatActions" index="3" instance=ExtResource( 2 )]
+editor/display_folded = true
 position = Vector2( 0, -180 )
 
 [node name="HitBox" parent="CombatActions/AttackUp" index="2" instance=ExtResource( 3 )]
@@ -60,6 +66,7 @@ color = Color( 1, 0.219608, 0.219608, 0.678431 )
 actor_path = NodePath("../../..")
 
 [node name="AttackDown" parent="CombatActions" index="4" instance=ExtResource( 2 )]
+editor/display_folded = true
 position = Vector2( 0, 30 )
 
 [node name="HitBox" parent="CombatActions/AttackDown" index="2" instance=ExtResource( 3 )]
