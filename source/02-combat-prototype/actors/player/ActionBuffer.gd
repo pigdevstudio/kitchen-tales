@@ -13,7 +13,7 @@ export (PoolStringArray) var valid_input_actions
 
 var _unsolved_action_chain = []
 
-func _unhandled_input(event):
+func _input(event):
 	stack_input_event(event)
 
 

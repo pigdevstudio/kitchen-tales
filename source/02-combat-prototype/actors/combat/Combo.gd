@@ -12,7 +12,7 @@ signal increased
 signal reset
 
 var _current_attack_index = 0
-var _hit_landed = false setget set_hit_landed
+var _is_hit_landed = false setget set_hit_landed
 
 func _ready():
 	connect_attacks()
@@ -33,7 +33,7 @@ func cancel():
 
 
 func increase():
-	if not _hit_landed:
+	if not _is_hit_landed:
 		return
 	if _current_attack_index + 1 < get_child_count():
 		_current_attack_index += 1
@@ -41,16 +41,16 @@ func increase():
 	else:
 		reset()
 		emit_signal("reset")
-	_hit_landed = false
+	_is_hit_landed = false
 
 
 func reset():
-	_hit_landed = false
+	_is_hit_landed = false
 	_current_attack_index = 0
 
 
 func set_hit_landed(landed):
-	_hit_landed = landed
+	_is_hit_landed = landed
 
 
 func connect_hitboxes():
