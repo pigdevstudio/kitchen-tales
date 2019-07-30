@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://areas/Ground.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/Spawner.gd" type="Script" id=2]
 [ext_resource path="res://actors/non_player/MovingDummy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://actors/non_player/CombatDummy.tscn" type="PackedScene" id=4]
-[ext_resource path="res://actors/player/Player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://actors/player/ActionBuffer.tscn" type="PackedScene" id=5]
+[ext_resource path="res://actors/player/Player.tscn" type="PackedScene" id=6]
 
 [sub_resource type="LineShape2D" id=1]
 normal = Vector2( 1, 0 )
@@ -52,11 +53,9 @@ position = Vector2( 1920, 0 )
 shape = SubResource( 2 )
 
 [node name="Floor" type="StaticBody2D" parent="."]
-editor/display_folded = true
 
 [node name="Ground" parent="Floor" instance=ExtResource( 1 )]
 position = Vector2( 0, 749.25 )
-color = Color( 1, 1, 1, 1 )
 
 [node name="Control" type="Control" parent="."]
 editor/display_folded = true
@@ -95,7 +94,6 @@ wait_time = 5.0
 one_shot = true
 
 [node name="CombatDummy" parent="." instance=ExtResource( 4 )]
-editor/display_folded = true
 position = Vector2( 1056, 628.876 )
 
 [node name="CollisionShape2D" parent="CombatDummy" index="0"]
@@ -104,10 +102,13 @@ shape = SubResource( 3 )
 [node name="Jump" parent="CombatDummy" index="2"]
 strength = 1000.0
 
-[node name="Walk" parent="CombatDummy" index="4"]
+[node name="WalkRight" parent="CombatDummy" index="4"]
 enabled = false
 
-[node name="Health" parent="CombatDummy" index="6"]
+[node name="WalkLeft" parent="CombatDummy" index="5"]
+enabled = false
+
+[node name="Health" parent="CombatDummy" index="7"]
 max_health = 100
 
 [node name="Geometry2D" parent="CombatDummy/CombatActions/Guard/HurtBox" index="0"]
@@ -143,7 +144,6 @@ text = "Combo: 0"
 script = SubResource( 7 )
 
 [node name="Label" type="Label" parent="."]
-visible = false
 margin_top = 150.0
 margin_right = 61.0
 margin_bottom = 164.0
@@ -151,13 +151,17 @@ rect_scale = Vector2( 4, 4 )
 text = "Action Chain"
 script = SubResource( 8 )
 
-[node name="Player" parent="." instance=ExtResource( 5 )]
-position = Vector2( 90, 530 )
-[connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="LeftMovingDummySpawner" method="spawn"]
+[node name="ActionBuffer" parent="Label" instance=ExtResource( 5 )]
+valid_input_actions = PoolStringArray( "up", "down", "left", "right", "attack", "jump", "dash" )
+
+[node name="Player" parent="." instance=ExtResource( 6 )]
 [connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="RightMovingDummySpawner/Timer" method="start"]
+[connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="LeftMovingDummySpawner" method="spawn"]
 [connection signal="timeout" from="RightMovingDummySpawner/Timer" to="RightMovingDummySpawner" method="spawn"]
 [connection signal="timeout" from="RightMovingDummySpawner/Timer" to="LeftMovingDummySpawner/Timer" method="start"]
+[connection signal="ready" from="CombatDummy" to="CombatDummy/Dash" method="set_physics_process" binds= [ false ]]
 [connection signal="tree_exited" from="CombatDummy" to="RightMovingDummySpawner/Timer" method="start"]
 [connection signal="changed" from="CombatDummy/Health" to="CombatDummy/HealthBar" method="set_value"]
+[connection signal="actions_chain_changed" from="Label/ActionBuffer" to="Label" method="set_text"]
 
 [editable path="CombatDummy"]

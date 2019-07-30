@@ -39,12 +39,19 @@ func _unhandled_input(event):
 
 func handle_input(event):
 	emit_signal("handling")
-	if event.is_pressed():
-		emit_signal("pressed")
-		get_tree().set_input_as_handled()
+	if event is InputEventJoypadMotion:
+		if event.get_action_strength(action) > 0.3:
+			emit_signal("pressed")
+		elif event.get_action_strength(action) < 0.3:
+			emit_signal("released")
 	else:
-		emit_signal("released")
-		get_tree().set_input_as_handled()
+		if event.is_pressed():
+			emit_signal("pressed")
+	#		get_tree().set_input_as_handled()
+		else:
+			emit_signal("released")
+	#		get_tree().set_input_as_handled()
+			
 
 
 func is_holding():
