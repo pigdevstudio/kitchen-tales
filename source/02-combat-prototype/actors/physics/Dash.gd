@@ -6,6 +6,11 @@ export (bool) var air_dash = true setget set_air_dash
 var initial_position = Vector2(0, 0)
 var air_dash_available = true
 
+func _physics_process(delta):
+	check_distance()
+	check_walls()
+
+
 func execute():
 	if not enabled:
 		return
@@ -15,17 +20,9 @@ func execute():
 		elif not air_dash_available:
 			return
 	initial_position = actor.position
+	actor.velocity = movement_direction * speed
 	set_physics_process(true)
 	emit_signal("started")
-	
-	check_distance()
-	check_walls()
-
-
-func move():
-	if not enabled:
-		return
-	actor.velocity = movement_direction * speed
 	check_distance()
 	check_walls()
 

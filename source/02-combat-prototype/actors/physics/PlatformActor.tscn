@@ -27,9 +27,16 @@ color = Color( 1, 1, 1, 1 )
 
 [node name="Fall" parent="." instance=ExtResource( 5 )]
 
-[node name="Walk" parent="." instance=ExtResource( 6 )]
+[node name="WalkRight" parent="." instance=ExtResource( 6 )]
+movement_direction = Vector2( 1, 0 )
+
+[node name="WalkLeft" parent="." instance=ExtResource( 6 )]
+movement_direction = Vector2( -1, 0 )
 
 [node name="Dash" parent="." instance=ExtResource( 7 )]
+movement_direction = Vector2( 1, 0 )
 [connection signal="available_jumps_depleted" from="Jump" to="Dash" method="set_air_dash" binds= [ false ]]
 [connection signal="available_jumps_replenished" from="Jump" to="Dash" method="set_air_dash" binds= [ true ]]
 [connection signal="started" from="Jump" to="Fall" method="set_enabled" binds= [ true ]]
+[connection signal="finished" from="Dash" to="Gravity" method="set_enabled" binds= [ true ]]
+[connection signal="started" from="Dash" to="Gravity" method="set_enabled" binds= [ false ]]
