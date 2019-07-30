@@ -1,11 +1,8 @@
 extends Command
 
+export (NodePath) var default = "" setget set_default
+onready var _combat_action = get_node(default)
 var current setget set_current
-onready var _combat_action = get_child(1)
-
-func _ready():
-	set_current("Attack")
-
 
 func execute():
 	_combat_action.execute()
@@ -13,6 +10,7 @@ func execute():
 
 func cancel():
 	_combat_action.cancel()
+	reset_to_default()
 
 
 func set_current(new_combat_action_name):
@@ -35,3 +33,11 @@ func enable_current():
 
 func disable_current():
 	_combat_action.enabled = false
+
+
+func set_default(new_default):
+	default = new_default
+
+
+func reset_to_default():
+	set_current(default)
