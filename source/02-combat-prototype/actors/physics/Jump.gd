@@ -16,19 +16,20 @@ func execute():
 	if not enabled:
 		return
 	if _available_jumps > 0 or max_jumps == -1:
-		actor.velocity.y = -strength
 		_available_jumps -= 1
 		_available_jumps = clamp(_available_jumps, -1, max_jumps)
 		actor.snap_normal = Vector2.ZERO
-		set_physics_process(true)
-		emit_signal("started")
+		actor.velocity.y = -strength
 		if _available_jumps < 1 and max_jumps > -1:
 			deplete()
+		emit_signal("started")
+		set_physics_process(true)
 
 
 func cancel():
 	if actor.velocity.y < 0.0:
 		actor.velocity.y = 0.0
+		actor.snap_normal = Vector2.DOWN
 		emit_signal("finished")
 
 

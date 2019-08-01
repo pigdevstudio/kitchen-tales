@@ -1,11 +1,12 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://areas/Ground.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/Spawner.gd" type="Script" id=2]
 [ext_resource path="res://actors/non_player/MovingDummy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://actors/non_player/CombatDummy.tscn" type="PackedScene" id=4]
-[ext_resource path="res://actors/player/ActionBuffer.tscn" type="PackedScene" id=5]
-[ext_resource path="res://actors/player/Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://actors/physics/Jump.gd" type="Script" id=5]
+[ext_resource path="res://actors/player/ActionBuffer.tscn" type="PackedScene" id=6]
+[ext_resource path="res://actors/player/Player.tscn" type="PackedScene" id=7]
 
 [sub_resource type="LineShape2D" id=1]
 normal = Vector2( 1, 0 )
@@ -99,6 +100,26 @@ position = Vector2( 1056, 628.876 )
 [node name="CollisionShape2D" parent="CombatDummy" index="0"]
 shape = SubResource( 3 )
 
+[node name="IdleState" parent="CombatDummy/StateMachine" index="1"]
+editor/display_folded = true
+
+[node name="Jump" parent="CombatDummy/StateMachine/IdleState" index="2"]
+actor_path = NodePath("..")
+
+[node name="Dash" parent="CombatDummy/StateMachine/WalkRightState" index="1"]
+editor/display_folded = false
+
+[node name="Jump" parent="CombatDummy/StateMachine/WalkRightState" index="5"]
+max_jumps = 1
+
+[node name="Jump" parent="CombatDummy/StateMachine/JumpState" index="0"]
+script = ExtResource( 5 )
+actor_path = NodePath("..")
+max_jumps = 1
+
+[node name="SecondJumpState" parent="CombatDummy/StateMachine" index="5"]
+editor/display_folded = true
+
 [node name="Jump" parent="CombatDummy" index="2"]
 strength = 1000.0
 
@@ -151,16 +172,18 @@ rect_scale = Vector2( 4, 4 )
 text = "Action Chain"
 script = SubResource( 8 )
 
-[node name="ActionBuffer" parent="Label" instance=ExtResource( 5 )]
+[node name="ActionBuffer" parent="Label" instance=ExtResource( 6 )]
 valid_input_actions = PoolStringArray( "up", "down", "left", "right", "attack", "jump", "dash" )
 
-[node name="Player" parent="." instance=ExtResource( 6 )]
-[connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="RightMovingDummySpawner/Timer" method="start"]
+[node name="Player" parent="." instance=ExtResource( 7 )]
 [connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="LeftMovingDummySpawner" method="spawn"]
+[connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="RightMovingDummySpawner/Timer" method="start"]
 [connection signal="timeout" from="RightMovingDummySpawner/Timer" to="RightMovingDummySpawner" method="spawn"]
 [connection signal="timeout" from="RightMovingDummySpawner/Timer" to="LeftMovingDummySpawner/Timer" method="start"]
 [connection signal="ready" from="CombatDummy" to="CombatDummy/Dash" method="set_physics_process" binds= [ false ]]
 [connection signal="tree_exited" from="CombatDummy" to="RightMovingDummySpawner/Timer" method="start"]
+[connection signal="started" from="CombatDummy/StateMachine/WalkRightState/Jump" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "Jump" ]]
+[connection signal="finished" from="CombatDummy/StateMachine/SecondJumpState/Fall" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "Idle" ]]
 [connection signal="changed" from="CombatDummy/Health" to="CombatDummy/HealthBar" method="set_value"]
 [connection signal="actions_chain_changed" from="Label/ActionBuffer" to="Label" method="set_text"]
 

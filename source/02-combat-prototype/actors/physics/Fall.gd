@@ -11,8 +11,8 @@ func execute():
 
 
 func cancel():
+	set_physics_process(false)
 	emit_signal("finished")
-	set_enabled(false)
 
 
 func check_for_fall():
