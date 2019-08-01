@@ -23,19 +23,19 @@ func execute():
 	actor.velocity = movement_direction * speed
 	set_physics_process(true)
 	emit_signal("started")
-	check_distance()
-	check_walls()
 
 
 func check_distance():
 	if (initial_position.distance_to(actor.position) 
 			> distance):
-		cancel()
+		set_physics_process(false)
+		emit_signal("finished")
 
 
 func check_walls():
 	if actor.is_on_wall():
-		cancel()
+		set_physics_process(false)
+		emit_signal("finished")
 
 
 func cancel():

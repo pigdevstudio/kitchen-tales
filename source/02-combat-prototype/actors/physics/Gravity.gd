@@ -12,7 +12,7 @@ func _physics_process(delta):
 func apply():
 	if not enabled:
 		return
-
+	
 	var delta = get_physics_process_delta_time()
 	if actor.is_on_floor() or not actor.is_physics_processing():
 		return
@@ -25,4 +25,3 @@ func set_enabled(enable):
 		return
 	if enable:
 		velocity = Vector2.ZERO
-		actor.velocity = Vector2.ZERO

@@ -1,12 +1,15 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://actors/physics/PlatformActor.gd" type="Script" id=1]
 [ext_resource path="res://utility/Geometry2D.gd" type="Script" id=2]
-[ext_resource path="res://actors/physics/Gravity.tscn" type="PackedScene" id=3]
-[ext_resource path="res://actors/physics/Jump.tscn" type="PackedScene" id=4]
+[ext_resource path="res://actors/physics/StateMachine.tscn" type="PackedScene" id=3]
+[ext_resource path="res://actors/physics/State.tscn" type="PackedScene" id=4]
 [ext_resource path="res://actors/physics/Fall.tscn" type="PackedScene" id=5]
-[ext_resource path="res://actors/physics/Walk.tscn" type="PackedScene" id=6]
-[ext_resource path="res://actors/physics/Dash.tscn" type="PackedScene" id=7]
+[ext_resource path="res://actors/physics/Jump.tscn" type="PackedScene" id=6]
+[ext_resource path="res://actors/physics/Walk.tscn" type="PackedScene" id=7]
+[ext_resource path="res://actors/physics/Stop.tscn" type="PackedScene" id=8]
+[ext_resource path="res://actors/physics/Gravity.tscn" type="PackedScene" id=9]
+[ext_resource path="res://actors/physics/Dash.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 40, 64 )
@@ -21,22 +24,102 @@ shape = SubResource( 1 )
 script = ExtResource( 2 )
 color = Color( 1, 1, 1, 1 )
 
-[node name="Gravity" parent="." instance=ExtResource( 3 )]
+[node name="StateMachine" parent="." instance=ExtResource( 3 )]
 
-[node name="Jump" parent="." instance=ExtResource( 4 )]
+[node name="SingleJumpFallState" parent="StateMachine" instance=ExtResource( 4 )]
 
-[node name="Fall" parent="." instance=ExtResource( 5 )]
+[node name="Fall" parent="StateMachine/SingleJumpFallState" instance=ExtResource( 5 )]
 
-[node name="WalkRight" parent="." instance=ExtResource( 6 )]
-movement_direction = Vector2( 1, 0 )
+[node name="Jump" parent="StateMachine/SingleJumpFallState" instance=ExtResource( 6 )]
+strength = 1200.0
+max_jumps = 1
 
-[node name="WalkLeft" parent="." instance=ExtResource( 6 )]
+[node name="Walk" parent="StateMachine/SingleJumpFallState" instance=ExtResource( 7 )]
+
+[node name="Stop" parent="StateMachine/SingleJumpFallState" instance=ExtResource( 8 )]
+
+[node name="Gravity" parent="StateMachine/SingleJumpFallState" instance=ExtResource( 9 )]
+actor_path = NodePath("../../..")
+
+[node name="DoubleJumpFallState" parent="StateMachine" instance=ExtResource( 4 )]
+
+[node name="Fall" parent="StateMachine/DoubleJumpFallState" instance=ExtResource( 5 )]
+
+[node name="Walk" parent="StateMachine/DoubleJumpFallState" instance=ExtResource( 7 )]
+
+[node name="Stop" parent="StateMachine/DoubleJumpFallState" instance=ExtResource( 8 )]
+
+[node name="Gravity" parent="StateMachine/DoubleJumpFallState" instance=ExtResource( 9 )]
+actor_path = NodePath("../../..")
+
+[node name="IdleState" parent="StateMachine" instance=ExtResource( 4 )]
+
+[node name="Walk" parent="StateMachine/IdleState" instance=ExtResource( 7 )]
 movement_direction = Vector2( -1, 0 )
 
-[node name="Dash" parent="." instance=ExtResource( 7 )]
+[node name="Jump" parent="StateMachine/IdleState" instance=ExtResource( 6 )]
+strength = 1200.0
+max_jumps = 1
+
+[node name="Dash" parent="StateMachine/IdleState" instance=ExtResource( 10 )]
 movement_direction = Vector2( 1, 0 )
-[connection signal="available_jumps_depleted" from="Jump" to="Dash" method="set_air_dash" binds= [ false ]]
-[connection signal="available_jumps_replenished" from="Jump" to="Dash" method="set_air_dash" binds= [ true ]]
-[connection signal="started" from="Jump" to="Fall" method="set_enabled" binds= [ true ]]
-[connection signal="finished" from="Dash" to="Gravity" method="set_enabled" binds= [ true ]]
-[connection signal="started" from="Dash" to="Gravity" method="set_enabled" binds= [ false ]]
+air_dash = false
+
+[node name="WalkState" parent="StateMachine" instance=ExtResource( 4 )]
+
+[node name="Dash" parent="StateMachine/WalkState" instance=ExtResource( 10 )]
+movement_direction = Vector2( 1, 0 )
+air_dash = false
+
+[node name="Stop" parent="StateMachine/WalkState" instance=ExtResource( 8 )]
+
+[node name="Jump" parent="StateMachine/WalkState" instance=ExtResource( 6 )]
+strength = 1200.0
+max_jumps = 1
+
+[node name="Walk" parent="StateMachine/WalkState" instance=ExtResource( 7 )]
+
+[node name="JumpState" parent="StateMachine" instance=ExtResource( 4 )]
+
+[node name="Jump" parent="StateMachine/JumpState" instance=ExtResource( 6 )]
+strength = 1200.0
+max_jumps = 1
+
+[node name="Fall" parent="StateMachine/JumpState" instance=ExtResource( 5 )]
+
+[node name="Stop" parent="StateMachine/JumpState" instance=ExtResource( 8 )]
+
+[node name="Walk" parent="StateMachine/JumpState" instance=ExtResource( 7 )]
+
+[node name="Gravity" parent="StateMachine/JumpState" instance=ExtResource( 9 )]
+actor_path = NodePath("../../..")
+
+[node name="SecondJumpState" parent="StateMachine" instance=ExtResource( 4 )]
+
+[node name="Fall" parent="StateMachine/SecondJumpState" instance=ExtResource( 5 )]
+
+[node name="Stop" parent="StateMachine/SecondJumpState" instance=ExtResource( 8 )]
+
+[node name="Walk" parent="StateMachine/SecondJumpState" instance=ExtResource( 7 )]
+
+[node name="Gravity" parent="StateMachine/SecondJumpState" instance=ExtResource( 9 )]
+
+[node name="DashState" parent="StateMachine" instance=ExtResource( 4 )]
+
+[node name="Stop" parent="StateMachine/DashState" instance=ExtResource( 8 )]
+actor_path = NodePath("../../WalkState")
+[connection signal="finished" from="StateMachine/SingleJumpFallState/Fall" to="StateMachine" method="change_state_to" binds= [ "Idle" ]]
+[connection signal="finished" from="StateMachine/SingleJumpFallState/Jump" to="StateMachine" method="change_state_to" binds= [ "DoubleJumpFall" ]]
+[connection signal="started" from="StateMachine/SingleJumpFallState/Jump" to="StateMachine" method="change_state_to" binds= [ "SecondJump" ]]
+[connection signal="finished" from="StateMachine/DoubleJumpFallState/Fall" to="StateMachine" method="change_state_to" binds= [ "Idle" ]]
+[connection signal="started" from="StateMachine/IdleState/Walk" to="StateMachine" method="change_state_to" binds= [ "Walk" ]]
+[connection signal="started" from="StateMachine/IdleState/Jump" to="StateMachine" method="change_state_to" binds= [ "Jump" ]]
+[connection signal="started" from="StateMachine/IdleState/Dash" to="StateMachine" method="change_state_to" binds= [ "Dash" ]]
+[connection signal="started" from="StateMachine/WalkState/Dash" to="StateMachine" method="change_state_to" binds= [ "Dash" ]]
+[connection signal="started" from="StateMachine/WalkState/Stop" to="StateMachine" method="change_state_to" binds= [ "Idle" ]]
+[connection signal="started" from="StateMachine/WalkState/Jump" to="StateMachine" method="change_state_to" binds= [ "Jump" ]]
+[connection signal="finished" from="StateMachine/JumpState/Jump" to="StateMachine" method="change_state_to" binds= [ "SingleJumpFall" ]]
+[connection signal="started" from="StateMachine/JumpState/Jump" to="StateMachine" method="change_state_to" binds= [ "SecondJump" ]]
+[connection signal="started" from="StateMachine/JumpState/Fall" to="StateMachine" method="change_state_to" binds= [ "SingleJumpFall" ]]
+[connection signal="started" from="StateMachine/SecondJumpState/Fall" to="StateMachine" method="change_state_to" binds= [ "DoubleJumpFall" ]]
+[connection signal="started" from="StateMachine/DashState/Stop" to="StateMachine" method="change_state_to" binds= [ "Idle" ]]

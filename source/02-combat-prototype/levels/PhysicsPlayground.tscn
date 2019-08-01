@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://areas/Ground.tscn" type="PackedScene" id=1]
+[ext_resource path="res://actors/player/PlayerPlatformActor.tscn" type="PackedScene" id=2]
+
+[sub_resource type="LineShape2D" id=1]
+normal = Vector2( 1, 0 )
+
+[sub_resource type="LineShape2D" id=2]
+normal = Vector2( -1, 0 )
+
+[node name="PhysicsPlayground" type="Node2D"]
+
+[node name="Walls" type="StaticBody2D" parent="."]
+editor/display_folded = true
+
+[node name="Left" type="CollisionShape2D" parent="Walls"]
+shape = SubResource( 1 )
+
+[node name="Right" type="CollisionShape2D" parent="Walls"]
+position = Vector2( 1920, 0 )
+shape = SubResource( 2 )
+
+[node name="Floor" type="StaticBody2D" parent="."]
+
+[node name="Ground" parent="Floor" instance=ExtResource( 1 )]
+position = Vector2( 0, 749.25 )
+
+[node name="Label" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
+rect_scale = Vector2( 5, 5 )
+
+[node name="PlayerPlatformActor" parent="." instance=ExtResource( 2 )]
+position = Vector2( 650, 670 )

@@ -15,5 +15,4 @@ func set_movement_direction(new_direction):
 
 
 func cancel():
-	actor.velocity.x = 0.0
 	emit_signal("finished")
