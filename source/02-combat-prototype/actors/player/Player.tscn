@@ -25,10 +25,13 @@ extents = Vector2( 71.9615, 35.9808 )
 [node name="Player" instance=ExtResource( 1 )]
 position = Vector2( 260, 170 )
 
-[node name="Jump" parent="." index="2"]
-strength = 1200.0
+[node name="Dash" parent="StateMachine/IdleState" index="2"]
+movement_direction = Vector2( 1, 0 )
 
-[node name="CombatActions" parent="." index="8"]
+[node name="Dash" parent="StateMachine/WalkState" index="0"]
+movement_direction = Vector2( 1, 0 )
+
+[node name="CombatActions" parent="." index="3"]
 default = NodePath("AttackRight")
 
 [node name="HurtBox" parent="CombatActions/Guard" index="1" groups=[
@@ -165,7 +168,7 @@ actor_path = NodePath("../../..")
 strength = 1500.0
 max_jumps = 1
 
-[node name="ActionBuffer" parent="." index="9" instance=ExtResource( 9 )]
+[node name="ActionBuffer" parent="." index="4" instance=ExtResource( 9 )]
 valid_input_actions = PoolStringArray( "up", "down", "left", "right", "attack", "jump" )
 
 [node name="ActionChainFlyingKickRight" parent="ActionBuffer" index="1" instance=ExtResource( 10 )]
@@ -177,7 +180,7 @@ special_move = ExtResource( 12 )
 [node name="ActionChainUpperCut" parent="ActionBuffer" index="3" instance=ExtResource( 10 )]
 special_move = ExtResource( 13 )
 
-[node name="Controls" type="Node" parent="." index="10"]
+[node name="Controls" type="Node" parent="." index="5"]
 script = ExtResource( 14 )
 
 [node name="LeftAction" parent="Controls" index="0" instance=ExtResource( 15 )]
@@ -209,38 +212,36 @@ action = "down"
 [node name="DashAction" parent="Controls" index="7" instance=ExtResource( 15 )]
 action = "dash"
 command_path = NodePath("../../Dash")
-[connection signal="finished" from="Dash" to="Controls/LeftAction" method="is_holding"]
-[connection signal="finished" from="Dash" to="Controls/RightAction" method="is_holding"]
 [connection signal="finished" from="CombatActions/AttackLeft" to="CombatActions/AttackLeft/HitLag" method="stop"]
 [connection signal="finished" from="CombatActions/AttackLeft" to="CombatActions/AttackLeft/HitBox" method="disable"]
-[connection signal="started" from="CombatActions/AttackLeft" to="CombatActions/AttackLeft/HitBox" method="enable"]
 [connection signal="started" from="CombatActions/AttackLeft" to="CombatActions" method="set_default" binds= [ "AttackLeft" ]]
+[connection signal="started" from="CombatActions/AttackLeft" to="CombatActions/AttackLeft/HitBox" method="enable"]
 [connection signal="landed" from="CombatActions/AttackLeft/HitBox" to="CombatActions/AttackLeft/HitLag" method="start"]
 [connection signal="finished" from="CombatActions/AttackRight" to="CombatActions/AttackRight/HitLag" method="stop"]
 [connection signal="finished" from="CombatActions/AttackRight" to="CombatActions/AttackRight/HitBox" method="disable"]
-[connection signal="started" from="CombatActions/AttackRight" to="CombatActions/AttackRight/HitBox" method="enable"]
 [connection signal="started" from="CombatActions/AttackRight" to="CombatActions" method="set_default" binds= [ "AttackRight" ]]
+[connection signal="started" from="CombatActions/AttackRight" to="CombatActions/AttackRight/HitBox" method="enable"]
 [connection signal="landed" from="CombatActions/AttackRight/HitBox" to="CombatActions/AttackRight/HitLag" method="start"]
-[connection signal="finished" from="CombatActions/AttackUp" to="CombatActions/AttackUp/HitLag" method="stop"]
 [connection signal="finished" from="CombatActions/AttackUp" to="CombatActions/AttackUp/HitBox" method="disable"]
+[connection signal="finished" from="CombatActions/AttackUp" to="CombatActions/AttackUp/HitLag" method="stop"]
 [connection signal="finished" from="CombatActions/AttackUp" to="CombatActions" method="reset_to_default"]
 [connection signal="started" from="CombatActions/AttackUp" to="CombatActions/AttackUp/HitBox" method="enable"]
 [connection signal="landed" from="CombatActions/AttackUp/HitBox" to="CombatActions/AttackUp/HitLag" method="start"]
 [connection signal="finished" from="CombatActions/AttackDown" to="CombatActions/AttackDown/HitLag" method="stop"]
-[connection signal="finished" from="CombatActions/AttackDown" to="CombatActions/AttackDown/HitBox" method="disable"]
 [connection signal="finished" from="CombatActions/AttackDown" to="CombatActions" method="reset_to_default"]
+[connection signal="finished" from="CombatActions/AttackDown" to="CombatActions/AttackDown/HitBox" method="disable"]
 [connection signal="started" from="CombatActions/AttackDown" to="CombatActions/AttackDown/HitBox" method="enable"]
 [connection signal="landed" from="CombatActions/AttackDown/HitBox" to="CombatActions/AttackDown/HitLag" method="start"]
-[connection signal="finished" from="CombatActions/FlyingKickRight" to="CombatActions/FlyingKickRight/Dash" method="cancel"]
-[connection signal="finished" from="CombatActions/FlyingKickRight" to="CombatActions/FlyingKickRight/HitBox" method="disable"]
 [connection signal="finished" from="CombatActions/FlyingKickRight" to="CombatActions/FlyingKickRight/HitLag" method="stop"]
+[connection signal="finished" from="CombatActions/FlyingKickRight" to="CombatActions/FlyingKickRight/HitBox" method="disable"]
+[connection signal="finished" from="CombatActions/FlyingKickRight" to="CombatActions/FlyingKickRight/Dash" method="cancel"]
+[connection signal="started" from="CombatActions/FlyingKickRight" to="CombatActions/FlyingKickRight/HitBox" method="enable"]
 [connection signal="started" from="CombatActions/FlyingKickRight" to="CombatActions/FlyingKickRight/Dash" method="execute"]
 [connection signal="started" from="CombatActions/FlyingKickRight" to="CombatActions/FlyingKickRight/Dash" method="set_air_dash" binds= [ true ]]
-[connection signal="started" from="CombatActions/FlyingKickRight" to="CombatActions/FlyingKickRight/HitBox" method="enable"]
 [connection signal="landed" from="CombatActions/FlyingKickRight/HitBox" to="CombatActions/FlyingKickRight/HitLag" method="start"]
 [connection signal="timeout" from="CombatActions/FlyingKickRight/HitLag" to="CombatActions/FlyingKickRight/HitBox" method="toggle"]
-[connection signal="finished" from="CombatActions/FlyingKickLeft" to="CombatActions/FlyingKickLeft/Dash" method="cancel"]
 [connection signal="finished" from="CombatActions/FlyingKickLeft" to="CombatActions/FlyingKickLeft/HitLag" method="stop"]
+[connection signal="finished" from="CombatActions/FlyingKickLeft" to="CombatActions/FlyingKickLeft/Dash" method="cancel"]
 [connection signal="finished" from="CombatActions/FlyingKickLeft" to="CombatActions/FlyingKickLeft/HitBox" method="disable"]
 [connection signal="started" from="CombatActions/FlyingKickLeft" to="CombatActions/FlyingKickLeft/Dash" method="execute"]
 [connection signal="started" from="CombatActions/FlyingKickLeft" to="CombatActions/FlyingKickLeft/Dash" method="set_air_dash" binds= [ true ]]
@@ -248,29 +249,27 @@ command_path = NodePath("../../Dash")
 [connection signal="landed" from="CombatActions/FlyingKickLeft/HitBox" to="CombatActions/FlyingKickLeft/HitLag" method="start"]
 [connection signal="timeout" from="CombatActions/FlyingKickLeft/HitLag" to="CombatActions/FlyingKickLeft/HitBox" method="toggle"]
 [connection signal="finished" from="CombatActions/UpperCut" to="CombatActions/UpperCut/HitBox" method="disable"]
-[connection signal="finished" from="CombatActions/UpperCut" to="CombatActions/UpperCut/HitLag" method="stop"]
 [connection signal="finished" from="CombatActions/UpperCut" to="CombatActions/UpperCut/Jump" method="cancel"]
+[connection signal="finished" from="CombatActions/UpperCut" to="CombatActions/UpperCut/HitLag" method="stop"]
 [connection signal="started" from="CombatActions/UpperCut" to="CombatActions/UpperCut/HitBox" method="enable"]
 [connection signal="started" from="CombatActions/UpperCut" to="CombatActions/UpperCut/Jump" method="execute"]
 [connection signal="landed" from="CombatActions/UpperCut/HitBox" to="CombatActions/UpperCut/HitLag" method="start"]
 [connection signal="missed" from="CombatActions/UpperCut/HitBox" to="CombatActions" method="cancel"]
 [connection signal="timeout" from="CombatActions/UpperCut/HitLag" to="CombatActions/UpperCut/HitBox" method="toggle"]
-[connection signal="actions_chain_changed" from="ActionBuffer" to="ActionBuffer/ActionChainUpperCut" method="resolve_action_chain"]
 [connection signal="actions_chain_changed" from="ActionBuffer" to="ActionBuffer/ActionChainFlyingKickRight" method="resolve_action_chain"]
 [connection signal="actions_chain_changed" from="ActionBuffer" to="ActionBuffer/ActionChainFlyingKickLeft" method="resolve_action_chain"]
+[connection signal="actions_chain_changed" from="ActionBuffer" to="ActionBuffer/ActionChainUpperCut" method="resolve_action_chain"]
 [connection signal="action_chain_solved" from="ActionBuffer/ActionChainFlyingKickRight" to="CombatActions" method="set_current" binds= [ "FlyingKickRight" ]]
 [connection signal="action_chain_solved" from="ActionBuffer/ActionChainFlyingKickLeft" to="CombatActions" method="set_current" binds= [ "FlyingKickLeft" ]]
 [connection signal="action_chain_solved" from="ActionBuffer/ActionChainUpperCut" to="CombatActions" method="set_current" binds= [ "UpperCut" ]]
 [connection signal="handling" from="Controls/LeftAction" to="CombatActions" method="set_current" binds= [ "AttackLeft" ]]
-[connection signal="pressed" from="Controls/LeftAction" to="Dash" method="set_movement_direction" binds= [ Vector2( -1, 0 ) ]]
-[connection signal="released" from="Controls/LeftAction" to="Controls/UpAction" method="is_holding"]
 [connection signal="released" from="Controls/LeftAction" to="Controls/DownAction" method="is_holding"]
 [connection signal="released" from="Controls/LeftAction" to="Controls/RightAction" method="is_holding"]
+[connection signal="released" from="Controls/LeftAction" to="Controls/UpAction" method="is_holding"]
 [connection signal="handling" from="Controls/RightAction" to="CombatActions" method="set_current" binds= [ "AttackRight" ]]
-[connection signal="pressed" from="Controls/RightAction" to="Dash" method="set_movement_direction" binds= [ Vector2( 1, 0 ) ]]
-[connection signal="released" from="Controls/RightAction" to="Controls/UpAction" method="is_holding"]
 [connection signal="released" from="Controls/RightAction" to="Controls/DownAction" method="is_holding"]
 [connection signal="released" from="Controls/RightAction" to="Controls/LeftAction" method="is_holding"]
+[connection signal="released" from="Controls/RightAction" to="Controls/UpAction" method="is_holding"]
 [connection signal="handling" from="Controls/DefendAction" to="CombatActions" method="set_current" binds= [ "Guard" ]]
 [connection signal="handling" from="Controls/UpAction" to="CombatActions" method="set_current" binds= [ "AttackUp" ]]
 [connection signal="handling" from="Controls/DownAction" to="CombatActions" method="set_current" binds= [ "AttackDown" ]]
