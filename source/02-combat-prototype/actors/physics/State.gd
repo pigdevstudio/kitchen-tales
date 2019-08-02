@@ -11,6 +11,7 @@ func set_active(activate):
 		command.enabled = active
 	if active:
 		emit_signal("entered")
+		print(name + ": entered")
 	else:
 		emit_signal("exited")
 

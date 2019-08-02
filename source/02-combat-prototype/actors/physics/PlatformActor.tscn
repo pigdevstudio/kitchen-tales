@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://actors/physics/PlatformActor.gd" type="Script" id=1]
 [ext_resource path="res://utility/Geometry2D.gd" type="Script" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://actors/physics/Stop.tscn" type="PackedScene" id=8]
 [ext_resource path="res://actors/physics/Gravity.tscn" type="PackedScene" id=9]
 [ext_resource path="res://actors/physics/Dash.tscn" type="PackedScene" id=10]
+[ext_resource path="res://actors/physics/Bump.gd" type="Script" id=11]
+[ext_resource path="res://actors/physics/DistanceStop.gd" type="Script" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 40, 64 )
@@ -41,6 +43,8 @@ max_jumps = 1
 [node name="Gravity" parent="StateMachine/SingleJumpFallState" instance=ExtResource( 9 )]
 actor_path = NodePath("../../..")
 
+[node name="Dash" parent="StateMachine/SingleJumpFallState" instance=ExtResource( 10 )]
+
 [node name="DoubleJumpFallState" parent="StateMachine" instance=ExtResource( 4 )]
 
 [node name="Fall" parent="StateMachine/DoubleJumpFallState" instance=ExtResource( 5 )]
@@ -61,15 +65,14 @@ movement_direction = Vector2( -1, 0 )
 strength = 1200.0
 max_jumps = 1
 
+[node name="Gravity" parent="StateMachine/IdleState" instance=ExtResource( 9 )]
+actor_path = NodePath("../../..")
+
+[node name="Fall" parent="StateMachine/IdleState" instance=ExtResource( 5 )]
+
 [node name="Dash" parent="StateMachine/IdleState" instance=ExtResource( 10 )]
-movement_direction = Vector2( 1, 0 )
-air_dash = false
 
 [node name="WalkState" parent="StateMachine" instance=ExtResource( 4 )]
-
-[node name="Dash" parent="StateMachine/WalkState" instance=ExtResource( 10 )]
-movement_direction = Vector2( 1, 0 )
-air_dash = false
 
 [node name="Stop" parent="StateMachine/WalkState" instance=ExtResource( 8 )]
 
@@ -78,6 +81,13 @@ strength = 1200.0
 max_jumps = 1
 
 [node name="Walk" parent="StateMachine/WalkState" instance=ExtResource( 7 )]
+
+[node name="Gravity" parent="StateMachine/WalkState" instance=ExtResource( 9 )]
+actor_path = NodePath("../../..")
+
+[node name="Fall" parent="StateMachine/WalkState" instance=ExtResource( 5 )]
+
+[node name="Dash" parent="StateMachine/WalkState" instance=ExtResource( 10 )]
 
 [node name="JumpState" parent="StateMachine" instance=ExtResource( 4 )]
 
@@ -94,6 +104,8 @@ max_jumps = 1
 [node name="Gravity" parent="StateMachine/JumpState" instance=ExtResource( 9 )]
 actor_path = NodePath("../../..")
 
+[node name="Dash" parent="StateMachine/JumpState" instance=ExtResource( 10 )]
+
 [node name="SecondJumpState" parent="StateMachine" instance=ExtResource( 4 )]
 
 [node name="Fall" parent="StateMachine/SecondJumpState" instance=ExtResource( 5 )]
@@ -108,18 +120,43 @@ actor_path = NodePath("../../..")
 
 [node name="Stop" parent="StateMachine/DashState" instance=ExtResource( 8 )]
 actor_path = NodePath("../../WalkState")
+
+[node name="Bump" type="Node" parent="StateMachine/DashState"]
+script = ExtResource( 11 )
+
+[node name="DistanceStop" type="Node" parent="StateMachine/DashState"]
+script = ExtResource( 12 )
+
+[node name="DashFallState" parent="StateMachine" instance=ExtResource( 4 )]
+
+[node name="Stop" parent="StateMachine/DashFallState" instance=ExtResource( 8 )]
+actor_path = NodePath("../../WalkState")
+
+[node name="Gravity" parent="StateMachine/DashFallState" instance=ExtResource( 9 )]
+
+[node name="Walk" parent="StateMachine/DashFallState" instance=ExtResource( 7 )]
+speed = 400.0
+
+[node name="Fall" parent="StateMachine/DashFallState" instance=ExtResource( 5 )]
 [connection signal="finished" from="StateMachine/SingleJumpFallState/Fall" to="StateMachine" method="change_state_to" binds= [ "Idle" ]]
 [connection signal="finished" from="StateMachine/SingleJumpFallState/Jump" to="StateMachine" method="change_state_to" binds= [ "DoubleJumpFall" ]]
 [connection signal="started" from="StateMachine/SingleJumpFallState/Jump" to="StateMachine" method="change_state_to" binds= [ "SecondJump" ]]
+[connection signal="started" from="StateMachine/SingleJumpFallState/Dash" to="StateMachine" method="change_state_to" binds= [ "Dash" ]]
 [connection signal="finished" from="StateMachine/DoubleJumpFallState/Fall" to="StateMachine" method="change_state_to" binds= [ "Idle" ]]
 [connection signal="started" from="StateMachine/IdleState/Walk" to="StateMachine" method="change_state_to" binds= [ "Walk" ]]
 [connection signal="started" from="StateMachine/IdleState/Jump" to="StateMachine" method="change_state_to" binds= [ "Jump" ]]
+[connection signal="started" from="StateMachine/IdleState/Fall" to="StateMachine" method="change_state_to" binds= [ "SingleJumpFall" ]]
 [connection signal="started" from="StateMachine/IdleState/Dash" to="StateMachine" method="change_state_to" binds= [ "Dash" ]]
-[connection signal="started" from="StateMachine/WalkState/Dash" to="StateMachine" method="change_state_to" binds= [ "Dash" ]]
 [connection signal="started" from="StateMachine/WalkState/Stop" to="StateMachine" method="change_state_to" binds= [ "Idle" ]]
 [connection signal="started" from="StateMachine/WalkState/Jump" to="StateMachine" method="change_state_to" binds= [ "Jump" ]]
+[connection signal="started" from="StateMachine/WalkState/Fall" to="StateMachine" method="change_state_to" binds= [ "SingleJumpFall" ]]
+[connection signal="started" from="StateMachine/WalkState/Dash" to="StateMachine" method="change_state_to" binds= [ "Dash" ]]
 [connection signal="finished" from="StateMachine/JumpState/Jump" to="StateMachine" method="change_state_to" binds= [ "SingleJumpFall" ]]
 [connection signal="started" from="StateMachine/JumpState/Jump" to="StateMachine" method="change_state_to" binds= [ "SecondJump" ]]
 [connection signal="started" from="StateMachine/JumpState/Fall" to="StateMachine" method="change_state_to" binds= [ "SingleJumpFall" ]]
+[connection signal="started" from="StateMachine/JumpState/Dash" to="StateMachine" method="change_state_to" binds= [ "Dash" ]]
 [connection signal="started" from="StateMachine/SecondJumpState/Fall" to="StateMachine" method="change_state_to" binds= [ "DoubleJumpFall" ]]
-[connection signal="started" from="StateMachine/DashState/Stop" to="StateMachine" method="change_state_to" binds= [ "Idle" ]]
+[connection signal="started" from="StateMachine/DashState/Stop" to="StateMachine" method="change_state_to" binds= [ "DashFall" ]]
+[connection signal="started" from="StateMachine/DashState/Bump" to="StateMachine" method="change_state_to" binds= [ "DashFall" ]]
+[connection signal="started" from="StateMachine/DashState/DistanceStop" to="StateMachine" method="change_state_to" binds= [ "DashFall" ]]
+[connection signal="finished" from="StateMachine/DashFallState/Fall" to="StateMachine" method="change_state_to" binds= [ "Idle" ]]
