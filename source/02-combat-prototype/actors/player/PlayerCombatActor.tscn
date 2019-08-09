@@ -63,6 +63,9 @@ script = ExtResource( 2 )
 [node name="Stop" parent="StateMachine/WalkState/Attack" index="0" instance=ExtResource( 3 )]
 actor_path = NodePath("../../../..")
 
+[node name="JumpState" parent="StateMachine" index="4"]
+editor/display_folded = true
+
 [node name="Jump" parent="StateMachine/JumpState" index="0"]
 actor_path = NodePath("..")
 
@@ -75,11 +78,11 @@ actor_path = NodePath("../../../../PlayerCombatActor")
 [node name="Attack" type="Node" parent="StateMachine/JumpState" index="6"]
 script = ExtResource( 2 )
 
-[node name="SecondJumpState" parent="StateMachine" index="5"]
-editor/display_folded = true
-
 [node name="Gravity" parent="StateMachine/SecondJumpState" index="3"]
 actor_path = NodePath("../../../../PlayerCombatActor/StateMachine/SecondJumpState")
+
+[node name="Attack" type="Node" parent="StateMachine/SecondJumpState" index="4"]
+script = ExtResource( 2 )
 
 [node name="Stop" parent="StateMachine/DashState" index="0"]
 actor_path = NodePath("..")
@@ -271,39 +274,29 @@ color = Color( 1, 0.909804, 0.180392, 0.560784 )
 
 [node name="HitLag" parent="Attacks/DashAttacks/AttackRight" index="3" instance=ExtResource( 12 )]
 actor_path = NodePath("../../../..")
-[connection signal="entered" from="StateMachine/IdleState" to="Controls/LeftAction" method="is_holding"]
 [connection signal="entered" from="StateMachine/IdleState" to="Attacks" method="set_current" binds= [ "IdleAttacks" ]]
-[connection signal="entered" from="StateMachine/IdleState" to="Controls/RightAction" method="is_holding"]
 [connection signal="finished" from="StateMachine/IdleState/Attack" to="Attacks" method="cancel"]
 [connection signal="started" from="StateMachine/IdleState/Attack" to="Attacks" method="execute"]
-[connection signal="entered" from="StateMachine/SingleJumpFallState" to="Controls/LeftAction" method="is_holding"]
 [connection signal="entered" from="StateMachine/SingleJumpFallState" to="Attacks" method="set_current" binds= [ "JumpAttacks" ]]
-[connection signal="entered" from="StateMachine/SingleJumpFallState" to="Controls/RightAction" method="is_holding"]
 [connection signal="finished" from="StateMachine/SingleJumpFallState/Attack" to="Attacks" method="cancel"]
 [connection signal="started" from="StateMachine/SingleJumpFallState/Attack" to="Attacks" method="execute"]
-[connection signal="entered" from="StateMachine/DoubleJumpFallState" to="Controls/LeftAction" method="is_holding"]
-[connection signal="entered" from="StateMachine/DoubleJumpFallState" to="Controls/RightAction" method="is_holding"]
 [connection signal="finished" from="StateMachine/DoubleJumpFallState/Attack" to="Attacks" method="cancel"]
 [connection signal="started" from="StateMachine/DoubleJumpFallState/Attack" to="Attacks" method="execute"]
 [connection signal="entered" from="StateMachine/WalkState" to="Attacks" method="set_current" binds= [ "WalkAttacks" ]]
+[connection signal="finished" from="StateMachine/WalkState/Attack" to="Controls/RightAction" method="is_holding"]
 [connection signal="finished" from="StateMachine/WalkState/Attack" to="Controls/LeftAction" method="is_holding"]
 [connection signal="finished" from="StateMachine/WalkState/Attack" to="Attacks" method="cancel"]
-[connection signal="finished" from="StateMachine/WalkState/Attack" to="Controls/RightAction" method="is_holding"]
 [connection signal="started" from="StateMachine/WalkState/Attack" to="StateMachine/WalkState/Attack/Stop" method="execute"]
 [connection signal="started" from="StateMachine/WalkState/Attack" to="Attacks" method="execute"]
-[connection signal="entered" from="StateMachine/JumpState" to="Controls/LeftAction" method="is_holding"]
 [connection signal="entered" from="StateMachine/JumpState" to="Attacks" method="set_current" binds= [ "JumpAttacks" ]]
-[connection signal="entered" from="StateMachine/JumpState" to="Controls/RightAction" method="is_holding"]
 [connection signal="finished" from="StateMachine/JumpState/Attack" to="Attacks" method="cancel"]
 [connection signal="started" from="StateMachine/JumpState/Attack" to="Attacks" method="execute"]
-[connection signal="entered" from="StateMachine/SecondJumpState" to="Controls/LeftAction" method="is_holding"]
-[connection signal="entered" from="StateMachine/SecondJumpState" to="Controls/RightAction" method="is_holding"]
+[connection signal="finished" from="StateMachine/SecondJumpState/Attack" to="Attacks" method="cancel"]
+[connection signal="started" from="StateMachine/SecondJumpState/Attack" to="Attacks" method="execute"]
 [connection signal="entered" from="StateMachine/DashState" to="Attacks" method="set_current" binds= [ "DashAttacks" ]]
 [connection signal="finished" from="StateMachine/DashState/Attack" to="Attacks" method="cancel"]
 [connection signal="started" from="StateMachine/DashState/Attack" to="Attacks" method="execute"]
-[connection signal="entered" from="StateMachine/DashFallState" to="Controls/LeftAction" method="is_holding"]
 [connection signal="entered" from="StateMachine/DashFallState" to="Attacks" method="set_current" binds= [ "JumpAttacks" ]]
-[connection signal="entered" from="StateMachine/DashFallState" to="Controls/RightAction" method="is_holding"]
 [connection signal="finished" from="StateMachine/DashFallState/Attack" to="Attacks" method="cancel"]
 [connection signal="started" from="StateMachine/DashFallState/Attack" to="Attacks" method="execute"]
 [connection signal="entered" from="StateMachine/DashJumpState" to="Attacks" method="set_current" binds= [ "JumpAttacks" ]]
