@@ -11,17 +11,16 @@ func set_active(activate):
 		command.enabled = active
 	if active:
 		emit_signal("entered")
-		print(name + ": entered")
 	else:
 		emit_signal("exited")
 
 
-func execute_command(command_name):
+func execute(command_name):
 	if has_node(command_name):
 		get_node(command_name).execute()
 
 
-func cancel_command(command_name):
+func cancel(command_name):
 	if has_node(command_name):
 		get_node(command_name).cancel()
 

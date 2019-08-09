@@ -1,4 +1,4 @@
-extends "res://actors/physics/Walk.gd"
+extends "res://actors/physics/Move.gd"
 
 
 func execute():

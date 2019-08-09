@@ -14,7 +14,8 @@ onready var _previous_state = _current_state
 func _ready():
 	for state in get_children():
 		for command in state.get_children():
-			command.actor = actor
+			if command.has_method("set_actor"):
+				command.actor = actor
 	initialize_current_state()
 
 
@@ -32,11 +33,11 @@ func initialize_current_state():
 
 
 func execute(command_name):
-	_current_state.execute_command(command_name)
+	_current_state.execute(command_name)
 
 
 func cancel(command_name):
-	_current_state.cancel_command(command_name)
+	_current_state.cancel(command_name)
 
 
 func set_movement_direction(direction):

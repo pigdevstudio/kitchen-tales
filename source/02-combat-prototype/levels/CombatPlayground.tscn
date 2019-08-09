@@ -1,14 +1,10 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://areas/Ground.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/Spawner.gd" type="Script" id=2]
 [ext_resource path="res://actors/non_player/MovingDummy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://actors/non_player/CombatDummy.tscn" type="PackedScene" id=4]
-[ext_resource path="res://actors/physics/PlatformActor.gd" type="Script" id=5]
-[ext_resource path="res://utility/Geometry2D.gd" type="Script" id=6]
-[ext_resource path="res://actors/combat/Health.gd" type="Script" id=7]
-[ext_resource path="res://actors/player/ActionBuffer.tscn" type="PackedScene" id=8]
-[ext_resource path="res://actors/player/Player.tscn" type="PackedScene" id=9]
+[ext_resource path="res://actors/player/PlayerCombatActor.tscn" type="PackedScene" id=5]
 
 [sub_resource type="LineShape2D" id=1]
 normal = Vector2( 1, 0 )
@@ -36,13 +32,6 @@ func set_text(new_text):
 	text = final_text
 "
 
-[sub_resource type="GDScript" id=8]
-script/source = "extends Label
-
-func set_text(new_text):
-	text = str(new_text)
-"
-
 [node name="CombatPlayground" type="Node2D"]
 
 [node name="Walls" type="StaticBody2D" parent="."]
@@ -59,6 +48,7 @@ shape = SubResource( 2 )
 
 [node name="Ground" parent="Floor" instance=ExtResource( 1 )]
 position = Vector2( 0, 749.25 )
+color = Color( 1, 1, 1, 1 )
 
 [node name="Control" type="Control" parent="."]
 editor/display_folded = true
@@ -99,43 +89,17 @@ one_shot = true
 [node name="CombatDummy" parent="." instance=ExtResource( 4 )]
 editor/display_folded = true
 position = Vector2( 1056, 628.876 )
-collision_layer = 2
-script = ExtResource( 5 )
 
 [node name="CollisionShape2D" parent="CombatDummy" index="0"]
-position = Vector2( 0, -64 )
 shape = SubResource( 3 )
-script = ExtResource( 6 )
 
-[node name="IdleState" parent="CombatDummy/StateMachine" index="2"]
+[node name="IdleState" parent="CombatDummy/StateMachine" index="0"]
 editor/display_folded = true
-
-[node name="Jump" parent="CombatDummy/StateMachine/IdleState" index="1"]
-max_jumps = 1
-
-[node name="Dash" parent="CombatDummy/StateMachine/IdleState" index="2"]
-movement_direction = Vector2( 1, 0 )
-
-[node name="Dash" parent="CombatDummy/StateMachine/WalkState" index="0"]
-movement_direction = Vector2( 1, 0 )
-
-[node name="Jump" parent="CombatDummy/StateMachine/JumpState" index="0"]
-max_jumps = 1
 
 [node name="SecondJumpState" parent="CombatDummy/StateMachine" index="5"]
 editor/display_folded = true
 
-[node name="Jump" parent="CombatDummy" index="2"]
-strength = 1000.0
-
-[node name="WalkRight" parent="CombatDummy" index="4"]
-enabled = false
-
-[node name="WalkLeft" parent="CombatDummy" index="5"]
-enabled = false
-
-[node name="Health" parent="CombatDummy" index="7"]
-script = ExtResource( 7 )
+[node name="Health" parent="CombatDummy" index="2"]
 max_health = 100
 
 [node name="Geometry2D" parent="CombatDummy/CombatActions/Guard/HurtBox" index="0"]
@@ -170,31 +134,15 @@ rect_scale = Vector2( 4, 4 )
 text = "Combo: 0"
 script = SubResource( 7 )
 
-[node name="Label" type="Label" parent="."]
-margin_top = 150.0
-margin_right = 61.0
-margin_bottom = 164.0
-rect_scale = Vector2( 4, 4 )
-text = "Action Chain"
-script = SubResource( 8 )
-
-[node name="ActionBuffer" parent="Label" instance=ExtResource( 8 )]
-valid_input_actions = PoolStringArray( "up", "down", "left", "right", "attack", "jump", "dash" )
-
-[node name="Player" parent="." instance=ExtResource( 9 )]
-collision_layer = 2
-script = ExtResource( 5 )
+[node name="PlayerCombatActor" parent="." instance=ExtResource( 5 )]
+position = Vector2( 170, 600 )
+collision_layer = 0
 [connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="LeftMovingDummySpawner" method="spawn"]
 [connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="RightMovingDummySpawner/Timer" method="start"]
-[connection signal="timeout" from="RightMovingDummySpawner/Timer" to="RightMovingDummySpawner" method="spawn"]
 [connection signal="timeout" from="RightMovingDummySpawner/Timer" to="LeftMovingDummySpawner/Timer" method="start"]
-[connection signal="ready" from="CombatDummy" to="CombatDummy/Dash" method="set_physics_process" binds= [ false ]]
+[connection signal="timeout" from="RightMovingDummySpawner/Timer" to="RightMovingDummySpawner" method="spawn"]
 [connection signal="tree_exited" from="CombatDummy" to="RightMovingDummySpawner/Timer" method="start"]
-[connection signal="finished" from="CombatDummy/StateMachine/JumpState/Jump" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "SingleJumpFall" ]]
-[connection signal="started" from="CombatDummy/StateMachine/JumpState/Jump" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "SecondJump" ]]
 [connection signal="finished" from="CombatDummy/StateMachine/SecondJumpState/Fall" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "Idle" ]]
 [connection signal="changed" from="CombatDummy/Health" to="CombatDummy/HealthBar" method="set_value"]
-[connection signal="damage_inflicted" from="CombatDummy/CombatActions/Guard/HurtBox" to="CombatDummy/Health" method="damage"]
-[connection signal="actions_chain_changed" from="Label/ActionBuffer" to="Label" method="set_text"]
 
 [editable path="CombatDummy"]

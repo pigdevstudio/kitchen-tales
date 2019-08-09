@@ -4,3 +4,5 @@
 
 [node name="Jump" type="Node"]
 script = ExtResource( 1 )
+strength = 1200.0
+max_jumps = 1

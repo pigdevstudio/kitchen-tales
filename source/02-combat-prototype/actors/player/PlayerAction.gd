@@ -1,7 +1,7 @@
 extends Node
 
 """
-Manages and signalize Action input events to a Command
+Manages and signalize Action input events.
 """
 
 signal pressed
@@ -9,23 +9,6 @@ signal released
 signal handling
 
 export (String) var action = ""
-export (NodePath) var command_path = ""
-onready var command = get_node(command_path)
-
-func _ready():
-	connect_to_command()
-
-
-func connect_to_command():
-	if not command:
-		return
-	if command.has_method("execute"):
-		connect("pressed", command, "execute")
-		connect("released", command, "cancel")
-	elif command.has_method("execute"):
-		connect("pressed", command, "execute")
-		connect("released", command, "stop")
-
 
 func _unhandled_input(event):
 	if not event.is_action_type():
@@ -39,19 +22,10 @@ func _unhandled_input(event):
 
 func handle_input(event):
 	emit_signal("handling")
-	if event is InputEventJoypadMotion:
-		if event.get_action_strength(action) > 0.3:
-			emit_signal("pressed")
-		elif event.get_action_strength(action) < 0.3:
-			emit_signal("released")
+	if event.is_pressed():
+		emit_signal("pressed")
 	else:
-		if event.is_pressed():
-			emit_signal("pressed")
-	#		get_tree().set_input_as_handled()
-		else:
-			emit_signal("released")
-	#		get_tree().set_input_as_handled()
-			
+		emit_signal("released")
 
 
 func is_holding():
