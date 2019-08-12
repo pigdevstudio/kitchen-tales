@@ -1,17 +1,15 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://actors/player/PlayerPlatformActor.tscn" type="PackedScene" id=1]
-[ext_resource path="res://actors/Command.gd" type="Script" id=2]
-[ext_resource path="res://actors/physics/Stop.tscn" type="PackedScene" id=3]
-[ext_resource path="res://actors/player/PlayerAction.tscn" type="PackedScene" id=4]
-[ext_resource path="res://actors/player/ActionBuffer.tscn" type="PackedScene" id=5]
-[ext_resource path="res://actors/player/CharacterAttacksContainer.gd" type="Script" id=6]
-[ext_resource path="res://actors/combat/AttackContainer.gd" type="Script" id=7]
-[ext_resource path="res://actors/combat/Attack.tscn" type="PackedScene" id=8]
-[ext_resource path="res://actors/combat/HitBox.tscn" type="PackedScene" id=9]
-[ext_resource path="res://actors/player/PlayerHit.tres" type="Resource" id=10]
-[ext_resource path="res://utility/Geometry2D.gd" type="Script" id=11]
-[ext_resource path="res://actors/combat/HitLag.tscn" type="PackedScene" id=12]
+[ext_resource path="res://actors/player/PlayerAction.tscn" type="PackedScene" id=2]
+[ext_resource path="res://actors/player/ActionBuffer.tscn" type="PackedScene" id=3]
+[ext_resource path="res://actors/combat/CombatStateMachine.gd" type="Script" id=4]
+[ext_resource path="res://actors/physics/State.gd" type="Script" id=5]
+[ext_resource path="res://actors/combat/Attack.tscn" type="PackedScene" id=6]
+[ext_resource path="res://actors/combat/HitBox.tscn" type="PackedScene" id=7]
+[ext_resource path="res://actors/player/PlayerHit.tres" type="Resource" id=8]
+[ext_resource path="res://utility/Geometry2D.gd" type="Script" id=9]
+[ext_resource path="res://actors/combat/HitLag.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 40, 40 )
@@ -19,6 +17,7 @@ extents = Vector2( 40, 40 )
 [node name="PlayerCombatActor" instance=ExtResource( 1 )]
 
 [node name="StateMachine" parent="." index="1"]
+editor/display_folded = true
 actor_path = NodePath("..")
 
 [node name="IdleState" parent="StateMachine" index="0"]
@@ -30,17 +29,11 @@ actor_path = NodePath("..")
 [node name="Gravity" parent="StateMachine/IdleState" index="2"]
 actor_path = NodePath("../../../../PlayerCombatActor")
 
-[node name="Attack" type="Node" parent="StateMachine/IdleState" index="5"]
-script = ExtResource( 2 )
-
 [node name="SingleJumpFallState" parent="StateMachine" index="1"]
 editor/display_folded = true
 
 [node name="Gravity" parent="StateMachine/SingleJumpFallState" index="4"]
 actor_path = NodePath("../../../../PlayerCombatActor")
-
-[node name="Attack" type="Node" parent="StateMachine/SingleJumpFallState" index="6"]
-script = ExtResource( 2 )
 
 [node name="DoubleJumpFallState" parent="StateMachine" index="2"]
 editor/display_folded = true
@@ -48,20 +41,11 @@ editor/display_folded = true
 [node name="Gravity" parent="StateMachine/DoubleJumpFallState" index="3"]
 actor_path = NodePath("../../../../PlayerCombatActor")
 
-[node name="Attack" type="Node" parent="StateMachine/DoubleJumpFallState" index="4"]
-script = ExtResource( 2 )
-
 [node name="WalkState" parent="StateMachine" index="3"]
 editor/display_folded = true
 
 [node name="Gravity" parent="StateMachine/WalkState" index="3"]
 actor_path = NodePath("../../../../PlayerCombatActor")
-
-[node name="Attack" type="Node" parent="StateMachine/WalkState" index="6"]
-script = ExtResource( 2 )
-
-[node name="Stop" parent="StateMachine/WalkState/Attack" index="0" instance=ExtResource( 3 )]
-actor_path = NodePath("../../../..")
 
 [node name="JumpState" parent="StateMachine" index="4"]
 editor/display_folded = true
@@ -75,20 +59,20 @@ actor_path = NodePath("..")
 [node name="Gravity" parent="StateMachine/JumpState" index="4"]
 actor_path = NodePath("../../../../PlayerCombatActor")
 
-[node name="Attack" type="Node" parent="StateMachine/JumpState" index="6"]
-script = ExtResource( 2 )
+[node name="SecondJumpState" parent="StateMachine" index="5"]
+editor/display_folded = true
 
 [node name="Gravity" parent="StateMachine/SecondJumpState" index="3"]
 actor_path = NodePath("../../../../PlayerCombatActor/StateMachine/SecondJumpState")
 
-[node name="Attack" type="Node" parent="StateMachine/SecondJumpState" index="4"]
-script = ExtResource( 2 )
+[node name="DashState" parent="StateMachine" index="6"]
+editor/display_folded = true
 
 [node name="Stop" parent="StateMachine/DashState" index="0"]
 actor_path = NodePath("..")
 
-[node name="Attack" type="Node" parent="StateMachine/DashState" index="4"]
-script = ExtResource( 2 )
+[node name="DashFallState" parent="StateMachine" index="7"]
+editor/display_folded = true
 
 [node name="Stop" parent="StateMachine/DashFallState" index="0"]
 actor_path = NodePath("..")
@@ -96,8 +80,8 @@ actor_path = NodePath("..")
 [node name="Gravity" parent="StateMachine/DashFallState" index="1"]
 actor_path = NodePath("../../../../PlayerCombatActor/StateMachine/DashFallState")
 
-[node name="Attack" type="Node" parent="StateMachine/DashFallState" index="4"]
-script = ExtResource( 2 )
+[node name="DashJumpState" parent="StateMachine" index="8"]
+editor/display_folded = true
 
 [node name="Fall" parent="StateMachine/DashJumpState" index="0"]
 actor_path = NodePath("..")
@@ -111,8 +95,8 @@ actor_path = NodePath("..")
 [node name="Gravity" parent="StateMachine/DashJumpState" index="3"]
 actor_path = NodePath("../../../../PlayerCombatActor")
 
-[node name="Attack" type="Node" parent="StateMachine/DashJumpState" index="4"]
-script = ExtResource( 2 )
+[node name="DashJumpFallState" parent="StateMachine" index="9"]
+editor/display_folded = true
 
 [node name="Stop" parent="StateMachine/DashJumpFallState" index="0"]
 actor_path = NodePath("..")
@@ -123,213 +107,135 @@ actor_path = NodePath("..")
 [node name="Fall" parent="StateMachine/DashJumpFallState" index="3"]
 actor_path = NodePath("..")
 
-[node name="Attack" type="Node" parent="StateMachine/DashJumpFallState" index="4"]
-script = ExtResource( 2 )
-
-[node name="Controls" parent="." index="2"]
-editor/display_folded = true
-
-[node name="AttackAction" parent="Controls" index="6" instance=ExtResource( 4 )]
+[node name="AttackAction" parent="Controls" index="6" instance=ExtResource( 2 )]
 action = "attack"
 
-[node name="DefendAction" parent="Controls" index="7" instance=ExtResource( 4 )]
+[node name="DefendAction" parent="Controls" index="7" instance=ExtResource( 2 )]
 action = "defend"
 
-[node name="ActionBuffer" parent="Controls" index="8" instance=ExtResource( 5 )]
+[node name="ActionBuffer" parent="Controls" index="8" instance=ExtResource( 3 )]
 
-[node name="Attacks" type="Node2D" parent="." index="3"]
-script = ExtResource( 6 )
-default_attack_path = NodePath("IdleAttacks")
+[node name="CombatStateMachine" type="Node2D" parent="." index="3"]
+script = ExtResource( 4 )
 
-[node name="IdleAttacks" type="Node2D" parent="Attacks" index="0"]
+[node name="IdleState" type="Node2D" parent="CombatStateMachine" index="0"]
+script = ExtResource( 5 )
+
+[node name="AttackRight" parent="CombatStateMachine/IdleState" index="0" instance=ExtResource( 6 )]
 editor/display_folded = true
-script = ExtResource( 7 )
-default_attack_path = NodePath("AttackRight")
-
-[node name="AttackRight" parent="Attacks/IdleAttacks" index="0" instance=ExtResource( 8 )]
 position = Vector2( 110, -64 )
 
-[node name="HitBox" parent="Attacks/IdleAttacks/AttackRight" index="2" instance=ExtResource( 9 )]
-hit = ExtResource( 10 )
+[node name="HitBox" parent="CombatStateMachine/IdleState/AttackRight" index="2" instance=ExtResource( 7 )]
+hit = ExtResource( 8 )
 
-[node name="Geometry2D" type="CollisionShape2D" parent="Attacks/IdleAttacks/AttackRight/HitBox" index="0"]
+[node name="Geometry2D" type="CollisionShape2D" parent="CombatStateMachine/IdleState/AttackRight/HitBox" index="0"]
 shape = SubResource( 1 )
-script = ExtResource( 11 )
+script = ExtResource( 9 )
 color = Color( 0.180392, 0.384314, 1, 0.560784 )
 
-[node name="HitLag" parent="Attacks/IdleAttacks/AttackRight" index="3" instance=ExtResource( 12 )]
+[node name="HitLag" parent="CombatStateMachine/IdleState/AttackRight" index="3" instance=ExtResource( 10 )]
 actor_path = NodePath("../../../..")
 
-[node name="AttackLeft" parent="Attacks/IdleAttacks" index="1" instance=ExtResource( 8 )]
+[node name="AttackLeft" parent="CombatStateMachine/IdleState" index="1" instance=ExtResource( 6 )]
+editor/display_folded = true
 position = Vector2( -110, -64 )
 
-[node name="HitBox" parent="Attacks/IdleAttacks/AttackLeft" index="2" instance=ExtResource( 9 )]
-hit = ExtResource( 10 )
+[node name="HitBox" parent="CombatStateMachine/IdleState/AttackLeft" index="2" instance=ExtResource( 7 )]
+hit = ExtResource( 8 )
 
-[node name="Geometry2D" type="CollisionShape2D" parent="Attacks/IdleAttacks/AttackLeft/HitBox" index="0"]
+[node name="Geometry2D" type="CollisionShape2D" parent="CombatStateMachine/IdleState/AttackLeft/HitBox" index="0"]
 shape = SubResource( 1 )
-script = ExtResource( 11 )
+script = ExtResource( 9 )
 color = Color( 0.180392, 0.384314, 1, 0.560784 )
 
-[node name="HitLag" parent="Attacks/IdleAttacks/AttackLeft" index="3" instance=ExtResource( 12 )]
+[node name="HitLag" parent="CombatStateMachine/IdleState/AttackLeft" index="3" instance=ExtResource( 10 )]
 actor_path = NodePath("../../../..")
 
-[node name="WalkAttacks" type="Node2D" parent="Attacks" index="1"]
+[node name="WalkState" type="Node2D" parent="CombatStateMachine" index="1"]
 editor/display_folded = true
-script = ExtResource( 7 )
-default_attack_path = NodePath("../WalkAttacks/AttackRight")
+script = ExtResource( 5 )
 
-[node name="AttackRight" parent="Attacks/WalkAttacks" index="0" instance=ExtResource( 8 )]
+[node name="AttackRight" parent="CombatStateMachine/WalkState" index="0" instance=ExtResource( 6 )]
+editor/display_folded = true
 position = Vector2( 110, -64 )
 
-[node name="HitBox" parent="Attacks/WalkAttacks/AttackRight" index="2" instance=ExtResource( 9 )]
-hit = ExtResource( 10 )
+[node name="HitBox" parent="CombatStateMachine/WalkState/AttackRight" index="2" instance=ExtResource( 7 )]
+hit = ExtResource( 8 )
 
-[node name="Geometry2D" type="CollisionShape2D" parent="Attacks/WalkAttacks/AttackRight/HitBox" index="0"]
+[node name="Geometry2D" type="CollisionShape2D" parent="CombatStateMachine/WalkState/AttackRight/HitBox" index="0"]
 shape = SubResource( 1 )
-script = ExtResource( 11 )
+script = ExtResource( 9 )
 color = Color( 1, 0.180392, 0.756863, 0.560784 )
 
-[node name="HitLag" parent="Attacks/WalkAttacks/AttackRight" index="3" instance=ExtResource( 12 )]
+[node name="HitLag" parent="CombatStateMachine/WalkState/AttackRight" index="3" instance=ExtResource( 10 )]
 actor_path = NodePath("../../../..")
 
-[node name="AttackLeft" parent="Attacks/WalkAttacks" index="1" instance=ExtResource( 8 )]
+[node name="AttackLeft" parent="CombatStateMachine/WalkState" index="1" instance=ExtResource( 6 )]
+editor/display_folded = true
 position = Vector2( -110, -64 )
 
-[node name="HitBox" parent="Attacks/WalkAttacks/AttackLeft" index="2" instance=ExtResource( 9 )]
-hit = ExtResource( 10 )
+[node name="HitBox" parent="CombatStateMachine/WalkState/AttackLeft" index="2" instance=ExtResource( 7 )]
+hit = ExtResource( 8 )
 
-[node name="Geometry2D" type="CollisionShape2D" parent="Attacks/WalkAttacks/AttackLeft/HitBox" index="0"]
+[node name="Geometry2D" type="CollisionShape2D" parent="CombatStateMachine/WalkState/AttackLeft/HitBox" index="0"]
 shape = SubResource( 1 )
-script = ExtResource( 11 )
+script = ExtResource( 9 )
 color = Color( 1, 0.180392, 0.756863, 0.560784 )
 
-[node name="HitLag" parent="Attacks/WalkAttacks/AttackLeft" index="3" instance=ExtResource( 12 )]
+[node name="HitLag" parent="CombatStateMachine/WalkState/AttackLeft" index="3" instance=ExtResource( 10 )]
 actor_path = NodePath("../../../..")
 
-[node name="JumpAttacks" type="Node2D" parent="Attacks" index="2"]
+[node name="JumpState" type="Node2D" parent="CombatStateMachine" index="2"]
 editor/display_folded = true
-script = ExtResource( 7 )
-default_attack_path = NodePath("../JumpAttacks/AttackRight")
+script = ExtResource( 5 )
 
-[node name="AttackLeft" parent="Attacks/JumpAttacks" index="0" instance=ExtResource( 8 )]
+[node name="AttackLeft" parent="CombatStateMachine/JumpState" index="0" instance=ExtResource( 6 )]
 editor/display_folded = true
 position = Vector2( -110, -64 )
 
-[node name="HitBox" parent="Attacks/JumpAttacks/AttackLeft" index="2" instance=ExtResource( 9 )]
-hit = ExtResource( 10 )
+[node name="HitBox" parent="CombatStateMachine/JumpState/AttackLeft" index="2" instance=ExtResource( 7 )]
+hit = ExtResource( 8 )
 
-[node name="Geometry2D" type="CollisionShape2D" parent="Attacks/JumpAttacks/AttackLeft/HitBox" index="0"]
+[node name="Geometry2D" type="CollisionShape2D" parent="CombatStateMachine/JumpState/AttackLeft/HitBox" index="0"]
 shape = SubResource( 1 )
-script = ExtResource( 11 )
+script = ExtResource( 9 )
 color = Color( 0.207843, 1, 0.180392, 0.560784 )
 
-[node name="HitLag" parent="Attacks/JumpAttacks/AttackLeft" index="3" instance=ExtResource( 12 )]
+[node name="HitLag" parent="CombatStateMachine/JumpState/AttackLeft" index="3" instance=ExtResource( 10 )]
 actor_path = NodePath("../../../..")
 
-[node name="AttackRight" parent="Attacks/JumpAttacks" index="1" instance=ExtResource( 8 )]
+[node name="AttackRight" parent="CombatStateMachine/JumpState" index="1" instance=ExtResource( 6 )]
 editor/display_folded = true
 position = Vector2( 110, -64 )
 
-[node name="HitBox" parent="Attacks/JumpAttacks/AttackRight" index="2" instance=ExtResource( 9 )]
-hit = ExtResource( 10 )
+[node name="HitBox" parent="CombatStateMachine/JumpState/AttackRight" index="2" instance=ExtResource( 7 )]
+hit = ExtResource( 8 )
 
-[node name="Geometry2D" type="CollisionShape2D" parent="Attacks/JumpAttacks/AttackRight/HitBox" index="0"]
+[node name="Geometry2D" type="CollisionShape2D" parent="CombatStateMachine/JumpState/AttackRight/HitBox" index="0"]
 shape = SubResource( 1 )
-script = ExtResource( 11 )
+script = ExtResource( 9 )
 color = Color( 0.207843, 1, 0.180392, 0.560784 )
 
-[node name="HitLag" parent="Attacks/JumpAttacks/AttackRight" index="3" instance=ExtResource( 12 )]
+[node name="HitLag" parent="CombatStateMachine/JumpState/AttackRight" index="3" instance=ExtResource( 10 )]
 actor_path = NodePath("../../../..")
-
-[node name="DashAttacks" type="Node2D" parent="Attacks" index="3"]
-editor/display_folded = true
-script = ExtResource( 7 )
-default_attack_path = NodePath("../JumpAttacks/AttackRight")
-
-[node name="AttackLeft" parent="Attacks/DashAttacks" index="0" instance=ExtResource( 8 )]
-position = Vector2( -110, -64 )
-
-[node name="HitBox" parent="Attacks/DashAttacks/AttackLeft" index="2" instance=ExtResource( 9 )]
-hit = ExtResource( 10 )
-
-[node name="Geometry2D" type="CollisionShape2D" parent="Attacks/DashAttacks/AttackLeft/HitBox" index="0"]
-shape = SubResource( 1 )
-script = ExtResource( 11 )
-color = Color( 1, 0.909804, 0.180392, 0.560784 )
-
-[node name="HitLag" parent="Attacks/DashAttacks/AttackLeft" index="3" instance=ExtResource( 12 )]
-actor_path = NodePath("../../../..")
-
-[node name="AttackRight" parent="Attacks/DashAttacks" index="1" instance=ExtResource( 8 )]
-position = Vector2( 110, -64 )
-
-[node name="HitBox" parent="Attacks/DashAttacks/AttackRight" index="2" instance=ExtResource( 9 )]
-hit = ExtResource( 10 )
-
-[node name="Geometry2D" type="CollisionShape2D" parent="Attacks/DashAttacks/AttackRight/HitBox" index="0"]
-shape = SubResource( 1 )
-script = ExtResource( 11 )
-color = Color( 1, 0.909804, 0.180392, 0.560784 )
-
-[node name="HitLag" parent="Attacks/DashAttacks/AttackRight" index="3" instance=ExtResource( 12 )]
-actor_path = NodePath("../../../..")
-[connection signal="entered" from="StateMachine/IdleState" to="Attacks" method="set_current" binds= [ "IdleAttacks" ]]
-[connection signal="finished" from="StateMachine/IdleState/Attack" to="Attacks" method="cancel"]
-[connection signal="started" from="StateMachine/IdleState/Attack" to="Attacks" method="execute"]
-[connection signal="entered" from="StateMachine/SingleJumpFallState" to="Attacks" method="set_current" binds= [ "JumpAttacks" ]]
-[connection signal="finished" from="StateMachine/SingleJumpFallState/Attack" to="Attacks" method="cancel"]
-[connection signal="started" from="StateMachine/SingleJumpFallState/Attack" to="Attacks" method="execute"]
-[connection signal="finished" from="StateMachine/DoubleJumpFallState/Attack" to="Attacks" method="cancel"]
-[connection signal="started" from="StateMachine/DoubleJumpFallState/Attack" to="Attacks" method="execute"]
-[connection signal="entered" from="StateMachine/WalkState" to="Attacks" method="set_current" binds= [ "WalkAttacks" ]]
-[connection signal="finished" from="StateMachine/WalkState/Attack" to="Controls/RightAction" method="is_holding"]
-[connection signal="finished" from="StateMachine/WalkState/Attack" to="Controls/LeftAction" method="is_holding"]
-[connection signal="finished" from="StateMachine/WalkState/Attack" to="Attacks" method="cancel"]
-[connection signal="started" from="StateMachine/WalkState/Attack" to="StateMachine/WalkState/Attack/Stop" method="execute"]
-[connection signal="started" from="StateMachine/WalkState/Attack" to="Attacks" method="execute"]
-[connection signal="entered" from="StateMachine/JumpState" to="Attacks" method="set_current" binds= [ "JumpAttacks" ]]
-[connection signal="finished" from="StateMachine/JumpState/Attack" to="Attacks" method="cancel"]
-[connection signal="started" from="StateMachine/JumpState/Attack" to="Attacks" method="execute"]
-[connection signal="finished" from="StateMachine/SecondJumpState/Attack" to="Attacks" method="cancel"]
-[connection signal="started" from="StateMachine/SecondJumpState/Attack" to="Attacks" method="execute"]
-[connection signal="entered" from="StateMachine/DashState" to="Attacks" method="set_current" binds= [ "DashAttacks" ]]
-[connection signal="finished" from="StateMachine/DashState/Attack" to="Attacks" method="cancel"]
-[connection signal="started" from="StateMachine/DashState/Attack" to="Attacks" method="execute"]
-[connection signal="entered" from="StateMachine/DashFallState" to="Attacks" method="set_current" binds= [ "JumpAttacks" ]]
-[connection signal="finished" from="StateMachine/DashFallState/Attack" to="Attacks" method="cancel"]
-[connection signal="started" from="StateMachine/DashFallState/Attack" to="Attacks" method="execute"]
-[connection signal="entered" from="StateMachine/DashJumpState" to="Attacks" method="set_current" binds= [ "JumpAttacks" ]]
-[connection signal="finished" from="StateMachine/DashJumpState/Attack" to="Attacks" method="cancel"]
-[connection signal="started" from="StateMachine/DashJumpState/Attack" to="Attacks" method="execute"]
-[connection signal="entered" from="StateMachine/DashJumpFallState" to="Attacks" method="set_current" binds= [ "JumpAttacks" ]]
-[connection signal="finished" from="StateMachine/DashJumpFallState/Attack" to="Attacks" method="cancel"]
-[connection signal="started" from="StateMachine/DashJumpFallState/Attack" to="Attacks" method="execute"]
-[connection signal="pressed" from="Controls/LeftAction" to="Attacks" method="set_attack_direction" binds= [ Vector2( -1, 0 ) ]]
-[connection signal="pressed" from="Controls/RightAction" to="Attacks" method="set_attack_direction" binds= [ Vector2( 1, 0 ) ]]
-[connection signal="pressed" from="Controls/AttackAction" to="StateMachine" method="execute" binds= [ "Attack" ]]
-[connection signal="released" from="Controls/AttackAction" to="StateMachine" method="cancel" binds= [ "Attack" ]]
-[connection signal="finished" from="Attacks/IdleAttacks/AttackRight" to="Attacks/IdleAttacks/AttackRight/HitBox" method="disable"]
-[connection signal="started" from="Attacks/IdleAttacks/AttackRight" to="Attacks/IdleAttacks/AttackRight/HitBox" method="enable"]
-[connection signal="landed" from="Attacks/IdleAttacks/AttackRight/HitBox" to="Attacks/IdleAttacks/AttackRight/HitLag" method="start"]
-[connection signal="finished" from="Attacks/IdleAttacks/AttackLeft" to="Attacks/IdleAttacks/AttackLeft/HitBox" method="disable"]
-[connection signal="started" from="Attacks/IdleAttacks/AttackLeft" to="Attacks/IdleAttacks/AttackLeft/HitBox" method="enable"]
-[connection signal="landed" from="Attacks/IdleAttacks/AttackLeft/HitBox" to="Attacks/IdleAttacks/AttackLeft/HitLag" method="start"]
-[connection signal="finished" from="Attacks/WalkAttacks/AttackRight" to="Attacks/WalkAttacks/AttackRight/HitBox" method="disable"]
-[connection signal="started" from="Attacks/WalkAttacks/AttackRight" to="Attacks/WalkAttacks/AttackRight/HitBox" method="enable"]
-[connection signal="landed" from="Attacks/WalkAttacks/AttackRight/HitBox" to="Attacks/WalkAttacks/AttackRight/HitLag" method="start"]
-[connection signal="finished" from="Attacks/WalkAttacks/AttackLeft" to="Attacks/WalkAttacks/AttackLeft/HitBox" method="disable"]
-[connection signal="started" from="Attacks/WalkAttacks/AttackLeft" to="Attacks/WalkAttacks/AttackLeft/HitBox" method="enable"]
-[connection signal="landed" from="Attacks/WalkAttacks/AttackLeft/HitBox" to="Attacks/WalkAttacks/AttackLeft/HitLag" method="start"]
-[connection signal="finished" from="Attacks/JumpAttacks/AttackLeft" to="Attacks/JumpAttacks/AttackLeft/HitBox" method="disable"]
-[connection signal="started" from="Attacks/JumpAttacks/AttackLeft" to="Attacks/JumpAttacks/AttackLeft/HitBox" method="enable"]
-[connection signal="landed" from="Attacks/JumpAttacks/AttackLeft/HitBox" to="Attacks/JumpAttacks/AttackLeft/HitLag" method="start"]
-[connection signal="finished" from="Attacks/JumpAttacks/AttackRight" to="Attacks/JumpAttacks/AttackRight/HitBox" method="disable"]
-[connection signal="started" from="Attacks/JumpAttacks/AttackRight" to="Attacks/JumpAttacks/AttackRight/HitBox" method="enable"]
-[connection signal="landed" from="Attacks/JumpAttacks/AttackRight/HitBox" to="Attacks/JumpAttacks/AttackRight/HitLag" method="start"]
-[connection signal="finished" from="Attacks/DashAttacks/AttackLeft" to="Attacks/DashAttacks/AttackLeft/HitBox" method="disable"]
-[connection signal="started" from="Attacks/DashAttacks/AttackLeft" to="Attacks/DashAttacks/AttackLeft/HitBox" method="enable"]
-[connection signal="landed" from="Attacks/DashAttacks/AttackLeft/HitBox" to="Attacks/DashAttacks/AttackLeft/HitLag" method="start"]
-[connection signal="finished" from="Attacks/DashAttacks/AttackRight" to="Attacks/DashAttacks/AttackRight/HitBox" method="disable"]
-[connection signal="started" from="Attacks/DashAttacks/AttackRight" to="Attacks/DashAttacks/AttackRight/HitBox" method="enable"]
-[connection signal="landed" from="Attacks/DashAttacks/AttackRight/HitBox" to="Attacks/DashAttacks/AttackRight/HitLag" method="start"]
+[connection signal="state_changed" from="StateMachine" to="CombatStateMachine" method="change_state_to"]
+[connection signal="pressed" from="Controls/AttackAction" to="CombatStateMachine" method="execute" binds= [ "Attack" ]]
+[connection signal="released" from="Controls/AttackAction" to="CombatStateMachine" method="cancel" binds= [ "Attack" ]]
+[connection signal="finished" from="CombatStateMachine/IdleState/AttackRight" to="CombatStateMachine/IdleState/AttackRight/HitBox" method="disable"]
+[connection signal="started" from="CombatStateMachine/IdleState/AttackRight" to="CombatStateMachine/IdleState/AttackRight/HitBox" method="enable"]
+[connection signal="landed" from="CombatStateMachine/IdleState/AttackRight/HitBox" to="CombatStateMachine/IdleState/AttackRight/HitLag" method="start"]
+[connection signal="finished" from="CombatStateMachine/IdleState/AttackLeft" to="CombatStateMachine/IdleState/AttackLeft/HitBox" method="disable"]
+[connection signal="started" from="CombatStateMachine/IdleState/AttackLeft" to="CombatStateMachine/IdleState/AttackLeft/HitBox" method="enable"]
+[connection signal="landed" from="CombatStateMachine/IdleState/AttackLeft/HitBox" to="CombatStateMachine/IdleState/AttackLeft/HitLag" method="start"]
+[connection signal="finished" from="CombatStateMachine/WalkState/AttackRight" to="CombatStateMachine/WalkState/AttackRight/HitBox" method="disable"]
+[connection signal="started" from="CombatStateMachine/WalkState/AttackRight" to="CombatStateMachine/WalkState/AttackRight/HitBox" method="enable"]
+[connection signal="landed" from="CombatStateMachine/WalkState/AttackRight/HitBox" to="CombatStateMachine/WalkState/AttackRight/HitLag" method="start"]
+[connection signal="finished" from="CombatStateMachine/WalkState/AttackLeft" to="CombatStateMachine/WalkState/AttackLeft/HitBox" method="disable"]
+[connection signal="started" from="CombatStateMachine/WalkState/AttackLeft" to="CombatStateMachine/WalkState/AttackLeft/HitBox" method="enable"]
+[connection signal="landed" from="CombatStateMachine/WalkState/AttackLeft/HitBox" to="CombatStateMachine/WalkState/AttackLeft/HitLag" method="start"]
+[connection signal="finished" from="CombatStateMachine/JumpState/AttackLeft" to="CombatStateMachine/JumpState/AttackLeft/HitBox" method="disable"]
+[connection signal="started" from="CombatStateMachine/JumpState/AttackLeft" to="CombatStateMachine/JumpState/AttackLeft/HitBox" method="enable"]
+[connection signal="landed" from="CombatStateMachine/JumpState/AttackLeft/HitBox" to="CombatStateMachine/JumpState/AttackLeft/HitLag" method="start"]
+[connection signal="finished" from="CombatStateMachine/JumpState/AttackRight" to="CombatStateMachine/JumpState/AttackRight/HitBox" method="disable"]
+[connection signal="started" from="CombatStateMachine/JumpState/AttackRight" to="CombatStateMachine/JumpState/AttackRight/HitBox" method="enable"]
+[connection signal="landed" from="CombatStateMachine/JumpState/AttackRight/HitBox" to="CombatStateMachine/JumpState/AttackRight/HitLag" method="start"]

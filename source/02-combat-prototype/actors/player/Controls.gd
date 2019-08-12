@@ -24,6 +24,8 @@ func disable(action_name = "all"):
 
 
 func add_to_buffer(player_action):
+	if not has_node("ActionBuffer"):
+		return
 	if not player_action.has_method("handle_input"):
 		return
 	player_action.connect("pressed", $ActionBuffer, "stack_action",

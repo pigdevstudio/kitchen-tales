@@ -25,7 +25,7 @@ func cancel(command_name):
 		get_node(command_name).cancel()
 
 
-func set_movement_direction(direction):
+func set_direction(direction):
 	for command in get_children():
-		if command.has_method("set_movement_direction"):
-			command.set_movement_direction(direction)
+		if command.has_method("set_direction"):
+			command.set_direction(direction)
