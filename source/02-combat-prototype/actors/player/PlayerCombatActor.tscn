@@ -119,10 +119,10 @@ action = "defend"
 script = ExtResource( 4 )
 
 [node name="IdleState" type="Node2D" parent="CombatStateMachine" index="0"]
+editor/display_folded = true
 script = ExtResource( 5 )
 
 [node name="AttackRight" parent="CombatStateMachine/IdleState" index="0" instance=ExtResource( 6 )]
-editor/display_folded = true
 position = Vector2( 110, -64 )
 
 [node name="HitBox" parent="CombatStateMachine/IdleState/AttackRight" index="2" instance=ExtResource( 7 )]
@@ -186,7 +186,6 @@ color = Color( 1, 0.180392, 0.756863, 0.560784 )
 actor_path = NodePath("../../../..")
 
 [node name="JumpState" type="Node2D" parent="CombatStateMachine" index="2"]
-editor/display_folded = true
 script = ExtResource( 5 )
 
 [node name="AttackLeft" parent="CombatStateMachine/JumpState" index="0" instance=ExtResource( 6 )]
@@ -219,6 +218,8 @@ color = Color( 0.207843, 1, 0.180392, 0.560784 )
 [node name="HitLag" parent="CombatStateMachine/JumpState/AttackRight" index="3" instance=ExtResource( 10 )]
 actor_path = NodePath("../../../..")
 [connection signal="state_changed" from="StateMachine" to="CombatStateMachine" method="change_state_to"]
+[connection signal="pressed" from="Controls/LeftAction" to="CombatStateMachine" method="set_direction" binds= [ Vector2( -1, 0 ) ]]
+[connection signal="pressed" from="Controls/RightAction" to="CombatStateMachine" method="set_direction" binds= [ Vector2( 1, 0 ) ]]
 [connection signal="pressed" from="Controls/AttackAction" to="CombatStateMachine" method="execute" binds= [ "Attack" ]]
 [connection signal="released" from="Controls/AttackAction" to="CombatStateMachine" method="cancel" binds= [ "Attack" ]]
 [connection signal="finished" from="CombatStateMachine/IdleState/AttackRight" to="CombatStateMachine/IdleState/AttackRight/HitBox" method="disable"]

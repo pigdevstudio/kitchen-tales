@@ -19,8 +19,6 @@ func execute():
 
 
 func cancel():
-	if not enabled:
-		return
 	if duration_timer.is_stopped():
 		return
 	duration_timer.stop()
@@ -28,8 +26,6 @@ func cancel():
 
 
 func _on_Duration_timeout():
-	if not enabled:
-		return
 	start_cooldown()
 
 
