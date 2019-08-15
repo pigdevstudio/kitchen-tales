@@ -8,11 +8,15 @@ func set_color(new_color):
 	color = new_color
 	update()
 
+
 func _ready():
 	update()
 
 
 func _draw():
+	if disabled:
+		return
+	
 	var offset_position = Vector2(0, 0)
 	 
 	if shape is CircleShape2D:

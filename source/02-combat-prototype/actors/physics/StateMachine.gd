@@ -13,6 +13,9 @@ onready var actor = get_node(actor_path)
 onready var _current_state = get_child(0)
 onready var _previous_state = _current_state
 
+var current_state_name = ""
+var previous_state_name = ""
+
 func _ready():
 	setup_commands()
 	initialize_current_state()
@@ -38,6 +41,9 @@ func change_state_to(new_state_name):
 func initialize_current_state():
 	_previous_state.active = false
 	_current_state.active = true
+	
+	current_state_name = _current_state.name
+	previous_state_name = _previous_state.name
 
 
 func execute(command_name):

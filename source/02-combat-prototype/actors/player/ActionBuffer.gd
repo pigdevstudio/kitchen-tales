@@ -9,13 +9,10 @@ signal actions_chain_cleared
  
 onready var solve_timer = $Timer
 export (float) var clear_time = 0.5
-export (PoolStringArray) var valid_input_actions
 
 var _unsolved_action_chain = []
 
 func stack_action(action):
-	if not action in valid_input_actions:
-		return
 	_unsolved_action_chain.append(action)
 	solve_timer.start(clear_time)
 	emit_signal("actions_chain_changed", _unsolved_action_chain)

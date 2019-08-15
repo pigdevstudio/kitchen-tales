@@ -26,7 +26,13 @@ func disable(action_name = "all"):
 func add_to_buffer(player_action):
 	if not has_node("ActionBuffer"):
 		return
-	if not player_action.has_method("handle_input"):
+	if not player_action.get("action"):
 		return
 	player_action.connect("pressed", $ActionBuffer, "stack_action",
 			[player_action.action])
+
+
+func add_multiplayer_support(player_index = 1):
+	for player_action in get_children():
+		if player_action.get("action"):
+			player_action.action = "%s_%s" % [player_action.action, player_index + 1]

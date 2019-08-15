@@ -5,4 +5,3 @@
 [node name="Dash" type="Node"]
 script = ExtResource( 1 )
 speed = 2400.0
-movement_direction = Vector2( 1, 0 )

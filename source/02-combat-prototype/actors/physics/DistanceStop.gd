@@ -14,6 +14,7 @@ func check_distance():
 
 
 func set_enabled(enable):
-	initial_position = actor.position
+	if is_inside_tree():
+		initial_position = actor.position
 	.set_enabled(enable)
 	
