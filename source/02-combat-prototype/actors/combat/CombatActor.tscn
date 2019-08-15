@@ -2,12 +2,13 @@
 
 [ext_resource path="res://actors/physics/PlatformActor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/combat/Health.tscn" type="PackedScene" id=2]
-[ext_resource path="res://actors/combat/CombatActions.gd" type="Script" id=3]
+[ext_resource path="res://actors/combat/AttackContainer.gd" type="Script" id=3]
 [ext_resource path="res://actors/combat/Guard.tscn" type="PackedScene" id=4]
 [ext_resource path="res://actors/combat/Hit.tres" type="Resource" id=5]
 [ext_resource path="res://actors/combat/HurtBox.tscn" type="PackedScene" id=6]
 [ext_resource path="res://utility/Geometry2D.gd" type="Script" id=7]
 [ext_resource path="res://actors/combat/HurtLag.tscn" type="PackedScene" id=8]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 40, 66 )

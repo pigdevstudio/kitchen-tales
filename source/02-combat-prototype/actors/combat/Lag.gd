@@ -14,5 +14,5 @@ func stop():
 
 
 func _on_timeout():
-	if not is_stopped():
+	if not is_stopped() or one_shot:
 		actor.set_physics_process(not actor.is_physics_processing())

@@ -1,7 +1,7 @@
 extends Node
 
 onready var walk = get_node(walk_path)
-export (NodePath) var walk_path = "../Walk" 
+export (NodePath) var walk_path = "../Move" 
 
 func _ready():
 	calculate_movement_direction()

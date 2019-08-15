@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://areas/Ground.tscn" type="PackedScene" id=1]
-[ext_resource path="res://actors/player/PlayerPlatformActor.tscn" type="PackedScene" id=2]
+[ext_resource path="res://actors/player/PlayerCombatActor.tscn" type="PackedScene" id=2]
 
 [sub_resource type="LineShape2D" id=1]
 normal = Vector2( 1, 0 )
@@ -25,11 +25,7 @@ shape = SubResource( 2 )
 
 [node name="Ground" parent="Floor" instance=ExtResource( 1 )]
 position = Vector2( 0, 749.25 )
+color = Color( 1, 1, 1, 1 )
 
-[node name="Label" type="Label" parent="."]
-margin_right = 40.0
-margin_bottom = 14.0
-rect_scale = Vector2( 5, 5 )
-
-[node name="PlayerPlatformActor" parent="." instance=ExtResource( 2 )]
-position = Vector2( 650, 670 )
+[node name="PlayerCombatActor" parent="." instance=ExtResource( 2 )]
+position = Vector2( 610, 640 )

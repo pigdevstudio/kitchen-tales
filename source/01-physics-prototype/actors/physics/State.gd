@@ -15,17 +15,17 @@ func set_active(activate):
 		emit_signal("exited")
 
 
-func execute(command_name):
+func execute_command(command_name):
 	if has_node(command_name):
 		get_node(command_name).execute()
 
 
-func cancel(command_name):
+func cancel_command(command_name):
 	if has_node(command_name):
 		get_node(command_name).cancel()
 
 
-func set_direction(direction):
+func set_movement_direction(direction):
 	for command in get_children():
-		if command.has_method("set_direction"):
-			command.set_direction(direction)
+		if command.has_method("set_movement_direction"):
+			command.set_movement_direction(direction)

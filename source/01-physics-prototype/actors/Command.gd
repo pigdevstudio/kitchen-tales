@@ -14,11 +14,11 @@ func set_enabled(enable):
 	enabled = enable
 	if is_inside_tree():
 		set_physics_process(enable)
-
+ 
 
 func execute():
-	emit_signal("started")
+	pass
 
 
 func cancel():
-	emit_signal("finished")
+	pass
