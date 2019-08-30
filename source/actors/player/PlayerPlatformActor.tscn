@@ -9,6 +9,9 @@
 ] instance=ExtResource( 1 )]
 collision_layer = 1
 
+[node name="CollisionShape2D" parent="." index="0"]
+script = null
+
 [node name="StateMachine" parent="." index="1"]
 actor_path = NodePath("../../PlayerPlatformActor")
 

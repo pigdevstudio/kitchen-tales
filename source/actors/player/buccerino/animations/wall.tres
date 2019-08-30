@@ -23,7 +23,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 13.281 ]
+"values": [ 5.0 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Pivot/Body/ArmRight:position")

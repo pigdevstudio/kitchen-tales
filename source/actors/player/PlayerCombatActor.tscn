@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://actors/player/PlayerPlatformActor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://utility/Geometry2D.gd" type="Script" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://actors/player/PlayerStatus.gd" type="Script" id=19]
 [ext_resource path="res://actors/player/PlayerData.tres" type="Resource" id=20]
 [ext_resource path="res://actors/player/PickupArea.gd" type="Script" id=21]
+[ext_resource path="res://actors/player/buccerino/PigCharacter.tscn" type="PackedScene" id=22]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 40, 30 )
@@ -45,13 +46,10 @@ position = Vector2( 0, -30 )
 shape = SubResource( 1 )
 disabled = true
 script = ExtResource( 2 )
+color = Color( 1, 1, 1, 1 )
 
 [node name="StateMachine" parent="." index="2"]
-editor/display_folded = true
 actor_path = NodePath("..")
-
-[node name="IdleState" parent="StateMachine" index="0"]
-editor/display_folded = true
 
 [node name="Jump" parent="StateMachine/IdleState" index="1"]
 actor_path = NodePath("..")
@@ -61,28 +59,13 @@ actor_path = NodePath("../../../../PlayerCombatActor")
 
 [node name="Duck" parent="StateMachine/IdleState" index="5" instance=ExtResource( 3 )]
 
-[node name="SingleJumpFallState" parent="StateMachine" index="1"]
-editor/display_folded = true
-
-[node name="Gravity" parent="StateMachine/SingleJumpFallState" index="4"]
-actor_path = NodePath("../../../../PlayerCombatActor")
-
-[node name="DoubleJumpFallState" parent="StateMachine" index="2"]
-editor/display_folded = true
-
-[node name="Gravity" parent="StateMachine/DoubleJumpFallState" index="3"]
-actor_path = NodePath("../../../../PlayerCombatActor")
-
-[node name="WalkState" parent="StateMachine" index="3"]
-editor/display_folded = true
+[node name="WalkState" parent="StateMachine" index="1"]
+editor/display_folded = false
 
 [node name="Gravity" parent="StateMachine/WalkState" index="3"]
 actor_path = NodePath("../../../../PlayerCombatActor")
 
 [node name="Duck" parent="StateMachine/WalkState" index="6" instance=ExtResource( 3 )]
-
-[node name="JumpState" parent="StateMachine" index="4"]
-editor/display_folded = true
 
 [node name="Jump" parent="StateMachine/JumpState" index="0"]
 actor_path = NodePath("..")
@@ -93,20 +76,8 @@ actor_path = NodePath("..")
 [node name="Gravity" parent="StateMachine/JumpState" index="4"]
 actor_path = NodePath("../../../../PlayerCombatActor")
 
-[node name="SecondJumpState" parent="StateMachine" index="5"]
-editor/display_folded = true
-
-[node name="Gravity" parent="StateMachine/SecondJumpState" index="3"]
-actor_path = NodePath("../../../../PlayerCombatActor/StateMachine/SecondJumpState")
-
-[node name="DashState" parent="StateMachine" index="6"]
-editor/display_folded = true
-
 [node name="Stop" parent="StateMachine/DashState" index="0"]
 actor_path = NodePath("..")
-
-[node name="DashFallState" parent="StateMachine" index="7"]
-editor/display_folded = true
 
 [node name="Stop" parent="StateMachine/DashFallState" index="0"]
 actor_path = NodePath("..")
@@ -114,8 +85,8 @@ actor_path = NodePath("..")
 [node name="Gravity" parent="StateMachine/DashFallState" index="1"]
 actor_path = NodePath("../../../../PlayerCombatActor/StateMachine/DashFallState")
 
-[node name="DashJumpState" parent="StateMachine" index="8"]
-editor/display_folded = true
+[node name="Gravity" parent="StateMachine/SingleJumpFallState" index="4"]
+actor_path = NodePath("../../../../PlayerCombatActor")
 
 [node name="Fall" parent="StateMachine/DashJumpState" index="0"]
 actor_path = NodePath("..")
@@ -129,9 +100,6 @@ actor_path = NodePath("..")
 [node name="Gravity" parent="StateMachine/DashJumpState" index="3"]
 actor_path = NodePath("../../../../PlayerCombatActor")
 
-[node name="DashJumpFallState" parent="StateMachine" index="9"]
-editor/display_folded = true
-
 [node name="Stop" parent="StateMachine/DashJumpFallState" index="0"]
 actor_path = NodePath("..")
 
@@ -140,6 +108,12 @@ actor_path = NodePath("..")
 
 [node name="Fall" parent="StateMachine/DashJumpFallState" index="3"]
 actor_path = NodePath("..")
+
+[node name="Gravity" parent="StateMachine/SecondJumpState" index="3"]
+actor_path = NodePath("../../../../PlayerCombatActor/StateMachine/SecondJumpState")
+
+[node name="Gravity" parent="StateMachine/DoubleJumpFallState" index="3"]
+actor_path = NodePath("../../../../PlayerCombatActor")
 
 [node name="DuckState" parent="StateMachine" index="10" instance=ExtResource( 4 )]
 editor/display_folded = true
@@ -150,9 +124,6 @@ editor/display_folded = true
 
 [node name="Stand" type="Node" parent="StateMachine/DuckState" index="2"]
 script = ExtResource( 7 )
-
-[node name="Controls" parent="." index="3"]
-editor/display_folded = true
 
 [node name="AttackAction" parent="Controls" index="6" instance=ExtResource( 8 )]
 action = "attack"
@@ -339,11 +310,33 @@ player_data = ExtResource( 20 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea" index="0"]
 position = Vector2( 0, -64 )
 shape = SubResource( 5 )
+
+[node name="Pig" parent="." index="8" instance=ExtResource( 22 )]
 [connection signal="state_changed" from="StateMachine" to="CombatStateMachine" method="change_state_to"]
 [connection signal="entered" from="StateMachine/IdleState" to="Controls/DownAction" method="is_holding"]
+[connection signal="entered" from="StateMachine/IdleState" to="Pig" method="play" binds= [ "idle" ]]
 [connection signal="started" from="StateMachine/IdleState/Duck" to="StateMachine" method="change_state_to" binds= [ "Duck" ]]
 [connection signal="entered" from="StateMachine/WalkState" to="Controls/DownAction" method="is_holding"]
+[connection signal="entered" from="StateMachine/WalkState" to="Pig" method="play" binds= [ "walk" ]]
 [connection signal="started" from="StateMachine/WalkState/Duck" to="StateMachine" method="change_state_to" binds= [ "Duck" ]]
+[connection signal="entered" from="StateMachine/JumpState" to="Controls/RightAction" method="is_holding"]
+[connection signal="entered" from="StateMachine/JumpState" to="Controls/LeftAction" method="is_holding"]
+[connection signal="entered" from="StateMachine/JumpState" to="Pig" method="play" binds= [ "jump" ]]
+[connection signal="entered" from="StateMachine/DashState" to="Pig" method="play" binds= [ "dash" ]]
+[connection signal="entered" from="StateMachine/DashFallState" to="Controls/RightAction" method="is_holding"]
+[connection signal="entered" from="StateMachine/DashFallState" to="Controls/LeftAction" method="is_holding"]
+[connection signal="entered" from="StateMachine/DashFallState" to="Pig" method="play" binds= [ "drift" ]]
+[connection signal="entered" from="StateMachine/SingleJumpFallState" to="Controls/RightAction" method="is_holding"]
+[connection signal="entered" from="StateMachine/SingleJumpFallState" to="Controls/LeftAction" method="is_holding"]
+[connection signal="entered" from="StateMachine/SingleJumpFallState" to="Pig" method="play" binds= [ "fall" ]]
+[connection signal="entered" from="StateMachine/DashJumpState" to="Pig" method="play" binds= [ "dash" ]]
+[connection signal="entered" from="StateMachine/DashJumpFallState" to="Pig" method="play" binds= [ "fall" ]]
+[connection signal="entered" from="StateMachine/SecondJumpState" to="Controls/RightAction" method="is_holding"]
+[connection signal="entered" from="StateMachine/SecondJumpState" to="Controls/LeftAction" method="is_holding"]
+[connection signal="entered" from="StateMachine/SecondJumpState" to="Pig" method="play" binds= [ "jump" ]]
+[connection signal="entered" from="StateMachine/DoubleJumpFallState" to="Controls/RightAction" method="is_holding"]
+[connection signal="entered" from="StateMachine/DoubleJumpFallState" to="Controls/LeftAction" method="is_holding"]
+[connection signal="entered" from="StateMachine/DoubleJumpFallState" to="Pig" method="play" binds= [ "fall" ]]
 [connection signal="entered" from="StateMachine/DuckState" to="CollisionShape2D" method="set_disabled" binds= [ true ]]
 [connection signal="entered" from="StateMachine/DuckState" to="DuckCollision" method="set_disabled" binds= [ false ]]
 [connection signal="exited" from="StateMachine/DuckState" to="CollisionShape2D" method="set_disabled" binds= [ false ]]
@@ -351,7 +344,9 @@ shape = SubResource( 5 )
 [connection signal="started" from="StateMachine/DuckState/Dash" to="StateMachine" method="change_state_to" binds= [ "Dash" ]]
 [connection signal="started" from="StateMachine/DuckState/Fall" to="StateMachine" method="change_state_to" binds= [ "SingleJumpFall" ]]
 [connection signal="started" from="StateMachine/DuckState/Stand" to="StateMachine" method="change_state_to" binds= [ "Idle" ]]
+[connection signal="handling" from="Controls/LeftAction" to="Pig" method="set_look_direction" binds= [ -1 ]]
 [connection signal="pressed" from="Controls/LeftAction" to="CombatStateMachine" method="set_direction" binds= [ Vector2( -1, 0 ) ]]
+[connection signal="handling" from="Controls/RightAction" to="Pig" method="set_look_direction" binds= [ 1 ]]
 [connection signal="pressed" from="Controls/RightAction" to="CombatStateMachine" method="set_direction" binds= [ Vector2( 1, 0 ) ]]
 [connection signal="pressed" from="Controls/DownAction" to="StateMachine" method="execute" binds= [ "Duck" ]]
 [connection signal="released" from="Controls/DownAction" to="StateMachine" method="execute" binds= [ "Stand" ]]
@@ -359,8 +354,8 @@ shape = SubResource( 5 )
 [connection signal="released" from="Controls/AttackAction" to="CombatStateMachine" method="cancel" binds= [ "Attack" ]]
 [connection signal="finished" from="CombatStateMachine/IdleState/AttackRight" to="CombatStateMachine/IdleState/AttackRight/HitBox" method="disable"]
 [connection signal="started" from="CombatStateMachine/IdleState/AttackRight" to="CombatStateMachine/IdleState/AttackRight/HitBox" method="enable"]
-[connection signal="landed" from="CombatStateMachine/IdleState/AttackRight/HitBox" to="PlayerStatus" method="increase_score" binds= [ 100 ]]
 [connection signal="landed" from="CombatStateMachine/IdleState/AttackRight/HitBox" to="CombatStateMachine/IdleState/AttackRight/HitLag" method="start"]
+[connection signal="landed" from="CombatStateMachine/IdleState/AttackRight/HitBox" to="PlayerStatus" method="increase_score" binds= [ 100 ]]
 [connection signal="finished" from="CombatStateMachine/IdleState/AttackLeft" to="CombatStateMachine/IdleState/AttackLeft/HitBox" method="disable"]
 [connection signal="started" from="CombatStateMachine/IdleState/AttackLeft" to="CombatStateMachine/IdleState/AttackLeft/HitBox" method="enable"]
 [connection signal="landed" from="CombatStateMachine/IdleState/AttackLeft/HitBox" to="PlayerStatus" method="increase_score" binds= [ 100 ]]
@@ -377,10 +372,10 @@ shape = SubResource( 5 )
 [connection signal="landed" from="CombatStateMachine/JumpState/AttackLeft/HitBox" to="CombatStateMachine/JumpState/AttackLeft/HitLag" method="start"]
 [connection signal="finished" from="CombatStateMachine/JumpState/AttackRight" to="CombatStateMachine/JumpState/AttackRight/HitBox" method="disable"]
 [connection signal="started" from="CombatStateMachine/JumpState/AttackRight" to="CombatStateMachine/JumpState/AttackRight/HitBox" method="enable"]
-[connection signal="landed" from="CombatStateMachine/JumpState/AttackRight/HitBox" to="CombatStateMachine/JumpState/AttackRight/HitLag" method="start"]
 [connection signal="landed" from="CombatStateMachine/JumpState/AttackRight/HitBox" to="PlayerStatus" method="increase_score" binds= [ 150 ]]
-[connection signal="exited" from="CombatStateMachine/DuckState" to="CombatStateMachine/DuckState/Dash/DistanceStop" method="set_enabled" binds= [ false ]]
+[connection signal="landed" from="CombatStateMachine/JumpState/AttackRight/HitBox" to="CombatStateMachine/JumpState/AttackRight/HitLag" method="start"]
 [connection signal="exited" from="CombatStateMachine/DuckState" to="CombatStateMachine/DuckState/Dash/Stop" method="execute"]
+[connection signal="exited" from="CombatStateMachine/DuckState" to="CombatStateMachine/DuckState/Dash/DistanceStop" method="set_enabled" binds= [ false ]]
 [connection signal="finished" from="CombatStateMachine/DuckState/Dash" to="CombatStateMachine/DuckState/Dash/Bump" method="set_enabled" binds= [ false ]]
 [connection signal="started" from="CombatStateMachine/DuckState/Dash" to="CombatStateMachine/DuckState/Dash/Bump" method="set_enabled" binds= [ true ]]
 [connection signal="started" from="CombatStateMachine/DuckState/Dash" to="CombatStateMachine/DuckState/Dash/DistanceStop" method="set_enabled" binds= [ true ]]
@@ -391,10 +386,10 @@ shape = SubResource( 5 )
 [connection signal="started" from="CombatStateMachine/DuckState/AttackLeft" to="CombatStateMachine/DuckState/AttackLeft/HitBox" method="enable"]
 [connection signal="started" from="CombatStateMachine/DuckState/AttackLeft" to="CombatStateMachine/DuckState/Dash" method="execute"]
 [connection signal="landed" from="CombatStateMachine/DuckState/AttackLeft/HitBox" to="CombatStateMachine/DuckState/AttackLeft/HitLag" method="start"]
-[connection signal="finished" from="CombatStateMachine/DuckState/AttackRight" to="CombatStateMachine/DuckState/Dash" method="cancel"]
 [connection signal="finished" from="CombatStateMachine/DuckState/AttackRight" to="CombatStateMachine/DuckState/AttackRight/HitBox" method="disable"]
-[connection signal="started" from="CombatStateMachine/DuckState/AttackRight" to="CombatStateMachine/DuckState/Dash" method="execute"]
+[connection signal="finished" from="CombatStateMachine/DuckState/AttackRight" to="CombatStateMachine/DuckState/Dash" method="cancel"]
 [connection signal="started" from="CombatStateMachine/DuckState/AttackRight" to="CombatStateMachine/DuckState/AttackRight/HitBox" method="enable"]
+[connection signal="started" from="CombatStateMachine/DuckState/AttackRight" to="CombatStateMachine/DuckState/Dash" method="execute"]
 [connection signal="landed" from="CombatStateMachine/DuckState/AttackRight/HitBox" to="CombatStateMachine/DuckState/AttackRight/HitLag" method="start"]
 [connection signal="damage_inflicted" from="HurtBox" to="PlayerStatus" method="decrease_health"]
 [connection signal="area_entered" from="PickupArea" to="PickupArea" method="_on_area_entered"]

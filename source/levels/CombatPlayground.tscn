@@ -98,6 +98,7 @@ shape = SubResource( 3 )
 
 [node name="Ground" parent="Floor" instance=ExtResource( 3 )]
 position = Vector2( 0, 749.25 )
+color = Color( 1, 1, 1, 1 )
 
 [node name="LeftMovingDummySpawner" type="Position2D" parent="."]
 editor/display_folded = true
@@ -126,11 +127,32 @@ position = Vector2( 940, 620 )
 [node name="CollisionShape2D" parent="CombatDummy" index="0"]
 shape = SubResource( 4 )
 
-[node name="IdleState" parent="CombatDummy/StateMachine" index="0"]
-editor/display_folded = true
+[node name="WalkState" parent="CombatDummy/StateMachine" index="1"]
+editor/display_folded = false
 
-[node name="SecondJumpState" parent="CombatDummy/StateMachine" index="5"]
-editor/display_folded = true
+[node name="JumpState" parent="CombatDummy/StateMachine" index="2"]
+editor/display_folded = false
+
+[node name="Jump" parent="CombatDummy/StateMachine/JumpState" index="0"]
+actor_path = NodePath("..")
+
+[node name="DashState" parent="CombatDummy/StateMachine" index="3"]
+editor/display_folded = false
+
+[node name="DashFallState" parent="CombatDummy/StateMachine" index="4"]
+editor/display_folded = false
+
+[node name="SingleJumpFallState" parent="CombatDummy/StateMachine" index="5"]
+editor/display_folded = false
+
+[node name="DashJumpState" parent="CombatDummy/StateMachine" index="6"]
+editor/display_folded = false
+
+[node name="DashJumpFallState" parent="CombatDummy/StateMachine" index="7"]
+editor/display_folded = false
+
+[node name="DoubleJumpFallState" parent="CombatDummy/StateMachine" index="9"]
+editor/display_folded = false
 
 [node name="Health" parent="CombatDummy" index="2"]
 max_health = 100
@@ -160,30 +182,31 @@ align = 1
 valign = 1
 
 [node name="Interface" type="CanvasLayer" parent="."]
-editor/display_folded = true
 script = ExtResource( 7 )
 player_data = ExtResource( 8 )
 
-[node name="Debug" type="VBoxContainer" parent="Interface"]
-editor/display_folded = true
-visible = false
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 333.0
-margin_bottom = 383.0
+[node name="Debug" type="HBoxContainer" parent="Interface"]
+margin_left = 648.0
+margin_top = 1.90735e-06
+margin_right = 1112.0
+margin_bottom = 246.0
 rect_scale = Vector2( 1.25, 1.25 )
 
 [node name="StateMachineDebugPanel" parent="Interface/Debug" instance=ExtResource( 9 )]
-margin_right = 313.0
-margin_bottom = 179.0
-reference_path = NodePath("../../../PlayerCombatActor")
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 230.0
+margin_bottom = 246.0
+reference_path = NodePath("../../../PlayerCombatActor/StateMachine")
 properties = PoolStringArray( "current_state_name", "direction" )
 
 [node name="CombatStateMachineDebugPanel" parent="Interface/Debug" instance=ExtResource( 9 )]
-margin_top = 183.0
-margin_right = 313.0
-margin_bottom = 363.0
-reference_path = NodePath("../../../PlayerCombatActor")
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 234.0
+margin_right = 464.0
+margin_bottom = 246.0
+reference_path = NodePath("../../../PlayerCombatActor/CombatStateMachine")
 properties = PoolStringArray( "current_state_name", "direction" )
 
 [node name="ScoreLabel" type="Label" parent="Interface"]
@@ -211,6 +234,7 @@ percent_visible = false
 
 [node name="PlayerCombatActor" parent="." instance=ExtResource( 10 )]
 position = Vector2( 290, 680 )
+z_index = 1
 
 [node name="Health" parent="." instance=ExtResource( 11 )]
 position = Vector2( 55, 510 )
@@ -223,11 +247,13 @@ position = Vector2( 1490, 520 )
 
 [node name="Health4" parent="." instance=ExtResource( 11 )]
 position = Vector2( 1570, 520 )
-[connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="RightMovingDummySpawner/Timer" method="start"]
 [connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="LeftMovingDummySpawner" method="spawn"]
+[connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="RightMovingDummySpawner/Timer" method="start"]
 [connection signal="timeout" from="RightMovingDummySpawner/Timer" to="LeftMovingDummySpawner/Timer" method="start"]
 [connection signal="timeout" from="RightMovingDummySpawner/Timer" to="RightMovingDummySpawner" method="spawn"]
 [connection signal="tree_exited" from="CombatDummy" to="RightMovingDummySpawner/Timer" method="start"]
+[connection signal="finished" from="CombatDummy/StateMachine/JumpState/Jump" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "SingleJumpFall" ]]
+[connection signal="started" from="CombatDummy/StateMachine/JumpState/Jump" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "SecondJump" ]]
 [connection signal="finished" from="CombatDummy/StateMachine/SecondJumpState/Fall" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "Idle" ]]
 [connection signal="changed" from="CombatDummy/Health" to="CombatDummy/HealthBar" method="set_value"]
 

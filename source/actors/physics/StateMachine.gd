@@ -31,8 +31,6 @@ func setup_commands():
 func change_state_to(new_state_name):
 	if not has_node(new_state_name + "State"):
 		return
-	if new_state_name == "Idle" and name == "CombatStateMachine" and current_state_name == "DuckState":
-		print(new_state_name)
 	var new_state = get_node(new_state_name + "State")
 	_previous_state = _current_state
 	_current_state = new_state
@@ -48,15 +46,15 @@ func initialize_current_state():
 	previous_state_name = _previous_state.name
 
 
+func set_direction(new_direction):
+	direction = new_direction
+	for state in get_children():
+		state.set_direction(direction)
+
+
 func execute(command_name):
 	_current_state.execute(command_name)
 
 
 func cancel(command_name):
 	_current_state.cancel(command_name)
-
-
-func set_direction(new_direction):
-	direction = new_direction
-	for state in get_children():
-		state.set_direction(direction)

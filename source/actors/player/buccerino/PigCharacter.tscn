@@ -1,14 +1,15 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://actors/CutoutCharacter.gd" type="Script" id=1]
-[ext_resource path="res://actors/player/animations/setup.tres" type="Animation" id=2]
-[ext_resource path="res://actors/player/animations/dash.tres" type="Animation" id=3]
-[ext_resource path="res://actors/player/animations/fall.tres" type="Animation" id=4]
-[ext_resource path="res://actors/player/animations/idle.tres" type="Animation" id=5]
-[ext_resource path="res://actors/player/animations/jump.tres" type="Animation" id=6]
-[ext_resource path="res://actors/player/animations/walk.tres" type="Animation" id=7]
-[ext_resource path="res://actors/player/animations/wall.tres" type="Animation" id=8]
-[ext_resource path="res://actors/player/pig.svg" type="Texture" id=9]
+[ext_resource path="res://actors/player/buccerino/CutoutCharacter.gd" type="Script" id=1]
+[ext_resource path="res://actors/player/buccerino/animations/setup.tres" type="Animation" id=2]
+[ext_resource path="res://actors/player/buccerino/animations/dash.tres" type="Animation" id=3]
+[ext_resource path="res://actors/player/buccerino/animations/fall.tres" type="Animation" id=4]
+[ext_resource path="res://actors/player/buccerino/animations/idle.tres" type="Animation" id=5]
+[ext_resource path="res://actors/player/buccerino/animations/jump.tres" type="Animation" id=6]
+[ext_resource path="res://actors/player/buccerino/animations/walk.tres" type="Animation" id=7]
+[ext_resource path="res://actors/player/buccerino/animations/wall.tres" type="Animation" id=8]
+[ext_resource path="res://actors/player/buccerino/buccerino-new.svg" type="Texture" id=9]
+[ext_resource path="res://actors/player/buccerino/hat.png" type="Texture" id=10]
 
 [sub_resource type="Animation" id=1]
 length = 0.1
@@ -185,11 +186,10 @@ anims/walk = ExtResource( 7 )
 anims/wall = ExtResource( 8 )
 
 [node name="Pivot" type="Position2D" parent="."]
-position = Vector2( 0, -28 )
+position = Vector2( 0, -24 )
 
 [node name="LegLeft" type="Sprite" parent="Pivot"]
-position = Vector2( 22.8214, 3.184 )
-rotation = -0.678856
+position = Vector2( 14.25, 0.517328 )
 texture = ExtResource( 9 )
 offset = Vector2( 0, 6.816 )
 region_enabled = true
@@ -197,8 +197,7 @@ region_rect = Rect2( 224, 91, 22, 37 )
 region_filter_clip = true
 
 [node name="LegRight" type="Sprite" parent="Pivot"]
-position = Vector2( -6.10714, 3.184 )
-rotation = -0.508769
+position = Vector2( -13.25, 0.517328 )
 texture = ExtResource( 9 )
 offset = Vector2( 0, 6.816 )
 region_enabled = true
@@ -206,16 +205,36 @@ region_rect = Rect2( 192, 91, 22, 37 )
 region_filter_clip = true
 
 [node name="Body" type="Sprite" parent="Pivot"]
-position = Vector2( 0, -4.14933 )
-rotation = 0.297596
+position = Vector2( 0, -6.14934 )
 texture = ExtResource( 9 )
 offset = Vector2( 1, -21.184 )
 region_enabled = true
 region_rect = Rect2( 176, 6, 74, 74 )
 
+[node name="Head" type="Sprite" parent="Pivot/Body"]
+show_behind_parent = true
+position = Vector2( -0.999998, -42.0613 )
+texture = ExtResource( 9 )
+offset = Vector2( 1.66667, -27.7893 )
+region_enabled = true
+region_rect = Rect2( 0, 6, 70, 74 )
+region_filter_clip = true
+
+[node name="Hat" type="Sprite" parent="Pivot/Body/Head"]
+position = Vector2( 2.91667, -44.6783 )
+texture = ExtResource( 10 )
+offset = Vector2( 0, -24 )
+
+[node name="Scarf" type="Sprite" parent="Pivot/Body"]
+position = Vector2( 1.15182, -33.1435 )
+texture = ExtResource( 9 )
+offset = Vector2( -3.25925, -6.70496 )
+region_enabled = true
+region_rect = Rect2( 160, 144, 82, 20 )
+
 [node name="ArmRight" type="Sprite" parent="Pivot/Body"]
-position = Vector2( 27.2964, -22.5268 )
-rotation = -1.22232
+position = Vector2( -32.3333, -24 )
+rotation = 0.261799
 texture = ExtResource( 9 )
 offset = Vector2( 0, 8 )
 region_enabled = true
@@ -224,20 +243,11 @@ region_filter_clip = true
 
 [node name="ArmLeft" type="Sprite" parent="Pivot/Body"]
 show_behind_parent = true
-position = Vector2( 34.1617, -37.414 )
-rotation = -1.7189
+position = Vector2( 35.6667, -24 )
+rotation = -0.261799
 z_index = -1
 texture = ExtResource( 9 )
 offset = Vector2( 0, 8 )
 region_enabled = true
 region_rect = Rect2( 160, 118, 25, 26 )
-region_filter_clip = true
-
-[node name="Head" type="Sprite" parent="Pivot/Body"]
-position = Vector2( 0, -40 )
-rotation = 0.249575
-texture = ExtResource( 9 )
-offset = Vector2( 1.66667, -27.7893 )
-region_enabled = true
-region_rect = Rect2( 0, 6, 70, 74 )
 region_filter_clip = true
