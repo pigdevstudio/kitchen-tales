@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=2]
-
-[ext_resource path="res://utility/VisibleCollisionPolygon2D.gd" type="Script" id=1]
-
-[node name="Stairs" type="CollisionPolygon2D"]
-polygon = PoolVector2Array( 48, 192, 48, 248, 1296, 248, 1296, 72, 488, 72, 488, 128, 280, 128, 280, 192 )
-script = ExtResource( 1 )
-color = Color( 0.74902, 0.870588, 1, 1 )

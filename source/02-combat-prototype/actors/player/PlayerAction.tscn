@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=2]
-
-[ext_resource path="res://actors/player/PlayerAction.gd" type="Script" id=1]
-
-[node name="PlayerAction" type="Node"]
-script = ExtResource( 1 )

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://objects/pickups/Pickup.tscn" type="PackedScene" id=1]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 30.0
+
+[node name="Coin" groups=[
+"coins",
+] instance=ExtResource( 1 )]
+attribute = "score"
+modifier = 100
+
+[node name="Geometry2D" parent="." index="0"]
+shape = SubResource( 1 )
+color = Color( 1, 0.729412, 0.262745, 1 )

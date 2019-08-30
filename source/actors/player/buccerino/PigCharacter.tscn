@@ -1,0 +1,243 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://actors/CutoutCharacter.gd" type="Script" id=1]
+[ext_resource path="res://actors/player/animations/setup.tres" type="Animation" id=2]
+[ext_resource path="res://actors/player/animations/dash.tres" type="Animation" id=3]
+[ext_resource path="res://actors/player/animations/fall.tres" type="Animation" id=4]
+[ext_resource path="res://actors/player/animations/idle.tres" type="Animation" id=5]
+[ext_resource path="res://actors/player/animations/jump.tres" type="Animation" id=6]
+[ext_resource path="res://actors/player/animations/walk.tres" type="Animation" id=7]
+[ext_resource path="res://actors/player/animations/wall.tres" type="Animation" id=8]
+[ext_resource path="res://actors/player/pig.svg" type="Texture" id=9]
+
+[sub_resource type="Animation" id=1]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot/Body/Head:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -40 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Pivot/Body/Head:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 14.2996 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Pivot/Body/ArmLeft:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 34.1617, -37.414 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Pivot/Body/ArmLeft:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -98.4855 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Pivot/Body/ArmRight:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 27.2964, -22.5268 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Pivot/Body/ArmRight:rotation_degrees")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -70.0339 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Pivot/Body:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -4.14933 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Pivot/Body:rotation_degrees")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 17.051 ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Pivot/LegLeft:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 22.8214, 3.184 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Pivot/LegLeft:rotation_degrees")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -38.8956 ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Pivot/LegRight:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -6.10714, 3.184 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Pivot/LegRight:rotation_degrees")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -29.1503 ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Pivot:scale")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[node name="Pig" type="Position2D"]
+script = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+playback_default_blend_time = 0.08
+anims/SETUP = ExtResource( 2 )
+anims/dash = ExtResource( 3 )
+anims/drift = SubResource( 1 )
+anims/fall = ExtResource( 4 )
+anims/idle = ExtResource( 5 )
+anims/jump = ExtResource( 6 )
+anims/walk = ExtResource( 7 )
+anims/wall = ExtResource( 8 )
+
+[node name="Pivot" type="Position2D" parent="."]
+position = Vector2( 0, -28 )
+
+[node name="LegLeft" type="Sprite" parent="Pivot"]
+position = Vector2( 22.8214, 3.184 )
+rotation = -0.678856
+texture = ExtResource( 9 )
+offset = Vector2( 0, 6.816 )
+region_enabled = true
+region_rect = Rect2( 224, 91, 22, 37 )
+region_filter_clip = true
+
+[node name="LegRight" type="Sprite" parent="Pivot"]
+position = Vector2( -6.10714, 3.184 )
+rotation = -0.508769
+texture = ExtResource( 9 )
+offset = Vector2( 0, 6.816 )
+region_enabled = true
+region_rect = Rect2( 192, 91, 22, 37 )
+region_filter_clip = true
+
+[node name="Body" type="Sprite" parent="Pivot"]
+position = Vector2( 0, -4.14933 )
+rotation = 0.297596
+texture = ExtResource( 9 )
+offset = Vector2( 1, -21.184 )
+region_enabled = true
+region_rect = Rect2( 176, 6, 74, 74 )
+
+[node name="ArmRight" type="Sprite" parent="Pivot/Body"]
+position = Vector2( 27.2964, -22.5268 )
+rotation = -1.22232
+texture = ExtResource( 9 )
+offset = Vector2( 0, 8 )
+region_enabled = true
+region_rect = Rect2( 160, 86, 25, 26 )
+region_filter_clip = true
+
+[node name="ArmLeft" type="Sprite" parent="Pivot/Body"]
+show_behind_parent = true
+position = Vector2( 34.1617, -37.414 )
+rotation = -1.7189
+z_index = -1
+texture = ExtResource( 9 )
+offset = Vector2( 0, 8 )
+region_enabled = true
+region_rect = Rect2( 160, 118, 25, 26 )
+region_filter_clip = true
+
+[node name="Head" type="Sprite" parent="Pivot/Body"]
+position = Vector2( 0, -40 )
+rotation = 0.249575
+texture = ExtResource( 9 )
+offset = Vector2( 1.66667, -27.7893 )
+region_enabled = true
+region_rect = Rect2( 0, 6, 70, 74 )
+region_filter_clip = true

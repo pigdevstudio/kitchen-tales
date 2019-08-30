@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=2]
-
-[ext_resource path="res://actors/physics/Gravity.gd" type="Script" id=1]
-
-[node name="Gravity" type="Node"]
-script = ExtResource( 1 )
-strength = 4000.0
