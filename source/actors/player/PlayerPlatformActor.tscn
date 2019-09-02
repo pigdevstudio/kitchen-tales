@@ -27,6 +27,9 @@ actor_path = NodePath("../../..")
 [node name="Gravity" parent="StateMachine/SecondJumpState" index="3"]
 strength = 5000.0
 
+[node name="SecondFallState" parent="StateMachine" index="9"]
+editor/display_folded = true
+
 [node name="Controls" type="Node" parent="." index="2"]
 script = ExtResource( 2 )
 
@@ -47,22 +50,10 @@ action = "down"
 
 [node name="DashAction" parent="Controls" index="5" instance=ExtResource( 3 )]
 action = "dash"
-[connection signal="entered" from="StateMachine/IdleState" to="Controls/RightAction" method="is_holding"]
-[connection signal="entered" from="StateMachine/IdleState" to="Controls/LeftAction" method="is_holding"]
-[connection signal="entered" from="StateMachine/SingleJumpFallState" to="Controls/RightAction" method="is_holding"]
-[connection signal="entered" from="StateMachine/SingleJumpFallState" to="Controls/LeftAction" method="is_holding"]
-[connection signal="entered" from="StateMachine/DoubleJumpFallState" to="Controls/RightAction" method="is_holding"]
-[connection signal="entered" from="StateMachine/DoubleJumpFallState" to="Controls/LeftAction" method="is_holding"]
-[connection signal="entered" from="StateMachine/JumpState" to="Controls/RightAction" method="is_holding"]
-[connection signal="entered" from="StateMachine/JumpState" to="Controls/LeftAction" method="is_holding"]
-[connection signal="entered" from="StateMachine/SecondJumpState" to="Controls/RightAction" method="is_holding"]
-[connection signal="entered" from="StateMachine/SecondJumpState" to="Controls/LeftAction" method="is_holding"]
-[connection signal="entered" from="StateMachine/DashFallState" to="Controls/RightAction" method="is_holding"]
-[connection signal="entered" from="StateMachine/DashFallState" to="Controls/LeftAction" method="is_holding"]
 [connection signal="handling" from="Controls/LeftAction" to="StateMachine" method="set_direction" binds= [ Vector2( -1, 0 ) ]]
 [connection signal="pressed" from="Controls/LeftAction" to="StateMachine" method="execute" binds= [ "Move" ]]
-[connection signal="released" from="Controls/LeftAction" to="Controls/RightAction" method="is_holding"]
 [connection signal="released" from="Controls/LeftAction" to="StateMachine" method="execute" binds= [ "Stop" ]]
+[connection signal="released" from="Controls/LeftAction" to="Controls/RightAction" method="is_holding"]
 [connection signal="handling" from="Controls/RightAction" to="StateMachine" method="set_direction" binds= [ Vector2( 1, 0 ) ]]
 [connection signal="pressed" from="Controls/RightAction" to="StateMachine" method="execute" binds= [ "Move" ]]
 [connection signal="released" from="Controls/RightAction" to="StateMachine" method="execute" binds= [ "Stop" ]]
@@ -70,6 +61,6 @@ action = "dash"
 [connection signal="pressed" from="Controls/JumpAction" to="StateMachine" method="execute" binds= [ "Jump" ]]
 [connection signal="released" from="Controls/JumpAction" to="StateMachine" method="cancel" binds= [ "Jump" ]]
 [connection signal="pressed" from="Controls/DashAction" to="StateMachine" method="execute" binds= [ "Dash" ]]
-[connection signal="released" from="Controls/DashAction" to="Controls/RightAction" method="is_holding"]
 [connection signal="released" from="Controls/DashAction" to="StateMachine" method="execute" binds= [ "Stop" ]]
+[connection signal="released" from="Controls/DashAction" to="Controls/RightAction" method="is_holding"]
 [connection signal="released" from="Controls/DashAction" to="Controls/LeftAction" method="is_holding"]

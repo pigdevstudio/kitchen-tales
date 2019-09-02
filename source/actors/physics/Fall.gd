@@ -8,8 +8,9 @@ func _physics_process(delta):
 
 
 func execute():
+	if not fell:
+		emit_signal("started")
 	fell = true
-	emit_signal("started")
 
 
 func cancel():

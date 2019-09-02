@@ -12,7 +12,6 @@ func _physics_process(delta):
 	if is_on_floor():
 		velocity.y = 0
 
-
 func set_snap_normal(new_snap_normal):
 	snap_normal = new_snap_normal
 
