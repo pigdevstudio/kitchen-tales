@@ -97,18 +97,19 @@ editor/display_folded = false
 script = ExtResource( 7 )
 
 [node name="DashFallState" parent="CombatDummy/StateMachine" index="4"]
-editor/display_folded = false
 script = ExtResource( 7 )
 
+[node name="Move" parent="CombatDummy/StateMachine/DashFallState" index="2"]
+speed = 400.0
+
 [node name="DashJumpState" parent="CombatDummy/StateMachine" index="6"]
-editor/display_folded = false
 script = ExtResource( 7 )
 
 [node name="DashJumpFallState" parent="CombatDummy/StateMachine" index="7"]
-editor/display_folded = false
 script = ExtResource( 7 )
 
 [node name="SecondJumpState" parent="CombatDummy/StateMachine" index="8"]
+editor/display_folded = true
 script = ExtResource( 7 )
 
 [node name="Health" parent="CombatDummy" index="2"]
@@ -143,8 +144,8 @@ position = Vector2( 184, 464 )
 z_index = 1
 [connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="RightMovingDummySpawner/Timer" method="start"]
 [connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="LeftMovingDummySpawner" method="spawn"]
-[connection signal="timeout" from="RightMovingDummySpawner/Timer" to="LeftMovingDummySpawner/Timer" method="start"]
 [connection signal="timeout" from="RightMovingDummySpawner/Timer" to="RightMovingDummySpawner" method="spawn"]
+[connection signal="timeout" from="RightMovingDummySpawner/Timer" to="LeftMovingDummySpawner/Timer" method="start"]
 [connection signal="tree_exited" from="CombatDummy" to="RightMovingDummySpawner/Timer" method="start"]
 [connection signal="started" from="CombatDummy/StateMachine/IdleState/Move" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "Walk" ]]
 [connection signal="started" from="CombatDummy/StateMachine/IdleState/Jump" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "Jump" ]]

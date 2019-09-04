@@ -103,7 +103,6 @@ script = ExtResource( 16 )
 [node name="Jump" parent="StateMachine/DashState" instance=ExtResource( 7 )]
 
 [node name="DashFallState" parent="StateMachine" instance=ExtResource( 4 )]
-editor/display_folded = true
 script = ExtResource( 17 )
 
 [node name="Stop" parent="StateMachine/DashFallState" instance=ExtResource( 12 )]
@@ -112,7 +111,6 @@ actor_path = NodePath("../../WalkState")
 [node name="Gravity" parent="StateMachine/DashFallState" instance=ExtResource( 8 )]
 
 [node name="Move" parent="StateMachine/DashFallState" instance=ExtResource( 6 )]
-speed = 400.0
 
 [node name="Fall" parent="StateMachine/DashFallState" instance=ExtResource( 9 )]
 
@@ -139,7 +137,6 @@ actor_path = NodePath("../../..")
 actor_path = NodePath("../../SingleFallState")
 
 [node name="DashJumpState" parent="StateMachine" instance=ExtResource( 4 )]
-editor/display_folded = true
 script = ExtResource( 19 )
 
 [node name="Fall" parent="StateMachine/DashJumpState" instance=ExtResource( 9 )]
@@ -156,7 +153,6 @@ speed = 2400.0
 actor_path = NodePath("../../..")
 
 [node name="DashJumpFallState" parent="StateMachine" instance=ExtResource( 4 )]
-editor/display_folded = true
 script = ExtResource( 20 )
 
 [node name="Stop" parent="StateMachine/DashJumpFallState" instance=ExtResource( 12 )]
@@ -173,7 +169,6 @@ speed = 2400.0
 actor_path = NodePath("../../DashJumpFallState")
 
 [node name="SecondJumpState" parent="StateMachine" instance=ExtResource( 4 )]
-editor/display_folded = true
 script = ExtResource( 21 )
 
 [node name="Fall" parent="StateMachine/SecondJumpState" instance=ExtResource( 9 )]
