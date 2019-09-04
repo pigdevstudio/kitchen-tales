@@ -4,6 +4,7 @@ signal entered
 signal exited
 
 var active = false setget set_active
+var is_moving = false
 
 func _ready():
 	connect_commands()

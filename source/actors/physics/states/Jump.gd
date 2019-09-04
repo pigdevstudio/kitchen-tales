@@ -3,7 +3,9 @@ extends "res://actors/physics/State.gd"
 func _on_command_started(command):
 	match command:
 		"Move":
-			get_parent().change_state_to("Walk")
+			is_moving = true
+		"Stop":
+			is_moving = false
 		"Jump":
 			get_parent().change_state_to("SecondJump")
 		"Fall":
@@ -17,6 +19,9 @@ func _on_command_finished(command):
 		"Jump":
 			get_parent().change_state_to("SingleFall")
 		"Fall":
-			get_parent().change_state_to("Idle")
+			if is_moving:
+				get_parent().change_state_to("Walk")
+			else:
+				get_parent().change_state_to("Idle")
 		"Dash":
 			get_parent().change_state_to("DashJump")

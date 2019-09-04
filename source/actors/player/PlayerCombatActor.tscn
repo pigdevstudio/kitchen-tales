@@ -41,11 +41,11 @@ actor_path = NodePath("..")
 [node name="Gravity" parent="StateMachine/IdleState" index="2"]
 actor_path = NodePath("../../../../PlayerCombatActor")
 
-[node name="WalkState" parent="StateMachine" index="1"]
-editor/display_folded = false
-
 [node name="Gravity" parent="StateMachine/WalkState" index="3"]
 actor_path = NodePath("../../../../PlayerCombatActor")
+
+[node name="JumpState" parent="StateMachine" index="2"]
+editor/display_folded = false
 
 [node name="Jump" parent="StateMachine/JumpState" index="0"]
 actor_path = NodePath("..")
@@ -64,9 +64,6 @@ actor_path = NodePath("..")
 
 [node name="Gravity" parent="StateMachine/DashFallState" index="1"]
 actor_path = NodePath("../../../../PlayerCombatActor/StateMachine/DashFallState")
-
-[node name="SingleFallState" parent="StateMachine" index="5"]
-editor/display_folded = false
 
 [node name="Fall" parent="StateMachine/DashJumpState" index="0"]
 actor_path = NodePath("..")
@@ -138,27 +135,17 @@ properties = PoolStringArray( "previous_state_name", "current_state_name" )
 [connection signal="state_changed" from="StateMachine" to="CombatStateMachine" method="change_state_to"]
 [connection signal="entered" from="StateMachine/IdleState" to="Pig" method="play" binds= [ "idle" ]]
 [connection signal="entered" from="StateMachine/WalkState" to="Pig" method="play" binds= [ "walk" ]]
-[connection signal="entered" from="StateMachine/JumpState" to="Controls/LeftAction" method="is_holding"]
-[connection signal="entered" from="StateMachine/JumpState" to="Controls/RightAction" method="is_holding"]
 [connection signal="entered" from="StateMachine/JumpState" to="Pig" method="play" binds= [ "jump" ]]
 [connection signal="entered" from="StateMachine/DashState" to="Pig" method="play" binds= [ "dash" ]]
 [connection signal="started" from="StateMachine/DashState/Bump" to="StateMachine" method="change_state_to" binds= [ "DashFall" ]]
 [connection signal="started" from="StateMachine/DashState/DistanceStop" to="StateMachine" method="change_state_to" binds= [ "DashFall" ]]
-[connection signal="entered" from="StateMachine/DashFallState" to="Controls/LeftAction" method="is_holding"]
 [connection signal="entered" from="StateMachine/DashFallState" to="Controls/RightAction" method="is_holding"]
+[connection signal="entered" from="StateMachine/DashFallState" to="Controls/LeftAction" method="is_holding"]
 [connection signal="entered" from="StateMachine/DashFallState" to="Pig" method="play" binds= [ "drift" ]]
-[connection signal="entered" from="StateMachine/SingleFallState" to="Controls/LeftAction" method="is_holding"]
-[connection signal="entered" from="StateMachine/SingleFallState" to="Controls/RightAction" method="is_holding"]
 [connection signal="entered" from="StateMachine/SingleFallState" to="Pig" method="play" binds= [ "fall" ]]
 [connection signal="entered" from="StateMachine/DashJumpState" to="Pig" method="play" binds= [ "dash" ]]
-[connection signal="entered" from="StateMachine/DashJumpFallState" to="Controls/LeftAction" method="is_holding"]
-[connection signal="entered" from="StateMachine/DashJumpFallState" to="Controls/RightAction" method="is_holding"]
 [connection signal="entered" from="StateMachine/DashJumpFallState" to="Pig" method="play" binds= [ "fall" ]]
-[connection signal="entered" from="StateMachine/SecondJumpState" to="Controls/LeftAction" method="is_holding"]
-[connection signal="entered" from="StateMachine/SecondJumpState" to="Controls/RightAction" method="is_holding"]
 [connection signal="entered" from="StateMachine/SecondJumpState" to="Pig" method="play" binds= [ "jump" ]]
-[connection signal="entered" from="StateMachine/SecondFallState" to="Controls/LeftAction" method="is_holding"]
-[connection signal="entered" from="StateMachine/SecondFallState" to="Controls/RightAction" method="is_holding"]
 [connection signal="entered" from="StateMachine/SecondFallState" to="Pig" method="play" binds= [ "fall" ]]
 [connection signal="handling" from="Controls/LeftAction" to="Pig" method="set_look_direction" binds= [ -1 ]]
 [connection signal="pressed" from="Controls/LeftAction" to="CombatStateMachine" method="set_direction" binds= [ Vector2( -1, 0 ) ]]

@@ -32,8 +32,12 @@ func change_state_to(new_state_name):
 	if not has_node(new_state_name + "State"):
 		return
 	var new_state = get_node(new_state_name + "State")
+	if new_state.name == _current_state.name:
+		return
 	_previous_state = _current_state
+	previous_state_name = _previous_state.name
 	_current_state = new_state
+	current_state_name = _current_state.name
 	initialize_current_state()
 	emit_signal("state_changed", new_state_name)
 
@@ -41,9 +45,7 @@ func change_state_to(new_state_name):
 func initialize_current_state():
 	_previous_state.active = false
 	_current_state.active = true
-	
-	current_state_name = _current_state.name
-	previous_state_name = _previous_state.name
+	_current_state.is_moving = _previous_state.is_moving
 
 
 func set_direction(new_direction):

@@ -1,7 +1,5 @@
 extends "res://actors/physics/State.gd"
 
-var moving = false
-
 func _on_command_started(command):
 	match command:
 		"Jump":
@@ -9,15 +7,15 @@ func _on_command_started(command):
 		"Dash":
 			get_parent().change_state_to("Dash") 
 		"Move":
-			moving = true
+			is_moving = true
 		"Stop":
-			moving = false
+			is_moving = false
 
 
 func _on_command_finished(command):
 	match command:
 		"Fall":
-			if moving:
+			if is_moving:
 				get_parent().change_state_to("Walk")
 			else:
 				get_parent().change_state_to("Idle")
