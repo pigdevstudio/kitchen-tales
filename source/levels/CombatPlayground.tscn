@@ -2,11 +2,11 @@
 
 [ext_resource path="res://levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://areas/Ground.tscn" type="PackedScene" id=2]
-[ext_resource path="res://levels/Spawner.gd" type="Script" id=3]
-[ext_resource path="res://actors/non_player/MovingDummy.tscn" type="PackedScene" id=4]
-[ext_resource path="res://actors/non_player/CombatDummy.tscn" type="PackedScene" id=5]
-[ext_resource path="res://actors/physics/State.gd" type="Script" id=6]
-[ext_resource path="res://utility/VisibleCollisionPolygon2D.tscn" type="PackedScene" id=7]
+[ext_resource path="res://utility/VisibleCollisionPolygon2D.tscn" type="PackedScene" id=3]
+[ext_resource path="res://levels/Spawner.gd" type="Script" id=4]
+[ext_resource path="res://actors/non_player/MovingDummy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://actors/non_player/CombatDummy.tscn" type="PackedScene" id=6]
+[ext_resource path="res://actors/physics/State.gd" type="Script" id=7]
 [ext_resource path="res://actors/player/PlayerCombatActor.tscn" type="PackedScene" id=8]
 
 [sub_resource type="LineShape2D" id=1]
@@ -45,12 +45,20 @@ shape = SubResource( 2 )
 
 [node name="Ground" parent="Floor" instance=ExtResource( 2 )]
 position = Vector2( 0, 744 )
+color = Color( 0.317647, 0.266667, 0.333333, 1 )
+
+[node name="Cliff" type="StaticBody2D" parent="."]
+position = Vector2( 0, 744 )
+
+[node name="VisibleCollisionPolygon2D" parent="Cliff" instance=ExtResource( 3 )]
+polygon = PoolVector2Array( 0, 0, 240, 0, 240, -224, 0, -224 )
+color = Color( 0.317647, 0.266667, 0.333333, 1 )
 
 [node name="LeftMovingDummySpawner" type="Position2D" parent="."]
 editor/display_folded = true
 position = Vector2( 110, 653.25 )
-script = ExtResource( 3 )
-spawnling_scene = ExtResource( 4 )
+script = ExtResource( 4 )
+spawnling_scene = ExtResource( 5 )
 
 [node name="Timer" type="Timer" parent="LeftMovingDummySpawner"]
 wait_time = 5.0
@@ -59,14 +67,14 @@ one_shot = true
 [node name="RightMovingDummySpawner" type="Position2D" parent="."]
 editor/display_folded = true
 position = Vector2( 1810, 653.25 )
-script = ExtResource( 3 )
-spawnling_scene = ExtResource( 4 )
+script = ExtResource( 4 )
+spawnling_scene = ExtResource( 5 )
 
 [node name="Timer" type="Timer" parent="RightMovingDummySpawner"]
 wait_time = 5.0
 one_shot = true
 
-[node name="CombatDummy" parent="." instance=ExtResource( 5 )]
+[node name="CombatDummy" parent="." instance=ExtResource( 6 )]
 editor/display_folded = true
 position = Vector2( 940, 620 )
 
@@ -74,34 +82,34 @@ position = Vector2( 940, 620 )
 shape = SubResource( 3 )
 
 [node name="IdleState" parent="CombatDummy/StateMachine" index="0"]
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 
 [node name="WalkState" parent="CombatDummy/StateMachine" index="1"]
 editor/display_folded = false
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 
 [node name="JumpState" parent="CombatDummy/StateMachine" index="2"]
 editor/display_folded = false
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 
 [node name="DashState" parent="CombatDummy/StateMachine" index="3"]
 editor/display_folded = false
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 
 [node name="DashFallState" parent="CombatDummy/StateMachine" index="4"]
 editor/display_folded = false
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 
 [node name="DashJumpState" parent="CombatDummy/StateMachine" index="6"]
 editor/display_folded = false
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 
 [node name="DashJumpFallState" parent="CombatDummy/StateMachine" index="7"]
 editor/display_folded = false
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 
 [node name="SecondJumpState" parent="CombatDummy/StateMachine" index="8"]
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 
 [node name="Health" parent="CombatDummy" index="2"]
 max_health = 100
@@ -130,16 +138,11 @@ text = "Boss"
 align = 1
 valign = 1
 
-[node name="Cliff" type="StaticBody2D" parent="."]
-position = Vector2( 0, 744 )
-
-[node name="VisibleCollisionPolygon2D" parent="Cliff" instance=ExtResource( 7 )]
-polygon = PoolVector2Array( 0, 0, 240, 0, 240, -224, 0, -224 )
-
 [node name="PlayerCombatActor" parent="." instance=ExtResource( 8 )]
 position = Vector2( 184, 464 )
-[connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="RightMovingDummySpawner/Timer" method="start"]
+z_index = 1
 [connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="LeftMovingDummySpawner" method="spawn"]
+[connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="RightMovingDummySpawner/Timer" method="start"]
 [connection signal="timeout" from="RightMovingDummySpawner/Timer" to="RightMovingDummySpawner" method="spawn"]
 [connection signal="timeout" from="RightMovingDummySpawner/Timer" to="LeftMovingDummySpawner/Timer" method="start"]
 [connection signal="tree_exited" from="CombatDummy" to="RightMovingDummySpawner/Timer" method="start"]

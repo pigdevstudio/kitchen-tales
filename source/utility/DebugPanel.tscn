@@ -1,7 +1,23 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://utility/DebugPanel.gd" type="Script" id=1]
+[ext_resource path="res://interface/Montserrat-ExtraBold.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://utility/DebugPanel.gd" type="Script" id=2]
 
+[sub_resource type="DynamicFont" id=1]
+size = 20
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+Label/colors/font_color = Color( 1, 1, 1, 1 )
+Label/colors/font_color_shadow = Color( 0, 0, 0, 0 )
+Label/colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+Label/constants/line_spacing = 3
+Label/constants/shadow_as_outline = 0
+Label/constants/shadow_offset_x = 1
+Label/constants/shadow_offset_y = 1
+Label/fonts/font = null
+Label/styles/normal = null
 
 [node name="DebugPanel" type="PanelContainer"]
 anchor_right = 1.0
@@ -10,7 +26,8 @@ margin_right = -1630.0
 margin_bottom = -998.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource( 1 )
+theme = SubResource( 2 )
+script = ExtResource( 2 )
 reference_path = NodePath("")
 properties = PoolStringArray(  )
 

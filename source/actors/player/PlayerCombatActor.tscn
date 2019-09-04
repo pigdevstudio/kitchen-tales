@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://actors/player/PlayerPlatformActor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://utility/Geometry2D.gd" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://actors/player/PlayerData.tres" type="Resource" id=9]
 [ext_resource path="res://actors/player/PickupArea.gd" type="Script" id=10]
 [ext_resource path="res://actors/player/buccerino/PigCharacter.tscn" type="PackedScene" id=11]
+[ext_resource path="res://utility/DebugPanel.tscn" type="PackedScene" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 40, 30 )
@@ -40,6 +41,9 @@ actor_path = NodePath("..")
 [node name="Gravity" parent="StateMachine/IdleState" index="2"]
 actor_path = NodePath("../../../../PlayerCombatActor")
 
+[node name="WalkState" parent="StateMachine" index="1"]
+editor/display_folded = false
+
 [node name="Gravity" parent="StateMachine/WalkState" index="3"]
 actor_path = NodePath("../../../../PlayerCombatActor")
 
@@ -60,6 +64,9 @@ actor_path = NodePath("..")
 
 [node name="Gravity" parent="StateMachine/DashFallState" index="1"]
 actor_path = NodePath("../../../../PlayerCombatActor/StateMachine/DashFallState")
+
+[node name="SingleFallState" parent="StateMachine" index="5"]
+editor/display_folded = false
 
 [node name="Fall" parent="StateMachine/DashJumpState" index="0"]
 actor_path = NodePath("..")
@@ -84,9 +91,6 @@ actor_path = NodePath("..")
 
 [node name="Gravity" parent="StateMachine/SecondJumpState" index="3"]
 actor_path = NodePath("../../../../PlayerCombatActor/StateMachine/SecondJumpState")
-
-[node name="Controls" parent="." index="3"]
-editor/display_folded = true
 
 [node name="AttackAction" parent="Controls" index="6" instance=ExtResource( 3 )]
 action = "attack"
@@ -125,35 +129,37 @@ position = Vector2( 0, -64 )
 shape = SubResource( 3 )
 
 [node name="Pig" parent="." index="8" instance=ExtResource( 11 )]
+
+[node name="Debug" type="CanvasLayer" parent="." index="9"]
+
+[node name="DebugPanel" parent="Debug" index="0" instance=ExtResource( 12 )]
+reference_path = NodePath("../../StateMachine")
+properties = PoolStringArray( "previous_state_name", "current_state_name" )
 [connection signal="state_changed" from="StateMachine" to="CombatStateMachine" method="change_state_to"]
 [connection signal="entered" from="StateMachine/IdleState" to="Pig" method="play" binds= [ "idle" ]]
-[connection signal="entered" from="StateMachine/IdleState" to="Controls/RightAction" method="is_holding"]
-[connection signal="entered" from="StateMachine/IdleState" to="Controls/LeftAction" method="is_holding"]
 [connection signal="entered" from="StateMachine/WalkState" to="Pig" method="play" binds= [ "walk" ]]
-[connection signal="entered" from="StateMachine/WalkState" to="Controls/RightAction" method="is_holding"]
-[connection signal="entered" from="StateMachine/WalkState" to="Controls/LeftAction" method="is_holding"]
-[connection signal="entered" from="StateMachine/JumpState" to="Pig" method="play" binds= [ "jump" ]]
-[connection signal="entered" from="StateMachine/JumpState" to="Controls/RightAction" method="is_holding"]
 [connection signal="entered" from="StateMachine/JumpState" to="Controls/LeftAction" method="is_holding"]
+[connection signal="entered" from="StateMachine/JumpState" to="Controls/RightAction" method="is_holding"]
+[connection signal="entered" from="StateMachine/JumpState" to="Pig" method="play" binds= [ "jump" ]]
 [connection signal="entered" from="StateMachine/DashState" to="Pig" method="play" binds= [ "dash" ]]
 [connection signal="started" from="StateMachine/DashState/Bump" to="StateMachine" method="change_state_to" binds= [ "DashFall" ]]
 [connection signal="started" from="StateMachine/DashState/DistanceStop" to="StateMachine" method="change_state_to" binds= [ "DashFall" ]]
-[connection signal="entered" from="StateMachine/DashFallState" to="Pig" method="play" binds= [ "drift" ]]
-[connection signal="entered" from="StateMachine/DashFallState" to="Controls/RightAction" method="is_holding"]
 [connection signal="entered" from="StateMachine/DashFallState" to="Controls/LeftAction" method="is_holding"]
-[connection signal="entered" from="StateMachine/SingleFallState" to="Pig" method="play" binds= [ "fall" ]]
-[connection signal="entered" from="StateMachine/SingleFallState" to="Controls/RightAction" method="is_holding"]
+[connection signal="entered" from="StateMachine/DashFallState" to="Controls/RightAction" method="is_holding"]
+[connection signal="entered" from="StateMachine/DashFallState" to="Pig" method="play" binds= [ "drift" ]]
 [connection signal="entered" from="StateMachine/SingleFallState" to="Controls/LeftAction" method="is_holding"]
+[connection signal="entered" from="StateMachine/SingleFallState" to="Controls/RightAction" method="is_holding"]
+[connection signal="entered" from="StateMachine/SingleFallState" to="Pig" method="play" binds= [ "fall" ]]
 [connection signal="entered" from="StateMachine/DashJumpState" to="Pig" method="play" binds= [ "dash" ]]
-[connection signal="entered" from="StateMachine/DashJumpFallState" to="Pig" method="play" binds= [ "fall" ]]
-[connection signal="entered" from="StateMachine/DashJumpFallState" to="Controls/RightAction" method="is_holding"]
 [connection signal="entered" from="StateMachine/DashJumpFallState" to="Controls/LeftAction" method="is_holding"]
-[connection signal="entered" from="StateMachine/SecondJumpState" to="Pig" method="play" binds= [ "jump" ]]
-[connection signal="entered" from="StateMachine/SecondJumpState" to="Controls/RightAction" method="is_holding"]
+[connection signal="entered" from="StateMachine/DashJumpFallState" to="Controls/RightAction" method="is_holding"]
+[connection signal="entered" from="StateMachine/DashJumpFallState" to="Pig" method="play" binds= [ "fall" ]]
 [connection signal="entered" from="StateMachine/SecondJumpState" to="Controls/LeftAction" method="is_holding"]
-[connection signal="entered" from="StateMachine/SecondFallState" to="Pig" method="play" binds= [ "fall" ]]
-[connection signal="entered" from="StateMachine/SecondFallState" to="Controls/RightAction" method="is_holding"]
+[connection signal="entered" from="StateMachine/SecondJumpState" to="Controls/RightAction" method="is_holding"]
+[connection signal="entered" from="StateMachine/SecondJumpState" to="Pig" method="play" binds= [ "jump" ]]
 [connection signal="entered" from="StateMachine/SecondFallState" to="Controls/LeftAction" method="is_holding"]
+[connection signal="entered" from="StateMachine/SecondFallState" to="Controls/RightAction" method="is_holding"]
+[connection signal="entered" from="StateMachine/SecondFallState" to="Pig" method="play" binds= [ "fall" ]]
 [connection signal="handling" from="Controls/LeftAction" to="Pig" method="set_look_direction" binds= [ -1 ]]
 [connection signal="pressed" from="Controls/LeftAction" to="CombatStateMachine" method="set_direction" binds= [ Vector2( -1, 0 ) ]]
 [connection signal="handling" from="Controls/RightAction" to="Pig" method="set_look_direction" binds= [ 1 ]]
