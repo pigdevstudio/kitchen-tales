@@ -6,6 +6,9 @@ func _on_command_started(command):
 			is_moving = true
 		"Stop":
 			is_moving = false
+		"WallSlide":
+			if is_moving:
+				get_parent().change_state_to("WallSlide")
 
 
 func _on_command_finished(command):

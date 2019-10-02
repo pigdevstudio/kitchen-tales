@@ -7,7 +7,7 @@
 [ext_resource path="res://actors/non_player/MovingDummy.tscn" type="PackedScene" id=5]
 [ext_resource path="res://actors/non_player/CombatDummy.tscn" type="PackedScene" id=6]
 [ext_resource path="res://actors/physics/State.gd" type="Script" id=7]
-[ext_resource path="res://actors/player/PlayerCombatActor.tscn" type="PackedScene" id=8]
+[ext_resource path="res://actors/player/buccerino/Buccerino.tscn" type="PackedScene" id=8]
 
 [sub_resource type="LineShape2D" id=1]
 normal = Vector2( 1, 0 )
@@ -31,7 +31,9 @@ bg_color = Color( 0.12549, 0.12549, 0.12549, 1 )
 script = ExtResource( 1 )
 next_scene = "res://levels/PhysicsPlayground.tscn"
 
-[node name="Walls" type="StaticBody2D" parent="."]
+[node name="Walls" type="StaticBody2D" parent="." groups=[
+"Slidable",
+]]
 editor/display_folded = true
 
 [node name="Left" type="CollisionShape2D" parent="Walls"]
@@ -96,21 +98,20 @@ script = ExtResource( 7 )
 editor/display_folded = false
 script = ExtResource( 7 )
 
-[node name="DashFallState" parent="CombatDummy/StateMachine" index="4"]
+[node name="DashJumpState" parent="CombatDummy/StateMachine" index="4"]
+script = ExtResource( 7 )
+
+[node name="SecondJumpState" parent="CombatDummy/StateMachine" index="5"]
+script = ExtResource( 7 )
+
+[node name="DashJumpFallState" parent="CombatDummy/StateMachine" index="6"]
+script = ExtResource( 7 )
+
+[node name="DashFallState" parent="CombatDummy/StateMachine" index="8"]
 script = ExtResource( 7 )
 
 [node name="Move" parent="CombatDummy/StateMachine/DashFallState" index="2"]
 speed = 400.0
-
-[node name="DashJumpState" parent="CombatDummy/StateMachine" index="6"]
-script = ExtResource( 7 )
-
-[node name="DashJumpFallState" parent="CombatDummy/StateMachine" index="7"]
-script = ExtResource( 7 )
-
-[node name="SecondJumpState" parent="CombatDummy/StateMachine" index="8"]
-editor/display_folded = true
-script = ExtResource( 7 )
 
 [node name="Health" parent="CombatDummy" index="2"]
 max_health = 100
@@ -139,8 +140,8 @@ text = "Boss"
 align = 1
 valign = 1
 
-[node name="PlayerCombatActor" parent="." instance=ExtResource( 8 )]
-position = Vector2( 184, 464 )
+[node name="Buccerino" parent="." instance=ExtResource( 8 )]
+position = Vector2( 160, 464 )
 z_index = 1
 [connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="RightMovingDummySpawner/Timer" method="start"]
 [connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="LeftMovingDummySpawner" method="spawn"]
@@ -164,11 +165,11 @@ z_index = 1
 [connection signal="started" from="CombatDummy/StateMachine/DashState/DistanceStop" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "DashFall" ]]
 [connection signal="finished" from="CombatDummy/StateMachine/DashState/Jump" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "DashJumpFall" ]]
 [connection signal="started" from="CombatDummy/StateMachine/DashState/Jump" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "DashJump" ]]
-[connection signal="finished" from="CombatDummy/StateMachine/DashFallState/Fall" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "Idle" ]]
 [connection signal="started" from="CombatDummy/StateMachine/DashJumpState/Fall" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "DashJumpFall" ]]
-[connection signal="finished" from="CombatDummy/StateMachine/DashJumpFallState/Fall" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "Idle" ]]
 [connection signal="finished" from="CombatDummy/StateMachine/SecondJumpState/Fall" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "Idle" ]]
 [connection signal="started" from="CombatDummy/StateMachine/SecondJumpState/Fall" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "DoubleJumpFall" ]]
+[connection signal="finished" from="CombatDummy/StateMachine/DashJumpFallState/Fall" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "Idle" ]]
+[connection signal="finished" from="CombatDummy/StateMachine/DashFallState/Fall" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "Idle" ]]
 [connection signal="changed" from="CombatDummy/Health" to="CombatDummy/HealthBar" method="set_value"]
 
 [editable path="CombatDummy"]

@@ -8,4 +8,12 @@ func set_look_direction(value):
 
 
 func play(animation):
-	$AnimationPlayer.play(animation)
+	if $AnimationPlayer.has_animation(animation):
+		$AnimationPlayer.play(animation)
+
+
+func _on_AnimationPlayer_animation_started(anim_name):
+	if anim_name == "wall":
+		$Pivot.scale.x = -1.0
+	else:
+		$Pivot.scale.x = 1.0

@@ -147,15 +147,3 @@ tracks/11/keys = {
 "update": 0,
 "values": [ 53.7246 ]
 }
-tracks/12/type = "value"
-tracks/12/path = NodePath("Pivot:scale")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ Vector2( 1, 1 ) ]
-}

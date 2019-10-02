@@ -13,29 +13,15 @@ var _active = false
 func _ready():
 	for shape in get_children():
 		shape.disabled = true
-		shape.visible = false
-
-
-func toggle():
-	if _active:
-		disable()
-	else:
-		enable()
 
 
 func enable():
-	for shape in get_children():
-		shape.disabled = false
-		shape.visible = true
 	_is_hit_landed = false
 	emit_signal("started")
 	_active = true
 
 
 func disable():
-	for shape in get_children():
-		shape.disabled = true
-		shape.visible = false
 	if not _is_hit_landed:
 		emit_signal("missed")
 	_active = false

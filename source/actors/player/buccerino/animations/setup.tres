@@ -150,7 +150,7 @@ tracks/11/keys = {
 "values": [ 15.0 ]
 }
 tracks/12/type = "value"
-tracks/12/path = NodePath("Pivot:scale")
+tracks/12/path = NodePath("Pivot/Body/Scarf:rotation_degrees")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/imported = false
@@ -158,11 +158,11 @@ tracks/12/enabled = true
 tracks/12/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ Vector2( 1, 1 ) ]
+"update": 0,
+"values": [ 0.0 ]
 }
 tracks/13/type = "value"
-tracks/13/path = NodePath("Pivot/Body/Scarf:rotation_degrees")
+tracks/13/path = NodePath("Pivot/Body/Scarf:position")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/imported = false
@@ -171,5 +171,5 @@ tracks/13/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0.0 ]
+"values": [ Vector2( 2.48515, -34.9213 ) ]
 }

@@ -4,7 +4,7 @@
 [ext_resource path="res://actors/player/Controls.gd" type="Script" id=2]
 [ext_resource path="res://actors/player/PlayerAction.tscn" type="PackedScene" id=3]
 
-[node name="PlayerPlatformActor" index="0" groups=[
+[node name="PlayerPlatformActor" groups=[
 "player",
 ] instance=ExtResource( 1 )]
 collision_layer = 1
@@ -15,17 +15,8 @@ script = null
 [node name="StateMachine" parent="." index="1"]
 actor_path = NodePath("../../PlayerPlatformActor")
 
-[node name="IdleState" parent="StateMachine" index="0"]
-editor/display_folded = false
-
 [node name="Jump" parent="StateMachine/IdleState" index="1"]
 actor_path = NodePath("../../../../PlayerPlatformActor/StateMachine/IdleState")
-
-[node name="WalkState" parent="StateMachine" index="1"]
-editor/display_folded = false
-
-[node name="JumpState" parent="StateMachine" index="2"]
-editor/display_folded = false
 
 [node name="Jump" parent="StateMachine/JumpState" index="0"]
 actor_path = NodePath("../../../../PlayerPlatformActor/StateMachine/JumpState")
@@ -35,9 +26,6 @@ actor_path = NodePath("../../..")
 
 [node name="Gravity" parent="StateMachine/SecondJumpState" index="3"]
 strength = 5000.0
-
-[node name="SecondFallState" parent="StateMachine" index="9"]
-editor/display_folded = true
 
 [node name="Controls" type="Node" parent="." index="2"]
 script = ExtResource( 2 )
@@ -61,15 +49,15 @@ action = "down"
 action = "dash"
 [connection signal="handling" from="Controls/LeftAction" to="StateMachine" method="set_direction" binds= [ Vector2( -1, 0 ) ]]
 [connection signal="pressed" from="Controls/LeftAction" to="StateMachine" method="execute" binds= [ "Move" ]]
-[connection signal="released" from="Controls/LeftAction" to="Controls/RightAction" method="is_holding"]
 [connection signal="released" from="Controls/LeftAction" to="StateMachine" method="execute" binds= [ "Stop" ]]
+[connection signal="released" from="Controls/LeftAction" to="Controls/RightAction" method="is_holding"]
 [connection signal="handling" from="Controls/RightAction" to="StateMachine" method="set_direction" binds= [ Vector2( 1, 0 ) ]]
 [connection signal="pressed" from="Controls/RightAction" to="StateMachine" method="execute" binds= [ "Move" ]]
-[connection signal="released" from="Controls/RightAction" to="Controls/LeftAction" method="is_holding"]
 [connection signal="released" from="Controls/RightAction" to="StateMachine" method="execute" binds= [ "Stop" ]]
+[connection signal="released" from="Controls/RightAction" to="Controls/LeftAction" method="is_holding"]
 [connection signal="pressed" from="Controls/JumpAction" to="StateMachine" method="execute" binds= [ "Jump" ]]
 [connection signal="released" from="Controls/JumpAction" to="StateMachine" method="cancel" binds= [ "Jump" ]]
 [connection signal="pressed" from="Controls/DashAction" to="StateMachine" method="execute" binds= [ "Dash" ]]
+[connection signal="released" from="Controls/DashAction" to="StateMachine" method="execute" binds= [ "Stop" ]]
 [connection signal="released" from="Controls/DashAction" to="Controls/LeftAction" method="is_holding"]
 [connection signal="released" from="Controls/DashAction" to="Controls/RightAction" method="is_holding"]
-[connection signal="released" from="Controls/DashAction" to="StateMachine" method="execute" binds= [ "Stop" ]]

@@ -13,6 +13,9 @@ func _on_command_started(command):
 			get_parent().change_state_to("Dash")
 		"Move":
 			is_moving = true
+		"Duck":
+			get_parent().change_state_to("Duck")
+			
 
 
 func _on_command_finished(command):
