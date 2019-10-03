@@ -8,6 +8,9 @@ func set_look_direction(value):
 
 
 func play(animation):
+	if $AnimationPlayer.current_animation == "spin":
+		if animation == "fall":
+			return
 	if $AnimationPlayer.has_animation(animation):
 		$AnimationPlayer.play(animation)
 

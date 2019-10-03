@@ -63,7 +63,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -0.999998, -42.0613 ) ]
+"values": [ Vector2( 0, -45.3333 ) ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("Pivot/Body/Head:rotation_degrees")

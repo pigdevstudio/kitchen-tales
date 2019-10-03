@@ -40,11 +40,11 @@ func increase():
 		emit_signal("increased")
 	else:
 		reset()
-		emit_signal("reset")
 	_is_hit_landed = false
 
 
 func reset():
+	emit_signal("reset")
 	_is_hit_landed = false
 	_current_attack_index = 0
 
