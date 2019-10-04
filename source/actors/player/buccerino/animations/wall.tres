@@ -145,3 +145,27 @@ tracks/11/keys = {
 "update": 0,
 "values": [ 31.6803 ]
 }
+tracks/12/type = "value"
+tracks/12/path = NodePath("Pivot/Body/ArmLeft/RemoteTransform2D:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -0.394093, 10.0567 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("Pivot/Body/ArmLeft/RemoteTransform2D:rotation_degrees")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 90.0 ]
+}
