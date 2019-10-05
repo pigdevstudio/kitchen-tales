@@ -616,7 +616,7 @@ value = 1.0
 percent_visible = false
 
 [node name="ComboResetTime" type="Timer" parent="." index="12"]
-wait_time = 0.5
+wait_time = 0.3
 one_shot = true
 [connection signal="entered" from="StateMachine/IdleState" to="Pig" method="play" binds= [ "idle" ]]
 [connection signal="entered" from="StateMachine/WalkState" to="Pig" method="play" binds= [ "walk" ]]
@@ -638,7 +638,7 @@ one_shot = true
 [connection signal="timeout" from="Controls/AttackAction/HoldThreshold" to="CombatStateMachine" method="execute" binds= [ "Charging" ]]
 [connection signal="stopped" from="Controls/AttackAction/HoldTimer" to="CombatStateMachine" method="cancel" binds= [ "Charging" ]]
 [connection signal="timeout" from="Controls/AttackAction/HoldTimer" to="CombatStateMachine" method="execute" binds= [ "Charge" ]]
-[connection signal="increased" from="CombatStateMachine/IdleState/Attack" to="ComboResetTime" method="start"]
+[connection signal="finished" from="CombatStateMachine/IdleState/Attack" to="ComboResetTime" method="start"]
 [connection signal="finished" from="CombatStateMachine/IdleState/Attack/Cut" to="AttackAnimator" method="stop"]
 [connection signal="finished" from="CombatStateMachine/IdleState/Attack/Cut" to="Pig" method="play" binds= [ "idle" ]]
 [connection signal="started" from="CombatStateMachine/IdleState/Attack/Cut" to="AttackAnimator" method="play" binds= [ "cut" ]]

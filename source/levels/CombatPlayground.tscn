@@ -143,8 +143,8 @@ valign = 1
 [node name="Buccerino" parent="." instance=ExtResource( 8 )]
 position = Vector2( 160, 464 )
 z_index = 1
-[connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="RightMovingDummySpawner/Timer" method="start"]
 [connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="LeftMovingDummySpawner" method="spawn"]
+[connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="RightMovingDummySpawner/Timer" method="start"]
 [connection signal="timeout" from="RightMovingDummySpawner/Timer" to="RightMovingDummySpawner" method="spawn"]
 [connection signal="timeout" from="RightMovingDummySpawner/Timer" to="LeftMovingDummySpawner/Timer" method="start"]
 [connection signal="started" from="CombatDummy/StateMachine/IdleState/Move" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "Walk" ]]
