@@ -77,7 +77,6 @@ wait_time = 5.0
 one_shot = true
 
 [node name="CombatDummy" parent="." instance=ExtResource( 6 )]
-editor/display_folded = true
 position = Vector2( 940, 620 )
 
 [node name="CollisionShape2D" parent="CombatDummy" index="0"]
@@ -114,7 +113,7 @@ script = ExtResource( 7 )
 speed = 400.0
 
 [node name="Health" parent="CombatDummy" index="2"]
-max_health = 100
+max_health = 500
 
 [node name="Geometry2D" parent="CombatDummy/CombatActions/Guard/HurtBox" index="0"]
 shape = SubResource( 4 )
@@ -129,6 +128,7 @@ margin_right = 184.0
 margin_bottom = -279.0
 custom_styles/fg = SubResource( 5 )
 custom_styles/bg = SubResource( 6 )
+max_value = 500.0
 value = 50.0
 rounded = true
 percent_visible = false
@@ -143,10 +143,10 @@ valign = 1
 [node name="Buccerino" parent="." instance=ExtResource( 8 )]
 position = Vector2( 160, 464 )
 z_index = 1
-[connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="LeftMovingDummySpawner" method="spawn"]
 [connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="RightMovingDummySpawner/Timer" method="start"]
-[connection signal="timeout" from="RightMovingDummySpawner/Timer" to="LeftMovingDummySpawner/Timer" method="start"]
+[connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="LeftMovingDummySpawner" method="spawn"]
 [connection signal="timeout" from="RightMovingDummySpawner/Timer" to="RightMovingDummySpawner" method="spawn"]
+[connection signal="timeout" from="RightMovingDummySpawner/Timer" to="LeftMovingDummySpawner/Timer" method="start"]
 [connection signal="started" from="CombatDummy/StateMachine/IdleState/Move" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "Walk" ]]
 [connection signal="started" from="CombatDummy/StateMachine/IdleState/Jump" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "Jump" ]]
 [connection signal="started" from="CombatDummy/StateMachine/IdleState/Fall" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "SingleJumpFall" ]]

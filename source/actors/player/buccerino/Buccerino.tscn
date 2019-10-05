@@ -614,6 +614,10 @@ rect_pivot_offset = Vector2( 68, 13 )
 max_value = 1.0
 value = 1.0
 percent_visible = false
+
+[node name="ComboResetTime" type="Timer" parent="." index="12"]
+wait_time = 0.5
+one_shot = true
 [connection signal="entered" from="StateMachine/IdleState" to="Pig" method="play" binds= [ "idle" ]]
 [connection signal="entered" from="StateMachine/WalkState" to="Pig" method="play" binds= [ "walk" ]]
 [connection signal="entered" from="StateMachine/JumpState" to="Pig" method="play" binds= [ "jump" ]]
@@ -634,6 +638,7 @@ percent_visible = false
 [connection signal="timeout" from="Controls/AttackAction/HoldThreshold" to="CombatStateMachine" method="execute" binds= [ "Charging" ]]
 [connection signal="stopped" from="Controls/AttackAction/HoldTimer" to="CombatStateMachine" method="cancel" binds= [ "Charging" ]]
 [connection signal="timeout" from="Controls/AttackAction/HoldTimer" to="CombatStateMachine" method="execute" binds= [ "Charge" ]]
+[connection signal="increased" from="CombatStateMachine/IdleState/Attack" to="ComboResetTime" method="start"]
 [connection signal="finished" from="CombatStateMachine/IdleState/Attack/Cut" to="AttackAnimator" method="stop"]
 [connection signal="finished" from="CombatStateMachine/IdleState/Attack/Cut" to="Pig" method="play" binds= [ "idle" ]]
 [connection signal="started" from="CombatStateMachine/IdleState/Attack/Cut" to="AttackAnimator" method="play" binds= [ "cut" ]]
@@ -650,6 +655,7 @@ percent_visible = false
 [connection signal="finished" from="CombatStateMachine/IdleState/Charge" to="CombatStateMachine/IdleState/Charge/HitBox/CollisionShape2D" method="set_disabled" binds= [ true ]]
 [connection signal="started" from="CombatStateMachine/IdleState/Charge" to="AttackAnimator" method="play" binds= [ "charge" ]]
 [connection signal="started" from="CombatStateMachine/IdleState/Charge" to="Pig" method="play" binds= [ "charge" ]]
+[connection signal="finished" from="CombatStateMachine/IdleState/Charging" to="ChargeBar" method="set_value" binds= [ 0.0 ]]
 [connection signal="finished" from="CombatStateMachine/IdleState/Charging" to="ChargeBar" method="hide"]
 [connection signal="finished" from="CombatStateMachine/IdleState/Charging" to="CombatStateMachine" method="cancel" binds= [ "Charge" ]]
 [connection signal="started" from="CombatStateMachine/IdleState/Charging" to="AttackAnimator" method="play" binds= [ "charging" ]]
@@ -658,3 +664,4 @@ percent_visible = false
 [connection signal="started" from="CombatStateMachine/JumpState/Attack" to="AttackAnimator" method="play" binds= [ "spin" ]]
 [connection signal="started" from="CombatStateMachine/JumpState/Attack" to="Pig" method="play" binds= [ "spin" ]]
 [connection signal="entered" from="CombatStateMachine/SingleFallState" to="CombatStateMachine" method="change_state_to" binds= [ "Jump" ]]
+[connection signal="timeout" from="ComboResetTime" to="CombatStateMachine/IdleState/Attack" method="reset"]
