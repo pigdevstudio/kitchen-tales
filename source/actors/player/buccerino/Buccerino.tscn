@@ -17,13 +17,13 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 48, 40 )
 
-[sub_resource type="CircleShape2D" id=7]
+[sub_resource type="CircleShape2D" id=2]
 radius = 49.0918
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=3]
 radius = 88.3629
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=4]
 resource_name = "charge"
 length = 0.5
 step = 0.05
@@ -109,7 +109,7 @@ tracks/4/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=5]
 resource_name = "charging"
 length = 0.5
 tracks/0/type = "value"
@@ -137,7 +137,7 @@ tracks/1/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=6]
 length = 0.2
 step = 0.05
 tracks/0/type = "value"
@@ -196,7 +196,7 @@ tracks/3/keys = {
 "values": [ 1.0 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=7]
 length = 0.5
 step = 0.01
 tracks/0/type = "value"
@@ -267,7 +267,7 @@ tracks/3/keys = {
 "values": [ 1.0 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=8]
 length = 0.25
 step = 0.05
 tracks/0/type = "value"
@@ -332,8 +332,7 @@ tracks/3/keys = {
 "values": [ 1.0 ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "spin"
+[sub_resource type="Animation" id=9]
 length = 0.4
 step = 0.05
 tracks/0/type = "value"
@@ -393,9 +392,6 @@ tracks/2/keys = {
 }
 
 [node name="Buccerino" instance=ExtResource( 1 )]
-
-[node name="StateMachine" parent="." index="2"]
-editor/display_folded = true
 
 [node name="Move" parent="StateMachine/IdleState" index="0"]
 actor_path = NodePath("../../../../Buccerino/StateMachine/IdleState")
@@ -469,6 +465,9 @@ actor_path = NodePath("../../../../Buccerino/StateMachine/SecondJumpState")
 [node name="Move" parent="StateMachine/SecondJumpState" index="2"]
 actor_path = NodePath("../../../../Buccerino/StateMachine/SecondJumpState")
 
+[node name="DashJumpFallState" parent="StateMachine" index="6"]
+editor/display_folded = true
+
 [node name="Stop" parent="StateMachine/DashJumpFallState" index="0"]
 actor_path = NodePath("../../../../Buccerino/StateMachine/DashJumpFallState")
 
@@ -478,8 +477,14 @@ actor_path = NodePath("../../../../Buccerino/StateMachine/DashJumpFallState")
 [node name="Fall" parent="StateMachine/DashJumpFallState" index="3"]
 actor_path = NodePath("../../../../Buccerino/StateMachine/DashJumpFallState")
 
+[node name="SingleFallState" parent="StateMachine" index="7"]
+editor/display_folded = true
+
 [node name="Gravity" parent="StateMachine/SingleFallState" index="4"]
 actor_path = NodePath("../../../../Buccerino")
+
+[node name="DashFallState" parent="StateMachine" index="8"]
+editor/display_folded = true
 
 [node name="Stop" parent="StateMachine/DashFallState" index="0"]
 actor_path = NodePath("../../../../Buccerino/StateMachine/DashFallState")
@@ -489,6 +494,9 @@ actor_path = NodePath("../../../../Buccerino/StateMachine/DashFallState")
 
 [node name="Fall" parent="StateMachine/DashFallState" index="3"]
 actor_path = NodePath("../../../../Buccerino/StateMachine/DashFallState")
+
+[node name="SecondFallState" parent="StateMachine" index="9"]
+editor/display_folded = true
 
 [node name="Gravity" parent="StateMachine/SecondFallState" index="3"]
 actor_path = NodePath("../../../../Buccerino")
@@ -539,13 +547,14 @@ hit = ExtResource( 8 )
 shape = SubResource( 1 )
 
 [node name="Charge" parent="CombatStateMachine/IdleState" index="1" instance=ExtResource( 4 )]
+editor/display_folded = true
 position = Vector2( 103, -63 )
 
 [node name="HitBox" parent="CombatStateMachine/IdleState/Charge" index="1" instance=ExtResource( 5 )]
 hit = ExtResource( 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CombatStateMachine/IdleState/Charge/HitBox" index="0"]
-shape = SubResource( 7 )
+shape = SubResource( 2 )
 disabled = true
 
 [node name="Charging" parent="CombatStateMachine/IdleState" index="2" instance=ExtResource( 4 )]
@@ -561,8 +570,17 @@ position = Vector2( 0, -64 )
 hit = ExtResource( 11 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CombatStateMachine/JumpState/Attack/HitBox" index="0"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 disabled = true
+
+[node name="SingleFallState" type="Node2D" parent="CombatStateMachine" index="2"]
+script = ExtResource( 10 )
+
+[node name="WalkState" type="Node2D" parent="CombatStateMachine" index="3"]
+script = ExtResource( 10 )
+
+[node name="DashState" type="Node2D" parent="CombatStateMachine" index="4"]
+script = ExtResource( 10 )
 
 [node name="HurtBox" parent="." index="5"]
 editor/display_folded = true
@@ -579,12 +597,12 @@ reference_path = NodePath("../../StateMachine")
 properties = PoolStringArray( "previous_state_name", "current_state_name" )
 
 [node name="AttackAnimator" type="AnimationPlayer" parent="." index="10"]
-anims/charge = SubResource( 8 )
-anims/charging = SubResource( 9 )
-anims/cut = SubResource( 3 )
-anims/dice = SubResource( 4 )
-anims/slice = SubResource( 5 )
-anims/spin = SubResource( 6 )
+anims/charge = SubResource( 4 )
+anims/charging = SubResource( 5 )
+anims/cut = SubResource( 6 )
+anims/dice = SubResource( 7 )
+anims/slice = SubResource( 8 )
+anims/spin = SubResource( 9 )
 
 [node name="ChargeBar" type="ProgressBar" parent="." index="11"]
 visible = false
@@ -612,8 +630,8 @@ percent_visible = false
 [connection signal="pressed" from="Controls/AttackAction" to="Controls/AttackAction/HoldThreshold" method="start"]
 [connection signal="released" from="Controls/AttackAction" to="Controls/AttackAction/HoldThreshold" method="stop"]
 [connection signal="released" from="Controls/AttackAction" to="Controls/AttackAction/HoldTimer" method="stop"]
-[connection signal="timeout" from="Controls/AttackAction/HoldThreshold" to="CombatStateMachine" method="execute" binds= [ "Charging" ]]
 [connection signal="timeout" from="Controls/AttackAction/HoldThreshold" to="Controls/AttackAction/HoldTimer" method="start"]
+[connection signal="timeout" from="Controls/AttackAction/HoldThreshold" to="CombatStateMachine" method="execute" binds= [ "Charging" ]]
 [connection signal="stopped" from="Controls/AttackAction/HoldTimer" to="CombatStateMachine" method="cancel" binds= [ "Charging" ]]
 [connection signal="timeout" from="Controls/AttackAction/HoldTimer" to="CombatStateMachine" method="execute" binds= [ "Charge" ]]
 [connection signal="finished" from="CombatStateMachine/IdleState/Attack/Cut" to="AttackAnimator" method="stop"]
@@ -632,10 +650,11 @@ percent_visible = false
 [connection signal="finished" from="CombatStateMachine/IdleState/Charge" to="CombatStateMachine/IdleState/Charge/HitBox/CollisionShape2D" method="set_disabled" binds= [ true ]]
 [connection signal="started" from="CombatStateMachine/IdleState/Charge" to="AttackAnimator" method="play" binds= [ "charge" ]]
 [connection signal="started" from="CombatStateMachine/IdleState/Charge" to="Pig" method="play" binds= [ "charge" ]]
-[connection signal="finished" from="CombatStateMachine/IdleState/Charging" to="CombatStateMachine" method="cancel" binds= [ "Charge" ]]
 [connection signal="finished" from="CombatStateMachine/IdleState/Charging" to="ChargeBar" method="hide"]
+[connection signal="finished" from="CombatStateMachine/IdleState/Charging" to="CombatStateMachine" method="cancel" binds= [ "Charge" ]]
 [connection signal="started" from="CombatStateMachine/IdleState/Charging" to="AttackAnimator" method="play" binds= [ "charging" ]]
 [connection signal="started" from="CombatStateMachine/IdleState/Charging" to="Pig" method="play" binds= [ "charging" ]]
 [connection signal="finished" from="CombatStateMachine/JumpState/Attack" to="AttackAnimator" method="stop"]
 [connection signal="started" from="CombatStateMachine/JumpState/Attack" to="AttackAnimator" method="play" binds= [ "spin" ]]
 [connection signal="started" from="CombatStateMachine/JumpState/Attack" to="Pig" method="play" binds= [ "spin" ]]
+[connection signal="entered" from="CombatStateMachine/SingleFallState" to="CombatStateMachine" method="change_state_to" binds= [ "Jump" ]]
