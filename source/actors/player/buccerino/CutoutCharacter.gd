@@ -22,6 +22,6 @@ func _on_AnimationPlayer_animation_started(anim_name):
 		$Pivot.scale.x = -1.0
 	else:
 		$Pivot.scale.x = 1.0
-	if anim_name == "charge":
+	if not anim_name == "charge":
 		$Pivot/Body/ArmLeft/RemoteTransform2D.update_position = true
 		$Pivot/Body/ArmLeft/RemoteTransform2D.update_rotation = true

@@ -12,7 +12,7 @@
 [ext_resource path="res://actors/player/buccerino/hat.png" type="Texture" id=10]
 [ext_resource path="res://actors/player/buccerino/cleaver.png" type="Texture" id=11]
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=1]
 resource_name = "charge"
 length = 0.5
 step = 0.05
@@ -281,7 +281,7 @@ tracks/21/keys = {
 "values": [ -315.0, -315.0, -315.0, -315.0 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=2]
 resource_name = "charging"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Pivot/Body/ArmLeft/RemoteTransform2D:position")
@@ -524,8 +524,7 @@ tracks/19/keys = {
 "values": [ 15.0 ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "cut"
+[sub_resource type="Animation" id=3]
 length = 0.2
 step = 0.05
 tracks/0/type = "value"
@@ -733,8 +732,7 @@ tracks/16/keys = {
 "values": [ 1.0 ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "dice"
+[sub_resource type="Animation" id=4]
 length = 0.5
 step = 0.01
 tracks/0/type = "value"
@@ -942,7 +940,7 @@ tracks/16/keys = {
 "values": [ 1.0 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=5]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Pivot/Body/Head:position")
@@ -1089,7 +1087,7 @@ tracks/11/keys = {
 "values": [ -29.1503 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=6]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Pivot/Body:position")
 tracks/0/interp = 1
@@ -1283,7 +1281,7 @@ tracks/15/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=7]
 length = 0.25
 step = 0.05
 tracks/0/type = "value"
@@ -1491,8 +1489,7 @@ tracks/16/keys = {
 "values": [ 1.0 ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "spin"
+[sub_resource type="Animation" id=8]
 length = 0.4
 step = 0.05
 tracks/0/type = "value"
@@ -1737,18 +1734,18 @@ __meta__ = {
 autoplay = "idle"
 playback_default_blend_time = 0.05
 anims/SETUP = ExtResource( 2 )
-anims/charge = SubResource( 7 )
-anims/charging = SubResource( 8 )
-anims/cut = SubResource( 1 )
+anims/charge = SubResource( 1 )
+anims/charging = SubResource( 2 )
+anims/cut = SubResource( 3 )
 anims/dash = ExtResource( 3 )
-anims/dice = SubResource( 2 )
-anims/drift = SubResource( 3 )
-anims/duck = SubResource( 4 )
+anims/dice = SubResource( 4 )
+anims/drift = SubResource( 5 )
+anims/duck = SubResource( 6 )
 anims/fall = ExtResource( 4 )
 anims/idle = ExtResource( 5 )
 anims/jump = ExtResource( 6 )
-anims/slice = SubResource( 5 )
-anims/spin = SubResource( 6 )
+anims/slice = SubResource( 7 )
+anims/spin = SubResource( 8 )
 anims/walk = ExtResource( 7 )
 anims/wall = ExtResource( 8 )
 
@@ -1822,13 +1819,12 @@ region_filter_clip = true
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Pivot/Body/ArmLeft"]
 position = Vector2( -0.394093, 10.0567 )
 rotation = 0.523599
-scale = Vector2( 1, 1 )
 remote_path = NodePath("../../../Cleaver")
 update_scale = false
 
 [node name="Cleaver" type="Sprite" parent="Pivot"]
 position = Vector2( 37.8889, -20.3333 )
-rotation = 0.261799
+rotation = 0.2618
 z_index = -1
 texture = ExtResource( 11 )
 offset = Vector2( 14.5, -14.1201 )
