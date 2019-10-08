@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://areas/Ground.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://actors/non_player/CombatDummy.tscn" type="PackedScene" id=6]
 [ext_resource path="res://actors/physics/State.gd" type="Script" id=7]
 [ext_resource path="res://actors/player/buccerino/Buccerino.tscn" type="PackedScene" id=8]
+[ext_resource path="res://actors/enemies/carrot/CarrotCharacter.tscn" type="PackedScene" id=9]
 
 [sub_resource type="LineShape2D" id=1]
 normal = Vector2( 1, 0 )
@@ -143,6 +144,20 @@ valign = 1
 [node name="Buccerino" parent="." instance=ExtResource( 8 )]
 position = Vector2( 160, 464 )
 z_index = 1
+
+[node name="Carrot" parent="." instance=ExtResource( 9 )]
+position = Vector2( 1490, 744 )
+scale = Vector2( -1, 1 )
+z_index = -1
+
+[node name="Sprite" parent="Carrot/Pivot/Body/Hair" index="0"]
+position = Vector2( 2.1636, 2 )
+
+[node name="Sprite2" parent="Carrot/Pivot/Body/Hair" index="1"]
+position = Vector2( 2.1636, 2 )
+
+[node name="Sprite3" parent="Carrot/Pivot/Body/Hair" index="2"]
+position = Vector2( 2.1636, 2 )
 [connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="LeftMovingDummySpawner" method="spawn"]
 [connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="RightMovingDummySpawner/Timer" method="start"]
 [connection signal="timeout" from="RightMovingDummySpawner/Timer" to="LeftMovingDummySpawner/Timer" method="start"]
@@ -172,3 +187,5 @@ z_index = 1
 [connection signal="changed" from="CombatDummy/Health" to="CombatDummy/HealthBar" method="set_value"]
 
 [editable path="CombatDummy"]
+
+[editable path="Carrot"]
