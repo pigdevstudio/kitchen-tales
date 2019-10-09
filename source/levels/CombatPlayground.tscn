@@ -78,6 +78,7 @@ wait_time = 5.0
 one_shot = true
 
 [node name="CombatDummy" parent="." instance=ExtResource( 6 )]
+editor/display_folded = true
 position = Vector2( 940, 620 )
 
 [node name="CollisionShape2D" parent="CombatDummy" index="0"]
@@ -160,8 +161,8 @@ position = Vector2( 2.1636, 2 )
 position = Vector2( 2.1636, 2 )
 [connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="LeftMovingDummySpawner" method="spawn"]
 [connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="RightMovingDummySpawner/Timer" method="start"]
-[connection signal="timeout" from="RightMovingDummySpawner/Timer" to="LeftMovingDummySpawner/Timer" method="start"]
 [connection signal="timeout" from="RightMovingDummySpawner/Timer" to="RightMovingDummySpawner" method="spawn"]
+[connection signal="timeout" from="RightMovingDummySpawner/Timer" to="LeftMovingDummySpawner/Timer" method="start"]
 [connection signal="started" from="CombatDummy/StateMachine/IdleState/Move" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "Walk" ]]
 [connection signal="started" from="CombatDummy/StateMachine/IdleState/Jump" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "Jump" ]]
 [connection signal="started" from="CombatDummy/StateMachine/IdleState/Fall" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "SingleJumpFall" ]]
