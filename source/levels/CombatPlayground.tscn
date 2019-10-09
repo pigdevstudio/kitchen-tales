@@ -1,32 +1,16 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://areas/Ground.tscn" type="PackedScene" id=2]
 [ext_resource path="res://utility/VisibleCollisionPolygon2D.tscn" type="PackedScene" id=3]
-[ext_resource path="res://levels/Spawner.gd" type="Script" id=4]
-[ext_resource path="res://actors/non_player/MovingDummy.tscn" type="PackedScene" id=5]
-[ext_resource path="res://actors/non_player/CombatDummy.tscn" type="PackedScene" id=6]
-[ext_resource path="res://actors/physics/State.gd" type="Script" id=7]
-[ext_resource path="res://actors/player/buccerino/Buccerino.tscn" type="PackedScene" id=8]
-[ext_resource path="res://actors/enemies/carrot/CarrotCharacter.tscn" type="PackedScene" id=9]
+[ext_resource path="res://actors/player/buccerino/Buccerino.tscn" type="PackedScene" id=4]
+[ext_resource path="res://actors/enemies/carrot/Carrot.tscn" type="PackedScene" id=5]
 
 [sub_resource type="LineShape2D" id=1]
 normal = Vector2( 1, 0 )
 
 [sub_resource type="LineShape2D" id=2]
 normal = Vector2( -1, 0 )
-
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 214, 184.876 )
-
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 214, 184.876 )
-
-[sub_resource type="StyleBoxFlat" id=5]
-bg_color = Color( 1, 0.203922, 0.203922, 1 )
-
-[sub_resource type="StyleBoxFlat" id=6]
-bg_color = Color( 0.12549, 0.12549, 0.12549, 1 )
 
 [node name="CombatPlayground" type="Node2D"]
 script = ExtResource( 1 )
@@ -57,136 +41,10 @@ position = Vector2( 0, 744 )
 polygon = PoolVector2Array( 0, 0, 240, 0, 240, -224, 0, -224 )
 color = Color( 0.317647, 0.266667, 0.333333, 1 )
 
-[node name="LeftMovingDummySpawner" type="Position2D" parent="."]
-editor/display_folded = true
-position = Vector2( 110, 653.25 )
-script = ExtResource( 4 )
-spawnling_scene = ExtResource( 5 )
-
-[node name="Timer" type="Timer" parent="LeftMovingDummySpawner"]
-wait_time = 5.0
-one_shot = true
-
-[node name="RightMovingDummySpawner" type="Position2D" parent="."]
-editor/display_folded = true
-position = Vector2( 1810, 653.25 )
-script = ExtResource( 4 )
-spawnling_scene = ExtResource( 5 )
-
-[node name="Timer" type="Timer" parent="RightMovingDummySpawner"]
-wait_time = 5.0
-one_shot = true
-
-[node name="CombatDummy" parent="." instance=ExtResource( 6 )]
-editor/display_folded = true
-position = Vector2( 940, 620 )
-
-[node name="CollisionShape2D" parent="CombatDummy" index="0"]
-shape = SubResource( 3 )
-
-[node name="IdleState" parent="CombatDummy/StateMachine" index="0"]
-script = ExtResource( 7 )
-
-[node name="WalkState" parent="CombatDummy/StateMachine" index="1"]
-editor/display_folded = false
-script = ExtResource( 7 )
-
-[node name="JumpState" parent="CombatDummy/StateMachine" index="2"]
-editor/display_folded = false
-script = ExtResource( 7 )
-
-[node name="DashState" parent="CombatDummy/StateMachine" index="3"]
-editor/display_folded = false
-script = ExtResource( 7 )
-
-[node name="DashJumpState" parent="CombatDummy/StateMachine" index="4"]
-script = ExtResource( 7 )
-
-[node name="SecondJumpState" parent="CombatDummy/StateMachine" index="5"]
-script = ExtResource( 7 )
-
-[node name="DashJumpFallState" parent="CombatDummy/StateMachine" index="6"]
-script = ExtResource( 7 )
-
-[node name="DashFallState" parent="CombatDummy/StateMachine" index="8"]
-script = ExtResource( 7 )
-
-[node name="Move" parent="CombatDummy/StateMachine/DashFallState" index="2"]
-speed = 400.0
-
-[node name="Health" parent="CombatDummy" index="2"]
-max_health = 500
-
-[node name="Geometry2D" parent="CombatDummy/CombatActions/Guard/HurtBox" index="0"]
-shape = SubResource( 4 )
-
-[node name="HurtLag" parent="CombatDummy/CombatActions/Guard/HurtBox" index="1"]
-actor_path = NodePath("../../..")
-
-[node name="HealthBar" type="ProgressBar" parent="CombatDummy"]
-margin_left = -186.0
-margin_top = -309.0
-margin_right = 184.0
-margin_bottom = -279.0
-custom_styles/fg = SubResource( 5 )
-custom_styles/bg = SubResource( 6 )
-max_value = 500.0
-value = 50.0
-rounded = true
-percent_visible = false
-
-[node name="Label" type="Label" parent="CombatDummy/HealthBar"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-text = "Boss"
-align = 1
-valign = 1
-
-[node name="Buccerino" parent="." instance=ExtResource( 8 )]
+[node name="Buccerino" parent="." instance=ExtResource( 4 )]
 position = Vector2( 160, 464 )
 z_index = 1
 
-[node name="Carrot" parent="." instance=ExtResource( 9 )]
-position = Vector2( 1490, 744 )
-scale = Vector2( -1, 1 )
+[node name="Carrot" parent="." instance=ExtResource( 5 )]
+position = Vector2( 1040, 744 )
 z_index = -1
-
-[node name="Sprite" parent="Carrot/Pivot/Body/Hair" index="0"]
-position = Vector2( 2.1636, 2 )
-
-[node name="Sprite2" parent="Carrot/Pivot/Body/Hair" index="1"]
-position = Vector2( 2.1636, 2 )
-
-[node name="Sprite3" parent="Carrot/Pivot/Body/Hair" index="2"]
-position = Vector2( 2.1636, 2 )
-[connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="LeftMovingDummySpawner" method="spawn"]
-[connection signal="timeout" from="LeftMovingDummySpawner/Timer" to="RightMovingDummySpawner/Timer" method="start"]
-[connection signal="timeout" from="RightMovingDummySpawner/Timer" to="RightMovingDummySpawner" method="spawn"]
-[connection signal="timeout" from="RightMovingDummySpawner/Timer" to="LeftMovingDummySpawner/Timer" method="start"]
-[connection signal="started" from="CombatDummy/StateMachine/IdleState/Move" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "Walk" ]]
-[connection signal="started" from="CombatDummy/StateMachine/IdleState/Jump" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "Jump" ]]
-[connection signal="started" from="CombatDummy/StateMachine/IdleState/Fall" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "SingleJumpFall" ]]
-[connection signal="started" from="CombatDummy/StateMachine/IdleState/Dash" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "Dash" ]]
-[connection signal="started" from="CombatDummy/StateMachine/WalkState/Stop" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "Idle" ]]
-[connection signal="started" from="CombatDummy/StateMachine/WalkState/Jump" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "Jump" ]]
-[connection signal="started" from="CombatDummy/StateMachine/WalkState/Fall" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "SingleJumpFall" ]]
-[connection signal="started" from="CombatDummy/StateMachine/WalkState/Dash" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "Dash" ]]
-[connection signal="finished" from="CombatDummy/StateMachine/JumpState/Jump" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "SingleJumpFall" ]]
-[connection signal="started" from="CombatDummy/StateMachine/JumpState/Jump" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "SecondJump" ]]
-[connection signal="started" from="CombatDummy/StateMachine/JumpState/Fall" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "SingleJumpFall" ]]
-[connection signal="started" from="CombatDummy/StateMachine/JumpState/Dash" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "Dash" ]]
-[connection signal="started" from="CombatDummy/StateMachine/DashState/Stop" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "DashFall" ]]
-[connection signal="started" from="CombatDummy/StateMachine/DashState/Bump" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "DashFall" ]]
-[connection signal="started" from="CombatDummy/StateMachine/DashState/DistanceStop" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "DashFall" ]]
-[connection signal="finished" from="CombatDummy/StateMachine/DashState/Jump" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "DashJumpFall" ]]
-[connection signal="started" from="CombatDummy/StateMachine/DashState/Jump" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "DashJump" ]]
-[connection signal="started" from="CombatDummy/StateMachine/DashJumpState/Fall" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "DashJumpFall" ]]
-[connection signal="finished" from="CombatDummy/StateMachine/SecondJumpState/Fall" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "Idle" ]]
-[connection signal="started" from="CombatDummy/StateMachine/SecondJumpState/Fall" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "DoubleJumpFall" ]]
-[connection signal="finished" from="CombatDummy/StateMachine/DashJumpFallState/Fall" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "Idle" ]]
-[connection signal="finished" from="CombatDummy/StateMachine/DashFallState/Fall" to="CombatDummy/StateMachine" method="change_state_to" binds= [ "Idle" ]]
-[connection signal="changed" from="CombatDummy/Health" to="CombatDummy/HealthBar" method="set_value"]
-
-[editable path="CombatDummy"]
-
-[editable path="Carrot"]

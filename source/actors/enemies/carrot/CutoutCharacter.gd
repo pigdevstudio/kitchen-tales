@@ -10,3 +10,8 @@ func set_look_direction(value):
 func play(animation):
 	if $AnimationPlayer.has_animation(animation):
 		$AnimationPlayer.play(animation)
+
+
+func play_backwards(animation):
+	if $AnimationPlayer.has_animation(animation):
+		$AnimationPlayer.play_backwards(animation)

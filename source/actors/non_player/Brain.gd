@@ -1,13 +1,19 @@
 extends Node
 
-signal direction_calculated(direction)
+export(NodePath) var combat_state_machine_path = "../CombatStateMachine"
+onready var combat_state_machine = get_node(combat_state_machine_path)
 
-func _ready():
-	calculate_movement_direction()
+export(NodePath) var character_path = "../Carrot"
+onready var character = get_node(character_path)
+
+var current_state = "Idle"
+
+func _on_Sight_spotted(spot_direction):
+	if current_state == "Stand":
+		character.set_look_direction(sign(spot_direction.x))
+	combat_state_machine.set_direction(spot_direction)
+	combat_state_machine.execute("Attack")
 
 
-func calculate_movement_direction():
-	var direction = 1
-	if get_parent().global_position.x > get_viewport().size.x * 0.5:
-		direction = -1
-	emit_signal("direction_calculated", Vector2(direction, 0))
+func _on_CombatStateMachine_state_changed(new_state):
+	current_state = new_state
