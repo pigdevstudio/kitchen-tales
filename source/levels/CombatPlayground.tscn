@@ -46,5 +46,13 @@ position = Vector2( 160, 464 )
 z_index = 1
 
 [node name="Carrot" parent="." instance=ExtResource( 5 )]
-position = Vector2( 1040, 744 )
+position = Vector2( 860, 744 )
+z_index = -1
+
+[node name="Carrot2" parent="." instance=ExtResource( 5 )]
+position = Vector2( 1360, 746 )
+z_index = -1
+
+[node name="Carrot3" parent="." instance=ExtResource( 5 )]
+position = Vector2( 1700, 744 )
 z_index = -1

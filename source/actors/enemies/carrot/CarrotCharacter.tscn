@@ -748,7 +748,7 @@ tracks/17/keys = {
 "values": [ 0.0, 0.0, 0.0, 0.0 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 resource_name = "stun"
 length = 0.3
 step = 0.05
@@ -981,8 +981,7 @@ tracks/18/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.533333, 0.533333, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0.533333, 0.533333, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0.533333, 0.533333, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "throw_dirt"
+[sub_resource type="Animation" id=5]
 length = 0.5
 step = 0.05
 tracks/0/type = "value"
@@ -1209,8 +1208,8 @@ script = ExtResource( 1 )
 anims/SETUP = SubResource( 1 )
 anims/hide = SubResource( 2 )
 anims/show = SubResource( 3 )
-anims/stun = SubResource( 5 )
-anims/throw_dirt = SubResource( 4 )
+anims/stun = SubResource( 4 )
+anims/throw_dirt = SubResource( 5 )
 
 [node name="Pivot" type="Position2D" parent="."]
 

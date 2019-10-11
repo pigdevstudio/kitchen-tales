@@ -8,11 +8,15 @@ onready var character = get_node(character_path)
 
 var current_state = "Idle"
 
+func _ready():
+	character.set_look_direction(-1)
+
+
 func _on_Sight_spotted(spot_direction):
-	if current_state == "Stand":
+	if current_state == "Alert":
 		character.set_look_direction(sign(spot_direction.x))
-	combat_state_machine.set_direction(spot_direction)
-	combat_state_machine.execute("Attack")
+		combat_state_machine.set_direction(spot_direction)
+		combat_state_machine.execute("Attack")
 
 
 func _on_CombatStateMachine_state_changed(new_state):
