@@ -1,12 +1,12 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://actors/player/PlayerAction.tscn" type="PackedScene" id=1]
+[ext_resource path="res://actors/player/PlayerHoldAction.gd" type="Script" id=2]
 
 [node name="PlayerHoldAction" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
 
-[node name="Threshold" type="Timer" parent="." index="0"]
+[node name="ThresholdTimer" type="Timer" parent="." index="0"]
 wait_time = 0.5
 one_shot = true
-[connection signal="pressed" from="." to="Threshold" method="start"]
-[connection signal="released" from="." to="Threshold" method="stop"]
-[connection signal="timeout" from="Threshold" to="." method="emit_signal" binds= [ "held" ]]
+[connection signal="timeout" from="ThresholdTimer" to="." method="_on_Threshold_timeout"]

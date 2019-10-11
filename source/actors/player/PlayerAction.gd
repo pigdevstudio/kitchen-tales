@@ -5,7 +5,6 @@ Manages and signalize Action input events.
 """
 
 signal pressed
-signal held
 signal released
 signal handling
 
@@ -35,5 +34,4 @@ func is_holding():
 		is_holding = true
 		emit_signal("handling")
 		emit_signal("pressed")
-		emit_signal("held")
 	return is_holding
