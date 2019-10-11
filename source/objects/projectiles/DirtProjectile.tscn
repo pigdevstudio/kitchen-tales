@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://objects/projectiles/Projectile.tscn" type="PackedScene" id=1]
+[ext_resource path="res://actors/combat/HitBox.tscn" type="PackedScene" id=2]
+[ext_resource path="res://actors/enemies/carrot/CarrotDirtyHit.tres" type="Resource" id=3]
+[ext_resource path="res://actors/enemies/carrot/carrot.svg" type="Texture" id=4]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 20.0
+
+[sub_resource type="Curve" id=2]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.494369, 0.5264 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0.292537, 1 )
+colors = PoolColorArray( 0.351562, 0.240326, 0.240326, 1, 0.262745, 0.184314, 0.184314, 0 )
+
+[node name="DirtProjectile" instance=ExtResource( 1 )]
+speed = 800.0
+
+[node name="HitBox" parent="." index="1" instance=ExtResource( 2 )]
+hit = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" index="0"]
+shape = SubResource( 1 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." index="2"]
+rotation = -3.14159
+amount = 32
+lifetime = 1.5
+local_coords = false
+spread = 35.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 35.0
+scale_amount = 16.0
+scale_amount_curve = SubResource( 2 )
+color_ramp = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="." index="3"]
+self_modulate = Color( 0.6, 0.6, 0.6, 1 )
+texture = ExtResource( 4 )
+region_enabled = true
+region_rect = Rect2( 160, 179, 25, 26 )
+[connection signal="ready" from="." to="HitBox" method="enable"]
+[connection signal="landed" from="HitBox" to="." method="queue_free"]

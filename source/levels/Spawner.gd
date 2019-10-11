@@ -7,4 +7,3 @@ func spawn():
 	spawnling.set_as_toplevel(true)
 	spawnling.global_position = global_position
 	add_child(spawnling)
-	return spawnling
