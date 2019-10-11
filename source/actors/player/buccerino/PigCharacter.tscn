@@ -1,16 +1,17 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://actors/player/buccerino/CutoutCharacter.gd" type="Script" id=1]
 [ext_resource path="res://actors/player/buccerino/animations/setup.tres" type="Animation" id=2]
 [ext_resource path="res://actors/player/buccerino/animations/dash.tres" type="Animation" id=3]
 [ext_resource path="res://actors/player/buccerino/animations/fall.tres" type="Animation" id=4]
-[ext_resource path="res://actors/player/buccerino/animations/idle.tres" type="Animation" id=5]
-[ext_resource path="res://actors/player/buccerino/animations/jump.tres" type="Animation" id=6]
-[ext_resource path="res://actors/player/buccerino/animations/walk.tres" type="Animation" id=7]
-[ext_resource path="res://actors/player/buccerino/animations/wall.tres" type="Animation" id=8]
-[ext_resource path="res://actors/player/buccerino/buccerino-new.svg" type="Texture" id=9]
-[ext_resource path="res://actors/player/buccerino/hat.png" type="Texture" id=10]
-[ext_resource path="res://actors/player/buccerino/cleaver.png" type="Texture" id=11]
+[ext_resource path="res://actors/hurt_animation.tres" type="Animation" id=5]
+[ext_resource path="res://actors/player/buccerino/animations/idle.tres" type="Animation" id=6]
+[ext_resource path="res://actors/player/buccerino/animations/jump.tres" type="Animation" id=7]
+[ext_resource path="res://actors/player/buccerino/animations/walk.tres" type="Animation" id=8]
+[ext_resource path="res://actors/player/buccerino/animations/wall.tres" type="Animation" id=9]
+[ext_resource path="res://actors/player/buccerino/buccerino-new.svg" type="Texture" id=10]
+[ext_resource path="res://actors/player/buccerino/hat.png" type="Texture" id=11]
+[ext_resource path="res://actors/player/buccerino/cleaver.png" type="Texture" id=12]
 
 [sub_resource type="Animation" id=1]
 resource_name = "charge"
@@ -216,9 +217,9 @@ tracks/16/imported = false
 tracks/16/enabled = true
 tracks/16/keys = {
 "times": PoolRealArray( 0, 0.25, 0.5 ),
-"transitions": PoolRealArray( 1, 2, 1 ),
+"transitions": PoolRealArray( 1, 0.5, 1 ),
 "update": 0,
-"values": [ Vector2( 40, -16 ), Vector2( 290, -16 ), Vector2( 35.1533, -34.4868 ) ]
+"values": [ Vector2( 40, -16 ), Vector2( 400, -16 ), Vector2( 35.1533, -34.4868 ) ]
 }
 tracks/17/type = "value"
 tracks/17/path = NodePath("Pivot/Cleaver:rotation_degrees")
@@ -1991,17 +1992,19 @@ tracks/21/keys = {
 "update": 0,
 "values": [ -33.1137 ]
 }
-tracks/22/type = "value"
-tracks/22/path = NodePath(".:modulate")
+tracks/22/type = "method"
+tracks/22/path = NodePath("AnimationPlayer2")
 tracks/22/interp = 1
 tracks/22/loop_wrap = true
 tracks/22/imported = false
 tracks/22/enabled = true
 tracks/22/keys = {
-"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.501961, 0.556863, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0.501961, 0.556863, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0.501961, 0.556863, 1 ), Color( 1, 1, 1, 1 ) ]
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "hurt", -1, 1.0, false ],
+"method": "play"
+} ]
 }
 
 [node name="Pig" type="Position2D"]
@@ -2023,21 +2026,25 @@ anims/dice = SubResource( 4 )
 anims/drift = SubResource( 5 )
 anims/duck = SubResource( 6 )
 anims/fall = ExtResource( 4 )
-anims/idle = ExtResource( 5 )
-anims/jump = ExtResource( 6 )
+anims/hurt = ExtResource( 5 )
+anims/idle = ExtResource( 6 )
+anims/jump = ExtResource( 7 )
 anims/slice = SubResource( 7 )
 anims/spin = SubResource( 8 )
 anims/stun = SubResource( 9 )
-anims/walk = ExtResource( 7 )
-anims/wall = ExtResource( 8 )
+anims/walk = ExtResource( 8 )
+anims/wall = ExtResource( 9 )
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+anims/hurt = ExtResource( 5 )
 
 [node name="Pivot" type="Position2D" parent="."]
 position = Vector2( 0, -24 )
 
 [node name="LegLeft" type="Sprite" parent="Pivot"]
 position = Vector2( 22.25, -6.14934 )
-rotation = -0.577944
-texture = ExtResource( 9 )
+rotation = -0.577943
+texture = ExtResource( 10 )
 offset = Vector2( 0, 6.816 )
 region_enabled = true
 region_rect = Rect2( 224, 91, 22, 37 )
@@ -2045,7 +2052,7 @@ region_filter_clip = true
 
 [node name="LegRight" type="Sprite" parent="Pivot"]
 position = Vector2( -13.25, 0.517328 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 offset = Vector2( 0, 6.816 )
 region_enabled = true
 region_rect = Rect2( 192, 91, 22, 37 )
@@ -2054,7 +2061,7 @@ region_filter_clip = true
 [node name="Body" type="Sprite" parent="Pivot"]
 position = Vector2( 0, -6.14934 )
 rotation = -0.126592
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 offset = Vector2( 1, -21.184 )
 region_enabled = true
 region_rect = Rect2( 176, 6, 74, 74 )
@@ -2063,7 +2070,7 @@ region_rect = Rect2( 176, 6, 74, 74 )
 show_behind_parent = true
 position = Vector2( 0, -45.3333 )
 rotation = -0.138832
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 offset = Vector2( 1.66667, -27.7893 )
 region_enabled = true
 region_rect = Rect2( 0, 6, 70, 74 )
@@ -2071,12 +2078,12 @@ region_filter_clip = true
 
 [node name="Hat" type="Sprite" parent="Pivot/Body/Head"]
 position = Vector2( 2.91667, -44.6783 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 offset = Vector2( 0, -24 )
 
 [node name="Scarf" type="Sprite" parent="Pivot/Body"]
 position = Vector2( 2.48515, -34.9213 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 offset = Vector2( -3.25925, -6.70496 )
 region_enabled = true
 region_rect = Rect2( 160, 144, 82, 20 )
@@ -2084,7 +2091,7 @@ region_rect = Rect2( 160, 144, 82, 20 )
 [node name="ArmRight" type="Sprite" parent="Pivot/Body"]
 position = Vector2( -38.2492, -40.882 )
 rotation = 0.261799
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 offset = Vector2( 0, 8 )
 region_enabled = true
 region_rect = Rect2( 160, 86, 25, 26 )
@@ -2095,7 +2102,7 @@ show_behind_parent = true
 position = Vector2( 27.7307, -49.6517 )
 rotation = -0.261799
 z_index = -1
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 offset = Vector2( 0, 8 )
 region_enabled = true
 region_rect = Rect2( 160, 118, 25, 26 )
@@ -2105,12 +2112,14 @@ region_filter_clip = true
 position = Vector2( -0.394093, 10.0567 )
 rotation = 0.523599
 remote_path = NodePath("../../../Cleaver")
+update_position = false
+update_rotation = false
 update_scale = false
 
 [node name="Cleaver" type="Sprite" parent="Pivot"]
 position = Vector2( 24.6838, -49.4479 )
 rotation = 0.135208
 z_index = -1
-texture = ExtResource( 11 )
+texture = ExtResource( 12 )
 offset = Vector2( 14.5, -14.1201 )
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]
