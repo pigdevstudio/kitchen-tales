@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node",
+"class": "ActionNotifier",
+"language": "GDScript",
+"path": "res://actors/player/controllers/ActionNotifier.gd"
+}, {
+"base": "Node",
 "class": "Command",
 "language": "GDScript",
 "path": "res://actors/Command.gd"
@@ -30,6 +35,7 @@ _global_script_classes=[ {
 "path": "res://actors/physics/PlatformPhysics.gd"
 } ]
 _global_script_class_icons={
+"ActionNotifier": "",
 "Command": "",
 "Geometry2D": "",
 "PlatformActor": "",

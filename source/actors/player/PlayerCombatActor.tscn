@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://actors/player/PlayerPlatformActor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://utility/Geometry2D.gd" type="Script" id=2]
@@ -9,14 +9,16 @@
 [ext_resource path="res://actors/physics/Move.tscn" type="PackedScene" id=7]
 [ext_resource path="res://actors/physics/Fall.tscn" type="PackedScene" id=8]
 [ext_resource path="res://actors/physics/Dash.tscn" type="PackedScene" id=9]
-[ext_resource path="res://actors/player/PlayerAction.tscn" type="PackedScene" id=10]
-[ext_resource path="res://actors/player/ActionBuffer.tscn" type="PackedScene" id=11]
-[ext_resource path="res://actors/combat/CombatStateMachine.gd" type="Script" id=12]
-[ext_resource path="res://actors/physics/State.gd" type="Script" id=13]
-[ext_resource path="res://actors/combat/HurtBox.tscn" type="PackedScene" id=14]
-[ext_resource path="res://actors/player/PlayerStatus.gd" type="Script" id=15]
-[ext_resource path="res://actors/player/PlayerData.tres" type="Resource" id=16]
-[ext_resource path="res://actors/player/PickupArea.gd" type="Script" id=17]
+[ext_resource path="res://actors/player/controllers/ActionNotifier.tscn" type="PackedScene" id=10]
+[ext_resource path="res://actors/player/controllers/HoldNotifier.tscn" type="PackedScene" id=11]
+[ext_resource path="res://actors/player/PlayerAction.tscn" type="PackedScene" id=12]
+[ext_resource path="res://actors/player/ActionBuffer.tscn" type="PackedScene" id=13]
+[ext_resource path="res://actors/combat/CombatStateMachine.gd" type="Script" id=14]
+[ext_resource path="res://actors/physics/State.gd" type="Script" id=15]
+[ext_resource path="res://actors/combat/HurtBox.tscn" type="PackedScene" id=16]
+[ext_resource path="res://actors/player/PlayerStatus.gd" type="Script" id=17]
+[ext_resource path="res://actors/player/PlayerData.tres" type="Resource" id=18]
+[ext_resource path="res://actors/player/PickupArea.gd" type="Script" id=19]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 40, 30 )
@@ -123,37 +125,38 @@ script = ExtResource( 5 )
 
 [node name="Stop" parent="StateMachine/DuckState" index="5" instance=ExtResource( 3 )]
 
-[node name="AttackAction" parent="Controls" index="6" instance=ExtResource( 10 )]
-action = "attack"
+[node name="AttackNotifier" parent="Controls" index="6" instance=ExtResource( 10 )]
 
-[node name="DefendAction" parent="Controls" index="7" instance=ExtResource( 10 )]
+[node name="AttackHeldNotifier" parent="Controls" index="7" instance=ExtResource( 11 )]
+
+[node name="DefendAction" parent="Controls" index="8" instance=ExtResource( 12 )]
 action = "defend"
 
-[node name="ActionBuffer" parent="Controls" index="8" instance=ExtResource( 11 )]
+[node name="ActionBuffer" parent="Controls" index="9" instance=ExtResource( 13 )]
 
 [node name="CombatStateMachine" type="Node2D" parent="." index="4"]
-script = ExtResource( 12 )
+script = ExtResource( 14 )
 
 [node name="IdleState" type="Node2D" parent="CombatStateMachine" index="0"]
-script = ExtResource( 13 )
+script = ExtResource( 15 )
 
 [node name="HurtBox" parent="." index="5" groups=[
 "player",
-] instance=ExtResource( 14 )]
+] instance=ExtResource( 16 )]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
 position = Vector2( 0, -64 )
 shape = SubResource( 2 )
 
 [node name="PlayerStatus" type="Node" parent="." index="6"]
-script = ExtResource( 15 )
-player_data = ExtResource( 16 )
+script = ExtResource( 17 )
+player_data = ExtResource( 18 )
 
 [node name="PickupArea" type="Area2D" parent="." index="7"]
 collision_layer = 0
 collision_mask = 4
-script = ExtResource( 17 )
-player_data = ExtResource( 16 )
+script = ExtResource( 19 )
+player_data = ExtResource( 18 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea" index="0"]
 position = Vector2( 0, -64 )
@@ -165,7 +168,9 @@ shape = SubResource( 3 )
 [connection signal="pressed" from="Controls/RightAction" to="CombatStateMachine" method="set_direction" binds= [ Vector2( 1, 0 ) ]]
 [connection signal="pressed" from="Controls/DownAction" to="StateMachine" method="execute" binds= [ "Duck" ]]
 [connection signal="released" from="Controls/DownAction" to="StateMachine" method="execute" binds= [ "Stand" ]]
-[connection signal="pressed" from="Controls/AttackAction" to="CombatStateMachine" method="execute" binds= [ "Attack" ]]
-[connection signal="released" from="Controls/AttackAction" to="CombatStateMachine" method="cancel" binds= [ "Attack" ]]
+[connection signal="pressed" from="Controls/AttackNotifier" to="CombatStateMachine" method="execute" binds= [ "Attack" ]]
+[connection signal="released" from="Controls/AttackNotifier" to="CombatStateMachine" method="cancel" binds= [ "Attack" ]]
+[connection signal="pressed" from="Controls/AttackHeldNotifier" to="CombatStateMachine" method="execute" binds= [ "Charging" ]]
+[connection signal="released" from="Controls/AttackHeldNotifier" to="CombatStateMachine" method="cancel" binds= [ "Charging" ]]
 [connection signal="damage_inflicted" from="HurtBox" to="PlayerStatus" method="decrease_health"]
 [connection signal="area_entered" from="PickupArea" to="PickupArea" method="_on_area_entered"]
