@@ -6,6 +6,7 @@ func _on_command_started(command):
 		"Stop":
 			get_parent().change_state_to(state_based_on_move)
 		"Bump":
+			is_moving = false
 			get_parent().change_state_to(state_based_on_move)
 		"DistanceStop":
 			get_parent().change_state_to(state_based_on_move)

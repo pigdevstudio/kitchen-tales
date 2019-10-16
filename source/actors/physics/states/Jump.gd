@@ -1,5 +1,10 @@
 extends "res://actors/physics/State.gd"
 
+func _physics_process(delta):
+	if is_moving and abs(actor.velocity.x) < 10.0:
+		execute("Move")
+
+
 func _on_command_started(command):
 	match command:
 		"Move":
@@ -11,7 +16,8 @@ func _on_command_started(command):
 		"Fall":
 			get_parent().change_state_to("SingleFall")
 		"Dash":
-			get_parent().change_state_to("Dash")
+			is_moving = true
+			get_parent().change_state_to("JumpDash")
 
 
 func _on_command_finished(command):

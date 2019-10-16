@@ -4,3 +4,4 @@
 
 [node name="Fall" type="Node"]
 script = ExtResource( 1 )
+FALL_THRESHOLD = 200.0

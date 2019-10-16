@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://actors/physics/PlatformActor.gd" type="Script" id=1]
 [ext_resource path="res://utility/Geometry2D.gd" type="Script" id=2]
@@ -13,15 +13,16 @@
 [ext_resource path="res://actors/physics/states/Walk.gd" type="Script" id=11]
 [ext_resource path="res://actors/physics/Stop.tscn" type="PackedScene" id=12]
 [ext_resource path="res://actors/physics/states/Jump.gd" type="Script" id=13]
-[ext_resource path="res://actors/physics/states/Dash.gd" type="Script" id=14]
+[ext_resource path="res://actors/physics/states/JumpDash.gd" type="Script" id=14]
 [ext_resource path="res://actors/physics/Bump.gd" type="Script" id=15]
 [ext_resource path="res://actors/physics/DistanceStop.gd" type="Script" id=16]
-[ext_resource path="res://actors/physics/states/DashJump.gd" type="Script" id=17]
-[ext_resource path="res://actors/physics/states/SecondJump.gd" type="Script" id=18]
-[ext_resource path="res://actors/physics/states/DashJumpFall.gd" type="Script" id=19]
-[ext_resource path="res://actors/physics/states/SingleFall.gd" type="Script" id=20]
-[ext_resource path="res://actors/physics/states/DashFall.gd" type="Script" id=21]
-[ext_resource path="res://actors/physics/states/SecondFall.gd" type="Script" id=22]
+[ext_resource path="res://actors/physics/states/Dash.gd" type="Script" id=17]
+[ext_resource path="res://actors/physics/states/DashJump.gd" type="Script" id=18]
+[ext_resource path="res://actors/physics/states/SecondJump.gd" type="Script" id=19]
+[ext_resource path="res://actors/physics/states/DashJumpFall.gd" type="Script" id=20]
+[ext_resource path="res://actors/physics/states/SingleFall.gd" type="Script" id=21]
+[ext_resource path="res://actors/physics/states/DashFall.gd" type="Script" id=22]
+[ext_resource path="res://actors/physics/states/SecondFall.gd" type="Script" id=23]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 40, 64 )
@@ -39,6 +40,7 @@ color = Color( 1, 1, 1, 1 )
 [node name="StateMachine" parent="." instance=ExtResource( 3 )]
 
 [node name="IdleState" parent="StateMachine" instance=ExtResource( 4 )]
+editor/display_folded = true
 script = ExtResource( 5 )
 
 [node name="Move" parent="StateMachine/IdleState" instance=ExtResource( 6 )]
@@ -54,6 +56,7 @@ actor_path = NodePath("../../..")
 [node name="Dash" parent="StateMachine/IdleState" instance=ExtResource( 10 )]
 
 [node name="WalkState" parent="StateMachine" instance=ExtResource( 4 )]
+editor/display_folded = true
 script = ExtResource( 11 )
 
 [node name="Stop" parent="StateMachine/WalkState" instance=ExtResource( 12 )]
@@ -85,9 +88,22 @@ actor_path = NodePath("../../..")
 
 [node name="Dash" parent="StateMachine/JumpState" instance=ExtResource( 10 )]
 
-[node name="DashState" parent="StateMachine" instance=ExtResource( 4 )]
-editor/display_folded = true
+[node name="JumpDashState" parent="StateMachine" instance=ExtResource( 4 )]
 script = ExtResource( 14 )
+
+[node name="Stop" parent="StateMachine/JumpDashState" instance=ExtResource( 12 )]
+actor_path = NodePath("../../WalkState")
+
+[node name="Bump" type="Node" parent="StateMachine/JumpDashState"]
+script = ExtResource( 15 )
+actor_path = NodePath("../../JumpDashState")
+
+[node name="DistanceStop" type="Node" parent="StateMachine/JumpDashState"]
+script = ExtResource( 16 )
+actor_path = NodePath("../../JumpDashState")
+
+[node name="DashState" parent="StateMachine" instance=ExtResource( 4 )]
+script = ExtResource( 17 )
 
 [node name="Stop" parent="StateMachine/DashState" instance=ExtResource( 12 )]
 actor_path = NodePath("../../WalkState")
@@ -102,7 +118,7 @@ script = ExtResource( 16 )
 
 [node name="DashJumpState" parent="StateMachine" instance=ExtResource( 4 )]
 editor/display_folded = true
-script = ExtResource( 17 )
+script = ExtResource( 18 )
 
 [node name="Fall" parent="StateMachine/DashJumpState" instance=ExtResource( 9 )]
 actor_path = NodePath("../../DashJumpState")
@@ -119,7 +135,7 @@ actor_path = NodePath("../../..")
 
 [node name="SecondJumpState" parent="StateMachine" instance=ExtResource( 4 )]
 editor/display_folded = true
-script = ExtResource( 18 )
+script = ExtResource( 19 )
 
 [node name="Fall" parent="StateMachine/SecondJumpState" instance=ExtResource( 9 )]
 
@@ -131,7 +147,7 @@ script = ExtResource( 18 )
 
 [node name="DashJumpFallState" parent="StateMachine" instance=ExtResource( 4 )]
 editor/display_folded = true
-script = ExtResource( 19 )
+script = ExtResource( 20 )
 
 [node name="Stop" parent="StateMachine/DashJumpFallState" instance=ExtResource( 12 )]
 actor_path = NodePath("../../WalkState")
@@ -147,7 +163,8 @@ speed = 2400.0
 actor_path = NodePath("../../DashJumpFallState")
 
 [node name="SingleFallState" parent="StateMachine" instance=ExtResource( 4 )]
-script = ExtResource( 20 )
+editor/display_folded = true
+script = ExtResource( 21 )
 
 [node name="Fall" parent="StateMachine/SingleFallState" instance=ExtResource( 9 )]
 actor_path = NodePath("../../SingleFallState")
@@ -168,8 +185,7 @@ actor_path = NodePath("../../..")
 actor_path = NodePath("../../SingleFallState")
 
 [node name="DashFallState" parent="StateMachine" instance=ExtResource( 4 )]
-editor/display_folded = true
-script = ExtResource( 21 )
+script = ExtResource( 22 )
 
 [node name="Stop" parent="StateMachine/DashFallState" instance=ExtResource( 12 )]
 actor_path = NodePath("../../WalkState")
@@ -182,7 +198,7 @@ actor_path = NodePath("../../WalkState")
 
 [node name="SecondFallState" parent="StateMachine" instance=ExtResource( 4 )]
 editor/display_folded = true
-script = ExtResource( 22 )
+script = ExtResource( 23 )
 
 [node name="Fall" parent="StateMachine/SecondFallState" instance=ExtResource( 9 )]
 actor_path = NodePath("../../SecondFallState")

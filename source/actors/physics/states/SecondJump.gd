@@ -1,5 +1,10 @@
 extends "res://actors/physics/State.gd"
 
+func _physics_process(delta):
+	if is_moving and abs(actor.velocity.x) < 10.0:
+		execute("Move")
+
+
 func _on_command_started(command):
 	match command:
 		"Fall":
