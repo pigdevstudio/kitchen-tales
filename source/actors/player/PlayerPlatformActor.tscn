@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://actors/physics/PlatformActor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/player/Controls.gd" type="Script" id=2]
-[ext_resource path="res://actors/player/PlayerAction.tscn" type="PackedScene" id=3]
+[ext_resource path="res://actors/player/controllers/ActionNotifier.tscn" type="PackedScene" id=3]
+[ext_resource path="res://actors/player/PlayerAction.tscn" type="PackedScene" id=4]
 
 [node name="PlayerPlatformActor" groups=[
 "player",
@@ -30,34 +31,33 @@ strength = 5000.0
 [node name="Controls" type="Node" parent="." index="2"]
 script = ExtResource( 2 )
 
-[node name="LeftAction" parent="Controls" index="0" instance=ExtResource( 3 )]
+[node name="MoveNotifier" parent="Controls" index="0" instance=ExtResource( 3 )]
+action = "move"
+
+[node name="LeftNotifier" parent="Controls" index="1" instance=ExtResource( 3 )]
 action = "left"
 
-[node name="RightAction" parent="Controls" index="1" instance=ExtResource( 3 )]
+[node name="RightNotifier" parent="Controls" index="2" instance=ExtResource( 3 )]
 action = "right"
 
-[node name="JumpAction" parent="Controls" index="2" instance=ExtResource( 3 )]
+[node name="JumpAction" parent="Controls" index="3" instance=ExtResource( 4 )]
 action = "jump"
 
-[node name="UpAction" parent="Controls" index="3" instance=ExtResource( 3 )]
+[node name="UpAction" parent="Controls" index="4" instance=ExtResource( 4 )]
 action = "up"
 
-[node name="DownAction" parent="Controls" index="4" instance=ExtResource( 3 )]
+[node name="DownAction" parent="Controls" index="5" instance=ExtResource( 4 )]
 action = "down"
 
-[node name="DashAction" parent="Controls" index="5" instance=ExtResource( 3 )]
+[node name="DashAction" parent="Controls" index="6" instance=ExtResource( 4 )]
 action = "dash"
-[connection signal="handling" from="Controls/LeftAction" to="StateMachine" method="set_direction" binds= [ Vector2( -1, 0 ) ]]
-[connection signal="pressed" from="Controls/LeftAction" to="StateMachine" method="execute" binds= [ "Move" ]]
-[connection signal="released" from="Controls/LeftAction" to="StateMachine" method="execute" binds= [ "Stop" ]]
-[connection signal="released" from="Controls/LeftAction" to="Controls/RightAction" method="is_holding"]
-[connection signal="handling" from="Controls/RightAction" to="StateMachine" method="set_direction" binds= [ Vector2( 1, 0 ) ]]
-[connection signal="pressed" from="Controls/RightAction" to="StateMachine" method="execute" binds= [ "Move" ]]
-[connection signal="released" from="Controls/RightAction" to="StateMachine" method="execute" binds= [ "Stop" ]]
-[connection signal="released" from="Controls/RightAction" to="Controls/LeftAction" method="is_holding"]
+[connection signal="pressed" from="Controls/MoveNotifier" to="StateMachine" method="execute" binds= [ "Move" ]]
+[connection signal="released" from="Controls/MoveNotifier" to="StateMachine" method="execute" binds= [ "Stop" ]]
+[connection signal="pressed" from="Controls/LeftNotifier" to="StateMachine" method="set_direction" binds= [ Vector2( -1, 0 ) ]]
+[connection signal="released" from="Controls/LeftNotifier" to="StateMachine" method="set_direction" binds= [ Vector2( 0, 0 ) ]]
+[connection signal="pressed" from="Controls/RightNotifier" to="StateMachine" method="set_direction" binds= [ Vector2( 1, 0 ) ]]
+[connection signal="released" from="Controls/RightNotifier" to="StateMachine" method="set_direction" binds= [ Vector2( 0, 0 ) ]]
 [connection signal="pressed" from="Controls/JumpAction" to="StateMachine" method="execute" binds= [ "Jump" ]]
 [connection signal="released" from="Controls/JumpAction" to="StateMachine" method="cancel" binds= [ "Jump" ]]
 [connection signal="pressed" from="Controls/DashAction" to="StateMachine" method="execute" binds= [ "Dash" ]]
 [connection signal="released" from="Controls/DashAction" to="StateMachine" method="execute" binds= [ "Stop" ]]
-[connection signal="released" from="Controls/DashAction" to="Controls/LeftAction" method="is_holding"]
-[connection signal="released" from="Controls/DashAction" to="Controls/RightAction" method="is_holding"]

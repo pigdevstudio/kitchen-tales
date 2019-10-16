@@ -496,7 +496,7 @@ actor_path = NodePath("../../../../Buccerino/StateMachine/DashFallState")
 [node name="Gravity" parent="StateMachine/SecondFallState" index="3"]
 actor_path = NodePath("../../../../Buccerino")
 
-[node name="StunState" parent="StateMachine" index="11" instance=ExtResource( 2 )]
+[node name="StunState" parent="StateMachine" index="10" instance=ExtResource( 2 )]
 editor/display_folded = true
 script = ExtResource( 3 )
 
@@ -509,7 +509,7 @@ action = "attack"
 action = "attack"
 hold_threshold = 0.3
 
-[node name="CombatStateMachine" parent="." index="4"]
+[node name="CombatStateMachine" parent="." index="3"]
 actor_path = NodePath("../../Buccerino")
 
 [node name="Attack" parent="CombatStateMachine/IdleState" index="0" instance=ExtResource( 5 )]
@@ -584,22 +584,22 @@ script = ExtResource( 12 )
 [node name="StunState" type="Node2D" parent="CombatStateMachine" index="5"]
 script = ExtResource( 12 )
 
-[node name="HurtBox" parent="." index="5"]
+[node name="HurtBox" parent="." index="4"]
 editor/display_folded = true
 
-[node name="PickupArea" parent="." index="7"]
+[node name="PickupArea" parent="." index="6"]
 editor/display_folded = true
 
-[node name="Pig" parent="." index="8" instance=ExtResource( 14 )]
+[node name="Pig" parent="." index="7" instance=ExtResource( 14 )]
 
-[node name="Debug" type="CanvasLayer" parent="." index="9"]
+[node name="Debug" type="CanvasLayer" parent="." index="8"]
 editor/display_folded = true
 
 [node name="DebugPanel" parent="Debug" index="0" instance=ExtResource( 15 )]
 reference_path = NodePath("../../StateMachine")
 properties = PoolStringArray( "previous_state_name", "current_state_name" )
 
-[node name="AttackAnimator" type="AnimationPlayer" parent="." index="10"]
+[node name="AttackAnimator" type="AnimationPlayer" parent="." index="9"]
 anims/charge = SubResource( 4 )
 anims/charging = SubResource( 5 )
 anims/cut = SubResource( 6 )
@@ -607,7 +607,7 @@ anims/dice = SubResource( 7 )
 anims/slice = SubResource( 8 )
 anims/spin = SubResource( 9 )
 
-[node name="ChargeBar" type="ProgressBar" parent="." index="11"]
+[node name="ChargeBar" type="ProgressBar" parent="." index="10"]
 visible = false
 margin_left = -66.0
 margin_top = -6.0
@@ -618,11 +618,11 @@ max_value = 1.0
 value = 1.0
 percent_visible = false
 
-[node name="ComboResetTime" type="Timer" parent="." index="12"]
+[node name="ComboResetTime" type="Timer" parent="." index="11"]
 wait_time = 0.3
 one_shot = true
 
-[node name="VisibleArea2D" type="Area2D" parent="." index="13" groups=[
+[node name="VisibleArea2D" type="Area2D" parent="." index="12" groups=[
 "player",
 ]]
 monitoring = false
@@ -633,7 +633,7 @@ collision_mask = 0
 position = Vector2( 0, -64 )
 shape = SubResource( 10 )
 
-[node name="StunDuration" type="Timer" parent="." index="14"]
+[node name="StunDuration" type="Timer" parent="." index="13"]
 wait_time = 0.3
 one_shot = true
 [connection signal="entered" from="StateMachine/IdleState" to="Pig" method="play" binds= [ "idle" ]]
@@ -648,47 +648,44 @@ one_shot = true
 [connection signal="entered" from="StateMachine/SingleFallState" to="Pig" method="play" binds= [ "fall" ]]
 [connection signal="entered" from="StateMachine/DashFallState" to="Pig" method="play" binds= [ "fall" ]]
 [connection signal="entered" from="StateMachine/SecondFallState" to="Pig" method="play" binds= [ "fall" ]]
-[connection signal="entered" from="StateMachine/DuckState" to="Pig" method="play" binds= [ "duck" ]]
 [connection signal="entered" from="StateMachine/StunState" to="StunDuration" method="start"]
-[connection signal="entered" from="StateMachine/StunState" to="Pig" method="play" binds= [ "stun" ]]
 [connection signal="entered" from="StateMachine/StunState" to="StateMachine/StunState/Stop" method="execute"]
-[connection signal="pressed" from="Controls/LeftAction" to="Pig" method="set_look_direction" binds= [ -1 ]]
-[connection signal="pressed" from="Controls/LeftAction" to="CombatStateMachine" method="set_direction" binds= [ Vector2( -1, 0 ) ]]
-[connection signal="pressed" from="Controls/RightAction" to="Pig" method="set_look_direction" binds= [ 1 ]]
-[connection signal="pressed" from="Controls/RightAction" to="CombatStateMachine" method="set_direction" binds= [ Vector2( 1, 0 ) ]]
+[connection signal="entered" from="StateMachine/StunState" to="Pig" method="play" binds= [ "stun" ]]
+[connection signal="pressed" from="Controls/LeftNotifier" to="Pig" method="set_look_direction" binds= [ -1 ]]
+[connection signal="pressed" from="Controls/RightNotifier" to="Pig" method="set_look_direction" binds= [ 1 ]]
 [connection signal="pressed" from="Controls/DownAction" to="StateMachine" method="execute" binds= [ "Duck" ]]
 [connection signal="released" from="Controls/DownAction" to="StateMachine" method="execute" binds= [ "Stand" ]]
 [connection signal="finished" from="CombatStateMachine/IdleState/Attack" to="ComboResetTime" method="start"]
-[connection signal="finished" from="CombatStateMachine/IdleState/Attack/Cut" to="AttackAnimator" method="stop"]
 [connection signal="finished" from="CombatStateMachine/IdleState/Attack/Cut" to="Pig" method="play" binds= [ "idle" ]]
-[connection signal="started" from="CombatStateMachine/IdleState/Attack/Cut" to="AttackAnimator" method="play" binds= [ "cut" ]]
+[connection signal="finished" from="CombatStateMachine/IdleState/Attack/Cut" to="AttackAnimator" method="stop"]
 [connection signal="started" from="CombatStateMachine/IdleState/Attack/Cut" to="Pig" method="play" binds= [ "cut" ]]
-[connection signal="finished" from="CombatStateMachine/IdleState/Attack/Slice" to="AttackAnimator" method="stop"]
+[connection signal="started" from="CombatStateMachine/IdleState/Attack/Cut" to="AttackAnimator" method="play" binds= [ "cut" ]]
 [connection signal="finished" from="CombatStateMachine/IdleState/Attack/Slice" to="Pig" method="play" binds= [ "idle" ]]
-[connection signal="started" from="CombatStateMachine/IdleState/Attack/Slice" to="AttackAnimator" method="play" binds= [ "slice" ]]
+[connection signal="finished" from="CombatStateMachine/IdleState/Attack/Slice" to="AttackAnimator" method="stop"]
 [connection signal="started" from="CombatStateMachine/IdleState/Attack/Slice" to="Pig" method="play" binds= [ "slice" ]]
-[connection signal="finished" from="CombatStateMachine/IdleState/Attack/Dice" to="AttackAnimator" method="stop"]
+[connection signal="started" from="CombatStateMachine/IdleState/Attack/Slice" to="AttackAnimator" method="play" binds= [ "slice" ]]
 [connection signal="finished" from="CombatStateMachine/IdleState/Attack/Dice" to="Pig" method="play" binds= [ "idle" ]]
-[connection signal="started" from="CombatStateMachine/IdleState/Attack/Dice" to="AttackAnimator" method="play" binds= [ "dice" ]]
+[connection signal="finished" from="CombatStateMachine/IdleState/Attack/Dice" to="AttackAnimator" method="stop"]
 [connection signal="started" from="CombatStateMachine/IdleState/Attack/Dice" to="Pig" method="play" binds= [ "dice" ]]
-[connection signal="finished" from="CombatStateMachine/IdleState/Charge" to="CombatStateMachine/IdleState/Charge/HitBox/CollisionShape2D" method="set_disabled" binds= [ true ]]
-[connection signal="finished" from="CombatStateMachine/IdleState/Charge" to="ChargeBar" method="hide"]
+[connection signal="started" from="CombatStateMachine/IdleState/Attack/Dice" to="AttackAnimator" method="play" binds= [ "dice" ]]
 [connection signal="finished" from="CombatStateMachine/IdleState/Charge" to="CombatStateMachine/IdleState/Charge/HitBox" method="disable"]
-[connection signal="started" from="CombatStateMachine/IdleState/Charge" to="AttackAnimator" method="play" binds= [ "charge" ]]
+[connection signal="finished" from="CombatStateMachine/IdleState/Charge" to="ChargeBar" method="hide"]
+[connection signal="finished" from="CombatStateMachine/IdleState/Charge" to="CombatStateMachine/IdleState/Charge/HitBox/CollisionShape2D" method="set_disabled" binds= [ true ]]
 [connection signal="started" from="CombatStateMachine/IdleState/Charge" to="Pig" method="play" binds= [ "charge" ]]
-[connection signal="finished" from="CombatStateMachine/IdleState/Charging" to="AttackAnimator" method="stop"]
-[connection signal="finished" from="CombatStateMachine/IdleState/Charging" to="Pig" method="play" binds= [ "idle" ]]
+[connection signal="started" from="CombatStateMachine/IdleState/Charge" to="AttackAnimator" method="play" binds= [ "charge" ]]
 [connection signal="finished" from="CombatStateMachine/IdleState/Charging" to="ChargeBar" method="set_value" binds= [ 0.0 ]]
 [connection signal="finished" from="CombatStateMachine/IdleState/Charging" to="ChargeBar" method="hide"]
-[connection signal="started" from="CombatStateMachine/IdleState/Charging" to="AttackAnimator" method="play" binds= [ "charging" ]]
-[connection signal="started" from="CombatStateMachine/IdleState/Charging" to="Pig" method="play" binds= [ "charging" ]]
+[connection signal="finished" from="CombatStateMachine/IdleState/Charging" to="Pig" method="play" binds= [ "idle" ]]
+[connection signal="finished" from="CombatStateMachine/IdleState/Charging" to="AttackAnimator" method="stop"]
 [connection signal="started" from="CombatStateMachine/IdleState/Charging" to="ChargeBar" method="show"]
+[connection signal="started" from="CombatStateMachine/IdleState/Charging" to="Pig" method="play" binds= [ "charging" ]]
+[connection signal="started" from="CombatStateMachine/IdleState/Charging" to="AttackAnimator" method="play" binds= [ "charging" ]]
 [connection signal="finished" from="CombatStateMachine/JumpState/Attack" to="AttackAnimator" method="stop"]
-[connection signal="started" from="CombatStateMachine/JumpState/Attack" to="AttackAnimator" method="play" binds= [ "spin" ]]
 [connection signal="started" from="CombatStateMachine/JumpState/Attack" to="Pig" method="play" binds= [ "spin" ]]
+[connection signal="started" from="CombatStateMachine/JumpState/Attack" to="AttackAnimator" method="play" binds= [ "spin" ]]
 [connection signal="entered" from="CombatStateMachine/SingleFallState" to="CombatStateMachine" method="change_state_to" binds= [ "Jump" ]]
-[connection signal="started" from="CombatStateMachine/WalkState/Attack" to="CombatStateMachine/IdleState/Attack" method="execute"]
 [connection signal="started" from="CombatStateMachine/WalkState/Attack" to="StateMachine" method="execute" binds= [ "Stop" ]]
+[connection signal="started" from="CombatStateMachine/WalkState/Attack" to="CombatStateMachine/IdleState/Attack" method="execute"]
 [connection signal="hurt" from="HurtBox" to="StateMachine" method="change_state_to" binds= [ "Stun" ]]
 [connection signal="timeout" from="ComboResetTime" to="CombatStateMachine/IdleState/Attack" method="reset"]
 [connection signal="timeout" from="StunDuration" to="StateMachine" method="change_state_to" binds= [ "Idle" ]]

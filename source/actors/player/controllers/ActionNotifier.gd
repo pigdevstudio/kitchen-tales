@@ -26,4 +26,3 @@ func handle(event):
 		emit_signal("pressed")
 	else:
 		emit_signal("released")
-	get_tree().set_input_as_handled()
