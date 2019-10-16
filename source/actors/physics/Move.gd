@@ -6,7 +6,7 @@ export (Vector2) var direction = Vector2.ZERO setget set_direction
 func execute():
 	if not enabled:
 		return
-	actor.velocity = direction * speed
+	actor.velocity.x = direction.x * speed
 	emit_signal("started")
 
 
