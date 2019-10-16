@@ -39,10 +39,10 @@ color = Color( 1, 1, 1, 1 )
 [node name="StateMachine" parent="." instance=ExtResource( 3 )]
 
 [node name="IdleState" parent="StateMachine" instance=ExtResource( 4 )]
-editor/display_folded = true
 script = ExtResource( 5 )
 
 [node name="Move" parent="StateMachine/IdleState" instance=ExtResource( 6 )]
+direction = Vector2( 1, 0 )
 
 [node name="Jump" parent="StateMachine/IdleState" instance=ExtResource( 7 )]
 
@@ -54,7 +54,6 @@ actor_path = NodePath("../../..")
 [node name="Dash" parent="StateMachine/IdleState" instance=ExtResource( 10 )]
 
 [node name="WalkState" parent="StateMachine" instance=ExtResource( 4 )]
-editor/display_folded = true
 script = ExtResource( 11 )
 
 [node name="Stop" parent="StateMachine/WalkState" instance=ExtResource( 12 )]
@@ -71,7 +70,6 @@ actor_path = NodePath("../../..")
 [node name="Dash" parent="StateMachine/WalkState" instance=ExtResource( 10 )]
 
 [node name="JumpState" parent="StateMachine" instance=ExtResource( 4 )]
-editor/display_folded = true
 script = ExtResource( 13 )
 
 [node name="Jump" parent="StateMachine/JumpState" instance=ExtResource( 7 )]
@@ -132,6 +130,7 @@ script = ExtResource( 18 )
 [node name="Gravity" parent="StateMachine/SecondJumpState" instance=ExtResource( 8 )]
 
 [node name="DashJumpFallState" parent="StateMachine" instance=ExtResource( 4 )]
+editor/display_folded = true
 script = ExtResource( 19 )
 
 [node name="Stop" parent="StateMachine/DashJumpFallState" instance=ExtResource( 12 )]
@@ -169,6 +168,7 @@ actor_path = NodePath("../../..")
 actor_path = NodePath("../../SingleFallState")
 
 [node name="DashFallState" parent="StateMachine" instance=ExtResource( 4 )]
+editor/display_folded = true
 script = ExtResource( 21 )
 
 [node name="Stop" parent="StateMachine/DashFallState" instance=ExtResource( 12 )]
@@ -181,6 +181,7 @@ actor_path = NodePath("../../WalkState")
 [node name="Fall" parent="StateMachine/DashFallState" instance=ExtResource( 9 )]
 
 [node name="SecondFallState" parent="StateMachine" instance=ExtResource( 4 )]
+editor/display_folded = true
 script = ExtResource( 22 )
 
 [node name="Fall" parent="StateMachine/SecondFallState" instance=ExtResource( 9 )]
