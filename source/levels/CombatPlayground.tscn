@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://areas/Ground.tscn" type="PackedScene" id=2]
 [ext_resource path="res://utility/VisibleCollisionPolygon2D.tscn" type="PackedScene" id=3]
 [ext_resource path="res://actors/player/buccerino/Buccerino.tscn" type="PackedScene" id=4]
-[ext_resource path="res://actors/enemies/carrot/Carrot.tscn" type="PackedScene" id=5]
+[ext_resource path="res://actors/physics/PlatformActor.gd" type="Script" id=5]
+[ext_resource path="res://actors/enemies/carrot/Carrot.tscn" type="PackedScene" id=6]
 
 [sub_resource type="LineShape2D" id=1]
 normal = Vector2( 1, 0 )
@@ -51,18 +52,21 @@ position = Vector2( 470, -218 )
 polygon = PoolVector2Array( -120, 0, 170, 0, 170, -100, 0, -100 )
 color = Color( 0.317647, 0.266667, 0.333333, 1 )
 
-[node name="Buccerino" parent="." instance=ExtResource( 4 )]
+[node name="Buccerino" parent="." groups=[
+"player",
+] instance=ExtResource( 4 )]
 position = Vector2( 160, 520 )
 z_index = 1
+script = ExtResource( 5 )
 
-[node name="Carrot" parent="." instance=ExtResource( 5 )]
+[node name="Carrot" parent="." instance=ExtResource( 6 )]
 position = Vector2( 860, 744 )
 z_index = -1
 
-[node name="Carrot2" parent="." instance=ExtResource( 5 )]
+[node name="Carrot2" parent="." instance=ExtResource( 6 )]
 position = Vector2( 1360, 746 )
 z_index = -1
 
-[node name="Carrot3" parent="." instance=ExtResource( 5 )]
+[node name="Carrot3" parent="." instance=ExtResource( 6 )]
 position = Vector2( 1700, 744 )
 z_index = -1

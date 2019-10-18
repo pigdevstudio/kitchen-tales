@@ -45,7 +45,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Kitchen Tales"
-run/main_scene="res://levels/CombatPlayground.tscn"
+run/main_scene="res://levels/blackspoon_arena/BlackspoonArena.tscn"
 config/icon="res://icon.png"
 
 [debug]
@@ -178,5 +178,5 @@ move={
 
 quality/driver/driver_name="GLES2"
 quality/2d/use_pixel_snap=true
-environment/default_clear_color=Color( 0.0823529, 0.0823529, 0.0823529, 1 )
+environment/default_clear_color=Color( 0.109804, 0.109804, 0.141176, 1 )
 environment/default_environment="res://default_env.tres"

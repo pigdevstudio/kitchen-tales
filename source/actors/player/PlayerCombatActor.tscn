@@ -120,6 +120,8 @@ player_data = ExtResource( 9 )
 position = Vector2( 0, -64 )
 shape = SubResource( 2 )
 [connection signal="state_changed" from="StateMachine" to="CombatStateMachine" method="change_state_to"]
+[connection signal="pressed" from="Controls/LeftNotifier" to="CombatStateMachine" method="set_direction" binds= [ Vector2( -1, 0 ) ]]
+[connection signal="pressed" from="Controls/RightNotifier" to="CombatStateMachine" method="set_direction" binds= [ Vector2( 1, 0 ) ]]
 [connection signal="pressed" from="Controls/AttackNotifier" to="CombatStateMachine" method="execute" binds= [ "Attack" ]]
 [connection signal="released" from="Controls/AttackNotifier" to="CombatStateMachine" method="cancel" binds= [ "Attack" ]]
 [connection signal="pressed" from="Controls/AttackHeldNotifier" to="CombatStateMachine" method="execute" binds= [ "Charging" ]]
