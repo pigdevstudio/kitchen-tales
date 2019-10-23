@@ -29,7 +29,6 @@ func execute():
 func cancel():
 	if actor.velocity.y < 0.0:
 		actor.velocity.y = 0.0
-		actor.snap_normal = Vector2.DOWN
 		emit_signal("finished")
 
 
@@ -42,6 +41,5 @@ func deplete():
 func replenish():
 	if actor.is_on_floor():
 		_available_jumps = max_jumps
-		actor.snap_normal = Vector2.DOWN
 		set_physics_process(false)
 		emit_signal("available_jumps_replenished")

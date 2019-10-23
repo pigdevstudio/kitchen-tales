@@ -1,7 +1,6 @@
 extends "res://actors/physics/PlatformCommand.gd"
 
 export (float) var FALL_THRESHOLD = 100.0
-var fell = false
 
 func _physics_process(delta):
 	check_for_fall()
@@ -9,18 +8,18 @@ func _physics_process(delta):
 
 func execute():
 	emit_signal("started")
-	fell = true
 
 
 func cancel():
-	fell = false
+	actor.snap_normal = Vector2.DOWN
 	emit_signal("finished")
 
 
 func check_for_fall():
 	if not enabled:
 		return
-	if actor.is_on_floor() and fell:
+	if not actor.is_on_floor():
+		if actor.velocity.y > FALL_THRESHOLD:
+			execute()
+	else:
 		cancel()
-	elif actor.velocity.y > FALL_THRESHOLD:
-		execute()
