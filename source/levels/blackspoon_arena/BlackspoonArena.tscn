@@ -90,7 +90,9 @@ texture = ExtResource( 9 )
 position = Vector2( 960, 670 )
 texture = ExtResource( 10 )
 
-[node name="Buccerino" parent="." instance=ExtResource( 11 )]
+[node name="Buccerino" parent="." groups=[
+"player",
+] instance=ExtResource( 11 )]
 position = Vector2( 340, 710 )
 z_index = 1
 
@@ -106,12 +108,8 @@ limit_bottom = 1280
 editor_draw_limits = true
 editor_draw_drag_margin = true
 
-[node name="Carrot" parent="." instance=ExtResource( 12 )]
-position = Vector2( 1560, 890 )
-z_index = -1
-
 [node name="Carrot2" parent="." instance=ExtResource( 12 )]
-position = Vector2( 2430, 630 )
+position = Vector2( 2430, 640 )
 z_index = -1
 
 [node name="Carrot3" parent="." instance=ExtResource( 12 )]

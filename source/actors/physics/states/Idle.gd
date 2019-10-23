@@ -1,19 +1,22 @@
 extends "res://actors/physics/State.gd"
 
+func _enter():
+	actor.velocity = Vector2.ZERO
+	if transition.is_moving:
+		execute("Move")
+
+
 func _on_command_started(command):
 	match command:
 		"Move":
-			is_moving = true
-			get_parent().change_state_to("Walk")
+			transition.is_moving = true
+			state_machine.change_state_to("Walk")
 		"Jump":
-			get_parent().change_state_to("Jump")
+			state_machine.change_state_to("Jump")
 		"Fall":
-			get_parent().change_state_to("SingleFall")
+			state_machine.change_state_to("SingleFall")
 		"Dash":
-			get_parent().change_state_to("Dash")
-		"Duck":
-			get_parent().change_state_to("Duck")
-			
+			state_machine.change_state_to("Dash")
 
 
 func _on_command_finished(command):

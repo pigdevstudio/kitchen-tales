@@ -8,6 +8,8 @@ func set_look_direction(value):
 
 
 func play(animation):
+	if animation == "walk":
+		pass
 	var blend = -1
 	if $AnimationPlayer.current_animation == "spin":
 		blend = 0.0

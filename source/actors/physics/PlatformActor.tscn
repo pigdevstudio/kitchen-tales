@@ -102,6 +102,9 @@ actor_path = NodePath("../../JumpDashState")
 script = ExtResource( 16 )
 actor_path = NodePath("../../JumpDashState")
 
+[node name="Dash" parent="StateMachine/JumpDashState" instance=ExtResource( 10 )]
+speed = 0.0
+
 [node name="DashState" parent="StateMachine" instance=ExtResource( 4 )]
 script = ExtResource( 17 )
 
@@ -115,6 +118,10 @@ script = ExtResource( 15 )
 script = ExtResource( 16 )
 
 [node name="Jump" parent="StateMachine/DashState" instance=ExtResource( 7 )]
+
+[node name="Dash" parent="StateMachine/DashState" instance=ExtResource( 10 )]
+speed = 0.0
+direction = Vector2( 0, 0 )
 
 [node name="DashJumpState" parent="StateMachine" instance=ExtResource( 4 )]
 editor/display_folded = true

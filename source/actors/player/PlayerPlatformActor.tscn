@@ -18,9 +18,6 @@ actor_path = NodePath("../../PlayerPlatformActor")
 [node name="Jump" parent="StateMachine/IdleState" index="1"]
 actor_path = NodePath("../../../../PlayerPlatformActor/StateMachine/IdleState")
 
-[node name="JumpState" parent="StateMachine" index="2"]
-editor/display_folded = false
-
 [node name="Jump" parent="StateMachine/JumpState" index="0"]
 actor_path = NodePath("../../../../PlayerPlatformActor/StateMachine/JumpState")
 
@@ -29,6 +26,9 @@ actor_path = NodePath("../../..")
 
 [node name="Gravity" parent="StateMachine/SecondJumpState" index="3"]
 strength = 5000.0
+
+[node name="DashFallState" parent="StateMachine" index="9"]
+editor/display_folded = true
 
 [node name="Controls" type="Node" parent="." index="2"]
 script = ExtResource( 2 )
@@ -48,12 +48,9 @@ action = "jump"
 [node name="DashNotifier" parent="Controls" index="4" instance=ExtResource( 3 )]
 action = "dash"
 [connection signal="pressed" from="Controls/MoveNotifier" to="StateMachine" method="execute" binds= [ "Move" ]]
-[connection signal="ready" from="Controls/MoveNotifier" to="Controls/MoveNotifier" method="is_pressed"]
 [connection signal="released" from="Controls/MoveNotifier" to="StateMachine" method="execute" binds= [ "Stop" ]]
 [connection signal="pressed" from="Controls/LeftNotifier" to="StateMachine" method="set_direction" binds= [ Vector2( -1, 0 ) ]]
-[connection signal="released" from="Controls/LeftNotifier" to="Controls/RightNotifier" method="update_pressed"]
 [connection signal="pressed" from="Controls/RightNotifier" to="StateMachine" method="set_direction" binds= [ Vector2( 1, 0 ) ]]
-[connection signal="released" from="Controls/RightNotifier" to="Controls/LeftNotifier" method="update_pressed"]
 [connection signal="pressed" from="Controls/JumpNotifier" to="StateMachine" method="execute" binds= [ "Jump" ]]
 [connection signal="released" from="Controls/JumpNotifier" to="StateMachine" method="cancel" binds= [ "Jump" ]]
 [connection signal="pressed" from="Controls/DashNotifier" to="StateMachine" method="execute" binds= [ "Dash" ]]

@@ -34,7 +34,6 @@ func change_state_to(new_state_name):
 	var new_state = get_node(new_state_name + "State")
 	if new_state.name == _current_state.name:
 		return
-	new_state.is_moving = _current_state.is_moving
 	_previous_state = _current_state
 	_current_state = new_state
 	previous_state_name = _previous_state.name

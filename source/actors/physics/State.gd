@@ -4,9 +4,10 @@ signal entered
 signal exited
 
 var active = false setget set_active
-var is_moving = false
+export(Resource) var transition
 
 onready var actor = get_parent().actor setget set_actor
+onready var state_machine = get_parent()
 
 func _ready():
 	connect_commands()
@@ -53,11 +54,11 @@ func set_active(activate):
 	for command in get_children():
 		command.enabled = active
 	if active:
-		_enter()
 		emit_signal("entered")
+		_enter()
 	else:
-		_exit()
 		emit_signal("exited")
+		_exit()
 
 
 func execute(command_name):
