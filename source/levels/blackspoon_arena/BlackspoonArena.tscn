@@ -90,9 +90,7 @@ texture = ExtResource( 9 )
 position = Vector2( 960, 670 )
 texture = ExtResource( 10 )
 
-[node name="Buccerino" parent="." groups=[
-"player",
-] instance=ExtResource( 11 )]
+[node name="Buccerino" parent="." instance=ExtResource( 11 )]
 position = Vector2( 340, 710 )
 z_index = 1
 
@@ -114,4 +112,8 @@ z_index = -1
 
 [node name="Carrot3" parent="." instance=ExtResource( 12 )]
 position = Vector2( -420, 770 )
+z_index = -1
+
+[node name="Carrot4" parent="." instance=ExtResource( 12 )]
+position = Vector2( 1020, 900 )
 z_index = -1

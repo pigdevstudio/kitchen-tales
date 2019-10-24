@@ -18,6 +18,12 @@ var previous_state_name = ""
 
 func _ready():
 	setup_states()
+	_initialize()
+
+
+func _initialize():
+	previous_state_name = _previous_state.name
+	current_state_name = _current_state.name
 	_current_state.active = true
 
 

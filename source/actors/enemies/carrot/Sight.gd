@@ -6,8 +6,8 @@ export(String) var target_group = "player"
 
 
 func update_sight():
-	$CollisionShape2D.disabled = true
-	$CollisionShape2D.disabled = false
+	$Shape.call_deferred("set_disabled", true)
+	$Shape.call_deferred("set_disabled", false)
 
 
 func _on_area_shape_entered(area_id, area, area_shape, self_shape):
