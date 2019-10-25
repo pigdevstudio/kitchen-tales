@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://actors/player/PlayerCombatActor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/player/PlayerStateTransition.tres" type="Resource" id=2]
@@ -27,7 +27,6 @@ radius = 88.3629
 
 [sub_resource type="Animation" id=4]
 resource_name = "charge"
-length = 0.5
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("CombatStateMachine/IdleState/Charge:position")
@@ -36,7 +35,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.25, 0.5 ),
+"times": PoolRealArray( 0.5, 0.75, 1 ),
 "transitions": PoolRealArray( 0.5, 0.5, 0.5 ),
 "update": 0,
 "values": [ Vector2( 103, -63 ), Vector2( 410, -64 ), Vector2( 103, -63 ) ]
@@ -48,7 +47,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"times": PoolRealArray( 0.5, 0.6, 0.7, 0.8, 0.9, 1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "values": [ {
 "args": [  ],
@@ -77,7 +76,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.5 ),
+"times": PoolRealArray( 1 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
@@ -91,42 +90,42 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0.5 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "values": [ {
+"args": [ "charging" ],
+"method": "play"
+}, {
+"args": [ "charge" ],
+"method": "play"
+}, {
 "args": [ "idle" ],
 "method": "play"
 } ]
 }
-
-[sub_resource type="Animation" id=5]
-resource_name = "charging"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("ChargeBar:value")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
+tracks/4/type = "value"
+tracks/4/path = NodePath("ChargeBar:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("ChargeBar:value")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 0.0, 1.0 ]
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath("CombatStateMachine")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.5 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ "Charge" ],
-"method": "execute"
-} ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -338,7 +337,7 @@ tracks/1/keys = {
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 40, 64 )
 
-[node name="Buccerino" instance=ExtResource( 1 )]
+[node name="Buccerino" index="0" instance=ExtResource( 1 )]
 
 [node name="IdleState" parent="StateMachine" index="0"]
 transition = ExtResource( 2 )
@@ -485,6 +484,7 @@ hold_threshold = 0.3
 actor_path = NodePath("../../Buccerino")
 
 [node name="Attack" parent="CombatStateMachine/IdleState" index="0" instance=ExtResource( 5 )]
+editor/display_folded = true
 position = Vector2( 104, -64 )
 
 [node name="Cut" parent="CombatStateMachine/IdleState/Attack" index="0" instance=ExtResource( 6 )]
@@ -498,6 +498,7 @@ shape = SubResource( 1 )
 disabled = true
 
 [node name="Slice" parent="CombatStateMachine/IdleState/Attack" index="1" instance=ExtResource( 6 )]
+editor/display_folded = true
 
 [node name="HitBox" parent="CombatStateMachine/IdleState/Attack/Slice" index="1" instance=ExtResource( 7 )]
 hit = ExtResource( 9 )
@@ -507,6 +508,7 @@ shape = SubResource( 1 )
 disabled = true
 
 [node name="Dice" parent="CombatStateMachine/IdleState/Attack" index="2" instance=ExtResource( 6 )]
+editor/display_folded = true
 
 [node name="HitBox" parent="CombatStateMachine/IdleState/Attack/Dice" index="1" instance=ExtResource( 7 )]
 hit = ExtResource( 10 )
@@ -516,6 +518,7 @@ shape = SubResource( 1 )
 disabled = true
 
 [node name="Charge" parent="CombatStateMachine/IdleState" index="1" instance=ExtResource( 6 )]
+editor/display_folded = true
 position = Vector2( 103, -63 )
 
 [node name="HitBox" parent="CombatStateMachine/IdleState/Charge" index="1" instance=ExtResource( 7 )]
@@ -524,8 +527,6 @@ hit = ExtResource( 11 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CombatStateMachine/IdleState/Charge/HitBox" index="0"]
 shape = SubResource( 2 )
 disabled = true
-
-[node name="Charging" parent="CombatStateMachine/IdleState" index="2" instance=ExtResource( 6 )]
 
 [node name="JumpState" type="Node2D" parent="CombatStateMachine" index="1"]
 editor/display_folded = true
@@ -573,7 +574,6 @@ properties = PoolStringArray( "previous_state_name", "current_state_name" )
 
 [node name="AttackAnimator" type="AnimationPlayer" parent="." index="9"]
 anims/charge = SubResource( 4 )
-anims/charging = SubResource( 5 )
 anims/cut = SubResource( 6 )
 anims/dice = SubResource( 7 )
 anims/slice = SubResource( 8 )
@@ -587,7 +587,6 @@ margin_right = 70.0
 margin_bottom = 20.0
 rect_pivot_offset = Vector2( 68, 13 )
 max_value = 1.0
-value = 1.0
 percent_visible = false
 
 [node name="ComboResetTime" type="Timer" parent="." index="11"]
@@ -625,7 +624,9 @@ one_shot = true
 [connection signal="entered" from="StateMachine/SecondFallState" to="Pig" method="play" binds= [ "fall" ]]
 [connection signal="ready" from="Controls/MoveNotifier" to="Controls/MoveNotifier" method="is_pressed"]
 [connection signal="pressed" from="Controls/LeftNotifier" to="Pig" method="set_look_direction" binds= [ -1 ]]
+[connection signal="pressed" from="Controls/LeftNotifier" to="CombatStateMachine" method="set_direction" binds= [ Vector2( -1, 0 ) ]]
 [connection signal="pressed" from="Controls/RightNotifier" to="Pig" method="set_look_direction" binds= [ 1 ]]
+[connection signal="pressed" from="Controls/RightNotifier" to="CombatStateMachine" method="set_direction" binds= [ Vector2( 1, 0 ) ]]
 [connection signal="finished" from="CombatStateMachine/IdleState/Attack" to="ComboResetTime" method="start"]
 [connection signal="finished" from="CombatStateMachine/IdleState/Attack/Cut" to="Pig" method="play" binds= [ "idle" ]]
 [connection signal="finished" from="CombatStateMachine/IdleState/Attack/Cut" to="AttackAnimator" method="stop"]
@@ -639,25 +640,17 @@ one_shot = true
 [connection signal="finished" from="CombatStateMachine/IdleState/Attack/Dice" to="AttackAnimator" method="stop"]
 [connection signal="started" from="CombatStateMachine/IdleState/Attack/Dice" to="Pig" method="play" binds= [ "dice" ]]
 [connection signal="started" from="CombatStateMachine/IdleState/Attack/Dice" to="AttackAnimator" method="play" binds= [ "dice" ]]
-[connection signal="finished" from="CombatStateMachine/IdleState/Charge" to="ChargeBar" method="hide"]
+[connection signal="finished" from="CombatStateMachine/IdleState/Charge" to="Pig" method="play" binds= [ "idle" ]]
 [connection signal="finished" from="CombatStateMachine/IdleState/Charge" to="CombatStateMachine/IdleState/Charge/HitBox" method="disable"]
-[connection signal="started" from="CombatStateMachine/IdleState/Charge" to="Pig" method="play" binds= [ "charge" ]]
+[connection signal="finished" from="CombatStateMachine/IdleState/Charge" to="AttackAnimator" method="stop"]
+[connection signal="finished" from="CombatStateMachine/IdleState/Charge" to="ChargeBar" method="hide"]
 [connection signal="started" from="CombatStateMachine/IdleState/Charge" to="AttackAnimator" method="play" binds= [ "charge" ]]
-[connection signal="finished" from="CombatStateMachine/IdleState/Charging" to="CombatStateMachine/IdleState/Charge" method="cancel"]
-[connection signal="finished" from="CombatStateMachine/IdleState/Charging" to="Pig" method="play" binds= [ "idle" ]]
-[connection signal="finished" from="CombatStateMachine/IdleState/Charging" to="ChargeBar" method="set_value" binds= [ 0.0 ]]
-[connection signal="finished" from="CombatStateMachine/IdleState/Charging" to="ChargeBar" method="hide"]
-[connection signal="finished" from="CombatStateMachine/IdleState/Charging" to="AttackAnimator" method="stop"]
-[connection signal="finished" from="CombatStateMachine/IdleState/Charging" to="CombatStateMachine/JumpState/Attack/HitBox" method="disable"]
-[connection signal="started" from="CombatStateMachine/IdleState/Charging" to="Pig" method="play" binds= [ "charging" ]]
-[connection signal="started" from="CombatStateMachine/IdleState/Charging" to="ChargeBar" method="show"]
-[connection signal="started" from="CombatStateMachine/IdleState/Charging" to="AttackAnimator" method="play" binds= [ "charging" ]]
 [connection signal="finished" from="CombatStateMachine/JumpState/Attack" to="AttackAnimator" method="stop"]
 [connection signal="started" from="CombatStateMachine/JumpState/Attack" to="Pig" method="play" binds= [ "spin" ]]
 [connection signal="started" from="CombatStateMachine/JumpState/Attack" to="AttackAnimator" method="play" binds= [ "spin" ]]
 [connection signal="entered" from="CombatStateMachine/SingleFallState" to="CombatStateMachine" method="change_state_to" binds= [ "Jump" ]]
-[connection signal="started" from="CombatStateMachine/WalkState/Attack" to="CombatStateMachine/IdleState/Attack" method="execute"]
 [connection signal="started" from="CombatStateMachine/WalkState/Attack" to="StateMachine" method="execute" binds= [ "Stop" ]]
+[connection signal="started" from="CombatStateMachine/WalkState/Attack" to="CombatStateMachine/IdleState/Attack" method="execute"]
 [connection signal="hurt" from="HurtBox" to="StateMachine" method="change_state_to" binds= [ "Stun" ]]
 [connection signal="timeout" from="ComboResetTime" to="CombatStateMachine/IdleState/Attack" method="reset"]
 [connection signal="timeout" from="StunDuration" to="StateMachine" method="change_state_to" binds= [ "Idle" ]]
