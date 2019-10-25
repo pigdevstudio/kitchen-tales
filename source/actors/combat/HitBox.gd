@@ -13,12 +13,16 @@ var _active = false
 func enable():
 	_is_hit_landed = false
 	emit_signal("started")
+	for shape in get_children():
+		shape.disabled = false
 	_active = true
 
 
 func disable():
 	if not _is_hit_landed:
 		emit_signal("missed")
+	for shape in get_children():
+		shape.disabled = true
 	_active = false
 
 
