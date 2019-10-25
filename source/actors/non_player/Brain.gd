@@ -20,12 +20,14 @@ func _ready():
 
 
 func _on_Sight_spotted(spot_direction):
-	if state_machine.current_state_name == "HiddenState":
+	var current_state = state_machine.current_state_name
+	if  current_state == "HiddenState":
 		state_machine.execute("Show")
 		return
+	elif current_state == "AlertState":
+		$AttackDelay.start()
 	character.set_look_direction(sign(spot_direction.x))
 	combat_state_machine.set_direction(spot_direction)
-	$AttackDelay.start()
 
 
 func _on_AttackDelay_timeout():

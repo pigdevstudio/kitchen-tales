@@ -173,6 +173,7 @@ wait_time = 0.3
 one_shot = true
 
 [node name="AlertTimer" type="Timer" parent="Brain"]
+wait_time = 0.5
 one_shot = true
 
 [node name="AttackDelay" type="Timer" parent="Brain"]
@@ -212,23 +213,23 @@ color_ramp = SubResource( 5 )
 [node name="ExplodingTime" type="Timer" parent="ExplodingParticles"]
 wait_time = 0.5
 one_shot = true
-[connection signal="state_changed" from="StateMachine" to="CombatStateMachine" method="change_state_to"]
 [connection signal="state_changed" from="StateMachine" to="Brain" method="_on_StateMachine_state_changed"]
+[connection signal="state_changed" from="StateMachine" to="CombatStateMachine" method="change_state_to"]
 [connection signal="entered" from="StateMachine/HiddenState" to="Carrot" method="play_backwards" binds= [ "show" ]]
 [connection signal="started" from="StateMachine/AlertState/Hide" to="StateMachine" method="change_state_to" binds= [ "Hidden" ]]
 [connection signal="entered" from="StateMachine/StandState" to="Carrot" method="play" binds= [ "show" ]]
-[connection signal="entered" from="StateMachine/StunState" to="Carrot" method="play" binds= [ "stun" ]]
 [connection signal="entered" from="StateMachine/StunState" to="AttackAnimator" method="stop"]
+[connection signal="entered" from="StateMachine/StunState" to="Carrot" method="play" binds= [ "stun" ]]
 [connection signal="started" from="StateMachine/StunState/Hide" to="StateMachine" method="change_state_to" binds= [ "Hidden" ]]
 [connection signal="started" from="StateMachine/StunState/Alert" to="StateMachine" method="change_state_to" binds= [ "Alert" ]]
-[connection signal="entered" from="StateMachine/DeadState" to="Carrot" method="play" binds= [ "stun" ]]
-[connection signal="entered" from="StateMachine/DeadState" to="AttackAnimator" method="stop"]
 [connection signal="entered" from="StateMachine/DeadState" to="Brain/StunTimer" method="start"]
+[connection signal="entered" from="StateMachine/DeadState" to="AttackAnimator" method="stop"]
+[connection signal="entered" from="StateMachine/DeadState" to="Carrot" method="play" binds= [ "stun" ]]
 [connection signal="area_shape_entered" from="SightArea" to="SightArea" method="_on_area_shape_entered"]
 [connection signal="spotted" from="SightArea" to="Brain" method="_on_Sight_spotted"]
 [connection signal="direction_changed" from="CombatStateMachine/AlertState/Attack" to="CombatStateMachine/AlertState/Attack/DirtSpawner" method="set_direction"]
-[connection signal="started" from="CombatStateMachine/AlertState/Attack" to="Carrot" method="play" binds= [ "throw_dirt" ]]
 [connection signal="started" from="CombatStateMachine/AlertState/Attack" to="AttackAnimator" method="play" binds= [ "throw_dirt" ]]
+[connection signal="started" from="CombatStateMachine/AlertState/Attack" to="Carrot" method="play" binds= [ "throw_dirt" ]]
 [connection signal="died" from="Brain/Health" to="." method="queue_free"]
 [connection signal="timeout" from="Brain/HideTimer" to="StateMachine" method="execute" binds= [ "Show" ]]
 [connection signal="timeout" from="Brain/StunTimer" to="StateMachine/StandState" method="execute" binds= [ "Alert" ]]
