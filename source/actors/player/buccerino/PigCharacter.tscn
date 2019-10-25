@@ -2010,8 +2010,8 @@ tracks/22/keys = {
 [node name="Pig" type="Position2D"]
 script = ExtResource( 1 )
 __meta__ = {
-"_edit_horizontal_guides_": [ -152.0, -32.0 ],
-"_edit_vertical_guides_": [ 60.0, 400.0 ]
+"_edit_horizontal_guides_": [  ],
+"_edit_vertical_guides_": [ 400.0 ]
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -2042,8 +2042,7 @@ anims/hurt = ExtResource( 5 )
 position = Vector2( 0, -24 )
 
 [node name="LegLeft" type="Sprite" parent="Pivot"]
-position = Vector2( 22.25, -6.14934 )
-rotation = -0.577943
+position = Vector2( 29.5, -4.816 )
 texture = ExtResource( 10 )
 offset = Vector2( 0, 6.816 )
 region_enabled = true
@@ -2051,7 +2050,8 @@ region_rect = Rect2( 224, 91, 22, 37 )
 region_filter_clip = true
 
 [node name="LegRight" type="Sprite" parent="Pivot"]
-position = Vector2( -13.25, 0.517328 )
+position = Vector2( -13.25, 3.184 )
+rotation = 0.826666
 texture = ExtResource( 10 )
 offset = Vector2( 0, 6.816 )
 region_enabled = true
@@ -2059,8 +2059,8 @@ region_rect = Rect2( 192, 91, 22, 37 )
 region_filter_clip = true
 
 [node name="Body" type="Sprite" parent="Pivot"]
-position = Vector2( 0, -6.14934 )
-rotation = -0.126592
+position = Vector2( 0, -2.816 )
+rotation = 0.455836
 texture = ExtResource( 10 )
 offset = Vector2( 1, -21.184 )
 region_enabled = true
@@ -2068,8 +2068,8 @@ region_rect = Rect2( 176, 6, 74, 74 )
 
 [node name="Head" type="Sprite" parent="Pivot/Body"]
 show_behind_parent = true
-position = Vector2( 0, -45.3333 )
-rotation = -0.138832
+position = Vector2( 0, -40 )
+rotation = -0.314922
 texture = ExtResource( 10 )
 offset = Vector2( 1.66667, -27.7893 )
 region_enabled = true
@@ -2089,8 +2089,8 @@ region_enabled = true
 region_rect = Rect2( 160, 144, 82, 20 )
 
 [node name="ArmRight" type="Sprite" parent="Pivot/Body"]
-position = Vector2( -38.2492, -40.882 )
-rotation = 0.261799
+position = Vector2( -30.896, -12.6616 )
+rotation = 0.937671
 texture = ExtResource( 10 )
 offset = Vector2( 0, 8 )
 region_enabled = true
@@ -2099,8 +2099,8 @@ region_filter_clip = true
 
 [node name="ArmLeft" type="Sprite" parent="Pivot/Body"]
 show_behind_parent = true
-position = Vector2( 27.7307, -49.6517 )
-rotation = -0.261799
+position = Vector2( -24.809, -29.0848 )
+rotation = 1.5018
 z_index = -1
 texture = ExtResource( 10 )
 offset = Vector2( 0, 8 )
@@ -2110,7 +2110,7 @@ region_filter_clip = true
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Pivot/Body/ArmLeft"]
 position = Vector2( -0.394093, 10.0567 )
-rotation = 0.523599
+rotation = 3.66519
 remote_path = NodePath("../../../Cleaver")
 update_position = false
 update_rotation = false
