@@ -1,4 +1,4 @@
-extends Position2D
+extends Node2D
 
 export (PackedScene) var spawnling_scene
 

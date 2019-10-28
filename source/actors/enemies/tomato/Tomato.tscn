@@ -27,22 +27,22 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 50, 40 )
 
-[sub_resource type="RectangleShape2D" id=8]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 140, 60 )
 
-[sub_resource type="RectangleShape2D" id=9]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 50, 50 )
 
-[sub_resource type="RectangleShape2D" id=10]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 320, 190 )
 
-[sub_resource type="RectangleShape2D" id=11]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 70, 50 )
 
-[sub_resource type="CircleShape2D" id=7]
+[sub_resource type="CircleShape2D" id=6]
 radius = 321.403
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 length = 1.5
 step = 0.05
 tracks/0/type = "method"
@@ -103,10 +103,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.5, 1, 1.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, -180 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 0, -180 ), Vector2( 0, -180 ), Vector2( 0, 0 ) ]
 }
 
 [node name="Tomato" type="KinematicBody2D"]
@@ -118,6 +118,7 @@ position = Vector2( 0, -40 )
 shape = SubResource( 1 )
 
 [node name="Brain" type="Node" parent="."]
+editor/display_folded = true
 script = ExtResource( 2 )
 
 [node name="IdleTime" type="Timer" parent="Brain"]
@@ -174,6 +175,8 @@ speed = 600.0
 [node name="Squash" type="Node" parent="StateMachine/ChaseState"]
 script = ExtResource( 11 )
 
+[node name="Gravity" parent="StateMachine/ChaseState" instance=ExtResource( 10 )]
+
 [node name="StunState" parent="StateMachine" instance=ExtResource( 7 )]
 script = ExtResource( 15 )
 
@@ -186,7 +189,6 @@ script = ExtResource( 16 )
 speed = 1200.0
 
 [node name="CombatStateMachine" parent="." instance=ExtResource( 17 )]
-editor/display_folded = true
 
 [node name="IdleState" type="Node2D" parent="CombatStateMachine"]
 script = ExtResource( 18 )
@@ -211,18 +213,17 @@ hit = ExtResource( 21 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CombatStateMachine/SquashState/Attack/HitBox"]
 position = Vector2( 0, 58.6733 )
-shape = SubResource( 8 )
+shape = SubResource( 2 )
 disabled = true
 
 [node name="HurtBox" parent="." groups=[
 "enemy",
 ] instance=ExtResource( 22 )]
 editor/display_folded = true
-position = Vector2( 0, -180 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2( 0, -50 )
-shape = SubResource( 9 )
+shape = SubResource( 3 )
 
 [node name="OuterAttackRange" type="Area2D" parent="."]
 monitorable = false
@@ -231,7 +232,7 @@ collision_mask = 8
 
 [node name="Shape" type="CollisionShape2D" parent="OuterAttackRange"]
 position = Vector2( 0, -190 )
-shape = SubResource( 10 )
+shape = SubResource( 4 )
 
 [node name="InnerAttackRange" type="Area2D" parent="."]
 editor/display_folded = true
@@ -241,23 +242,23 @@ collision_layer = 0
 collision_mask = 8
 
 [node name="Shape" type="CollisionShape2D" parent="InnerAttackRange"]
-shape = SubResource( 11 )
+shape = SubResource( 5 )
 
 [node name="ChasingSightArea" parent="." instance=ExtResource( 23 )]
 editor/display_folded = true
 position = Vector2( 0, -60 )
 
 [node name="Shape" parent="ChasingSightArea" index="0"]
-shape = SubResource( 7 )
+shape = SubResource( 6 )
 
 [node name="AttackAnimator" type="AnimationPlayer" parent="."]
-anims/squash = SubResource( 6 )
+anims/squash = SubResource( 7 )
 [connection signal="timeout" from="Brain/IdleTime" to="Brain" method="_on_IdleTime_timeout"]
 [connection signal="timeout" from="Brain/WanderTime" to="Brain" method="_on_WanderTime_timeout"]
 [connection signal="timeout" from="Brain/StunTime" to="Brain" method="_on_StunTime_timeout"]
 [connection signal="died" from="Brain/Health" to="." method="queue_free"]
-[connection signal="state_changed" from="StateMachine" to="Brain" method="_on_StateMachine_state_changed"]
 [connection signal="state_changed" from="StateMachine" to="CombatStateMachine" method="change_state_to"]
+[connection signal="state_changed" from="StateMachine" to="Brain" method="_on_StateMachine_state_changed"]
 [connection signal="entered" from="StateMachine/IdleState" to="Character" method="play" binds= [ "idle" ]]
 [connection signal="entered" from="StateMachine/WalkState" to="Character" method="play" binds= [ "walk (copy)" ]]
 [connection signal="entered" from="StateMachine/ChaseState" to="Character" method="play" binds= [ "chase" ]]

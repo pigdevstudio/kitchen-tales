@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://levels/blackspoon_arena/blackspoon_arena_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://levels/blackspoon_arena/crowd-4.png" type="Texture" id=2]
@@ -11,10 +11,27 @@
 [ext_resource path="res://levels/blackspoon_arena/crowd-1.png" type="Texture" id=9]
 [ext_resource path="res://levels/blackspoon_arena/wall.png" type="Texture" id=10]
 [ext_resource path="res://actors/player/buccerino/Buccerino.tscn" type="PackedScene" id=11]
-[ext_resource path="res://actors/enemies/carrot/Carrot.tscn" type="PackedScene" id=12]
+[ext_resource path="res://levels/Spawner.gd" type="Script" id=12]
 [ext_resource path="res://actors/enemies/tomato/Tomato.tscn" type="PackedScene" id=13]
+[ext_resource path="res://actors/enemies/carrot/Carrot.tscn" type="PackedScene" id=14]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+func _ready():
+	get_tree().connect(\"node_added\", self, \"_on_SceneTree_node_added\")
+
+
+func _on_SceneTree_node_added(node):
+	if \"Carrot\" in node.name:
+		var parent = $LeftCarrotSpawner
+		if node.get_parent() == $RightCarrotSpawner:
+			parent = $RightCarrotSpawner
+		node.connect(\"tree_exited\", parent.get_node(\"Timer\"), \"start\")
+"
 
 [node name="BlackspoonArena" type="Node2D"]
+script = SubResource( 1 )
 __meta__ = {
 "_edit_horizontal_guides_": [  ],
 "_edit_vertical_guides_": [  ]
@@ -107,9 +124,41 @@ limit_bottom = 1280
 editor_draw_limits = true
 editor_draw_drag_margin = true
 
-[node name="Carrot" parent="." instance=ExtResource( 12 )]
-position = Vector2( -500, 770 )
-z_index = -1
+[node name="TomatoSpawner" type="Position2D" parent="."]
+position = Vector2( 1100, 646 )
+script = ExtResource( 12 )
+spawnling_scene = ExtResource( 13 )
 
-[node name="Tomato" parent="." instance=ExtResource( 13 )]
-position = Vector2( 1650, 860 )
+[node name="Timer" type="Timer" parent="TomatoSpawner"]
+wait_time = 10.0
+autostart = true
+
+[node name="Tomato" parent="TomatoSpawner" instance=ExtResource( 13 )]
+position = Vector2( 10, 154 )
+
+[node name="LeftCarrotSpawner" type="Position2D" parent="."]
+position = Vector2( 40, 896 )
+script = ExtResource( 12 )
+spawnling_scene = ExtResource( 14 )
+
+[node name="Timer" type="Timer" parent="LeftCarrotSpawner"]
+wait_time = 5.0
+one_shot = true
+
+[node name="Carrot" parent="LeftCarrotSpawner" instance=ExtResource( 14 )]
+
+[node name="RightCarrotSpawner" type="Position2D" parent="."]
+position = Vector2( 1900, 896 )
+script = ExtResource( 12 )
+spawnling_scene = ExtResource( 14 )
+
+[node name="Timer" type="Timer" parent="RightCarrotSpawner"]
+wait_time = 5.0
+one_shot = true
+
+[node name="Carrot" parent="RightCarrotSpawner" instance=ExtResource( 14 )]
+[connection signal="timeout" from="TomatoSpawner/Timer" to="TomatoSpawner" method="spawn"]
+[connection signal="timeout" from="LeftCarrotSpawner/Timer" to="LeftCarrotSpawner" method="spawn"]
+[connection signal="tree_exited" from="LeftCarrotSpawner/Carrot" to="LeftCarrotSpawner/Timer" method="start"]
+[connection signal="timeout" from="RightCarrotSpawner/Timer" to="RightCarrotSpawner" method="spawn"]
+[connection signal="tree_exited" from="RightCarrotSpawner/Carrot" to="RightCarrotSpawner/Timer" method="start"]
