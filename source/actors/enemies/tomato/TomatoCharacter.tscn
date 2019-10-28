@@ -614,7 +614,7 @@ tracks/13/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=11]
 resource_name = "hurt"
 length = 0.25
 tracks/0/type = "value"
@@ -776,7 +776,7 @@ tracks/12/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=12]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Pivot/Body/Face:position")
 tracks/0/interp = 1
@@ -994,7 +994,7 @@ tracks/17/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=13]
 length = 1.3
 loop = true
 step = 0.05
@@ -1215,7 +1215,7 @@ tracks/17/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=14]
 length = 1.3
 loop = true
 step = 0.05
@@ -1436,7 +1436,7 @@ tracks/17/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=15]
 length = 0.5
 loop = true
 step = 0.05
@@ -1818,11 +1818,11 @@ playback_default_blend_time = 0.08
 anims/SETUP = SubResource( 1 )
 "anims/SETUP (copy)" = SubResource( 2 )
 anims/chase = SubResource( 3 )
-anims/hurt = SubResource( 4 )
-anims/idle = SubResource( 5 )
-anims/squash = SubResource( 6 )
-"anims/squash (copy)" = SubResource( 7 )
-anims/walk = SubResource( 8 )
+anims/hurt = SubResource( 11 )
+anims/idle = SubResource( 12 )
+anims/squash = SubResource( 13 )
+"anims/squash (copy)" = SubResource( 14 )
+anims/walk = SubResource( 15 )
 "anims/walk (copy)" = SubResource( 9 )
 
 [node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
@@ -1831,7 +1831,8 @@ anims/hurt = SubResource( 10 )
 [node name="Pivot" type="Position2D" parent="."]
 
 [node name="Body" type="Sprite" parent="Pivot"]
-position = Vector2( 0, -44 )
+position = Vector2( 0, -228 )
+scale = Vector2( 0.881308, 1.05804 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 16, 48, 111, 88 )
@@ -1852,13 +1853,13 @@ region_rect = Rect2( 176, 16, 64, 20 )
 
 [node name="HandLeft" type="Sprite" parent="Pivot/Body"]
 show_behind_parent = true
-position = Vector2( 22.9635, -41.3254 )
+position = Vector2( 56, 12 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 208, 144, 26, 26 )
 
 [node name="HandRight" type="Sprite" parent="Pivot/Body"]
-position = Vector2( -44.9285, -35.4322 )
+position = Vector2( -56, 12 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 144, 144, 26, 26 )

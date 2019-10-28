@@ -27,16 +27,16 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 50, 40 )
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 140, 60 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 50, 50 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 320, 190 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 70, 50 )
 
 [sub_resource type="CircleShape2D" id=7]
@@ -96,22 +96,17 @@ tracks/2/keys = {
 "method": "change_state_to"
 } ]
 }
-tracks/3/type = "method"
-tracks/3/path = NodePath("HurtBox")
+tracks/3/type = "value"
+tracks/3/path = NodePath("HurtBox:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 1.5 ),
+"times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
-"values": [ {
-"args": [ true ],
-"method": "set_invincible"
-}, {
-"args": [ false ],
-"method": "set_invincible"
-} ]
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -180 ) ]
 }
 
 [node name="Tomato" type="KinematicBody2D"]
@@ -216,17 +211,18 @@ hit = ExtResource( 21 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CombatStateMachine/SquashState/Attack/HitBox"]
 position = Vector2( 0, 58.6733 )
-shape = SubResource( 2 )
+shape = SubResource( 8 )
 disabled = true
 
 [node name="HurtBox" parent="." groups=[
 "enemy",
 ] instance=ExtResource( 22 )]
 editor/display_folded = true
+position = Vector2( 0, -180 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2( 0, -50 )
-shape = SubResource( 3 )
+shape = SubResource( 9 )
 
 [node name="OuterAttackRange" type="Area2D" parent="."]
 monitorable = false
@@ -235,7 +231,7 @@ collision_mask = 8
 
 [node name="Shape" type="CollisionShape2D" parent="OuterAttackRange"]
 position = Vector2( 0, -190 )
-shape = SubResource( 4 )
+shape = SubResource( 10 )
 
 [node name="InnerAttackRange" type="Area2D" parent="."]
 editor/display_folded = true
@@ -245,7 +241,7 @@ collision_layer = 0
 collision_mask = 8
 
 [node name="Shape" type="CollisionShape2D" parent="InnerAttackRange"]
-shape = SubResource( 5 )
+shape = SubResource( 11 )
 
 [node name="ChasingSightArea" parent="." instance=ExtResource( 23 )]
 editor/display_folded = true
@@ -274,5 +270,6 @@ anims/squash = SubResource( 6 )
 [connection signal="area_entered" from="InnerAttackRange" to="Brain" method="_on_InnerAttackRange_area_entered"]
 [connection signal="chase_direction_changed" from="ChasingSightArea" to="Brain" method="_on_ChasingSightArea_chase_direction_changed"]
 [connection signal="spotted" from="ChasingSightArea" to="Brain" method="_on_ChasingSightArea_spotted"]
+[connection signal="animation_changed" from="AttackAnimator" to="Brain" method="_on_AttackAnimator_animation_changed"]
 
 [editable path="ChasingSightArea"]

@@ -112,4 +112,4 @@ position = Vector2( -500, 770 )
 z_index = -1
 
 [node name="Tomato" parent="." instance=ExtResource( 13 )]
-position = Vector2( 1650, 870 )
+position = Vector2( 1650, 860 )

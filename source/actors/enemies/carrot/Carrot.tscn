@@ -19,7 +19,6 @@
 [ext_resource path="res://actors/combat/Health.tscn" type="PackedScene" id=17]
 [ext_resource path="res://actors/combat/HurtBox.tscn" type="PackedScene" id=18]
 
-
 [sub_resource type="CircleShape2D" id=1]
 radius = 440.114
 

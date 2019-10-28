@@ -12,9 +12,13 @@ onready var character = get_node(character_path)
 export(NodePath) var sight_path = "../ChasingSightArea"
 onready var sight = get_node(sight_path)
 
+var _previous_valid_state = "Idle"
 
 func _on_StateMachine_state_changed(new_state):
 	update_squash_range()
+	if not new_state == "Stun":
+		_previous_valid_state = new_state
+		
 	match new_state:
 		"Idle":
 			$IdleTime.start()
@@ -26,6 +30,7 @@ func _on_StateMachine_state_changed(new_state):
 			$WanderTime.stop()
 		"Stun":
 			$StunTime.start()
+			$"../AttackAnimator".stop()
 
 
 func _on_CombateStateMachine_state_changed(new_state):
@@ -79,4 +84,9 @@ func update_squash_range():
 
 
 func _on_StunTime_timeout():
-	state_machine.change_state_to("Idle")
+	state_machine.change_state_to(_previous_valid_state)
+
+
+func _on_AttackAnimator_animation_changed(old_name, new_name):
+	if old_name == "squash":
+		$"../HurtBox".position = Vector2.ZERO
