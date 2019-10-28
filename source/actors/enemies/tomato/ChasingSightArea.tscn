@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://actors/enemies/SightArea.tscn" type="PackedScene" id=1]
+[ext_resource path="res://actors/enemies/tomato/ChasingSightArea.gd" type="Script" id=2]
+
+[node name="ChasingSightArea" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+[connection signal="area_exited" from="." to="." method="_on_ChasingSightArea_area_exited"]
