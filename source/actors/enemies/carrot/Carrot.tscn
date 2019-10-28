@@ -15,9 +15,10 @@
 [ext_resource path="res://actors/combat/ThrowAttack.gd" type="Script" id=13]
 [ext_resource path="res://actors/combat/ProjectileSpawner.gd" type="Script" id=14]
 [ext_resource path="res://objects/projectiles/DirtProjectile.tscn" type="PackedScene" id=15]
-[ext_resource path="res://actors/non_player/Brain.gd" type="Script" id=16]
+[ext_resource path="res://actors/enemies/carrot/Brain.gd" type="Script" id=16]
 [ext_resource path="res://actors/combat/Health.tscn" type="PackedScene" id=17]
 [ext_resource path="res://actors/combat/HurtBox.tscn" type="PackedScene" id=18]
+
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 440.114
@@ -220,8 +221,8 @@ color_ramp = SubResource( 5 )
 [node name="ExplodingTime" type="Timer" parent="ExplodingParticles"]
 wait_time = 0.5
 one_shot = true
-[connection signal="state_changed" from="StateMachine" to="Brain" method="_on_StateMachine_state_changed"]
 [connection signal="state_changed" from="StateMachine" to="CombatStateMachine" method="change_state_to"]
+[connection signal="state_changed" from="StateMachine" to="Brain" method="_on_StateMachine_state_changed"]
 [connection signal="entered" from="StateMachine/HiddenState" to="Character" method="play_backwards" binds= [ "show" ]]
 [connection signal="started" from="StateMachine/AlertState/Hide" to="StateMachine" method="change_state_to" binds= [ "Hidden" ]]
 [connection signal="entered" from="StateMachine/StandState" to="Character" method="play" binds= [ "show" ]]
@@ -229,9 +230,9 @@ one_shot = true
 [connection signal="entered" from="StateMachine/StunState" to="Character" method="play" binds= [ "stun" ]]
 [connection signal="started" from="StateMachine/StunState/Hide" to="StateMachine" method="change_state_to" binds= [ "Hidden" ]]
 [connection signal="started" from="StateMachine/StunState/Alert" to="StateMachine" method="change_state_to" binds= [ "Alert" ]]
-[connection signal="entered" from="StateMachine/DeadState" to="Brain/StunTimer" method="start"]
 [connection signal="entered" from="StateMachine/DeadState" to="AttackAnimator" method="stop"]
 [connection signal="entered" from="StateMachine/DeadState" to="Character" method="play" binds= [ "stun" ]]
+[connection signal="entered" from="StateMachine/DeadState" to="Brain/StunTimer" method="start"]
 [connection signal="area_shape_entered" from="SightArea" to="SightArea" method="_on_area_shape_entered"]
 [connection signal="spotted" from="SightArea" to="Brain" method="_on_Sight_spotted"]
 [connection signal="direction_changed" from="CombatStateMachine/AlertState/Attack" to="CombatStateMachine/AlertState/Attack/DirtSpawner" method="set_direction"]

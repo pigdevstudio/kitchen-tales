@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://actors/enemies/CutoutCharacter.gd" type="Script" id=1]
 [ext_resource path="res://actors/enemies/carrot/carrot.svg" type="Texture" id=2]
-
 
 [sub_resource type="Animation" id=1]
 resource_name = "SETUP"
@@ -1188,17 +1187,19 @@ tracks/17/keys = {
 "update": 0,
 "values": [ -75.0, -75.0, -75.0, -75.0 ]
 }
-tracks/18/type = "value"
-tracks/18/path = NodePath("Pivot:modulate")
+tracks/18/type = "method"
+tracks/18/path = NodePath("AnimationPlayer2")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/imported = false
 tracks/18/enabled = true
 tracks/18/keys = {
-"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.533333, 0.533333, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0.533333, 0.533333, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0.533333, 0.533333, 1 ), Color( 1, 1, 1, 1 ) ]
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "hurt", -1, 1.0, false ],
+"method": "play"
+} ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -1421,6 +1422,35 @@ tracks/17/keys = {
 "values": [ 0.0, 0.0, 0.0, 0.0 ]
 }
 
+[sub_resource type="Animation" id=7]
+resource_name = "hurt"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1.7, 1.7, 1.7, 1 ), Color( 1, 1, 1, 1 ), Color( 1.7, 1.7, 1.7, 1 ), Color( 1, 1, 1, 1 ), Color( 1.7, 1.7, 1.7, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Pivot/Body/Face:region_rect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Rect2( 170, 40, 50, 30 ), Rect2( 170, 10, 50, 30 ) ]
+}
+
 [node name="Carrot" type="Position2D"]
 script = ExtResource( 1 )
 
@@ -1432,11 +1462,13 @@ anims/show = SubResource( 4 )
 anims/stun = SubResource( 5 )
 anims/throw_dirt = SubResource( 6 )
 
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+anims/hurt = SubResource( 7 )
+
 [node name="Pivot" type="Position2D" parent="."]
 
 [node name="Body" type="Sprite" parent="Pivot"]
 position = Vector2( 0, 76 )
-rotation = 0.00307818
 texture = ExtResource( 2 )
 offset = Vector2( 0, -76 )
 region_enabled = true
@@ -1445,7 +1477,6 @@ region_rect = Rect2( 17, 16, 63, 152 )
 [node name="Hair" type="Position2D" parent="Pivot/Body"]
 show_behind_parent = true
 position = Vector2( 0, -149 )
-rotation = 0.138956
 
 [node name="Sprite" type="Sprite" parent="Pivot/Body/Hair"]
 position = Vector2( 2.1636, 2 )
@@ -1478,13 +1509,13 @@ region_rect = Rect2( 170, 10, 50, 30 )
 
 [node name="HandLeft" type="Sprite" parent="Pivot"]
 show_behind_parent = true
-position = Vector2( 13.4795, -14.2495 )
+position = Vector2( 24.5, -11 )
 texture = ExtResource( 2 )
 region_enabled = true
 region_rect = Rect2( 208, 179, 25, 26 )
 
 [node name="HandRight" type="Sprite" parent="Pivot"]
-position = Vector2( 30.2207, 3.83794 )
+position = Vector2( -23.5, -11 )
 texture = ExtResource( 2 )
 region_enabled = true
 region_rect = Rect2( 160, 179, 25, 26 )
