@@ -26,11 +26,9 @@ func handle(event):
 		if not pressed:
 			pressed = true
 			emit_signal("pressed")
-			get_tree().set_input_as_handled()
 	elif pressed:
 		pressed = false
 		emit_signal("released")
-		get_tree().set_input_as_handled()
 
 
 func update_value(event):
@@ -49,7 +47,7 @@ func update_direction(event):
 	if not event.has_method("get_axis"):
 		return
 	if event.axis == JOY_AXIS_0 or event.axis == JOY_AXIS_2:
-		direction.x = event.axis_value
+		direction.x = value
 	elif event.axis == JOY_AXIS_1 or event.axis == JOY_AXIS_3:
-		direction.y = event.axis_value
+		direction.y = value
 	emit_signal("direction_changed", direction)
