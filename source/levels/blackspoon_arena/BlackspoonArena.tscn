@@ -11,8 +11,8 @@
 [ext_resource path="res://levels/blackspoon_arena/crowd-1.png" type="Texture" id=9]
 [ext_resource path="res://levels/blackspoon_arena/wall.png" type="Texture" id=10]
 [ext_resource path="res://actors/player/buccerino/Buccerino.tscn" type="PackedScene" id=11]
-[ext_resource path="res://actors/physics/PlatformActor.gd" type="Script" id=12]
-[ext_resource path="res://actors/enemies/carrot/Carrot.tscn" type="PackedScene" id=13]
+[ext_resource path="res://actors/enemies/carrot/Carrot.tscn" type="PackedScene" id=12]
+[ext_resource path="res://actors/enemies/tomato/Tomato.tscn" type="PackedScene" id=13]
 
 [node name="BlackspoonArena" type="Node2D"]
 __meta__ = {
@@ -91,12 +91,9 @@ texture = ExtResource( 9 )
 position = Vector2( 960, 670 )
 texture = ExtResource( 10 )
 
-[node name="Buccerino" parent="." groups=[
-"player",
-] instance=ExtResource( 11 )]
+[node name="Buccerino" parent="." instance=ExtResource( 11 )]
 position = Vector2( 340, 710 )
 z_index = 1
-script = ExtResource( 12 )
 
 [node name="CameraRig" type="RemoteTransform2D" parent="Buccerino"]
 remote_path = NodePath("../../Camera2D")
@@ -110,14 +107,9 @@ limit_bottom = 1280
 editor_draw_limits = true
 editor_draw_drag_margin = true
 
-[node name="Carrot2" parent="." instance=ExtResource( 13 )]
+[node name="Carrot" parent="." instance=ExtResource( 12 )]
 position = Vector2( 2430, 640 )
 z_index = -1
 
-[node name="Carrot3" parent="." instance=ExtResource( 13 )]
-position = Vector2( -420, 770 )
-z_index = -1
-
-[node name="Carrot4" parent="." instance=ExtResource( 13 )]
-position = Vector2( 1020, 900 )
-z_index = -1
+[node name="Tomato" parent="." instance=ExtResource( 13 )]
+position = Vector2( 1650, 870 )

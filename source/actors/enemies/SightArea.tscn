@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://actors/enemies/carrot/Sight.gd" type="Script" id=1]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 440.114
+
+[node name="SightArea" type="Area2D"]
+position = Vector2( 0, -30 )
+monitorable = false
+collision_layer = 0
+collision_mask = 8
+script = ExtResource( 1 )
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( -50, -50 )
+[connection signal="area_shape_entered" from="." to="." method="_on_area_shape_entered"]
