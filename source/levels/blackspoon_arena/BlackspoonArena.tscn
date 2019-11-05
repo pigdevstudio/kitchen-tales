@@ -130,7 +130,6 @@ spawnling_scene = ExtResource( 13 )
 
 [node name="Timer" type="Timer" parent="TomatoSpawner"]
 wait_time = 10.0
-autostart = true
 
 [node name="Tomato" parent="TomatoSpawner" instance=ExtResource( 13 )]
 position = Vector2( 10, 154 )
