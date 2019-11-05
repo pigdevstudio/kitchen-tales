@@ -24,5 +24,6 @@ func _on_command_finished(command):
 		"Jump":
 			state_machine.change_state_to("DashJumpFall")
 		"Dash":
+			transition.is_moving = false
 			state_machine.change_state_to("Idle")
 			

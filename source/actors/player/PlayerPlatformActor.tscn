@@ -27,9 +27,6 @@ actor_path = NodePath("../../..")
 [node name="Gravity" parent="StateMachine/SecondJumpState" index="3"]
 strength = 5000.0
 
-[node name="DashFallState" parent="StateMachine" index="9"]
-editor/display_folded = true
-
 [node name="Controls" type="Node" parent="." index="2"]
 script = ExtResource( 2 )
 

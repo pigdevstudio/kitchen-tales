@@ -7,7 +7,7 @@ onready var _velocity = speed * direction
 
 func _physics_process(delta):
 	move(delta)
- 
+
 
 func move(delta):
 	_velocity = speed * direction

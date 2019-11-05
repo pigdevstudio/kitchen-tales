@@ -62,11 +62,15 @@ func set_active(activate):
 
 
 func execute(command_name):
+	if not active:
+		return
 	if has_node(command_name):
 		get_node(command_name).execute()
 
 
 func cancel(command_name):
+	if not active:
+		return
 	if has_node(command_name):
 		get_node(command_name).cancel()
 

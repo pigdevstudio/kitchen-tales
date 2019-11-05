@@ -2,14 +2,15 @@ extends "res://actors/physics/State.gd"
 
 
 func _on_command_started(command):
-	var state_based_on_move = "Move" if transition.is_moving else "Idle"
 	match command:
 		"Stop":
-			state_machine.change_state_to(state_based_on_move)
+			transition.is_moving = false
+			state_machine.change_state_to("DashFall")
 		"Bump":
 			transition.is_moving = false
-			state_machine.change_state_to(state_based_on_move)
+			state_machine.change_state_to("DashFall")
 		"DistanceStop":
-			state_machine.change_state_to(state_based_on_move)
+			transition.is_moving = true
+			state_machine.change_state_to("DashFall")
 		"Fall":
-			state_machine.change_state_to("DashJumpFall") 
+			state_machine.change_state_to("DashJumpFall")

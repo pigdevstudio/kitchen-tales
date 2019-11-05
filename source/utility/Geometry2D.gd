@@ -18,7 +18,7 @@ func _draw():
 		return
 	
 	var offset_position = Vector2(0, 0)
-	 
+	
 	if shape is CircleShape2D:
 		draw_circle(offset_position, shape.radius, color)
 	elif shape is RectangleShape2D:

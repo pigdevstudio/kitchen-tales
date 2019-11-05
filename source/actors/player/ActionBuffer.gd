@@ -6,7 +6,7 @@ Stores a chain of actions within a timespam
 
 signal actions_chain_changed(action_chain)
 signal actions_chain_cleared
- 
+
 onready var solve_timer = $Timer
 export (float) var clear_time = 0.5
 

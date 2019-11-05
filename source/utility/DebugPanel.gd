@@ -76,4 +76,4 @@ func set_properties(value: PoolStringArray) -> void:
 func set_reference(value: Node) -> void:
 	reference = value
 	if reference:
-	  _setup()
+		_setup()

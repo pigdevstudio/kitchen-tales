@@ -1,7 +1,10 @@
 extends "res://actors/physics/State.gd"
 
 func _enter():
-	pass
+	if transition.is_moving:
+		execute("Move")
+	else:
+		execute("Stop")
 
 
 func _on_command_started(command):

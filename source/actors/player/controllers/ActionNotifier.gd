@@ -5,7 +5,7 @@ class_name ActionNotifier
 Description:
 	A Node that notifies when an event matches a given InputAction
 """
-  
+
 signal pressed
 signal released
 
