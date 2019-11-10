@@ -16,6 +16,9 @@ func execute():
 
 
 func cancel():
+	for child in get_children():
+		if child.has_method("disabled"):
+			child.disable()
 	start_cooldown()
 
 
