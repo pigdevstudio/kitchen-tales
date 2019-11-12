@@ -15,7 +15,6 @@ func _on_command_started(command):
 		"Jump":
 			state_machine.change_state_to("DashJump")
 		"DistanceStop":
-			transition.is_moving = true
 			state_machine.change_state_to("Idle")
 
 
