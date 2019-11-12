@@ -1,16 +1,151 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://screens/splash_template.tscn" type="PackedScene" id=1]
 [ext_resource path="res://screens/opening_splash.gd" type="Script" id=2]
 [ext_resource path="res://screens/images/background-render.png" type="Texture" id=3]
+[ext_resource path="res://screens/images/pigdev_logo_00.png" type="Texture" id=4]
+[ext_resource path="res://screens/images/pigdev_logo.png" type="Texture" id=5]
+[ext_resource path="res://screens/images/pigdev_studio.png" type="Texture" id=6]
+[ext_resource path="res://screens/images/github.png" type="Texture" id=7]
+[ext_resource path="res://screens/images/twitter.png" type="Texture" id=8]
+[ext_resource path="res://screens/images/itch.png" type="Texture" id=9]
+
+[sub_resource type="Animation" id=1]
+resource_name = "splash"
+length = 4.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("control:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("control/links/github:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.65, 1.9 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("control/links/twitter:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2, 2.25 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("control/links/itch:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 2.3, 2.55 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("control/pigdev:rect_rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.75, 1, 1.4, 1.55 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, -20.0, 20.0, 30.0 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("control/pigdev:texture")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 4 ), ExtResource( 5 ) ]
+}
 
 [node name="opening_splash" index="0" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+new_anim = "splash"
 
-[node name="background" type="TextureRect" parent="." index="1"]
-margin_right = 40.0
-margin_bottom = 40.0
+[node name="background" type="TextureRect" parent="." index="0"]
+margin_right = 1920.0
+margin_bottom = 1080.0
 texture = ExtResource( 3 )
 
-[node name="color_rect" parent="." index="2"]
-visible = false
+[node name="animator" parent="." index="1"]
+anims/splash = SubResource( 1 )
+
+[node name="control" type="Control" parent="." index="2"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 1920.0
+margin_bottom = 1080.0
+
+[node name="title" type="TextureRect" parent="control" index="0"]
+margin_left = 170.0
+margin_top = 200.0
+margin_right = 1150.0
+margin_bottom = 760.0
+texture = ExtResource( 6 )
+expand = true
+
+[node name="pigdev" type="TextureRect" parent="control" index="1"]
+margin_left = 1160.0
+margin_top = 280.0
+margin_right = 1540.0
+margin_bottom = 660.0
+rect_pivot_offset = Vector2( 190, 190 )
+texture = ExtResource( 4 )
+expand = true
+
+[node name="links" type="HBoxContainer" parent="control" index="2"]
+margin_left = 30.0
+margin_top = 850.0
+margin_right = 958.0
+margin_bottom = 884.0
+rect_scale = Vector2( 2, 2 )
+custom_constants/separation = 80
+
+[node name="github" type="TextureRect" parent="control/links" index="0"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 256.0
+margin_bottom = 34.0
+texture = ExtResource( 7 )
+
+[node name="twitter" type="TextureRect" parent="control/links" index="1"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 336.0
+margin_right = 592.0
+margin_bottom = 34.0
+texture = ExtResource( 8 )
+
+[node name="itch" type="TextureRect" parent="control/links" index="2"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 672.0
+margin_right = 928.0
+margin_bottom = 34.0
+texture = ExtResource( 9 )
+[connection signal="animation_finished" from="animator" to="." method="_on_animator_animation_finished"]

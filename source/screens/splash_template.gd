@@ -9,4 +9,5 @@ func _ready():
 func change_scene(to = next_scene):
 	$animator.play_backwards("fade")
 	yield($animator, "animation_finished")
-	get_tree().change_scene(to)
+	if get_tree().change_scene(to) != 0:
+		get_tree().quit()
