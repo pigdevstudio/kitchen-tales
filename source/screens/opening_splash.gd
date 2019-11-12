@@ -1,0 +1,1 @@
+extends "res://screens/splash_template.gd"
