@@ -149,9 +149,6 @@ spawnling_scene = ExtResource( 15 )
 wait_time = 5.0
 one_shot = true
 autostart = true
-
-[node name="Onion" parent="." instance=ExtResource( 14 )]
-position = Vector2( 150, 870 )
 [connection signal="timeout" from="TomatoSpawner/Timer" to="TomatoSpawner" method="spawn"]
 [connection signal="timeout" from="OnionSpawner/Timer" to="OnionSpawner" method="spawn"]
 [connection signal="timeout" from="RightCarrotSpawner/Timer" to="RightCarrotSpawner" method="spawn"]

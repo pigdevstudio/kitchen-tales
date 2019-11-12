@@ -149,6 +149,12 @@ actor_path = NodePath("../../../../Onion")
 [node name="StunState" parent="StateMachine" instance=ExtResource( 7 )]
 script = ExtResource( 15 )
 
+[node name="DeadState" parent="StateMachine" instance=ExtResource( 7 )]
+script = ExtResource( 15 )
+
+[node name="Gravity" parent="StateMachine/DeadState" instance=ExtResource( 10 )]
+actor_path = NodePath("../../../../Onion")
+
 [node name="CombatStateMachine" parent="." instance=ExtResource( 17 )]
 actor_path = NodePath("../../Onion")
 
@@ -191,9 +197,9 @@ anims/squash = SubResource( 4 )
 [connection signal="timeout" from="Brain/IdleTime" to="Brain" method="_on_IdleTime_timeout"]
 [connection signal="timeout" from="Brain/WanderTime" to="Brain" method="_on_WanderTime_timeout"]
 [connection signal="timeout" from="Brain/StunTime" to="Brain" method="_on_StunTime_timeout"]
-[connection signal="died" from="Brain/Health" to="." method="queue_free"]
-[connection signal="state_changed" from="StateMachine" to="CombatStateMachine" method="change_state_to"]
+[connection signal="died" from="Brain/Health" to="Brain" method="_on_Health_died"]
 [connection signal="state_changed" from="StateMachine" to="Brain" method="_on_StateMachine_state_changed"]
+[connection signal="state_changed" from="StateMachine" to="CombatStateMachine" method="change_state_to"]
 [connection signal="entered" from="StateMachine/IdleState" to="Character" method="play" binds= [ "idle" ]]
 [connection signal="entered" from="StateMachine/WalkState" to="Character" method="play" binds= [ "walk" ]]
 [connection signal="entered" from="StateMachine/ChaseState" to="Character" method="play" binds= [ "chase" ]]

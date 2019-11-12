@@ -30,6 +30,8 @@ func _on_StateMachine_state_changed(new_state):
 		"Stun":
 			$StunTime.start()
 			$"../AttackAnimator".stop()
+		"Dead":
+			get_parent().queue_free()
 
 
 func _on_CombateStateMachine_state_changed(new_state):
@@ -77,3 +79,7 @@ func _on_AttackAnimator_animation_changed(old_name, new_name):
 
 func _on_ChasingSightArea_missed():
 	state_machine.execute("Stop")
+
+
+func _on_Health_died():
+	state_machine.change_state_to("Dead")

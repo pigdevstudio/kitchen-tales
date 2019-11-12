@@ -2,7 +2,9 @@ extends Area2D
 
 
 func _ready():
+	call_deferred("set_monitorable", false)
 	set_physics_process(false)
+	$LifeTime.start()
 
 
 func _physics_process(delta):
