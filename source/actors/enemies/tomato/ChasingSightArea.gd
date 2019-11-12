@@ -1,6 +1,7 @@
 extends "res://actors/enemies/carrot/Sight.gd"
 
 signal chase_direction_changed(new_direction)
+signal missed
 
 var spotted = false
 var target
@@ -19,6 +20,7 @@ func _on_ChasingSightArea_area_exited(area):
 	if spotted:
 		spotted = false
 		set_process(false)
+		emit_signal("missed")
 
 
 func _on_area_shape_entered(area_id, area, area_shape, self_shape):

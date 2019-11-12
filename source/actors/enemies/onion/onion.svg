@@ -1,0 +1,812 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1024"
+   height="1024"
+   viewBox="0 0 270.93333 270.93334"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.4 5da689c313, 2019-01-14"
+   sodipodi:docname="onion.svg"
+   inkscape:export-filename="/home/henrique/Documents/01-projects/05-kitchen-tales/repo/source/02-combat-prototype/actors/player/pig.png"
+   inkscape:export-xdpi="24"
+   inkscape:export-ydpi="24">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#282828"
+     bordercolor="#373737"
+     borderopacity="1"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="505.41823"
+     inkscape:cy="589.76322"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     units="px"
+     inkscape:window-width="1920"
+     inkscape:window-height="1022"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     inkscape:pagecheckerboard="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:snap-page="false"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-paths="true"
+     inkscape:object-paths="true"
+     inkscape:snap-midpoints="false"
+     inkscape:snap-nodes="false"
+     inkscape:object-nodes="false"
+     inkscape:snap-object-midpoints="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-others="false"
+     inkscape:snap-global="false"
+     inkscape:snap-center="true"
+     inkscape:snap-grids="true"
+     inkscape:snap-to-guides="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid1035"
+       empspacing="16"
+       spacingy="1.0583333"
+       spacingx="1.0583333"
+       dotted="false" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Henrique Campos</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Henrique Campos</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>Pigdev Studio</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by/4.0/" />
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by/4.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-26.066655)">
+    <g
+       id="g1247"
+       transform="matrix(0.86179568,0,0,0.86179568,-759.16104,-463.54557)"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/home/henrique/Pictures/onion.png">
+      <path
+         sodipodi:nodetypes="csssssssssssssccssssssssssssscc"
+         inkscape:connector-curvature="0"
+         id="rect1139"
+         d="m 442.70862,731.30705 c -8.25714,0 -14.90625,6.64716 -14.90625,14.9043 0,8.25714 6.64911,14.9043 14.90625,14.9043 h 5.25977 c 8.25714,0 14.90429,6.64715 14.90429,14.90429 0,8.25715 -6.64715,14.9043 -14.90429,14.9043 h -24.25586 c -8.25715,0 -14.90625,6.64715 -14.90625,14.9043 0,8.25714 6.6491,14.90625 14.90625,14.90625 h 44.71289 c 8.25714,0 14.90429,6.64715 14.90429,14.90429 0,8.25715 -6.64715,14.9043 -14.90429,14.9043 h -26.59375 c -8.25715,0 -14.9043,6.64715 -14.9043,14.9043 0,8.25714 6.64715,14.90431 14.9043,14.90429 h 213.26378 c 8.25714,0 14.90625,-6.64715 14.90625,-14.90429 0,-8.25714 -6.64911,-14.9043 -14.90625,-14.9043 h -5.25977 c -8.25714,0 -14.9043,-6.64716 -14.9043,-14.9043 0,-8.25715 6.64716,-14.90429 14.9043,-14.90429 h 24.25586 c 8.25715,0 14.90625,-6.64715 14.90625,-14.9043 0,-8.25714 -6.6491,-14.90625 -14.90625,-14.90625 h -44.71289 c -8.25714,0 -14.9043,-6.64716 -14.9043,-14.9043 0,-8.25715 6.64716,-14.90429 14.9043,-14.90429 h 26.59375 c 8.25715,0 14.9043,-6.64715 14.9043,-14.9043 0,-8.25714 -6.64715,-14.90431 -14.9043,-14.9043 z"
+         style="opacity:1;fill:#93ac93;fill-opacity:1" />
+      <circle
+         r="6.1994925"
+         cy="757.1629"
+         cx="476.121"
+         id="path1195"
+         style="opacity:1;fill:#536c53;fill-opacity:1" />
+      <circle
+         style="opacity:1;fill:#536c53;fill-opacity:1;stroke-width:1.39999998"
+         id="circle1197"
+         cx="498.85248"
+         cy="744.35059"
+         r="8.6792898" />
+      <circle
+         r="4.1329956"
+         cy="867.51385"
+         cx="628.21521"
+         id="circle1199"
+         style="opacity:1;fill:#536c53;fill-opacity:1;stroke-width:0.66666669" />
+      <circle
+         style="opacity:1;fill:#536c53;fill-opacity:1;stroke-width:0.46666673"
+         id="circle1201"
+         cx="648.46686"
+         cy="864.62079"
+         r="2.8930972" />
+      <circle
+         r="12.812284"
+         cy="775.76141"
+         cx="426.93835"
+         id="path1203"
+         style="opacity:1;fill:#93ac93;fill-opacity:1;stroke-width:0.8611111" />
+      <circle
+         style="opacity:1;fill:#93ac93;fill-opacity:1;stroke-width:1"
+         id="circle1207"
+         cx="708.83612"
+         cy="805.82953"
+         r="14.878782" />
+    </g>
+    <g
+       id="g1072"
+       transform="translate(152.2498,-125.94132)">
+      <rect
+         style="fill:#e3d7f4;fill-opacity:1;stroke-width:0.68026328"
+         id="rect1060"
+         width="116.95943"
+         height="92.217979"
+         x="18.351521"
+         y="202.92"
+         ry="46.108994"
+         transform="scale(-1,1)" />
+      <circle
+         style="fill:#c4b7c8;fill-opacity:1;stroke-width:0.78565621"
+         id="circle1062"
+         cx="81.994942"
+         cy="213.31078"
+         r="7.7930717"
+         transform="scale(-1,1)" />
+      <circle
+         r="3.8965359"
+         cy="228.24747"
+         cx="67.058212"
+         id="circle1064"
+         style="fill:#c4b7c8;fill-opacity:1;stroke-width:0.39282811"
+         transform="scale(-1,1)" />
+      <circle
+         style="fill:#c4b7c8;fill-opacity:1;stroke-width:0.39282811"
+         id="circle1066"
+         cx="95.63282"
+         cy="225.6498"
+         r="3.8965359"
+         transform="scale(-1,1)" />
+    </g>
+    <circle
+       r="13.37206"
+       cy="263.72681"
+       cx="18.278393"
+       id="circle1039"
+       style="fill:#a08ba7;fill-opacity:1;stroke-width:0.8680436"
+       transform="scale(-1,1)"
+       inkscape:export-filename="/home/henrique/Pictures/onion.png"
+       inkscape:export-xdpi="24"
+       inkscape:export-ydpi="24" />
+    <rect
+       style="fill:#e3d7f4;fill-opacity:1;stroke-width:0.68026328"
+       id="rect910"
+       width="116.95943"
+       height="92.217979"
+       x="18.351521"
+       y="202.92"
+       ry="46.108994"
+       transform="scale(-1,1)"
+       inkscape:export-filename="/home/henrique/Pictures/onion.png"
+       inkscape:export-xdpi="24"
+       inkscape:export-ydpi="24" />
+    <rect
+       ry="1.768474"
+       y="255.73705"
+       x="58.348934"
+       height="3.536948"
+       width="14.301571"
+       id="rect924"
+       style="fill:#67536c;fill-opacity:1;stroke-width:0.60893905"
+       transform="scale(-1,1)"
+       inkscape:export-filename="/home/henrique/Pictures/onion.png"
+       inkscape:export-xdpi="24"
+       inkscape:export-ydpi="24" />
+    <circle
+       style="opacity:1;fill:#67536c;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.91862696;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="circle926"
+       cx="37.533726"
+       cy="250.81606"
+       r="3.5032926"
+       transform="scale(-1,1)"
+       inkscape:export-filename="/home/henrique/Pictures/onion.png"
+       inkscape:export-xdpi="24"
+       inkscape:export-ydpi="24" />
+    <rect
+       transform="matrix(-0.86602541,0.49999998,0.49999998,0.86602541,0,0)"
+       ry="1.0764624"
+       y="190.99748"
+       x="150.49649"
+       height="2.1529248"
+       width="6.766335"
+       id="rect928"
+       style="fill:#67536c;fill-opacity:1;stroke-width:0.60893905"
+       inkscape:export-filename="/home/henrique/Pictures/onion.png"
+       inkscape:export-xdpi="24"
+       inkscape:export-ydpi="24" />
+    <rect
+       style="fill:#67536c;fill-opacity:1;stroke-width:0.60893905"
+       id="rect930"
+       width="6.766335"
+       height="2.1529248"
+       x="33.422546"
+       y="258.59012"
+       ry="1.0764624"
+       transform="rotate(29.999999)"
+       inkscape:export-filename="/home/henrique/Pictures/onion.png"
+       inkscape:export-xdpi="24"
+       inkscape:export-ydpi="24" />
+    <circle
+       r="3.5032926"
+       cy="250.81606"
+       cx="98.386833"
+       id="circle932"
+       style="opacity:1;fill:#67536c;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.91862696;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       transform="scale(-1,1)"
+       inkscape:export-filename="/home/henrique/Pictures/onion.png"
+       inkscape:export-xdpi="24"
+       inkscape:export-ydpi="24" />
+    <path
+       inkscape:transform-center-x="-0.46309364"
+       sodipodi:type="star"
+       style="fill:#00aa88;fill-opacity:1"
+       id="path980"
+       sodipodi:sides="3"
+       sodipodi:cx="751.42859"
+       sodipodi:cy="435.3768"
+       sodipodi:r1="177.35011"
+       sodipodi:r2="102.86306"
+       sodipodi:arg1="1.5707963"
+       sodipodi:arg2="2.6179939"
+       inkscape:flatsided="true"
+       inkscape:rounded="0.17"
+       inkscape:randomized="0"
+       d="m 751.42859,612.72691 c -52.2205,0 -179.69995,-220.80088 -153.58971,-266.02516 26.11025,-45.22428 281.06916,-45.22429 307.17941,-1e-5 26.11025,45.22428 -101.3692,266.02517 -153.5897,266.02517 z"
+       inkscape:transform-center-y="-34.797042"
+       transform="matrix(-0.02960654,0.00818751,0.06008323,0.21726487,-90.384857,71.422775)"
+       inkscape:export-filename="/home/henrique/Pictures/onion.png"
+       inkscape:export-xdpi="24"
+       inkscape:export-ydpi="24" />
+    <path
+       transform="matrix(-0.02647863,0.01557126,0.11426823,0.19431106,-125.93586,79.938827)"
+       inkscape:transform-center-y="-33.589386"
+       d="m 751.42859,612.72691 c -52.2205,0 -179.69995,-220.80088 -153.58971,-266.02516 26.11025,-45.22428 281.06916,-45.22429 307.17941,-1e-5 26.11025,45.22428 -101.3692,266.02517 -153.5897,266.02517 z"
+       inkscape:randomized="0"
+       inkscape:rounded="0.17"
+       inkscape:flatsided="true"
+       sodipodi:arg2="2.6179939"
+       sodipodi:arg1="1.5707963"
+       sodipodi:r2="102.86306"
+       sodipodi:r1="177.35011"
+       sodipodi:cy="435.3768"
+       sodipodi:cx="751.42859"
+       sodipodi:sides="3"
+       id="path984"
+       style="fill:#00aa88;fill-opacity:1"
+       sodipodi:type="star"
+       inkscape:transform-center-x="-10.641812"
+       inkscape:export-filename="/home/henrique/Pictures/onion.png"
+       inkscape:export-xdpi="24"
+       inkscape:export-ydpi="24" />
+    <path
+       inkscape:transform-center-x="10.142877"
+       sodipodi:type="star"
+       style="fill:#00aa88;fill-opacity:1"
+       id="path986"
+       sodipodi:sides="3"
+       sodipodi:cx="751.42859"
+       sodipodi:cy="435.3768"
+       sodipodi:r1="177.35011"
+       sodipodi:r2="102.86306"
+       sodipodi:arg1="1.5707963"
+       sodipodi:arg2="2.6179939"
+       inkscape:flatsided="true"
+       inkscape:rounded="0.17"
+       inkscape:randomized="0"
+       d="m 751.42859,612.72691 c -52.2205,0 -179.69995,-220.80088 -153.58971,-266.02516 26.11025,-45.22428 281.06916,-45.22429 307.17941,-1e-5 26.11025,45.22428 -101.3692,266.02517 -153.5897,266.02517 z"
+       inkscape:transform-center-y="-33.727705"
+       transform="matrix(-0.0307168,2.4579181e-4,0.00180366,0.22541243,-53.841111,72.398188)"
+       inkscape:export-filename="/home/henrique/Pictures/onion.png"
+       inkscape:export-xdpi="24"
+       inkscape:export-ydpi="24" />
+    <g
+       id="g974"
+       transform="matrix(-0.75888567,0.2033428,0.2033428,0.75888567,185.04439,-476.38031)"
+       style="fill:#e3d7f4"
+       inkscape:export-filename="/home/henrique/Pictures/onion.png"
+       inkscape:export-xdpi="24"
+       inkscape:export-ydpi="24">
+      <ellipse
+         inkscape:transform-center-x="11.365719"
+         transform="rotate(-30)"
+         inkscape:transform-center-y="-19.686014"
+         ry="22.731472"
+         rx="12.398985"
+         cy="913.30048"
+         cx="91.443634"
+         id="path965"
+         style="fill:#e3d7f4;fill-opacity:1" />
+      <ellipse
+         style="fill:#e3d7f4;fill-opacity:1"
+         id="ellipse967"
+         cx="547.20844"
+         cy="742.17413"
+         rx="12.398985"
+         ry="22.731472"
+         inkscape:transform-center-y="-22.731472" />
+      <ellipse
+         style="fill:#e3d7f4;fill-opacity:1"
+         id="ellipse969"
+         cx="-857.14728"
+         cy="365.63129"
+         rx="12.398985"
+         ry="22.731472"
+         inkscape:transform-center-y="-19.686006"
+         transform="matrix(-0.8660254,-0.5,-0.5,0.8660254,0,0)"
+         inkscape:transform-center-x="-11.365726" />
+    </g>
+    <circle
+       style="fill:#c4b7c8;fill-opacity:1;stroke-width:0.78565621"
+       id="path959"
+       cx="81.994942"
+       cy="213.31078"
+       r="7.7930717"
+       transform="scale(-1,1)"
+       inkscape:export-filename="/home/henrique/Pictures/onion.png"
+       inkscape:export-xdpi="24"
+       inkscape:export-ydpi="24" />
+    <circle
+       r="3.8965359"
+       cy="228.24747"
+       cx="67.058212"
+       id="circle961-3"
+       style="fill:#c4b7c8;fill-opacity:1;stroke-width:0.39282811"
+       transform="scale(-1,1)"
+       inkscape:export-filename="/home/henrique/Pictures/onion.png"
+       inkscape:export-xdpi="24"
+       inkscape:export-ydpi="24" />
+    <circle
+       style="fill:#c4b7c8;fill-opacity:1;stroke-width:0.39282811"
+       id="circle963"
+       cx="95.63282"
+       cy="225.6498"
+       r="3.8965359"
+       transform="scale(-1,1)"
+       inkscape:export-filename="/home/henrique/Pictures/onion.png"
+       inkscape:export-xdpi="24"
+       inkscape:export-ydpi="24" />
+    <circle
+       style="fill:#c8b7c4;fill-opacity:1;stroke-width:0.8680436"
+       id="circle1041"
+       cx="134.1877"
+       cy="264.66711"
+       r="13.37206"
+       transform="scale(-1,1)"
+       inkscape:export-filename="/home/henrique/Pictures/onion.png"
+       inkscape:export-xdpi="24"
+       inkscape:export-ydpi="24" />
+    <path
+       style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#67536c;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2.64583325;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       d="m 188.13086,113.16797 a 1.3230489,1.3230489 0 0 0 -0.72266,2.43555 c 0.0382,0.0254 0.79807,0.59137 1.6836,1.27734 0.88553,0.68597 1.99351,1.55329 3.07812,2.4043 0.63455,0.49787 0.672,0.52928 1.24024,0.97656 h -5.80078 a 1.32324,1.32324 0 1 0 0,2.64648 h 9.62109 a 1.3230489,1.3230489 0 0 0 0.82031,-2.36132 c 0,0 -2.07219,-1.63808 -4.24609,-3.34376 -1.08695,-0.85283 -2.20027,-1.72192 -3.09375,-2.41406 -0.89349,-0.69213 -1.47125,-1.14684 -1.83399,-1.38867 a 1.3230489,1.3230489 0 0 0 -0.74609,-0.23242 z"
+       id="path1693"
+       inkscape:connector-curvature="0" />
+    <path
+       style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#67536c;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2.64583325;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       d="m 252.0957,113.16992 a 1.3230489,1.3230489 0 0 0 -0.70508,0.23047 c -0.36273,0.24183 -0.94245,0.69654 -1.83593,1.38867 -0.89349,0.69214 -2.00485,1.56123 -3.0918,2.41406 -2.1739,1.70568 -4.24609,3.34375 -4.24609,3.34376 a 1.3230489,1.3230489 0 0 0 0.82031,2.36132 h 9.62109 a 1.32324,1.32324 0 1 0 0,-2.64648 h -5.80273 c 0.56836,-0.44738 0.60551,-0.47855 1.24023,-0.97656 1.08462,-0.85101 2.19455,-1.71833 3.08008,-2.4043 0.88553,-0.68597 1.64348,-1.2519 1.68164,-1.27734 a 1.3230489,1.3230489 0 0 0 -0.76172,-2.4336 z"
+       id="path1686"
+       inkscape:connector-curvature="0" />
+    <path
+       style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#67536c;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.76698506;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       d="m 192.7181,79.532991 c -0.61833,0.08444 -1.2291,0.274806 -1.80743,0.579517 -2.37374,1.250674 -3.54415,4.269276 -2.16522,6.713697 1.09498,1.941053 3.6664,2.892388 5.71312,1.667538 1.55209,-0.928828 2.31209,-3.040709 1.20265,-4.670495 -0.39342,-0.577945 -0.98093,-0.980337 -1.65508,-1.147587 -0.67415,-0.167238 -1.48156,-0.0638 -2.1052,0.444378 -0.40238,0.327885 -0.65787,0.764428 -0.74329,1.282726 -0.0854,0.518297 0.0827,1.200889 0.60479,1.610283 a 0.8869982,0.88017678 0 0 0 1.15186,-1.335408 c 0.0139,-0.05758 0.0807,-0.172515 0.11074,-0.196991 0.16074,-0.130999 0.32197,-0.155487 0.55169,-0.09851 0.22972,0.057 0.48085,0.230415 0.61402,0.426046 0.47816,0.702424 0.10802,1.726904 -0.64633,2.178342 -1.11206,0.665505 -2.61287,0.10813 -3.25013,-1.021595 -0.85642,-1.51815 -0.0941,-3.485028 1.44732,-4.29713 1.55046,-0.81691 3.54553,-0.39247 4.74824,0.893329 a 0.8869982,0.88017678 0 1 0 1.29959,-1.197981 c -1.29761,-1.387268 -3.21643,-2.083452 -5.0714,-1.830167 z"
+       id="path1661"
+       inkscape:connector-curvature="0" />
+    <rect
+       style="fill:#67536c;fill-opacity:1;stroke-width:0.67329407"
+       id="rect1663"
+       width="7.4814272"
+       height="2.3804541"
+       x="125.81452"
+       y="161.28487"
+       ry="1.190227"
+       transform="rotate(-30)" />
+    <path
+       style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#67536c;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.76698506;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       d="m 248.68223,79.532991 c -0.61833,0.08444 -1.2291,0.274806 -1.80743,0.579517 -2.37373,1.250674 -3.54415,4.269276 -2.16522,6.713697 1.09498,1.941053 3.6664,2.892388 5.71312,1.667538 1.55209,-0.928828 2.31209,-3.040709 1.20265,-4.670495 -0.39342,-0.577945 -0.98093,-0.980337 -1.65508,-1.147587 -0.67414,-0.167238 -1.48156,-0.0638 -2.1052,0.444378 -0.40238,0.327885 -0.65787,0.764428 -0.74328,1.282726 -0.0855,0.518297 0.0827,1.200889 0.60478,1.610283 a 0.8869982,0.88017678 0 0 0 1.15186,-1.335408 c 0.0139,-0.05758 0.0807,-0.172515 0.11074,-0.196991 0.16075,-0.130999 0.32198,-0.155487 0.5517,-0.09851 0.22972,0.057 0.48084,0.230415 0.61401,0.426046 0.47816,0.702424 0.10802,1.726904 -0.64633,2.178342 -1.11206,0.665505 -2.61287,0.10813 -3.25013,-1.021595 -0.85642,-1.51815 -0.0941,-3.485028 1.44733,-4.29713 1.55045,-0.81691 3.54553,-0.39247 4.74823,0.893329 a 0.8869982,0.88017678 0 1 0 1.29959,-1.197981 c -1.2976,-1.387268 -3.21642,-2.083452 -5.0714,-1.830167 z"
+       id="path1650"
+       inkscape:connector-curvature="0" />
+    <rect
+       transform="matrix(-0.8660254,-0.5,-0.5,0.8660254,0,0)"
+       ry="1.190227"
+       y="-60.132866"
+       x="-257.69226"
+       height="2.3804541"
+       width="7.4814272"
+       id="rect1652"
+       style="fill:#67536c;fill-opacity:1;stroke-width:0.67329407" />
+    <circle
+       transform="scale(-1,1)"
+       style="fill:#a08ba7;fill-opacity:1;stroke-width:0.8680436"
+       id="circle1076"
+       cx="-233.50674"
+       cy="191.84009"
+       r="13.37206" />
+    <circle
+       transform="scale(-1,1)"
+       r="13.37206"
+       cy="191.84007"
+       cx="-165.77341"
+       id="circle1074"
+       style="fill:#c8b7c4;fill-opacity:1;stroke-width:0.8680436" />
+    <g
+       inkscape:export-ydpi="24"
+       inkscape:export-xdpi="24"
+       inkscape:export-filename="/home/henrique/Documents/01-projects/06-kitchen-tales/design/tomato.png"
+       transform="translate(283.05255,-205.1932)"
+       id="g1627"
+       style="fill:#67536c;fill-opacity:1">
+      <rect
+         style="fill:#67536c;fill-opacity:1;stroke-width:0.6090008"
+         id="rect1617"
+         width="14.303021"
+         height="3.5373068"
+         x="51.130676"
+         y="263.6954"
+         ry="1.7686534"
+         transform="matrix(-0.9999624,-0.0086717,-0.0086717,0.9999624,0,0)" />
+      <circle
+         r="3.5036478"
+         cy="258.77386"
+         cx="30.313339"
+         id="circle1619"
+         style="opacity:1;fill:#67536c;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.91872013;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         transform="matrix(-0.9999624,-0.0086717,-0.0086717,0.9999624,0,0)" />
+      <rect
+         style="fill:#67536c;fill-opacity:1;stroke-width:0.6090008"
+         id="rect1621"
+         width="6.7670212"
+         height="2.1531432"
+         x="148.22163"
+         y="201.49861"
+         ry="1.0765716"
+         transform="matrix(-0.87032869,0.49247129,0.49247129,0.87032869,0,0)" />
+      <rect
+         transform="rotate(30.496858)"
+         ry="1.0765716"
+         y="261.87396"
+         x="43.648449"
+         height="2.1531432"
+         width="6.7670212"
+         id="rect1623"
+         style="fill:#67536c;fill-opacity:1;stroke-width:0.6090008" />
+      <circle
+         style="opacity:1;fill:#67536c;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.91872013;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="circle1625"
+         cx="91.1726"
+         cy="258.77386"
+         r="3.5036478"
+         transform="matrix(-0.9999624,-0.0086717,-0.0086717,0.9999624,0,0)" />
+    </g>
+    <rect
+       style="fill:#67536c;fill-opacity:1;stroke-width:0.6090008"
+       id="rect1629"
+       width="14.303021"
+       height="3.5373068"
+       x="-230.41135"
+       y="88.283348"
+       ry="1.7686534"
+       transform="matrix(-0.9999624,-0.0086717,-0.0086717,0.9999624,0,0)" />
+    <rect
+       style="fill:#67536c;fill-opacity:1;stroke-width:0.6090008"
+       id="rect1671"
+       width="14.303021"
+       height="3.5373068"
+       x="-230.70502"
+       y="122.14875"
+       ry="1.7686534"
+       transform="matrix(-0.9999624,-0.0086717,-0.0086717,0.9999624,0,0)" />
+    <g
+       style="fill:#e3d7f4"
+       transform="matrix(-0.78565626,0,0,0.78565626,468.78904,-369.83464)"
+       id="g1084">
+      <ellipse
+         style="fill:#e3d7f4;fill-opacity:1"
+         id="ellipse1078"
+         cx="91.443634"
+         cy="913.30048"
+         rx="12.398985"
+         ry="22.731472"
+         inkscape:transform-center-y="-19.686014"
+         transform="rotate(-30)"
+         inkscape:transform-center-x="11.365719" />
+      <ellipse
+         inkscape:transform-center-y="-22.731472"
+         ry="22.731472"
+         rx="12.398985"
+         cy="742.17413"
+         cx="547.20844"
+         id="ellipse1080"
+         style="fill:#e3d7f4;fill-opacity:1" />
+      <ellipse
+         inkscape:transform-center-x="-11.365726"
+         transform="matrix(-0.8660254,-0.5,-0.5,0.8660254,0,0)"
+         inkscape:transform-center-y="-19.686006"
+         ry="22.731472"
+         rx="12.398985"
+         cy="365.63129"
+         cx="-857.14728"
+         id="ellipse1082"
+         style="fill:#e3d7f4;fill-opacity:1" />
+    </g>
+    <path
+       transform="matrix(-0.0307168,2.4579181e-4,0.00180366,0.22541243,94.987691,124.71009)"
+       inkscape:transform-center-y="-33.727705"
+       d="m 751.42859,612.72691 c -52.2205,0 -179.69995,-220.80088 -153.58971,-266.02516 26.11025,-45.22428 281.06916,-45.22429 307.17941,-1e-5 26.11025,45.22428 -101.3692,266.02517 -153.5897,266.02517 z"
+       inkscape:randomized="0"
+       inkscape:rounded="0.17"
+       inkscape:flatsided="true"
+       sodipodi:arg2="2.6179939"
+       sodipodi:arg1="1.5707963"
+       sodipodi:r2="102.86306"
+       sodipodi:r1="177.35011"
+       sodipodi:cy="435.3768"
+       sodipodi:cx="751.42859"
+       sodipodi:sides="3"
+       id="path1089"
+       style="fill:#00aa88;fill-opacity:1"
+       sodipodi:type="star"
+       inkscape:transform-center-x="10.142877" />
+    <g
+       id="g1156"
+       transform="translate(-200.93318)"
+       inkscape:export-filename="/home/henrique/Pictures/onion.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <circle
+         r="13.37206"
+         cy="263.72681"
+         cx="18.278393"
+         id="circle1102"
+         style="fill:#a08ba7;fill-opacity:1;stroke-width:0.8680436"
+         transform="scale(-1,1)"
+         inkscape:export-filename="/home/henrique/Pictures/onion.png"
+         inkscape:export-xdpi="24"
+         inkscape:export-ydpi="24" />
+      <rect
+         style="fill:#e3d7f4;fill-opacity:1;stroke-width:0.68026328"
+         id="rect1104"
+         width="116.95943"
+         height="92.217979"
+         x="18.351521"
+         y="202.92"
+         ry="46.108994"
+         transform="scale(-1,1)"
+         inkscape:export-filename="/home/henrique/Pictures/onion.png"
+         inkscape:export-xdpi="24"
+         inkscape:export-ydpi="24" />
+      <rect
+         ry="1.768474"
+         y="255.73705"
+         x="58.348934"
+         height="3.536948"
+         width="14.301571"
+         id="rect1106"
+         style="fill:#67536c;fill-opacity:1;stroke-width:0.60893905"
+         transform="scale(-1,1)"
+         inkscape:export-filename="/home/henrique/Pictures/onion.png"
+         inkscape:export-xdpi="24"
+         inkscape:export-ydpi="24" />
+      <circle
+         style="opacity:1;fill:#67536c;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.91862696;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="circle1108"
+         cx="37.533726"
+         cy="250.81606"
+         r="3.5032926"
+         transform="scale(-1,1)"
+         inkscape:export-filename="/home/henrique/Pictures/onion.png"
+         inkscape:export-xdpi="24"
+         inkscape:export-ydpi="24" />
+      <rect
+         transform="matrix(-0.86602541,0.49999998,0.49999998,0.86602541,0,0)"
+         ry="1.0764624"
+         y="190.99748"
+         x="150.49649"
+         height="2.1529248"
+         width="6.766335"
+         id="rect1110"
+         style="fill:#67536c;fill-opacity:1;stroke-width:0.60893905"
+         inkscape:export-filename="/home/henrique/Pictures/onion.png"
+         inkscape:export-xdpi="24"
+         inkscape:export-ydpi="24" />
+      <rect
+         style="fill:#67536c;fill-opacity:1;stroke-width:0.60893905"
+         id="rect1112"
+         width="6.766335"
+         height="2.1529248"
+         x="33.422546"
+         y="258.59012"
+         ry="1.0764624"
+         transform="rotate(29.999999)"
+         inkscape:export-filename="/home/henrique/Pictures/onion.png"
+         inkscape:export-xdpi="24"
+         inkscape:export-ydpi="24" />
+      <circle
+         r="3.5032926"
+         cy="250.81606"
+         cx="98.386833"
+         id="circle1114"
+         style="opacity:1;fill:#67536c;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.91862696;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         transform="scale(-1,1)"
+         inkscape:export-filename="/home/henrique/Pictures/onion.png"
+         inkscape:export-xdpi="24"
+         inkscape:export-ydpi="24" />
+      <path
+         inkscape:transform-center-x="-0.46309364"
+         sodipodi:type="star"
+         style="fill:#00aa88;fill-opacity:1"
+         id="path1116"
+         sodipodi:sides="3"
+         sodipodi:cx="751.42859"
+         sodipodi:cy="435.3768"
+         sodipodi:r1="177.35011"
+         sodipodi:r2="102.86306"
+         sodipodi:arg1="1.5707963"
+         sodipodi:arg2="2.6179939"
+         inkscape:flatsided="true"
+         inkscape:rounded="0.17"
+         inkscape:randomized="0"
+         d="m 751.42859,612.72691 c -52.2205,0 -179.69995,-220.80088 -153.58971,-266.02516 26.11025,-45.22428 281.06916,-45.22429 307.17941,-1e-5 26.11025,45.22428 -101.3692,266.02517 -153.5897,266.02517 z"
+         inkscape:transform-center-y="-34.797042"
+         transform="matrix(-0.02960654,0.00818751,0.06008323,0.21726487,-90.384857,71.422775)"
+         inkscape:export-filename="/home/henrique/Pictures/onion.png"
+         inkscape:export-xdpi="24"
+         inkscape:export-ydpi="24" />
+      <path
+         transform="matrix(-0.02647863,0.01557126,0.11426823,0.19431106,-125.93586,79.938827)"
+         inkscape:transform-center-y="-33.589386"
+         d="m 751.42859,612.72691 c -52.2205,0 -179.69995,-220.80088 -153.58971,-266.02516 26.11025,-45.22428 281.06916,-45.22429 307.17941,-1e-5 26.11025,45.22428 -101.3692,266.02517 -153.5897,266.02517 z"
+         inkscape:randomized="0"
+         inkscape:rounded="0.17"
+         inkscape:flatsided="true"
+         sodipodi:arg2="2.6179939"
+         sodipodi:arg1="1.5707963"
+         sodipodi:r2="102.86306"
+         sodipodi:r1="177.35011"
+         sodipodi:cy="435.3768"
+         sodipodi:cx="751.42859"
+         sodipodi:sides="3"
+         id="path1118"
+         style="fill:#00aa88;fill-opacity:1"
+         sodipodi:type="star"
+         inkscape:transform-center-x="-10.641812"
+         inkscape:export-filename="/home/henrique/Pictures/onion.png"
+         inkscape:export-xdpi="24"
+         inkscape:export-ydpi="24" />
+      <path
+         inkscape:transform-center-x="10.142877"
+         sodipodi:type="star"
+         style="fill:#00aa88;fill-opacity:1"
+         id="path1120"
+         sodipodi:sides="3"
+         sodipodi:cx="751.42859"
+         sodipodi:cy="435.3768"
+         sodipodi:r1="177.35011"
+         sodipodi:r2="102.86306"
+         sodipodi:arg1="1.5707963"
+         sodipodi:arg2="2.6179939"
+         inkscape:flatsided="true"
+         inkscape:rounded="0.17"
+         inkscape:randomized="0"
+         d="m 751.42859,612.72691 c -52.2205,0 -179.69995,-220.80088 -153.58971,-266.02516 26.11025,-45.22428 281.06916,-45.22429 307.17941,-1e-5 26.11025,45.22428 -101.3692,266.02517 -153.5897,266.02517 z"
+         inkscape:transform-center-y="-33.727705"
+         transform="matrix(-0.0307168,2.4579181e-4,0.00180366,0.22541243,-53.841111,72.398188)"
+         inkscape:export-filename="/home/henrique/Pictures/onion.png"
+         inkscape:export-xdpi="24"
+         inkscape:export-ydpi="24" />
+      <g
+         id="g1128"
+         transform="matrix(-0.75888567,0.2033428,0.2033428,0.75888567,185.04439,-476.38031)"
+         style="fill:#e3d7f4"
+         inkscape:export-filename="/home/henrique/Pictures/onion.png"
+         inkscape:export-xdpi="24"
+         inkscape:export-ydpi="24">
+        <ellipse
+           inkscape:transform-center-x="11.365719"
+           transform="rotate(-30)"
+           inkscape:transform-center-y="-19.686014"
+           ry="22.731472"
+           rx="12.398985"
+           cy="913.30048"
+           cx="91.443634"
+           id="ellipse1122"
+           style="fill:#e3d7f4;fill-opacity:1" />
+        <ellipse
+           style="fill:#e3d7f4;fill-opacity:1"
+           id="ellipse1124"
+           cx="547.20844"
+           cy="742.17413"
+           rx="12.398985"
+           ry="22.731472"
+           inkscape:transform-center-y="-22.731472" />
+        <ellipse
+           style="fill:#e3d7f4;fill-opacity:1"
+           id="ellipse1126"
+           cx="-857.14728"
+           cy="365.63129"
+           rx="12.398985"
+           ry="22.731472"
+           inkscape:transform-center-y="-19.686006"
+           transform="matrix(-0.8660254,-0.5,-0.5,0.8660254,0,0)"
+           inkscape:transform-center-x="-11.365726" />
+      </g>
+      <circle
+         style="fill:#c4b7c8;fill-opacity:1;stroke-width:0.78565621"
+         id="circle1130"
+         cx="81.994942"
+         cy="213.31078"
+         r="7.7930717"
+         transform="scale(-1,1)"
+         inkscape:export-filename="/home/henrique/Pictures/onion.png"
+         inkscape:export-xdpi="24"
+         inkscape:export-ydpi="24" />
+      <circle
+         r="3.8965359"
+         cy="228.24747"
+         cx="67.058212"
+         id="circle1132"
+         style="fill:#c4b7c8;fill-opacity:1;stroke-width:0.39282811"
+         transform="scale(-1,1)"
+         inkscape:export-filename="/home/henrique/Pictures/onion.png"
+         inkscape:export-xdpi="24"
+         inkscape:export-ydpi="24" />
+      <circle
+         style="fill:#c4b7c8;fill-opacity:1;stroke-width:0.39282811"
+         id="circle1134"
+         cx="95.63282"
+         cy="225.6498"
+         r="3.8965359"
+         transform="scale(-1,1)"
+         inkscape:export-filename="/home/henrique/Pictures/onion.png"
+         inkscape:export-xdpi="24"
+         inkscape:export-ydpi="24" />
+      <circle
+         style="fill:#c8b7c4;fill-opacity:1;stroke-width:0.8680436"
+         id="circle1136"
+         cx="134.1877"
+         cy="264.66711"
+         r="13.37206"
+         transform="scale(-1,1)"
+         inkscape:export-filename="/home/henrique/Pictures/onion.png"
+         inkscape:export-xdpi="24"
+         inkscape:export-ydpi="24" />
+    </g>
+  </g>
+</svg>

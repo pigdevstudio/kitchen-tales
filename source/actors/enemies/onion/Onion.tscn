@@ -1,0 +1,210 @@
+[gd_scene load_steps=26 format=2]
+
+[ext_resource path="res://actors/physics/PlatformActor.gd" type="Script" id=1]
+[ext_resource path="res://actors/enemies/onion/Brain.gd" type="Script" id=2]
+[ext_resource path="res://actors/combat/Health.tscn" type="PackedScene" id=3]
+[ext_resource path="res://actors/enemies/onion/OnionCharacter.tscn" type="PackedScene" id=4]
+[ext_resource path="res://actors/combat/Attack.tscn" type="PackedScene" id=5]
+[ext_resource path="res://actors/physics/StateMachine.tscn" type="PackedScene" id=6]
+[ext_resource path="res://actors/physics/State.tscn" type="PackedScene" id=7]
+[ext_resource path="res://actors/enemies/tomato/states/Idle.gd" type="Script" id=8]
+[ext_resource path="res://actors/physics/Move.tscn" type="PackedScene" id=9]
+[ext_resource path="res://actors/physics/Gravity.tscn" type="PackedScene" id=10]
+[ext_resource path="res://actors/Command.gd" type="Script" id=11]
+[ext_resource path="res://actors/enemies/tomato/states/Walk.gd" type="Script" id=12]
+[ext_resource path="res://actors/physics/Stop.tscn" type="PackedScene" id=13]
+[ext_resource path="res://actors/enemies/tomato/states/Chase.gd" type="Script" id=14]
+[ext_resource path="res://actors/enemies/tomato/states/Stun.gd" type="Script" id=15]
+[ext_resource path="res://levels/Spawner.gd" type="Script" id=16]
+[ext_resource path="res://actors/combat/CombateStateMachine.tscn" type="PackedScene" id=17]
+[ext_resource path="res://actors/physics/State.gd" type="Script" id=18]
+[ext_resource path="res://actors/enemies/onion/GasCloud.tscn" type="PackedScene" id=19]
+[ext_resource path="res://actors/combat/HurtBox.tscn" type="PackedScene" id=22]
+[ext_resource path="res://actors/enemies/tomato/ChasingSightArea.tscn" type="PackedScene" id=23]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 50, 40 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 50, 50 )
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 321.403
+
+[sub_resource type="Animation" id=4]
+length = 1.5
+step = 0.05
+tracks/0/type = "method"
+tracks/0/path = NodePath("StateMachine")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 1, 1.15, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"values": [ {
+"args": [ "Move" ],
+"method": "execute"
+}, {
+"args": [ "Stop" ],
+"method": "execute"
+}, {
+"args": [ "Idle" ],
+"method": "change_state_to"
+} ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HurtBox:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -180 ), Vector2( 0, -180 ), Vector2( 0, 0 ) ]
+}
+
+[node name="Onion" type="KinematicBody2D"]
+collision_layer = 0
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -40 )
+shape = SubResource( 1 )
+
+[node name="Brain" type="Node" parent="."]
+script = ExtResource( 2 )
+state_machine_path = NodePath("../../Onion/StateMachine")
+combat_state_machine_path = NodePath("../../Onion/CombatStateMachine")
+character_path = NodePath("../../Onion/Character")
+sight_path = NodePath("../../Onion/ChasingSightArea")
+
+[node name="IdleTime" type="Timer" parent="Brain"]
+one_shot = true
+autostart = true
+
+[node name="WanderTime" type="Timer" parent="Brain"]
+one_shot = true
+
+[node name="StunTime" type="Timer" parent="Brain"]
+wait_time = 0.25
+one_shot = true
+
+[node name="Health" parent="Brain" instance=ExtResource( 3 )]
+max_health = 35
+
+[node name="Character" parent="." instance=ExtResource( 4 )]
+
+[node name="StateMachine" parent="." instance=ExtResource( 6 )]
+actor_path = NodePath("../../Onion")
+
+[node name="IdleState" parent="StateMachine" instance=ExtResource( 7 )]
+script = ExtResource( 8 )
+
+[node name="Move" parent="StateMachine/IdleState" instance=ExtResource( 9 )]
+actor_path = NodePath("../../../../Onion/StateMachine/IdleState")
+speed = 300.0
+
+[node name="Gravity" parent="StateMachine/IdleState" instance=ExtResource( 10 )]
+actor_path = NodePath("../../../../Onion")
+
+[node name="Chase" type="Node" parent="StateMachine/IdleState"]
+script = ExtResource( 11 )
+
+[node name="WalkState" parent="StateMachine" instance=ExtResource( 7 )]
+script = ExtResource( 12 )
+
+[node name="Move" parent="StateMachine/WalkState" instance=ExtResource( 9 )]
+actor_path = NodePath("../../../../Onion/StateMachine/WalkState")
+speed = 300.0
+
+[node name="Stop" parent="StateMachine/WalkState" instance=ExtResource( 13 )]
+actor_path = NodePath("../../../../Onion/StateMachine/WalkState")
+
+[node name="Gravity" parent="StateMachine/WalkState" instance=ExtResource( 10 )]
+actor_path = NodePath("../../../../Onion")
+
+[node name="Chase" type="Node" parent="StateMachine/WalkState"]
+script = ExtResource( 11 )
+
+[node name="ChaseState" parent="StateMachine" instance=ExtResource( 7 )]
+script = ExtResource( 14 )
+
+[node name="Move" parent="StateMachine/ChaseState" instance=ExtResource( 9 )]
+actor_path = NodePath("../../../../Onion/StateMachine/ChaseState")
+speed = 600.0
+
+[node name="Stop" parent="StateMachine/ChaseState" instance=ExtResource( 13 )]
+actor_path = NodePath("../../../../Onion/StateMachine/ChaseState")
+
+[node name="Squash" type="Node" parent="StateMachine/ChaseState"]
+script = ExtResource( 11 )
+
+[node name="Gravity" parent="StateMachine/ChaseState" instance=ExtResource( 10 )]
+actor_path = NodePath("../../../../Onion")
+
+[node name="StunState" parent="StateMachine" instance=ExtResource( 7 )]
+script = ExtResource( 15 )
+
+[node name="CombatStateMachine" parent="." instance=ExtResource( 17 )]
+actor_path = NodePath("../../Onion")
+
+[node name="IdleState" type="Node2D" parent="CombatStateMachine"]
+script = ExtResource( 18 )
+
+[node name="WalkState" type="Node2D" parent="CombatStateMachine"]
+script = ExtResource( 18 )
+
+[node name="ChaseState" type="Node2D" parent="CombatStateMachine"]
+script = ExtResource( 18 )
+
+[node name="StunState" type="Node2D" parent="CombatStateMachine"]
+script = ExtResource( 18 )
+
+[node name="Attack" parent="CombatStateMachine/StunState" instance=ExtResource( 5 )]
+cooldown = 2.0
+
+[node name="GasCloudSpawner" type="Position2D" parent="CombatStateMachine/StunState/Attack"]
+script = ExtResource( 16 )
+spawnling_scene = ExtResource( 19 )
+
+[node name="HurtBox" parent="." groups=[
+"enemy",
+] instance=ExtResource( 22 )]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2( 0, -50 )
+shape = SubResource( 2 )
+
+[node name="ChasingSightArea" parent="." instance=ExtResource( 23 )]
+position = Vector2( 0, -60 )
+
+[node name="Shape" parent="ChasingSightArea" index="0"]
+shape = SubResource( 3 )
+
+[node name="AttackAnimator" type="AnimationPlayer" parent="."]
+anims/squash = SubResource( 4 )
+[connection signal="timeout" from="Brain/IdleTime" to="Brain" method="_on_IdleTime_timeout"]
+[connection signal="timeout" from="Brain/WanderTime" to="Brain" method="_on_WanderTime_timeout"]
+[connection signal="timeout" from="Brain/StunTime" to="Brain" method="_on_StunTime_timeout"]
+[connection signal="died" from="Brain/Health" to="." method="queue_free"]
+[connection signal="state_changed" from="StateMachine" to="Brain" method="_on_StateMachine_state_changed"]
+[connection signal="state_changed" from="StateMachine" to="CombatStateMachine" method="change_state_to"]
+[connection signal="entered" from="StateMachine/IdleState" to="Character" method="play" binds= [ "idle" ]]
+[connection signal="entered" from="StateMachine/WalkState" to="Character" method="play" binds= [ "walk" ]]
+[connection signal="entered" from="StateMachine/ChaseState" to="Character" method="play" binds= [ "chase" ]]
+[connection signal="entered" from="StateMachine/StunState" to="Character" method="play" binds= [ "stun" ]]
+[connection signal="state_changed" from="CombatStateMachine" to="Brain" method="_on_CombateStateMachine_state_changed"]
+[connection signal="started" from="CombatStateMachine/StunState/Attack" to="CombatStateMachine/StunState/Attack" method="start_cooldown"]
+[connection signal="started" from="CombatStateMachine/StunState/Attack" to="CombatStateMachine/StunState/Attack/GasCloudSpawner" method="spawn"]
+[connection signal="damage_inflicted" from="HurtBox" to="Brain/Health" method="damage"]
+[connection signal="hurt" from="HurtBox" to="StateMachine" method="change_state_to" binds= [ "Stun" ]]
+[connection signal="chase_direction_changed" from="ChasingSightArea" to="Brain" method="_on_ChasingSightArea_chase_direction_changed"]
+[connection signal="missed" from="ChasingSightArea" to="Brain" method="_on_ChasingSightArea_missed"]
+[connection signal="spotted" from="ChasingSightArea" to="Brain" method="_on_ChasingSightArea_spotted"]
+[connection signal="animation_changed" from="AttackAnimator" to="Brain" method="_on_AttackAnimator_animation_changed"]
+
+[editable path="ChasingSightArea"]
