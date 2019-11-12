@@ -46,7 +46,7 @@ _global_script_class_icons={
 
 config/name="Kitchen Tales"
 run/main_scene="res://levels/blackspoon_arena/BlackspoonArena.tscn"
-config/icon="res://icon.png"
+config/icon="res://buccerino_icon.png"
 
 [debug]
 
