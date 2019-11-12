@@ -15,10 +15,9 @@ onready var sight = get_node(sight_path)
 var _previous_valid_state = "Idle"
 
 func _on_StateMachine_state_changed(new_state):
-	update_squash_range()
 	if not new_state == "Stun":
 		_previous_valid_state = new_state
-		
+	
 	match new_state:
 		"Idle":
 			$IdleTime.start()
@@ -65,11 +64,6 @@ func update_directions(direction):
 	combat_state_machine.direction = direction
 	character.set_look_direction(sign(direction.x))
 	state_machine.execute("Move")
-
-
-func update_squash_range():
-	sight.update_sight()
-
 
 
 func _on_StunTime_timeout():

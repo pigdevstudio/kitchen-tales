@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://actors/enemies/onion/gas_cloud.png" type="Texture" id=1]
-[ext_resource path="res://actors/combat/Attack.tscn" type="PackedScene" id=2]
 [ext_resource path="res://actors/combat/HitBox.tscn" type="PackedScene" id=3]
 [ext_resource path="res://actors/enemies/onion/GasCloud.gd" type="Script" id=4]
 [ext_resource path="res://actors/enemies/onion/OnionGasCloudHit.tres" type="Resource" id=5]
@@ -11,7 +10,7 @@ resource_name = "damage"
 loop = true
 step = 0.5
 tracks/0/type = "method"
-tracks/0/path = NodePath("Attack/HitBox")
+tracks/0/path = NodePath("HitBox")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -55,8 +54,22 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
+tracks/2/type = "method"
+tracks/2/path = NodePath("AnimationPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "damage", -1, 1.0, false ],
+"method": "play"
+} ]
+}
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "vanish"
 tracks/0/type = "value"
 tracks/0/path = NodePath("CollisionShape2D:disabled")
@@ -97,11 +110,11 @@ tracks/2/keys = {
 } ]
 }
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 110, 60 )
 
 [node name="GasCloud" type="Area2D"]
-monitorable = false
+position = Vector2( 0, -10 )
 collision_layer = 0
 collision_mask = 2
 script = ExtResource( 4 )
@@ -110,38 +123,31 @@ script = ExtResource( 4 )
 autoplay = "spawn"
 anims/damage = SubResource( 1 )
 anims/spawn = SubResource( 2 )
-anims/vanish = SubResource( 4 )
+anims/vanish = SubResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -60 )
-shape = SubResource( 3 )
-disabled = true
+shape = SubResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
-self_modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 0, -60 )
 scale = Vector2( 0.25, 0.25 )
 z_index = -1
 texture = ExtResource( 1 )
 offset = Vector2( 40, 0 )
 
-[node name="Attack" parent="." instance=ExtResource( 2 )]
-
-[node name="HitBox" parent="Attack" instance=ExtResource( 3 )]
-hit = ExtResource( 5 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack/HitBox"]
-position = Vector2( 0, -60 )
-shape = SubResource( 3 )
-disabled = true
-
 [node name="LifeTime" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
 autostart = true
+
+[node name="HitBox" parent="." instance=ExtResource( 3 )]
+hit = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2( 0, -60 )
+shape = SubResource( 4 )
+disabled = true
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_area_exited"]
-[connection signal="finished" from="Attack" to="Attack/HitBox" method="disable"]
-[connection signal="finished" from="Attack" to="AnimationPlayer" method="stop"]
-[connection signal="started" from="Attack" to="AnimationPlayer" method="play" binds= [ "damage" ]]
 [connection signal="timeout" from="LifeTime" to="AnimationPlayer" method="play" binds= [ "vanish" ]]

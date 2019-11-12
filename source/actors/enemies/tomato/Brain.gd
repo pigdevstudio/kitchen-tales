@@ -16,9 +16,10 @@ var _previous_valid_state = "Idle"
 
 func _on_StateMachine_state_changed(new_state):
 	update_squash_range()
+	
 	if not new_state == "Stun":
 		_previous_valid_state = new_state
-		
+	
 	match new_state:
 		"Idle":
 			$IdleTime.start()

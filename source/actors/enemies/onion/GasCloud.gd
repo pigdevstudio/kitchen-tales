@@ -21,9 +21,11 @@ func slow_down():
 
 
 func _on_area_entered(area):
-	$Attack.execute()
-	set_physics_process(true)
+	$AnimationPlayer.play("damage")
+#	set_physics_process(true)
 
 
 func _on_area_exited(area):
-	set_physics_process(false)
+	$AnimationPlayer.stop()
+	$HitBox.disable()
+#	set_physics_process(false)
