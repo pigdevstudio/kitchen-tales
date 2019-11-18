@@ -1,0 +1,672 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://screens/splash_screen/splash_screen_theme.tres" type="Theme" id=1]
+[ext_resource path="res://screens/splash_screen/SplashScreen.gd" type="Script" id=2]
+[ext_resource path="res://screens/main_screen/MainScreen.tscn" type="PackedScene" id=3]
+[ext_resource path="res://screens/splash_screen/pig.png" type="Texture" id=4]
+[ext_resource path="res://screens/splash_screen/pig_blink.png" type="Texture" id=5]
+[ext_resource path="res://screens/splash_screen/background.png" type="Texture" id=6]
+[ext_resource path="res://screens/splash_screen/title-font-200.tres" type="DynamicFont" id=7]
+[ext_resource path="res://screens/splash_screen/screen_mask.png" type="Texture" id=8]
+[ext_resource path="res://screens/splash_screen/line.png" type="Texture" id=9]
+[ext_resource path="res://screens/splash_screen/Montserrat-ExtraBold.otf" type="DynamicFontData" id=10]
+[ext_resource path="res://screens/splash_screen/LinkButton.gd" type="Script" id=11]
+
+[sub_resource type="Animation" id=1]
+resource_name = "SETUP"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Links/HBoxContainer/YouTube:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 606, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Links/HBoxContainer/YouTube:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SubTitle:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 750, 590 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SubTitle:rect_rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Links/HBoxContainer:rect_position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 160, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Links/HBoxContainer:rect_rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Avatar:rect_position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1260, 370 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Avatar:rect_rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Line:rect_position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 590, 580 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Line:rect_rotation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Links:rect_position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 860 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Links:rect_rotation")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Background:rect_position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("Background:rect_rotation")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("Links/HBoxContainer/Itchio:rect_position")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1212, 0 ) ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("Links/HBoxContainer/Itchio:rect_rotation")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("Links/HBoxContainer/GitHub:rect_position")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath("Links/HBoxContainer/GitHub:rect_rotation")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/18/type = "value"
+tracks/18/path = NodePath("Title:rect_position")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 640, 380 ) ]
+}
+tracks/19/type = "value"
+tracks/19/path = NodePath("Title:rect_rotation")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/20/type = "value"
+tracks/20/path = NodePath("Links/HBoxContainer/YouTube:rect_size")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 526, 100 ) ]
+}
+tracks/21/type = "value"
+tracks/21/path = NodePath("SubTitle:rect_size")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 390, 143 ) ]
+}
+tracks/22/type = "value"
+tracks/22/path = NodePath("Links/HBoxContainer:rect_size")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1740, 100 ) ]
+}
+tracks/23/type = "value"
+tracks/23/path = NodePath("Avatar:rect_size")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 300, 300 ) ]
+}
+tracks/24/type = "value"
+tracks/24/path = NodePath("Line:rect_size")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 690, 10 ) ]
+}
+tracks/25/type = "value"
+tracks/25/path = NodePath("Links:rect_size")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1920, 100 ) ]
+}
+tracks/26/type = "value"
+tracks/26/path = NodePath("Background:rect_size")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1920, 1080 ) ]
+}
+tracks/27/type = "value"
+tracks/27/path = NodePath("Links/HBoxContainer/Itchio:rect_size")
+tracks/27/interp = 1
+tracks/27/loop_wrap = true
+tracks/27/imported = false
+tracks/27/enabled = true
+tracks/27/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 528, 100 ) ]
+}
+tracks/28/type = "value"
+tracks/28/path = NodePath("Links/HBoxContainer/GitHub:rect_size")
+tracks/28/interp = 1
+tracks/28/loop_wrap = true
+tracks/28/imported = false
+tracks/28/enabled = true
+tracks/28/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 526, 100 ) ]
+}
+tracks/29/type = "value"
+tracks/29/path = NodePath("Title:rect_size")
+tracks/29/interp = 1
+tracks/29/loop_wrap = true
+tracks/29/imported = false
+tracks/29/enabled = true
+tracks/29/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 620, 240 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "splash"
+length = 6.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Avatar:rect_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2, 2.4, 2.55, 2.85, 2.95 ),
+"transitions": PoolRealArray( 0.5, 0.5, -2, -2, -2, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 0.0, -5.0, 15.0, 10.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Avatar:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2, 2.4, 2.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 4 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 5 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Avatar:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2, 2.25 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SubTitle:rect_position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1.5, 1.8, 2 ),
+"transitions": PoolRealArray( 1, 0.5, 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 750, 440 ), Vector2( 750, 440 ), Vector2( 750, 640 ), Vector2( 750, 590 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Title:rect_position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1, 1.35, 1.5 ),
+"transitions": PoolRealArray( 0.5, 0.5, 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 640, 590 ), Vector2( 640, 590 ), Vector2( 640, 340 ), Vector2( 640, 380 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Links/HBoxContainer/GitHub:self_modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 3, 3.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Links/HBoxContainer/YouTube:self_modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 3.25, 3.75 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Links/HBoxContainer/Itchio:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 3.5, 4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Fade:color")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 1, 5, 6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/9/type = "method"
+tracks/9/path = NodePath(".")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 6 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "load_next_scene"
+} ]
+}
+
+[sub_resource type="DynamicFont" id=3]
+size = 116
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 10 )
+
+[node name="SplashScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+next_scene = ExtResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "splash"
+anims/SETUP = SubResource( 1 )
+anims/splash = SubResource( 2 )
+
+[node name="Background" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 6 )
+
+[node name="Title" type="Label" parent="."]
+light_mask = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -320.0
+margin_top = 50.0
+margin_right = 300.0
+margin_bottom = 290.0
+rect_pivot_offset = Vector2( 310, 95 )
+custom_fonts/font = ExtResource( 7 )
+custom_colors/font_color = Color( 0.423529, 0.376471, 0.705882, 1 )
+text = "pigdev"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TitleMask" type="Light2D" parent="."]
+position = Vector2( 960, 850 )
+texture = ExtResource( 8 )
+color = Color( 1, 1, 1, 0 )
+mode = 3
+range_item_cull_mask = 2
+
+[node name="Line" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -370.0
+margin_top = 40.0
+margin_right = 320.0
+margin_bottom = 50.0
+rect_pivot_offset = Vector2( 345, 5 )
+texture = ExtResource( 9 )
+expand = true
+
+[node name="SubTitle" type="Label" parent="."]
+light_mask = 4
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -210.0
+margin_top = -100.0
+margin_right = 180.0
+margin_bottom = 43.0
+rect_pivot_offset = Vector2( 195, 71 )
+custom_fonts/font = SubResource( 3 )
+text = "studio"
+align = 1
+valign = 1
+
+[node name="SubTitleMask" type="Light2D" parent="."]
+position = Vector2( 960, 310 )
+texture = ExtResource( 8 )
+color = Color( 1, 1, 1, 0 )
+mode = 3
+range_item_cull_mask = 4
+
+[node name="Avatar" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -660.0
+margin_top = -170.0
+margin_right = -360.0
+margin_bottom = 130.0
+rect_pivot_offset = Vector2( 150, 150 )
+texture = ExtResource( 4 )
+expand = true
+
+[node name="Links" type="MarginContainer" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -220.0
+margin_bottom = -120.0
+rect_pivot_offset = Vector2( 960, 30 )
+custom_constants/margin_right = 20
+custom_constants/margin_top = 0
+custom_constants/margin_left = 160
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Links"]
+margin_left = 160.0
+margin_right = 1900.0
+margin_bottom = 100.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 80
+alignment = 1
+
+[node name="GitHub" type="Button" parent="Links/HBoxContainer"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_right = 526.0
+margin_bottom = 100.0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "github.com/pigdevstudio"
+align = 2
+script = ExtResource( 11 )
+link = "https://github.com/pigdevstudio"
+
+[node name="YouTube" type="Button" parent="Links/HBoxContainer"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_left = 606.0
+margin_right = 1132.0
+margin_bottom = 100.0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "youtube.com/pigdevstudio"
+script = ExtResource( 11 )
+link = "https://youtube.com/pigdevstudio"
+
+[node name="Itchio" type="Button" parent="Links/HBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 1212.0
+margin_right = 1740.0
+margin_bottom = 100.0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "pigdev.itch.io"
+align = 0
+script = ExtResource( 11 )
+link = "https://pigdev.itch.io"
+
+[node name="Fade" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

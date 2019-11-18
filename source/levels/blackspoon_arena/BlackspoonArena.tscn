@@ -27,6 +27,10 @@ func _on_SceneTree_node_added(node):
 	if \"Carrot\" in node.name:
 		var parent = $RightCarrotSpawner
 		node.connect(\"tree_exited\", parent.get_node(\"Timer\"), \"start\")
+
+func _unhandled_input(event):
+	if event.is_action_pressed(\"reset\"):
+		get_tree().reload_current_scene()
 "
 
 [node name="Level" type="Node2D"]
@@ -128,7 +132,8 @@ script = ExtResource( 12 )
 spawnling_scene = ExtResource( 13 )
 
 [node name="Timer" type="Timer" parent="TomatoSpawner"]
-wait_time = 10.0
+wait_time = 5.0
+one_shot = true
 autostart = true
 
 [node name="OnionSpawner" type="Position2D" parent="."]
@@ -137,7 +142,8 @@ script = ExtResource( 12 )
 spawnling_scene = ExtResource( 14 )
 
 [node name="Timer" type="Timer" parent="OnionSpawner"]
-wait_time = 10.0
+wait_time = 5.0
+one_shot = true
 autostart = true
 
 [node name="RightCarrotSpawner" type="Position2D" parent="."]

@@ -1,0 +1,340 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://screens/splash_screen/title-font-200.tres" type="DynamicFont" id=1]
+[ext_resource path="res://screens/splash_screen/splash_screen_theme.tres" type="Theme" id=2]
+[ext_resource path="res://interface/ActionConfig.gd" type="Script" id=3]
+[ext_resource path="res://screens/splash_screen/background.png" type="Texture" id=4]
+[ext_resource path="res://interface/ConfigLabel.gd" type="Script" id=5]
+[ext_resource path="res://interface/VolumeBar.gd" type="Script" id=6]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node
+
+\"\"\"
+Description:
+	
+\"\"\"
+
+func _ready():
+	$Options/OptionsColumn.get_child(0).grab_focus()
+"
+
+[node name="OptionsScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+script = SubResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ],
+"_edit_use_anchors_": false,
+"_edit_vertical_guides_": [  ]
+}
+
+[node name="Background" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="."]
+anchor_right = 1.0
+margin_top = 70.0
+margin_bottom = 270.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.423529, 0.376471, 0.705882, 1 )
+text = "options"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Options" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -390.0
+margin_top = -280.0
+margin_right = 400.0
+margin_bottom = 510.0
+custom_constants/separation = 72
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionsColumn" type="VBoxContainer" parent="Options"]
+margin_right = 234.0
+margin_bottom = 790.0
+custom_constants/separation = 10
+
+[node name="MasterVolumeSettings" type="Label" parent="Options/OptionsColumn"]
+margin_right = 234.0
+margin_bottom = 45.0
+focus_mode = 2
+text = "Master"
+script = ExtResource( 5 )
+progress_bar_path = NodePath("../../ValuesColumn/MasterVolume")
+
+[node name="SFXVolumeSettings" type="Label" parent="Options/OptionsColumn"]
+margin_top = 55.0
+margin_right = 234.0
+margin_bottom = 100.0
+focus_mode = 2
+text = "SFX"
+script = ExtResource( 5 )
+progress_bar_path = NodePath("../../ValuesColumn/SFXVolume")
+
+[node name="BGMVolumeSettings" type="Label" parent="Options/OptionsColumn"]
+margin_top = 110.0
+margin_right = 234.0
+margin_bottom = 155.0
+focus_mode = 2
+text = "BGM"
+script = ExtResource( 5 )
+progress_bar_path = NodePath("../../ValuesColumn/BGMVolume")
+
+[node name="CondimentsButton" type="Button" parent="Options/OptionsColumn"]
+margin_top = 165.0
+margin_right = 234.0
+margin_bottom = 210.0
+hint_tooltip = "Show \"blood\" particles?"
+toggle_mode = true
+text = "Condiments"
+align = 0
+
+[node name="ValuesColumn" type="VBoxContainer" parent="Options"]
+margin_left = 306.0
+margin_right = 790.0
+margin_bottom = 790.0
+size_flags_horizontal = 3
+custom_constants/separation = 25
+
+[node name="MasterVolume" type="ProgressBar" parent="Options/ValuesColumn"]
+margin_right = 484.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+size_flags_horizontal = 3
+size_flags_vertical = 1
+step = 0.01
+value = 50.0
+percent_visible = false
+script = ExtResource( 6 )
+
+[node name="SFXVolume" type="ProgressBar" parent="Options/ValuesColumn"]
+margin_top = 57.0
+margin_right = 484.0
+margin_bottom = 89.0
+rect_min_size = Vector2( 0, 32 )
+size_flags_horizontal = 3
+size_flags_vertical = 1
+step = 0.01
+value = 50.0
+percent_visible = false
+script = ExtResource( 6 )
+audio_bus = "SFX"
+
+[node name="BGMVolume" type="ProgressBar" parent="Options/ValuesColumn"]
+margin_top = 114.0
+margin_right = 484.0
+margin_bottom = 146.0
+rect_min_size = Vector2( 0, 32 )
+size_flags_horizontal = 3
+size_flags_vertical = 1
+step = 0.01
+value = 50.0
+percent_visible = false
+script = ExtResource( 6 )
+audio_bus = "BGM"
+
+[node name="CondimentsCheckBox" type="CheckBox" parent="Options/ValuesColumn"]
+margin_top = 171.0
+margin_right = 484.0
+margin_bottom = 216.0
+focus_mode = 0
+button_mask = 0
+expand_icon = true
+
+[node name="ControlsSettingsPanel" type="ScrollContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -315.0
+margin_top = -20.0
+margin_right = 315.0
+margin_bottom = 395.0
+scroll_horizontal_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="ControlsSettingsPanel"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 626.0
+margin_bottom = 411.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ControlsSettingsPanel/MarginContainer"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 602.0
+margin_bottom = 387.0
+
+[node name="Label" type="Label" parent="ControlsSettingsPanel/MarginContainer/VBoxContainer"]
+margin_right = 582.0
+margin_bottom = 45.0
+text = "Controls Settings"
+align = 1
+
+[node name="ActionConfig" type="HBoxContainer" parent="ControlsSettingsPanel/MarginContainer/VBoxContainer"]
+margin_top = 49.0
+margin_right = 582.0
+margin_bottom = 94.0
+size_flags_horizontal = 3
+custom_constants/separation = 128
+script = ExtResource( 3 )
+
+[node name="Button" type="Button" parent="ControlsSettingsPanel/MarginContainer/VBoxContainer/ActionConfig"]
+margin_right = 227.0
+margin_bottom = 45.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Walk Left"
+flat = true
+align = 0
+
+[node name="Label" type="Label" parent="ControlsSettingsPanel/MarginContainer/VBoxContainer/ActionConfig"]
+margin_left = 355.0
+margin_right = 582.0
+margin_bottom = 45.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "A"
+align = 1
+
+[node name="ActionConfig2" type="HBoxContainer" parent="ControlsSettingsPanel/MarginContainer/VBoxContainer"]
+margin_top = 98.0
+margin_right = 582.0
+margin_bottom = 143.0
+size_flags_horizontal = 3
+custom_constants/separation = 128
+script = ExtResource( 3 )
+action = "right"
+
+[node name="Button" type="Button" parent="ControlsSettingsPanel/MarginContainer/VBoxContainer/ActionConfig2"]
+margin_right = 227.0
+margin_bottom = 45.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Walk Right"
+flat = true
+align = 0
+
+[node name="Label" type="Label" parent="ControlsSettingsPanel/MarginContainer/VBoxContainer/ActionConfig2"]
+margin_left = 355.0
+margin_right = 582.0
+margin_bottom = 45.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "A"
+align = 1
+
+[node name="ActionConfig3" type="HBoxContainer" parent="ControlsSettingsPanel/MarginContainer/VBoxContainer"]
+margin_top = 147.0
+margin_right = 582.0
+margin_bottom = 192.0
+size_flags_horizontal = 3
+custom_constants/separation = 128
+script = ExtResource( 3 )
+action = "attack"
+
+[node name="Button" type="Button" parent="ControlsSettingsPanel/MarginContainer/VBoxContainer/ActionConfig3"]
+margin_right = 227.0
+margin_bottom = 45.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Attack"
+flat = true
+align = 0
+
+[node name="Label" type="Label" parent="ControlsSettingsPanel/MarginContainer/VBoxContainer/ActionConfig3"]
+margin_left = 355.0
+margin_right = 582.0
+margin_bottom = 45.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "A"
+align = 1
+
+[node name="ActionConfig4" type="HBoxContainer" parent="ControlsSettingsPanel/MarginContainer/VBoxContainer"]
+margin_top = 196.0
+margin_right = 582.0
+margin_bottom = 241.0
+size_flags_horizontal = 3
+custom_constants/separation = 128
+script = ExtResource( 3 )
+action = "jump"
+
+[node name="Button" type="Button" parent="ControlsSettingsPanel/MarginContainer/VBoxContainer/ActionConfig4"]
+margin_right = 227.0
+margin_bottom = 45.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Jump"
+flat = true
+align = 0
+
+[node name="Label" type="Label" parent="ControlsSettingsPanel/MarginContainer/VBoxContainer/ActionConfig4"]
+margin_left = 355.0
+margin_right = 582.0
+margin_bottom = 45.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "A"
+align = 1
+
+[node name="ActionConfig5" type="HBoxContainer" parent="ControlsSettingsPanel/MarginContainer/VBoxContainer"]
+margin_top = 245.0
+margin_right = 582.0
+margin_bottom = 290.0
+size_flags_horizontal = 3
+custom_constants/separation = 128
+script = ExtResource( 3 )
+action = "dash"
+
+[node name="Button" type="Button" parent="ControlsSettingsPanel/MarginContainer/VBoxContainer/ActionConfig5"]
+margin_right = 227.0
+margin_bottom = 45.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Dash"
+flat = true
+align = 0
+
+[node name="Label" type="Label" parent="ControlsSettingsPanel/MarginContainer/VBoxContainer/ActionConfig5"]
+margin_left = 355.0
+margin_right = 582.0
+margin_bottom = 45.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "A"
+align = 1
+[connection signal="focus_entered" from="Options/OptionsColumn/MasterVolumeSettings" to="Options/OptionsColumn/MasterVolumeSettings" method="_on_focus_entered"]
+[connection signal="focus_exited" from="Options/OptionsColumn/MasterVolumeSettings" to="Options/OptionsColumn/MasterVolumeSettings" method="_on_focus_exited"]
+[connection signal="focus_entered" from="Options/OptionsColumn/SFXVolumeSettings" to="Options/OptionsColumn/SFXVolumeSettings" method="_on_focus_entered"]
+[connection signal="focus_exited" from="Options/OptionsColumn/SFXVolumeSettings" to="Options/OptionsColumn/SFXVolumeSettings" method="_on_focus_exited"]
+[connection signal="focus_entered" from="Options/OptionsColumn/BGMVolumeSettings" to="Options/OptionsColumn/BGMVolumeSettings" method="_on_focus_entered"]
+[connection signal="focus_exited" from="Options/OptionsColumn/BGMVolumeSettings" to="Options/OptionsColumn/BGMVolumeSettings" method="_on_focus_exited"]
+[connection signal="toggled" from="Options/OptionsColumn/CondimentsButton" to="Options/ValuesColumn/CondimentsCheckBox" method="set_pressed"]
+[connection signal="value_changed" from="Options/ValuesColumn/MasterVolume" to="Options/ValuesColumn/MasterVolume" method="_on_value_changed"]
+[connection signal="value_changed" from="Options/ValuesColumn/SFXVolume" to="Options/ValuesColumn/SFXVolume" method="_on_value_changed"]
+[connection signal="value_changed" from="Options/ValuesColumn/BGMVolume" to="Options/ValuesColumn/BGMVolume" method="_on_value_changed"]
