@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://actors/enemies/carrot/CarrotCharacter.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/physics/StateMachine.tscn" type="PackedScene" id=2]
@@ -18,6 +18,7 @@
 [ext_resource path="res://actors/enemies/carrot/Brain.gd" type="Script" id=16]
 [ext_resource path="res://actors/combat/Health.tscn" type="PackedScene" id=17]
 [ext_resource path="res://actors/combat/HurtBox.tscn" type="PackedScene" id=18]
+[ext_resource path="res://actors/enemies/carrot/ExplodingParticles.tscn" type="PackedScene" id=19]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 440.114
@@ -69,13 +70,6 @@ tracks/2/keys = {
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 40, 50 )
-
-[sub_resource type="Curve" id=4]
-_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.753275, 0.3328 ), -2.61371, 0.0, 0, 0 ]
-
-[sub_resource type="Gradient" id=5]
-offsets = PoolRealArray( 0.451128, 1 )
-colors = PoolColorArray( 0.850286, 0.63224, 0.378643, 1, 0.905882, 0.686275, 0.435294, 0 )
 
 [node name="Carrot" type="Node2D"]
 
@@ -195,28 +189,9 @@ anims/throw_dirt = SubResource( 2 )
 position = Vector2( 0, -50 )
 shape = SubResource( 3 )
 
-[node name="ExplodingParticles" type="CPUParticles2D" parent="."]
-emitting = false
-amount = 32
-lifetime = 0.5
-one_shot = true
-explosiveness = 0.85
-randomness = 0.63
-emission_shape = 1
-emission_sphere_radius = 24.0
-spread = 180.0
-initial_velocity = 200.0
-initial_velocity_random = 0.55
-scale_amount = 16.0
-scale_amount_random = 0.7
-scale_amount_curve = SubResource( 4 )
-color_ramp = SubResource( 5 )
-
-[node name="ExplodingTime" type="Timer" parent="ExplodingParticles"]
-wait_time = 0.5
-one_shot = true
-[connection signal="state_changed" from="StateMachine" to="CombatStateMachine" method="change_state_to"]
+[node name="ExplodingParticles" parent="." instance=ExtResource( 19 )]
 [connection signal="state_changed" from="StateMachine" to="Brain" method="_on_StateMachine_state_changed"]
+[connection signal="state_changed" from="StateMachine" to="CombatStateMachine" method="change_state_to"]
 [connection signal="entered" from="StateMachine/HiddenState" to="Character" method="play_backwards" binds= [ "show" ]]
 [connection signal="started" from="StateMachine/AlertState/Hide" to="StateMachine" method="change_state_to" binds= [ "Hidden" ]]
 [connection signal="entered" from="StateMachine/StandState" to="Character" method="play" binds= [ "show" ]]
@@ -224,8 +199,8 @@ one_shot = true
 [connection signal="entered" from="StateMachine/StunState" to="AttackAnimator" method="stop"]
 [connection signal="started" from="StateMachine/StunState/Hide" to="StateMachine" method="change_state_to" binds= [ "Hidden" ]]
 [connection signal="started" from="StateMachine/StunState/Alert" to="StateMachine" method="change_state_to" binds= [ "Alert" ]]
-[connection signal="entered" from="StateMachine/DeadState" to="Brain/StunTimer" method="start"]
 [connection signal="entered" from="StateMachine/DeadState" to="Character" method="play" binds= [ "stun" ]]
+[connection signal="entered" from="StateMachine/DeadState" to="Brain/StunTimer" method="start"]
 [connection signal="entered" from="StateMachine/DeadState" to="AttackAnimator" method="stop"]
 [connection signal="area_shape_entered" from="SightArea" to="SightArea" method="_on_area_shape_entered"]
 [connection signal="spotted" from="SightArea" to="Brain" method="_on_Sight_spotted"]
@@ -239,4 +214,3 @@ one_shot = true
 [connection signal="timeout" from="Brain/AttackDelay" to="Brain" method="_on_AttackDelay_timeout"]
 [connection signal="damage_inflicted" from="HurtBox" to="Brain/Health" method="damage"]
 [connection signal="hurt" from="HurtBox" to="StateMachine" method="change_state_to" binds= [ "Stun" ]]
-[connection signal="timeout" from="ExplodingParticles/ExplodingTime" to="." method="queue_free"]
