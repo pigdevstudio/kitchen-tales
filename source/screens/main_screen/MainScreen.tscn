@@ -1,12 +1,23 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://screens/main_screen/buccerino_kitchen.jpg" type="Texture" id=1]
+[ext_resource path="res://screens/main_screen/buccerino-vs-vegetables.png" type="Texture" id=1]
 [ext_resource path="res://interface/ChangeSceneButton.tscn" type="PackedScene" id=2]
-[ext_resource path="res://levels/blackspoon_arena/BlackspoonArena.tscn" type="PackedScene" id=3]
 [ext_resource path="res://screens/splash_screen/splash_screen_theme.tres" type="Theme" id=4]
 [ext_resource path="res://screens/splash_screen/title-font-200.tres" type="DynamicFont" id=5]
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="GDScript" id=3]
+script/source = "extends Node
+
+\"\"\"
+Description:
+	
+\"\"\"
+
+func _ready():
+	$Buttons/Play.grab_focus()
+"
+
+[sub_resource type="Animation" id=2]
 resource_name = "fade"
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:color")
@@ -25,11 +36,12 @@ tracks/0/keys = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 4 )
+script = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="KitchenBackground" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 1 )
@@ -38,6 +50,7 @@ __meta__ = {
 }
 
 [node name="Title" type="Label" parent="."]
+visible = false
 anchor_right = 1.0
 margin_top = 70.0
 margin_bottom = 270.0
@@ -55,10 +68,10 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -480.0
-margin_top = -210.0
-margin_right = -120.0
-margin_bottom = 50.0
+margin_left = -390.0
+margin_top = -150.0
+margin_right = -30.0
+margin_bottom = 110.0
 custom_constants/separation = 16
 __meta__ = {
 "_edit_use_anchors_": false
@@ -70,7 +83,7 @@ margin_bottom = 76.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Play"
-scene = ExtResource( 3 )
+scene_path = "res://levels/blackspoon_arena/BlackspoonArena.tscn"
 
 [node name="Options" parent="Buttons" instance=ExtResource( 2 )]
 margin_top = 92.0
@@ -79,7 +92,7 @@ margin_bottom = 168.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Options"
-scene = ExtResource( 3 )
+scene_path = "res://screens/options_screen/OptionsScreen.tscn"
 
 [node name="Credits" parent="Buttons" instance=ExtResource( 2 )]
 margin_top = 184.0
@@ -88,7 +101,6 @@ margin_bottom = 260.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Credits"
-scene = ExtResource( 3 )
 
 [node name="Fade" type="ColorRect" parent="."]
 anchor_right = 1.0
@@ -101,4 +113,4 @@ __meta__ = {
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Fade"]
 autoplay = "fade"
-anims/fade = SubResource( 1 )
+anims/fade = SubResource( 2 )

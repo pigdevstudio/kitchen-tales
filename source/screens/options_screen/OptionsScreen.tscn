@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://screens/splash_screen/title-font-200.tres" type="DynamicFont" id=1]
 [ext_resource path="res://screens/splash_screen/splash_screen_theme.tres" type="Theme" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://screens/splash_screen/background.png" type="Texture" id=4]
 [ext_resource path="res://interface/ConfigLabel.gd" type="Script" id=5]
 [ext_resource path="res://interface/VolumeBar.gd" type="Script" id=6]
+[ext_resource path="res://interface/ChangeSceneButton.tscn" type="PackedScene" id=8]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node
@@ -18,6 +19,21 @@ Description:
 func _ready():
 	$Options/OptionsColumn.get_child(0).grab_focus()
 "
+
+[sub_resource type="Animation" id=2]
+resource_name = "fade"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
+}
 
 [node name="OptionsScreen" type="Control"]
 anchor_right = 1.0
@@ -328,6 +344,31 @@ size_flags_horizontal = 3
 size_flags_vertical = 6
 text = "A"
 align = 1
+
+[node name="ChangeSceneButton" parent="." instance=ExtResource( 8 )]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -184.0
+margin_top = -90.0
+margin_right = 184.0
+margin_bottom = -45.0
+text = "Back to Main Menu"
+scene_path = "res://screens/main_screen/MainScreen.tscn"
+
+[node name="Fade" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Fade"]
+autoplay = "fade"
+anims/fade = SubResource( 2 )
 [connection signal="focus_entered" from="Options/OptionsColumn/MasterVolumeSettings" to="Options/OptionsColumn/MasterVolumeSettings" method="_on_focus_entered"]
 [connection signal="focus_exited" from="Options/OptionsColumn/MasterVolumeSettings" to="Options/OptionsColumn/MasterVolumeSettings" method="_on_focus_exited"]
 [connection signal="focus_entered" from="Options/OptionsColumn/SFXVolumeSettings" to="Options/OptionsColumn/SFXVolumeSettings" method="_on_focus_entered"]
