@@ -4,7 +4,7 @@ signal changed(new_health)
 signal died
 
 
-var _current = max_health setget set_current
+var _current = max_health setget set_current, get_current
 
 export (int) var max_health = 10
 
@@ -16,6 +16,10 @@ func set_current(new_value):
 	_current = max(0, new_value)
 	emit_signal("changed", _current)
 	is_dead()
+
+
+func get_current():
+	return _current
 
 
 func damage(amount):

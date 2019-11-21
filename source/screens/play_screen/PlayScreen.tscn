@@ -1,0 +1,64 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://interface/HealthBar/PlayerHealthBar.gd" type="Script" id=1]
+[ext_resource path="res://levels/blackspoon_arena/BlackspoonArena.tscn" type="PackedScene" id=2]
+[ext_resource path="res://levels/blackspoon_arena/waves/Wave2.tscn" type="PackedScene" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 1, 0.164706, 0.164706, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 1, 1, 1, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 1, 0.956863, 0.956863, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 1, 1, 1, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="PlayScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Level" parent="." instance=ExtResource( 2 )]
+
+[node name="Wave2" parent="Level" instance=ExtResource( 3 )]
+
+[node name="InterfaceLayer" type="CanvasLayer" parent="."]
+
+[node name="Interface" type="Control" parent="InterfaceLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerHealthBar" type="ProgressBar" parent="InterfaceLayer/Interface"]
+margin_left = 48.0
+margin_top = 32.0
+margin_right = 480.0
+margin_bottom = 72.0
+custom_styles/fg = SubResource( 1 )
+custom_styles/bg = SubResource( 2 )
+value = 50.0
+percent_visible = false
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+health_path = NodePath("../../../Level/Buccerino/Health")
