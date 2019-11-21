@@ -68,6 +68,32 @@ tracks/2/keys = {
 "method": "play"
 } ]
 }
+tracks/3/type = "method"
+tracks/3/path = NodePath("LifeTime")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ -1 ],
+"method": "start"
+} ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath(".:monitorable")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=3]
 resource_name = "vanish"
@@ -115,6 +141,7 @@ extents = Vector2( 110, 60 )
 
 [node name="GasCloud" type="Area2D"]
 position = Vector2( 0, -10 )
+monitorable = false
 collision_layer = 0
 collision_mask = 2
 script = ExtResource( 4 )
@@ -126,26 +153,25 @@ anims/spawn = SubResource( 2 )
 anims/vanish = SubResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -60 )
+position = Vector2( 0, -50 )
 shape = SubResource( 4 )
+disabled = true
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0, -60 )
+position = Vector2( 10, -50 )
 scale = Vector2( 0.25, 0.25 )
 z_index = -1
 texture = ExtResource( 1 )
-offset = Vector2( 40, 0 )
 
 [node name="LifeTime" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
-autostart = true
 
 [node name="HitBox" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, -50 )
 hit = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-position = Vector2( 0, -60 )
 shape = SubResource( 4 )
 disabled = true
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

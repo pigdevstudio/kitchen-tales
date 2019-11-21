@@ -2,14 +2,12 @@ extends Area2D
 
 
 func _ready():
-	call_deferred("set_monitorable", false)
 	set_physics_process(false)
-	$LifeTime.start()
 
 
 func _physics_process(delta):
-#	slow_down()
 	pass
+#	slow_down()
 
 
 func slow_down():
@@ -24,10 +22,10 @@ func slow_down():
 
 func _on_area_entered(area):
 	$AnimationPlayer.play("damage")
-#	set_physics_process(true)
+	set_physics_process(true)
 
 
 func _on_area_exited(area):
 	$AnimationPlayer.stop()
 	$HitBox.disable()
-#	set_physics_process(false)
+	set_physics_process(false)
