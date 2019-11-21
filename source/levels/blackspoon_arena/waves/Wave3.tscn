@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://levels/blackspoon_arena/waves/Wave.gd" type="Script" id=1]
+[ext_resource path="res://actors/enemies/tomato/Tomato.tscn" type="PackedScene" id=2]
+[ext_resource path="res://actors/enemies/carrot/Carrot.tscn" type="PackedScene" id=3]
+[ext_resource path="res://actors/enemies/onion/Onion.tscn" type="PackedScene" id=4]
+
+[node name="Wave3" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Carrot" parent="." instance=ExtResource( 3 )]
+position = Vector2( 240, 896 )
+
+[node name="Carrot2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 3096, 896 )
+
+[node name="Carrot3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 4136, 384 )
+
+[node name="Carrot4" parent="." instance=ExtResource( 3 )]
+position = Vector2( 5552, 388 )
+
+[node name="Onion" parent="." instance=ExtResource( 4 )]
+position = Vector2( 3504, 902 )
+
+[node name="Onion2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 896, 894 )
+
+[node name="Onion3" parent="." instance=ExtResource( 4 )]
+position = Vector2( 6128, 384 )
+
+[node name="Tomato" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1440, 792 )
+
+[node name="Tomato2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 2760, 894 )
+
+[node name="Tomato3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 4776, 384 )
+
+[node name="Tomato4" parent="." instance=ExtResource( 2 )]
+position = Vector2( 6752, 386 )

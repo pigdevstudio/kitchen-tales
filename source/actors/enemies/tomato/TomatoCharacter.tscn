@@ -1819,7 +1819,7 @@ anims/hurt = SubResource( 10 )
 [node name="Pivot" type="Position2D" parent="."]
 
 [node name="Body" type="Sprite" parent="Pivot"]
-position = Vector2( 0, -228 )
+position = Vector2( 0, -44 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 16, 48, 111, 88 )
@@ -1832,7 +1832,7 @@ region_enabled = true
 region_rect = Rect2( 35, 149, 77, 59 )
 
 [node name="Face" type="Sprite" parent="Pivot/Body"]
-position = Vector2( 12.7407, 12 )
+position = Vector2( 12.7407, 8.66663 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -4 )
 region_enabled = true
@@ -1840,13 +1840,13 @@ region_rect = Rect2( 176, 16, 64, 20 )
 
 [node name="HandLeft" type="Sprite" parent="Pivot/Body"]
 show_behind_parent = true
-position = Vector2( 56, 12 )
+position = Vector2( 56, 1.5 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 208, 144, 26, 26 )
 
 [node name="HandRight" type="Sprite" parent="Pivot/Body"]
-position = Vector2( -56, 12 )
+position = Vector2( -56, 1.5 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 144, 144, 26, 26 )

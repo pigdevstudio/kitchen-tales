@@ -27,10 +27,8 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [node name="HealthBar" type="ProgressBar"]
-margin_left = 48.0
-margin_top = 32.0
-margin_right = 480.0
-margin_bottom = 72.0
+margin_right = 432.0
+margin_bottom = 40.0
 custom_styles/fg = SubResource( 1 )
 custom_styles/bg = SubResource( 2 )
 value = 50.0
