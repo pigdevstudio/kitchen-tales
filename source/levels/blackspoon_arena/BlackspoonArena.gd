@@ -1,4 +1,4 @@
-extends Node2D
+extends "res://levels/Level.gd"
 
 """
 Description:

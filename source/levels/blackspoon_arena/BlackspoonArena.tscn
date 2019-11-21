@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://levels/blackspoon_arena/blackspoon_arena_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://levels/blackspoon_arena/crowd-4.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://levels/blackspoon_arena/crowd-1.png" type="Texture" id=9]
 [ext_resource path="res://levels/blackspoon_arena/wall.png" type="Texture" id=10]
 [ext_resource path="res://actors/player/buccerino/Buccerino.tscn" type="PackedScene" id=11]
+[ext_resource path="res://actors/enemies/tomato/Tomato.tscn" type="PackedScene" id=12]
 [ext_resource path="res://levels/blackspoon_arena/BlackspoonArena.gd" type="Script" id=13]
 
 [node name="Level" type="Node2D"]
@@ -111,4 +112,7 @@ editor_draw_drag_margin = true
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 autostart = true
+
+[node name="Tomato" parent="." instance=ExtResource( 12 )]
+position = Vector2( 320, 856 )
 [connection signal="timeout" from="Timer" to="." method="spawn_wave"]

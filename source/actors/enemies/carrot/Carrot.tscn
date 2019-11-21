@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://actors/enemies/carrot/CarrotCharacter.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/physics/StateMachine.tscn" type="PackedScene" id=2]
@@ -18,12 +18,11 @@
 [ext_resource path="res://actors/enemies/carrot/Brain.gd" type="Script" id=16]
 [ext_resource path="res://actors/combat/Health.tscn" type="PackedScene" id=17]
 [ext_resource path="res://actors/combat/HurtBox.tscn" type="PackedScene" id=18]
-[ext_resource path="res://actors/enemies/carrot/ExplodingParticles.tscn" type="PackedScene" id=19]
+[ext_resource path="res://actors/enemies/carrot/CarrotExplodingParticles.tscn" type="PackedScene" id=19]
+[ext_resource path="res://levels/Spawner.gd" type="Script" id=20]
+[ext_resource path="res://actors/enemies/carrot/carrot_sight_area.tres" type="Shape2D" id=21]
 
-[sub_resource type="CircleShape2D" id=1]
-radius = 440.114
-
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "throw_dirt"
 tracks/0/type = "method"
 tracks/0/path = NodePath("CombatStateMachine/AlertState/Attack/DirtSpawner")
@@ -68,13 +67,18 @@ tracks/2/keys = {
 } ]
 }
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 40, 50 )
 
 [node name="Carrot" type="Node2D"]
 
 [node name="Character" parent="." instance=ExtResource( 1 )]
 z_index = -1
+
+[node name="ParticlesSpawner" type="Position2D" parent="Character/Pivot/Body" index="2"]
+position = Vector2( 0, -106 )
+script = ExtResource( 20 )
+spawnling_scene = ExtResource( 19 )
 
 [node name="StateMachine" parent="." instance=ExtResource( 2 )]
 
@@ -122,7 +126,7 @@ collision_mask = 8
 script = ExtResource( 9 )
 
 [node name="Shape" type="CollisionShape2D" parent="SightArea"]
-shape = SubResource( 1 )
+shape = ExtResource( 21 )
 
 [node name="RayCast2D" type="RayCast2D" parent="SightArea"]
 enabled = true
@@ -179,7 +183,7 @@ wait_time = 0.5
 one_shot = true
 
 [node name="AttackAnimator" type="AnimationPlayer" parent="."]
-anims/throw_dirt = SubResource( 2 )
+anims/throw_dirt = SubResource( 1 )
 
 [node name="HurtBox" parent="." groups=[
 "enemy",
@@ -187,11 +191,10 @@ anims/throw_dirt = SubResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2( 0, -50 )
-shape = SubResource( 3 )
-
-[node name="ExplodingParticles" parent="." instance=ExtResource( 19 )]
-[connection signal="state_changed" from="StateMachine" to="Brain" method="_on_StateMachine_state_changed"]
+shape = SubResource( 2 )
+[connection signal="spawned" from="Character/Pivot/Body/ParticlesSpawner" to="." method="queue_free"]
 [connection signal="state_changed" from="StateMachine" to="CombatStateMachine" method="change_state_to"]
+[connection signal="state_changed" from="StateMachine" to="Brain" method="_on_StateMachine_state_changed"]
 [connection signal="entered" from="StateMachine/HiddenState" to="Character" method="play_backwards" binds= [ "show" ]]
 [connection signal="started" from="StateMachine/AlertState/Hide" to="StateMachine" method="change_state_to" binds= [ "Hidden" ]]
 [connection signal="entered" from="StateMachine/StandState" to="Character" method="play" binds= [ "show" ]]
@@ -200,17 +203,19 @@ shape = SubResource( 3 )
 [connection signal="started" from="StateMachine/StunState/Hide" to="StateMachine" method="change_state_to" binds= [ "Hidden" ]]
 [connection signal="started" from="StateMachine/StunState/Alert" to="StateMachine" method="change_state_to" binds= [ "Alert" ]]
 [connection signal="entered" from="StateMachine/DeadState" to="Character" method="play" binds= [ "stun" ]]
-[connection signal="entered" from="StateMachine/DeadState" to="Brain/StunTimer" method="start"]
 [connection signal="entered" from="StateMachine/DeadState" to="AttackAnimator" method="stop"]
+[connection signal="entered" from="StateMachine/DeadState" to="Brain/StunTimer" method="start"]
 [connection signal="area_shape_entered" from="SightArea" to="SightArea" method="_on_area_shape_entered"]
 [connection signal="spotted" from="SightArea" to="Brain" method="_on_Sight_spotted"]
 [connection signal="direction_changed" from="CombatStateMachine/AlertState/Attack" to="CombatStateMachine/AlertState/Attack/DirtSpawner" method="set_direction"]
 [connection signal="started" from="CombatStateMachine/AlertState/Attack" to="Character" method="play" binds= [ "throw_dirt" ]]
 [connection signal="started" from="CombatStateMachine/AlertState/Attack" to="AttackAnimator" method="play" binds= [ "throw_dirt" ]]
-[connection signal="died" from="Brain/Health" to="." method="queue_free"]
+[connection signal="died" from="Brain/Health" to="Character/Pivot/Body/ParticlesSpawner" method="spawn"]
 [connection signal="timeout" from="Brain/HideTimer" to="StateMachine" method="execute" binds= [ "Show" ]]
 [connection signal="timeout" from="Brain/StunTimer" to="StateMachine" method="execute" binds= [ "Alert" ]]
 [connection signal="timeout" from="Brain/AlertTimer" to="StateMachine" method="change_state_to" binds= [ "Alert" ]]
 [connection signal="timeout" from="Brain/AttackDelay" to="Brain" method="_on_AttackDelay_timeout"]
 [connection signal="damage_inflicted" from="HurtBox" to="Brain/Health" method="damage"]
 [connection signal="hurt" from="HurtBox" to="StateMachine" method="change_state_to" binds= [ "Stun" ]]
+
+[editable path="Character"]
