@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://levels/blackspoon_arena/blackspoon_arena_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://levels/blackspoon_arena/crowd-4.png" type="Texture" id=2]
@@ -13,8 +13,15 @@
 [ext_resource path="res://actors/player/buccerino/Buccerino.tscn" type="PackedScene" id=11]
 [ext_resource path="res://objects/void/Void.tscn" type="PackedScene" id=12]
 [ext_resource path="res://levels/blackspoon_arena/BlackspoonArena.gd" type="Script" id=13]
+[ext_resource path="res://objects/platforms/StaticPlatform.tscn" type="PackedScene" id=14]
+[ext_resource path="res://objects/platforms/MovingPlatform.tscn" type="PackedScene" id=15]
 
 [sub_resource type="LineShape2D" id=1]
+
+[sub_resource type="Curve2D" id=2]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 1808, 8 )
+}
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 13 )
@@ -113,11 +120,22 @@ editor_draw_drag_margin = true
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
-autostart = true
 
 [node name="Void" parent="." instance=ExtResource( 12 )]
 position = Vector2( 2048, 1280 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Void"]
 shape = SubResource( 1 )
+
+[node name="Platforms" type="Node2D" parent="."]
+
+[node name="StaticPlatform" parent="Platforms" instance=ExtResource( 14 )]
+position = Vector2( 3456, 664 )
+
+[node name="MovingPlatformPath" parent="Platforms" instance=ExtResource( 15 )]
+position = Vector2( 2048, 1024 )
+
+[node name="MovingPlatformPath2" parent="Platforms" instance=ExtResource( 15 )]
+position = Vector2( 2048, 184 )
+curve = SubResource( 2 )
 [connection signal="timeout" from="Timer" to="." method="spawn_wave"]
