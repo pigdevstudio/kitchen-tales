@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://actors/player/PlayerPlatformActor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/player/controllers/ActionNotifier.tscn" type="PackedScene" id=4]
@@ -7,7 +7,6 @@
 [ext_resource path="res://actors/combat/CombatStateMachine.gd" type="Script" id=7]
 [ext_resource path="res://actors/physics/State.gd" type="Script" id=8]
 [ext_resource path="res://actors/combat/HurtBox.tscn" type="PackedScene" id=9]
-[ext_resource path="res://actors/player/PlayerStatus.gd" type="Script" id=10]
 [ext_resource path="res://actors/player/PlayerData.tres" type="Resource" id=11]
 [ext_resource path="res://actors/player/PickupArea.gd" type="Script" id=12]
 
@@ -97,11 +96,7 @@ script = ExtResource( 8 )
 position = Vector2( 0, -64 )
 shape = SubResource( 1 )
 
-[node name="PlayerStatus" type="Node" parent="." index="5"]
-script = ExtResource( 10 )
-player_data = ExtResource( 11 )
-
-[node name="PickupArea" type="Area2D" parent="." index="6"]
+[node name="PickupArea" type="Area2D" parent="." index="5"]
 collision_layer = 0
 collision_mask = 4
 script = ExtResource( 12 )
@@ -117,5 +112,4 @@ shape = SubResource( 2 )
 [connection signal="released" from="Controls/AttackNotifier" to="CombatStateMachine" method="cancel" binds= [ "Attack" ]]
 [connection signal="pressed" from="Controls/AttackHeldNotifier" to="CombatStateMachine" method="execute" binds= [ "Charge" ]]
 [connection signal="released" from="Controls/AttackHeldNotifier" to="CombatStateMachine" method="cancel" binds= [ "Charge" ]]
-[connection signal="damage_inflicted" from="HurtBox" to="PlayerStatus" method="decrease_health"]
 [connection signal="area_entered" from="PickupArea" to="PickupArea" method="_on_area_entered"]

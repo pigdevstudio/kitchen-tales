@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://objects/void/Void.gd" type="Script" id=1]
+
+[node name="Void" type="Area2D"]
+monitorable = false
+collision_layer = 0
+collision_mask = 4
+script = ExtResource( 1 )
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

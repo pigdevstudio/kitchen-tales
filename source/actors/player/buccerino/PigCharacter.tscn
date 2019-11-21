@@ -1282,7 +1282,7 @@ tracks/15/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=7]
 resource_name = "samurai_cut"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Pivot/Body/ArmLeft:position")
@@ -1501,7 +1501,7 @@ tracks/17/keys = {
 "values": [ -59.9999 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 length = 0.25
 step = 0.05
 tracks/0/type = "value"
@@ -1709,7 +1709,7 @@ tracks/16/keys = {
 "values": [ 1.0 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 length = 0.4
 step = 0.05
 tracks/0/type = "value"
@@ -1943,8 +1943,7 @@ tracks/18/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=9]
-resource_name = "stun"
+[sub_resource type="Animation" id=10]
 length = 0.3
 step = 0.05
 tracks/0/type = "value"
@@ -2248,10 +2247,10 @@ anims/fall = ExtResource( 4 )
 anims/hurt = ExtResource( 5 )
 anims/idle = ExtResource( 6 )
 anims/jump = ExtResource( 7 )
-anims/samurai_cut = SubResource( 10 )
-anims/slice = SubResource( 7 )
-anims/spin = SubResource( 8 )
-anims/stun = SubResource( 9 )
+anims/samurai_cut = SubResource( 7 )
+anims/slice = SubResource( 8 )
+anims/spin = SubResource( 9 )
+anims/stun = SubResource( 10 )
 anims/walk = ExtResource( 8 )
 anims/wall = ExtResource( 9 )
 
@@ -2262,7 +2261,7 @@ anims/hurt = ExtResource( 5 )
 position = Vector2( 0, -24 )
 
 [node name="LegLeft" type="Sprite" parent="Pivot"]
-position = Vector2( 29.5, -4.816 )
+position = Vector2( 14.25, 0.517328 )
 texture = ExtResource( 10 )
 offset = Vector2( 0, 6.816 )
 region_enabled = true
@@ -2270,8 +2269,7 @@ region_rect = Rect2( 224, 91, 22, 37 )
 region_filter_clip = true
 
 [node name="LegRight" type="Sprite" parent="Pivot"]
-position = Vector2( -13.25, 3.184 )
-rotation = 0.826666
+position = Vector2( -13.25, 0.517328 )
 texture = ExtResource( 10 )
 offset = Vector2( 0, 6.816 )
 region_enabled = true
@@ -2279,8 +2277,7 @@ region_rect = Rect2( 192, 91, 22, 37 )
 region_filter_clip = true
 
 [node name="Body" type="Sprite" parent="Pivot"]
-position = Vector2( 0, -2.816 )
-rotation = 0.455836
+position = Vector2( 0, -6.14934 )
 texture = ExtResource( 10 )
 offset = Vector2( 1, -21.184 )
 region_enabled = true
@@ -2288,8 +2285,7 @@ region_rect = Rect2( 176, 6, 74, 74 )
 
 [node name="Head" type="Sprite" parent="Pivot/Body"]
 show_behind_parent = true
-position = Vector2( 0, -40 )
-rotation = -0.314922
+position = Vector2( 0, -45.3333 )
 texture = ExtResource( 10 )
 offset = Vector2( 1.66667, -27.7893 )
 region_enabled = true
@@ -2309,8 +2305,8 @@ region_enabled = true
 region_rect = Rect2( 160, 144, 82, 20 )
 
 [node name="ArmRight" type="Sprite" parent="Pivot/Body"]
-position = Vector2( 16.7309, -34.0232 )
-rotation = -1.0472
+position = Vector2( -32.3333, -24 )
+rotation = 0.261799
 texture = ExtResource( 10 )
 offset = Vector2( 0, 8 )
 region_enabled = true
@@ -2319,8 +2315,8 @@ region_filter_clip = true
 
 [node name="ArmLeft" type="Sprite" parent="Pivot/Body"]
 show_behind_parent = true
-position = Vector2( 38.8708, -34.2974 )
-rotation = 3.14159
+position = Vector2( 35.6667, -24 )
+rotation = -0.261799
 z_index = -1
 texture = ExtResource( 10 )
 offset = Vector2( 0, 8 )
@@ -2330,7 +2326,7 @@ region_filter_clip = true
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Pivot/Body/ArmLeft"]
 position = Vector2( -0.394093, 10.0567 )
-rotation = 3.66519
+rotation = 0.523599
 remote_path = NodePath("../../../Cleaver")
 update_position = false
 update_rotation = false

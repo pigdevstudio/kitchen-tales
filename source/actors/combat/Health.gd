@@ -8,8 +8,6 @@ var _current = max_health setget set_current
 
 export (int) var max_health = 10
 
-var invulnerable = false
-
 func _ready():
 	set_current(max_health)
 
@@ -21,8 +19,6 @@ func set_current(new_value):
 
 
 func damage(amount):
-	if invulnerable:
-		return
 	set_current(_current - amount)
 
 

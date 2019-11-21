@@ -201,6 +201,7 @@ reset={
 
 2d_physics/layer_1="environment"
 2d_physics/layer_2="hurt_boxes"
+2d_physics/layer_3="players"
 2d_physics/layer_4="sight_boxes"
 
 [rendering]
