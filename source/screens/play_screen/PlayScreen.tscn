@@ -1,8 +1,23 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://interface/HealthBar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/blackspoon_arena/BlackspoonArena.tscn" type="PackedScene" id=2]
 [ext_resource path="res://levels/blackspoon_arena/waves/Wave3.tscn" type="PackedScene" id=3]
+
+[sub_resource type="Animation" id=2]
+resource_name = "fade"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
+}
 
 [node name="PlayScreen" type="Control"]
 anchor_right = 1.0
@@ -29,3 +44,16 @@ margin_left = 48.0
 margin_top = 32.0
 margin_right = 480.0
 margin_bottom = 72.0
+
+[node name="Fade" type="ColorRect" parent="InterfaceLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="InterfaceLayer/Fade"]
+autoplay = "fade"
+anims/fade = SubResource( 2 )

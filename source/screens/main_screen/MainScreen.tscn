@@ -5,7 +5,7 @@
 [ext_resource path="res://screens/splash_screen/splash_screen_theme.tres" type="Theme" id=4]
 [ext_resource path="res://screens/splash_screen/title-font-200.tres" type="DynamicFont" id=5]
 
-[sub_resource type="GDScript" id=3]
+[sub_resource type="GDScript" id=1]
 script/source = "extends Node
 
 \"\"\"
@@ -36,7 +36,7 @@ tracks/0/keys = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 4 )
-script = SubResource( 3 )
+script = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -83,7 +83,7 @@ margin_bottom = 76.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Play"
-scene_path = "res://levels/blackspoon_arena/BlackspoonArena.tscn"
+scene_path = "res://screens/play_screen/PlayScreen.tscn"
 
 [node name="Options" parent="Buttons" instance=ExtResource( 2 )]
 margin_top = 92.0

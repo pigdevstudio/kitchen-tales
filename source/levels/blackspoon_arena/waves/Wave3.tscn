@@ -29,12 +29,6 @@ position = Vector2( 896, 894 )
 [node name="Onion3" parent="." instance=ExtResource( 4 )]
 position = Vector2( 6128, 384 )
 
-[node name="Tomato" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1440, 792 )
-
-[node name="Tomato2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 2760, 894 )
-
 [node name="Tomato3" parent="." instance=ExtResource( 2 )]
 position = Vector2( 4776, 384 )
 

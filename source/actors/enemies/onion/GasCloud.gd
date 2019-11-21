@@ -1,5 +1,7 @@
 extends Area2D
 
+onready var hitbox = $HitBox
+onready var animator = $AnimationPlayer
 
 func _ready():
 	set_physics_process(false)
@@ -21,11 +23,15 @@ func slow_down():
 
 
 func _on_area_entered(area):
-	$AnimationPlayer.play("damage")
-	set_physics_process(true)
+	if not animator.current_animation == "vanish":
+		animator.play("damage")
+		set_physics_process(true)
 
 
 func _on_area_exited(area):
-	$AnimationPlayer.stop()
-	$HitBox.disable()
+	hitbox.disable()
 	set_physics_process(false)
+
+
+func _on_LifeTime_timeout():
+	animator.play("vanish")
