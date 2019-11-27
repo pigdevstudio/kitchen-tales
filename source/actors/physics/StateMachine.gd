@@ -1,8 +1,10 @@
 extends Node
 """
-Transits between States preventing multiple States from being
-active at the same time
+Description:
+	Transits between States preventing multiple States from being
+	active at the same time
 """
+
 signal state_changed(new_state)
 
 var direction = Vector2.RIGHT setget set_direction

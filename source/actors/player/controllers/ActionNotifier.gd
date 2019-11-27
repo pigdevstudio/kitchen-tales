@@ -31,8 +31,8 @@ func handle(event):
 func update_pressed():
 	if pressed:
 		emit_signal("pressed")
-	else:
-		emit_signal("released")
+#	else:
+#		emit_signal("released")
 
 
 func is_pressed():

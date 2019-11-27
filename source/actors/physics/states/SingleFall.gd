@@ -6,10 +6,6 @@ func _on_command_started(command):
 			state_machine.change_state_to("SecondJump") 
 		"Dash":
 			state_machine.change_state_to("Dash") 
-		"Move":
-			transition.is_moving = true
-		"Stop":
-			transition.is_moving = false
 		"WallSlide":
 			state_machine.change_state_to("WallSlide")
 

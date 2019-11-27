@@ -31,6 +31,13 @@ __meta__ = {
 }
 waves_scenes = PoolStringArray( "res://levels/blackspoon_arena/waves/Wave1.tscn", "res://levels/blackspoon_arena/waves/Wave2.tscn" )
 
+[node name="Buccerino" parent="." instance=ExtResource( 11 )]
+position = Vector2( -912, 560 )
+z_index = 2
+
+[node name="CameraRig" type="RemoteTransform2D" parent="Buccerino"]
+remote_path = NodePath("../../Camera2D")
+
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 128, 128 )
@@ -101,15 +108,8 @@ texture = ExtResource( 9 )
 position = Vector2( 960, 672 )
 texture = ExtResource( 10 )
 
-[node name="Buccerino" parent="." instance=ExtResource( 11 )]
-position = Vector2( -530, 670 )
-z_index = 2
-
-[node name="CameraRig" type="RemoteTransform2D" parent="Buccerino"]
-remote_path = NodePath("../../Camera2D")
-
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( -530, 670 )
+position = Vector2( -912, 560 )
 current = true
 limit_left = -1410
 limit_top = -1030

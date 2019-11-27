@@ -4,7 +4,7 @@
 [ext_resource path="res://levels/blackspoon_arena/BlackspoonArena.tscn" type="PackedScene" id=2]
 [ext_resource path="res://levels/blackspoon_arena/waves/Wave3.tscn" type="PackedScene" id=3]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "fade"
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:color")
@@ -56,4 +56,4 @@ __meta__ = {
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="InterfaceLayer/Fade"]
 autoplay = "fade"
-anims/fade = SubResource( 2 )
+anims/fade = SubResource( 1 )

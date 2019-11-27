@@ -36,3 +36,9 @@ func add_multiplayer_support(player_index = 1):
 	for player_action in get_children():
 		if player_action.get("action"):
 			player_action.action = "%s_%s" % [player_action.action, player_index + 1]
+
+
+func _on_MovementStateMachine_state_changed(new_state):
+	get_node("MoveNotifier").update_pressed()
+	get_node("JoyLeftNotifier2").update_pressed()
+	get_node("JoyRightNotifier2").update_pressed()

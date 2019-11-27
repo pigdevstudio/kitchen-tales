@@ -7,10 +7,8 @@ func _enter():
 func _on_command_started(command):
 	match command:
 		"Stop":
-			transition.is_moving = false
 			state_machine.change_state_to("DashFall")
 		"Bump":
-			transition.is_moving = false
 			state_machine.change_state_to("DashFall")
 		"DistanceStop":
 			state_machine.change_state_to("DashFall")
@@ -19,5 +17,4 @@ func _on_command_started(command):
 func _on_command_finished(command):
 	match command:
 		"Dash":
-			transition.is_moving = false
 			state_machine.change_state_to("DashFall")

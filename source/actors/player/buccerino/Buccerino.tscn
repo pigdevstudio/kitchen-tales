@@ -1,6 +1,6 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=61 format=2]
 
-[ext_resource path="res://actors/player/PlayerCombatActor.tscn" type="PackedScene" id=1]
+[ext_resource path="res://actors/physics/Move.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/player/PlayerStateTransition.tres" type="Resource" id=2]
 [ext_resource path="res://actors/physics/State.tscn" type="PackedScene" id=3]
 [ext_resource path="res://actors/physics/Stun.gd" type="Script" id=4]
@@ -18,6 +18,37 @@
 [ext_resource path="res://utility/DebugPanel.tscn" type="PackedScene" id=16]
 [ext_resource path="res://actors/player/states/StateMachine.gd" type="Script" id=17]
 [ext_resource path="res://actors/combat/Health.tscn" type="PackedScene" id=18]
+[ext_resource path="res://actors/player/PlayerData.tres" type="Resource" id=19]
+[ext_resource path="res://actors/physics/Jump.tscn" type="PackedScene" id=20]
+[ext_resource path="res://actors/physics/Fall.tscn" type="PackedScene" id=21]
+[ext_resource path="res://actors/physics/Dash.tscn" type="PackedScene" id=22]
+[ext_resource path="res://actors/physics/states/Jump.gd" type="Script" id=23]
+[ext_resource path="res://actors/physics/states/DashJumpFall.gd" type="Script" id=24]
+[ext_resource path="res://actors/physics/states/SingleFall.gd" type="Script" id=25]
+[ext_resource path="res://actors/physics/states/DashJump.gd" type="Script" id=26]
+[ext_resource path="res://actors/physics/states/JumpDash.gd" type="Script" id=27]
+[ext_resource path="res://actors/physics/Gravity.tscn" type="PackedScene" id=28]
+[ext_resource path="res://actors/physics/StateMachine.tscn" type="PackedScene" id=29]
+[ext_resource path="res://actors/physics/states/Walk.gd" type="Script" id=30]
+[ext_resource path="res://actors/physics/states/DashFall.gd" type="Script" id=31]
+[ext_resource path="res://actors/physics/states/Dash.gd" type="Script" id=32]
+[ext_resource path="res://actors/physics/states/SecondFall.gd" type="Script" id=33]
+[ext_resource path="res://actors/physics/states/Idle.gd" type="Script" id=34]
+[ext_resource path="res://actors/physics/states/SecondJump.gd" type="Script" id=35]
+[ext_resource path="res://actors/physics/PlatformActor.gd" type="Script" id=36]
+[ext_resource path="res://actors/combat/CombatStateMachine.gd" type="Script" id=37]
+[ext_resource path="res://actors/player/Controls.gd" type="Script" id=38]
+[ext_resource path="res://actors/physics/Stop.tscn" type="PackedScene" id=39]
+[ext_resource path="res://actors/physics/Bump.gd" type="Script" id=40]
+[ext_resource path="res://actors/physics/DistanceStop.gd" type="Script" id=41]
+[ext_resource path="res://actors/player/controllers/ActionNotifier.tscn" type="PackedScene" id=42]
+[ext_resource path="res://actors/player/controllers/HoldNotifier.tscn" type="PackedScene" id=43]
+[ext_resource path="res://actors/player/ActionBuffer.tscn" type="PackedScene" id=44]
+[ext_resource path="res://actors/player/PickupArea.gd" type="Script" id=45]
+[ext_resource path="res://actors/combat/HurtBox.tscn" type="PackedScene" id=46]
+
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 40, 64 )
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 96, 40 )
@@ -27,6 +58,12 @@ radius = 49.0918
 
 [sub_resource type="CircleShape2D" id=3]
 radius = 88.3629
+
+[sub_resource type="RectangleShape2D" id=13]
+extents = Vector2( 40, 64 )
+
+[sub_resource type="RectangleShape2D" id=14]
+extents = Vector2( 40, 64 )
 
 [sub_resource type="Animation" id=4]
 resource_name = "charge"
@@ -364,274 +401,377 @@ corner_radius_bottom_left = 16
 [sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 40, 64 )
 
-[node name="Buccerino" instance=ExtResource( 1 )]
+[node name="Buccerino" type="KinematicBody2D" groups=[
+"player",
+]]
 collision_layer = 4
+script = ExtResource( 36 )
 
-[node name="StateMachine" parent="." index="1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -64 )
+shape = SubResource( 12 )
+
+[node name="StateMachine" parent="." instance=ExtResource( 29 )]
 script = ExtResource( 17 )
 
-[node name="IdleState" parent="StateMachine" index="0"]
+[node name="IdleState" parent="StateMachine" instance=ExtResource( 3 )]
+script = ExtResource( 34 )
 transition = ExtResource( 2 )
 
-[node name="Move" parent="StateMachine/IdleState" index="0"]
+[node name="Move" parent="StateMachine/IdleState" instance=ExtResource( 1 )]
+direction = Vector2( 1, 0 )
+
+[node name="Jump" parent="StateMachine/IdleState" instance=ExtResource( 20 )]
+
+[node name="Gravity" parent="StateMachine/IdleState" instance=ExtResource( 28 )]
+actor_path = NodePath("../../..")
+
+[node name="Fall" parent="StateMachine/IdleState" instance=ExtResource( 21 )]
+actor_path = NodePath("../../../../Buccerino/StateMachine/IdleState")
+
+[node name="Dash" parent="StateMachine/IdleState" instance=ExtResource( 22 )]
+actor_path = NodePath("../../../../Buccerino/StateMachine/IdleState")
+
+[node name="Stop" parent="StateMachine/IdleState" instance=ExtResource( 39 )]
+
+[node name="WalkState" parent="StateMachine" instance=ExtResource( 3 )]
+script = ExtResource( 30 )
+transition = ExtResource( 2 )
+
+[node name="Stop" parent="StateMachine/WalkState" instance=ExtResource( 39 )]
+actor_path = NodePath("../../../../Buccerino/StateMachine/WalkState")
+
+[node name="Jump" parent="StateMachine/WalkState" instance=ExtResource( 20 )]
+actor_path = NodePath("../../../../Buccerino/StateMachine/WalkState")
+
+[node name="Move" parent="StateMachine/WalkState" instance=ExtResource( 1 )]
+actor_path = NodePath("../../../../Buccerino/StateMachine/WalkState")
+
+[node name="Gravity" parent="StateMachine/WalkState" instance=ExtResource( 28 )]
+actor_path = NodePath("../../..")
+
+[node name="Fall" parent="StateMachine/WalkState" instance=ExtResource( 21 )]
+actor_path = NodePath("../../../../Buccerino/StateMachine/WalkState")
+
+[node name="Dash" parent="StateMachine/WalkState" instance=ExtResource( 22 )]
+actor_path = NodePath("../../../../Buccerino/StateMachine/WalkState")
+
+[node name="JumpState" parent="StateMachine" instance=ExtResource( 3 )]
+script = ExtResource( 23 )
+transition = ExtResource( 2 )
+
+[node name="Jump" parent="StateMachine/JumpState" instance=ExtResource( 20 )]
+actor_path = NodePath("../../../../Buccerino/StateMachine/JumpState")
+
+[node name="Fall" parent="StateMachine/JumpState" instance=ExtResource( 21 )]
+actor_path = NodePath("../../../../Buccerino/StateMachine/JumpState")
+
+[node name="Stop" parent="StateMachine/JumpState" instance=ExtResource( 39 )]
+actor_path = NodePath("../../../../Buccerino/StateMachine/JumpState")
+
+[node name="Move" parent="StateMachine/JumpState" instance=ExtResource( 1 )]
+actor_path = NodePath("../../../../Buccerino/StateMachine/JumpState")
+
+[node name="Gravity" parent="StateMachine/JumpState" instance=ExtResource( 28 )]
+actor_path = NodePath("../../..")
+
+[node name="Dash" parent="StateMachine/JumpState" instance=ExtResource( 22 )]
+actor_path = NodePath("../../../../Buccerino/StateMachine/JumpState")
+
+[node name="JumpDashState" parent="StateMachine" instance=ExtResource( 3 )]
+script = ExtResource( 27 )
+transition = ExtResource( 2 )
+
+[node name="Stop" parent="StateMachine/JumpDashState" instance=ExtResource( 39 )]
+actor_path = NodePath(".")
+
+[node name="Bump" type="Node" parent="StateMachine/JumpDashState"]
+script = ExtResource( 40 )
+actor_path = NodePath(".")
+
+[node name="DistanceStop" type="Node" parent="StateMachine/JumpDashState"]
+script = ExtResource( 41 )
+actor_path = NodePath(".")
+
+[node name="Dash" parent="StateMachine/JumpDashState" instance=ExtResource( 22 )]
+actor_path = NodePath(".")
 speed = 0.0
 
-[node name="Gravity" parent="StateMachine/IdleState" index="2"]
-actor_path = NodePath("../../..")
-
-[node name="Fall" parent="StateMachine/IdleState" index="3"]
-actor_path = NodePath("../../../../Buccerino/StateMachine/IdleState")
-
-[node name="Dash" parent="StateMachine/IdleState" index="4"]
-actor_path = NodePath("../../../../Buccerino/StateMachine/IdleState")
-
-[node name="WalkState" parent="StateMachine" index="1"]
+[node name="DashState" parent="StateMachine" instance=ExtResource( 3 )]
+script = ExtResource( 32 )
 transition = ExtResource( 2 )
 
-[node name="Stop" parent="StateMachine/WalkState" index="0"]
-actor_path = NodePath("../../../../Buccerino/StateMachine/WalkState")
-
-[node name="Jump" parent="StateMachine/WalkState" index="1"]
-actor_path = NodePath("../../../../Buccerino/StateMachine/WalkState")
-
-[node name="Move" parent="StateMachine/WalkState" index="2"]
-actor_path = NodePath("../../../../Buccerino/StateMachine/WalkState")
-
-[node name="Gravity" parent="StateMachine/WalkState" index="3"]
-actor_path = NodePath("../../..")
-
-[node name="Fall" parent="StateMachine/WalkState" index="4"]
-actor_path = NodePath("../../../../Buccerino/StateMachine/WalkState")
-
-[node name="Dash" parent="StateMachine/WalkState" index="5"]
-actor_path = NodePath("../../../../Buccerino/StateMachine/WalkState")
-
-[node name="JumpState" parent="StateMachine" index="2"]
-transition = ExtResource( 2 )
-
-[node name="Jump" parent="StateMachine/JumpState" index="0"]
-actor_path = NodePath("../../../../Buccerino/StateMachine/JumpState")
-
-[node name="Fall" parent="StateMachine/JumpState" index="1"]
-actor_path = NodePath("../../../../Buccerino/StateMachine/JumpState")
-
-[node name="Stop" parent="StateMachine/JumpState" index="2"]
-actor_path = NodePath("../../../../Buccerino/StateMachine/JumpState")
-
-[node name="Move" parent="StateMachine/JumpState" index="3"]
-actor_path = NodePath("../../../../Buccerino/StateMachine/JumpState")
-
-[node name="Gravity" parent="StateMachine/JumpState" index="4"]
-actor_path = NodePath("../../..")
-
-[node name="Dash" parent="StateMachine/JumpState" index="5"]
-actor_path = NodePath("../../../../Buccerino/StateMachine/JumpState")
-
-[node name="JumpDashState" parent="StateMachine" index="3"]
-transition = ExtResource( 2 )
-
-[node name="Stop" parent="StateMachine/JumpDashState" index="0"]
-actor_path = NodePath(".")
-
-[node name="Bump" parent="StateMachine/JumpDashState" index="1"]
-actor_path = NodePath(".")
-
-[node name="DistanceStop" parent="StateMachine/JumpDashState" index="2"]
-actor_path = NodePath(".")
-
-[node name="Dash" parent="StateMachine/JumpDashState" index="3"]
-actor_path = NodePath(".")
-
-[node name="DashState" parent="StateMachine" index="4"]
-transition = ExtResource( 2 )
-
-[node name="Stop" parent="StateMachine/DashState" index="0"]
+[node name="Stop" parent="StateMachine/DashState" instance=ExtResource( 39 )]
 actor_path = NodePath("../../../../Buccerino/StateMachine/DashState")
 
-[node name="Bump" parent="StateMachine/DashState" index="1"]
+[node name="Bump" type="Node" parent="StateMachine/DashState"]
+script = ExtResource( 40 )
 actor_path = NodePath("../../../../Buccerino/StateMachine/DashState")
 
-[node name="DistanceStop" parent="StateMachine/DashState" index="2"]
+[node name="DistanceStop" type="Node" parent="StateMachine/DashState"]
+script = ExtResource( 41 )
 actor_path = NodePath("../../../../Buccerino/StateMachine/DashState")
 
-[node name="Jump" parent="StateMachine/DashState" index="3"]
+[node name="Jump" parent="StateMachine/DashState" instance=ExtResource( 20 )]
 actor_path = NodePath("../../../../Buccerino/StateMachine/DashState")
 
-[node name="DashJumpState" parent="StateMachine" index="5"]
+[node name="Dash" parent="StateMachine/DashState" instance=ExtResource( 22 )]
+speed = 0.0
+direction = Vector2( 0, 0 )
+
+[node name="DashJumpState" parent="StateMachine" instance=ExtResource( 3 )]
+script = ExtResource( 26 )
 transition = ExtResource( 2 )
 
-[node name="Fall" parent="StateMachine/DashJumpState" index="0"]
+[node name="Fall" parent="StateMachine/DashJumpState" instance=ExtResource( 21 )]
 actor_path = NodePath("../../../../Buccerino/StateMachine/DashJumpState")
 
-[node name="Stop" parent="StateMachine/DashJumpState" index="1"]
+[node name="Stop" parent="StateMachine/DashJumpState" instance=ExtResource( 39 )]
 actor_path = NodePath("../../../../Buccerino/StateMachine/DashJumpState")
 
-[node name="Move" parent="StateMachine/DashJumpState" index="2"]
+[node name="Move" parent="StateMachine/DashJumpState" instance=ExtResource( 1 )]
 actor_path = NodePath("../../../../Buccerino/StateMachine/DashJumpState")
+speed = 2400.0
 
-[node name="Gravity" parent="StateMachine/DashJumpState" index="3"]
+[node name="Gravity" parent="StateMachine/DashJumpState" instance=ExtResource( 28 )]
 actor_path = NodePath("../../..")
 
-[node name="SecondJumpState" parent="StateMachine" index="6"]
+[node name="SecondJumpState" parent="StateMachine" instance=ExtResource( 3 )]
+script = ExtResource( 35 )
 transition = ExtResource( 2 )
 
-[node name="Fall" parent="StateMachine/SecondJumpState" index="0"]
+[node name="Fall" parent="StateMachine/SecondJumpState" instance=ExtResource( 21 )]
 actor_path = NodePath("../../../../Buccerino/StateMachine/SecondJumpState")
 
-[node name="Stop" parent="StateMachine/SecondJumpState" index="1"]
+[node name="Stop" parent="StateMachine/SecondJumpState" instance=ExtResource( 39 )]
 actor_path = NodePath("../../../../Buccerino/StateMachine/SecondJumpState")
 
-[node name="Move" parent="StateMachine/SecondJumpState" index="2"]
+[node name="Move" parent="StateMachine/SecondJumpState" instance=ExtResource( 1 )]
 actor_path = NodePath("../../../../Buccerino/StateMachine/SecondJumpState")
 
-[node name="Gravity" parent="StateMachine/SecondJumpState" index="3"]
+[node name="Gravity" parent="StateMachine/SecondJumpState" instance=ExtResource( 28 )]
+actor_path = NodePath("../../..")
+strength = 5000.0
+
+[node name="DashJumpFallState" parent="StateMachine" instance=ExtResource( 3 )]
+script = ExtResource( 24 )
+transition = ExtResource( 2 )
+
+[node name="Stop" parent="StateMachine/DashJumpFallState" instance=ExtResource( 39 )]
+actor_path = NodePath("../../../../Buccerino/StateMachine/DashJumpFallState")
+
+[node name="Gravity" parent="StateMachine/DashJumpFallState" instance=ExtResource( 28 )]
 actor_path = NodePath("../../..")
 
-[node name="DashJumpFallState" parent="StateMachine" index="7"]
+[node name="Move" parent="StateMachine/DashJumpFallState" instance=ExtResource( 1 )]
+actor_path = NodePath("../../../../Buccerino/StateMachine/DashJumpFallState")
+speed = 2400.0
+
+[node name="Fall" parent="StateMachine/DashJumpFallState" instance=ExtResource( 21 )]
+actor_path = NodePath("../../../../Buccerino/StateMachine/DashJumpFallState")
+
+[node name="SingleFallState" parent="StateMachine" instance=ExtResource( 3 )]
+script = ExtResource( 25 )
 transition = ExtResource( 2 )
 
-[node name="Stop" parent="StateMachine/DashJumpFallState" index="0"]
-actor_path = NodePath("../../../../Buccerino/StateMachine/DashJumpFallState")
+[node name="Fall" parent="StateMachine/SingleFallState" instance=ExtResource( 21 )]
+actor_path = NodePath("../../SingleFallState")
 
-[node name="Gravity" parent="StateMachine/DashJumpFallState" index="1"]
-actor_path = NodePath("../../..")
+[node name="Jump" parent="StateMachine/SingleFallState" instance=ExtResource( 20 )]
+actor_path = NodePath("../../SingleFallState")
 
-[node name="Move" parent="StateMachine/DashJumpFallState" index="2"]
-actor_path = NodePath("../../../../Buccerino/StateMachine/DashJumpFallState")
+[node name="Move" parent="StateMachine/SingleFallState" instance=ExtResource( 1 )]
+actor_path = NodePath("../../SingleFallState")
 
-[node name="Fall" parent="StateMachine/DashJumpFallState" index="3"]
-actor_path = NodePath("../../../../Buccerino/StateMachine/DashJumpFallState")
+[node name="Stop" parent="StateMachine/SingleFallState" instance=ExtResource( 39 )]
+actor_path = NodePath("../../SingleFallState")
 
-[node name="SingleFallState" parent="StateMachine" index="8"]
-transition = ExtResource( 2 )
-
-[node name="Gravity" parent="StateMachine/SingleFallState" index="4"]
+[node name="Gravity" parent="StateMachine/SingleFallState" instance=ExtResource( 28 )]
 actor_path = NodePath("../../../../Buccerino")
 
-[node name="DashFallState" parent="StateMachine" index="9"]
+[node name="Dash" parent="StateMachine/SingleFallState" instance=ExtResource( 22 )]
+actor_path = NodePath("../../SingleFallState")
+
+[node name="DashFallState" parent="StateMachine" instance=ExtResource( 3 )]
+script = ExtResource( 31 )
 transition = ExtResource( 2 )
 
-[node name="Stop" parent="StateMachine/DashFallState" index="0"]
+[node name="Stop" parent="StateMachine/DashFallState" instance=ExtResource( 39 )]
 actor_path = NodePath("../../../../Buccerino/StateMachine/DashFallState")
 
-[node name="Gravity" parent="StateMachine/DashFallState" index="1"]
+[node name="Gravity" parent="StateMachine/DashFallState" instance=ExtResource( 28 )]
 actor_path = NodePath("../../..")
 
-[node name="Move" parent="StateMachine/DashFallState" index="2"]
+[node name="Move" parent="StateMachine/DashFallState" instance=ExtResource( 1 )]
 actor_path = NodePath("../../../../Buccerino/StateMachine/DashFallState")
 
-[node name="Fall" parent="StateMachine/DashFallState" index="3"]
+[node name="Fall" parent="StateMachine/DashFallState" instance=ExtResource( 21 )]
 actor_path = NodePath("../../../../Buccerino/StateMachine/DashFallState")
 
-[node name="StunState" parent="StateMachine" index="10" instance=ExtResource( 3 )]
+[node name="StunState" parent="StateMachine" instance=ExtResource( 3 )]
 script = ExtResource( 4 )
 transition = ExtResource( 2 )
 
-[node name="SecondFallState" parent="StateMachine" index="11"]
+[node name="SecondFallState" parent="StateMachine" instance=ExtResource( 3 )]
+script = ExtResource( 33 )
 transition = ExtResource( 2 )
 
-[node name="Gravity" parent="StateMachine/SecondFallState" index="3"]
+[node name="Fall" parent="StateMachine/SecondFallState" instance=ExtResource( 21 )]
+actor_path = NodePath("../../SecondFallState")
+
+[node name="Move" parent="StateMachine/SecondFallState" instance=ExtResource( 1 )]
+actor_path = NodePath("../../SecondFallState")
+
+[node name="Stop" parent="StateMachine/SecondFallState" instance=ExtResource( 39 )]
+actor_path = NodePath("../../SecondFallState")
+
+[node name="Gravity" parent="StateMachine/SecondFallState" instance=ExtResource( 28 )]
 actor_path = NodePath("../../../../Buccerino")
 
-[node name="AttackNotifier" parent="Controls" index="5"]
+[node name="Controls" type="Node" parent="."]
+script = ExtResource( 38 )
+
+[node name="MoveNotifier" parent="Controls" instance=ExtResource( 42 )]
+action = "move"
+
+[node name="LeftNotifier" parent="Controls" instance=ExtResource( 42 )]
+action = "left"
+
+[node name="RightNotifier" parent="Controls" instance=ExtResource( 42 )]
+action = "right"
+
+[node name="JumpNotifier" parent="Controls" instance=ExtResource( 42 )]
+action = "jump"
+
+[node name="DashNotifier" parent="Controls" instance=ExtResource( 42 )]
+action = "dash"
+
+[node name="AttackNotifier" parent="Controls" instance=ExtResource( 42 )]
 action = "attack"
 
-[node name="AttackHeldNotifier" parent="Controls" index="6"]
+[node name="AttackHeldNotifier" parent="Controls" instance=ExtResource( 43 )]
 action = "attack"
 hold_threshold = 0.3
 
-[node name="JoyLeftNotifier2" parent="Controls" index="9" instance=ExtResource( 5 )]
+[node name="DefendNotifier" parent="Controls" instance=ExtResource( 42 )]
+action = "defend"
+
+[node name="ActionBuffer" parent="Controls" instance=ExtResource( 44 )]
+
+[node name="JoyLeftNotifier2" parent="Controls" instance=ExtResource( 5 )]
 action = "joy_left"
 
-[node name="JoyRightNotifier2" parent="Controls" index="10" instance=ExtResource( 5 )]
+[node name="JoyRightNotifier2" parent="Controls" instance=ExtResource( 5 )]
 action = "joy_right"
 
-[node name="JoyLeftNotifier" parent="Controls" index="11" instance=ExtResource( 5 )]
+[node name="JoyLeftNotifier" parent="Controls" instance=ExtResource( 5 )]
 action = "joy_left"
 
-[node name="JoyRightNotifier" parent="Controls" index="12" instance=ExtResource( 5 )]
+[node name="JoyRightNotifier" parent="Controls" instance=ExtResource( 5 )]
 action = "joy_right"
 
-[node name="CombatStateMachine" parent="." index="3"]
+[node name="CombatStateMachine" type="Node2D" parent="."]
+script = ExtResource( 37 )
 actor_path = NodePath("../../Buccerino")
 
-[node name="Attack" parent="CombatStateMachine/IdleState" index="0" instance=ExtResource( 6 )]
+[node name="IdleState" type="Node2D" parent="CombatStateMachine"]
+script = ExtResource( 13 )
+
+[node name="Attack" parent="CombatStateMachine/IdleState" instance=ExtResource( 6 )]
 position = Vector2( 104, -64 )
 
-[node name="Cut" parent="CombatStateMachine/IdleState/Attack" index="0" instance=ExtResource( 7 )]
+[node name="Cut" parent="CombatStateMachine/IdleState/Attack" instance=ExtResource( 7 )]
 
-[node name="HitBox" parent="CombatStateMachine/IdleState/Attack/Cut" index="1" instance=ExtResource( 8 )]
+[node name="HitBox" parent="CombatStateMachine/IdleState/Attack/Cut" instance=ExtResource( 8 )]
 hit = ExtResource( 9 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CombatStateMachine/IdleState/Attack/Cut/HitBox" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CombatStateMachine/IdleState/Attack/Cut/HitBox"]
 shape = SubResource( 1 )
 disabled = true
 
-[node name="Slice" parent="CombatStateMachine/IdleState/Attack" index="1" instance=ExtResource( 7 )]
+[node name="Slice" parent="CombatStateMachine/IdleState/Attack" instance=ExtResource( 7 )]
 
-[node name="HitBox" parent="CombatStateMachine/IdleState/Attack/Slice" index="1" instance=ExtResource( 8 )]
+[node name="HitBox" parent="CombatStateMachine/IdleState/Attack/Slice" instance=ExtResource( 8 )]
 hit = ExtResource( 10 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CombatStateMachine/IdleState/Attack/Slice/HitBox" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CombatStateMachine/IdleState/Attack/Slice/HitBox"]
 shape = SubResource( 1 )
 disabled = true
 
-[node name="Dice" parent="CombatStateMachine/IdleState/Attack" index="2" instance=ExtResource( 7 )]
+[node name="Dice" parent="CombatStateMachine/IdleState/Attack" instance=ExtResource( 7 )]
 
-[node name="HitBox" parent="CombatStateMachine/IdleState/Attack/Dice" index="1" instance=ExtResource( 8 )]
+[node name="HitBox" parent="CombatStateMachine/IdleState/Attack/Dice" instance=ExtResource( 8 )]
 hit = ExtResource( 11 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CombatStateMachine/IdleState/Attack/Dice/HitBox" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CombatStateMachine/IdleState/Attack/Dice/HitBox"]
 shape = SubResource( 1 )
 disabled = true
 
-[node name="Charge" parent="CombatStateMachine/IdleState" index="1" instance=ExtResource( 7 )]
+[node name="Charge" parent="CombatStateMachine/IdleState" instance=ExtResource( 7 )]
 position = Vector2( 213.52, -63.36 )
 
-[node name="HitBox" parent="CombatStateMachine/IdleState/Charge" index="1" instance=ExtResource( 8 )]
+[node name="HitBox" parent="CombatStateMachine/IdleState/Charge" instance=ExtResource( 8 )]
 hit = ExtResource( 12 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CombatStateMachine/IdleState/Charge/HitBox" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CombatStateMachine/IdleState/Charge/HitBox"]
 shape = SubResource( 2 )
 disabled = true
 
-[node name="JumpState" type="Node2D" parent="CombatStateMachine" index="1"]
+[node name="JumpState" type="Node2D" parent="CombatStateMachine"]
 script = ExtResource( 13 )
 
-[node name="Attack" parent="CombatStateMachine/JumpState" index="0" instance=ExtResource( 7 )]
+[node name="Attack" parent="CombatStateMachine/JumpState" instance=ExtResource( 7 )]
 position = Vector2( 0, -64 )
 
-[node name="HitBox" parent="CombatStateMachine/JumpState/Attack" index="1" instance=ExtResource( 8 )]
+[node name="HitBox" parent="CombatStateMachine/JumpState/Attack" instance=ExtResource( 8 )]
 hit = ExtResource( 14 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CombatStateMachine/JumpState/Attack/HitBox" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CombatStateMachine/JumpState/Attack/HitBox"]
 shape = SubResource( 3 )
 disabled = true
 
-[node name="SingleFallState" type="Node2D" parent="CombatStateMachine" index="2"]
+[node name="SingleFallState" type="Node2D" parent="CombatStateMachine"]
 script = ExtResource( 13 )
 
-[node name="WalkState" type="Node2D" parent="CombatStateMachine" index="3"]
+[node name="WalkState" type="Node2D" parent="CombatStateMachine"]
 script = ExtResource( 13 )
 
-[node name="DashState" type="Node2D" parent="CombatStateMachine" index="4"]
+[node name="DashState" type="Node2D" parent="CombatStateMachine"]
 script = ExtResource( 13 )
 
-[node name="StunState" type="Node2D" parent="CombatStateMachine" index="5"]
+[node name="StunState" type="Node2D" parent="CombatStateMachine"]
 script = ExtResource( 13 )
 
-[node name="Health" parent="." index="5" instance=ExtResource( 18 )]
+[node name="HurtBox" parent="." groups=[
+"player",
+] instance=ExtResource( 46 )]
 
-[node name="Pig" parent="." index="7" instance=ExtResource( 15 )]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2( 0, -64 )
+shape = SubResource( 13 )
 
-[node name="Debug" type="CanvasLayer" parent="." index="8"]
+[node name="Health" parent="." instance=ExtResource( 18 )]
 
-[node name="DebugPanel" parent="Debug" index="0" instance=ExtResource( 16 )]
+[node name="PickupArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource( 45 )
+player_data = ExtResource( 19 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+position = Vector2( 0, -64 )
+shape = SubResource( 14 )
+
+[node name="Pig" parent="." instance=ExtResource( 15 )]
+
+[node name="Debug" type="CanvasLayer" parent="."]
+
+[node name="DebugPanel" parent="Debug" instance=ExtResource( 16 )]
 visible = false
 reference_path = NodePath("../../StateMachine")
 properties = PoolStringArray( "previous_state_name", "current_state_name" )
 
-[node name="AttackAnimator" type="AnimationPlayer" parent="." index="9"]
+[node name="AttackAnimator" type="AnimationPlayer" parent="."]
 playback_process_mode = 0
 anims/charge = SubResource( 4 )
 anims/cut = SubResource( 5 )
@@ -639,7 +779,7 @@ anims/dice = SubResource( 6 )
 anims/slice = SubResource( 7 )
 anims/spin = SubResource( 8 )
 
-[node name="ChargeBar" type="ProgressBar" parent="." index="10"]
+[node name="ChargeBar" type="ProgressBar" parent="."]
 visible = false
 margin_left = -66.0
 margin_top = -6.0
@@ -651,24 +791,26 @@ custom_styles/bg = SubResource( 10 )
 max_value = 1.0
 percent_visible = false
 
-[node name="ComboResetTime" type="Timer" parent="." index="11"]
+[node name="ComboResetTime" type="Timer" parent="."]
 wait_time = 0.3
 one_shot = true
 
-[node name="VisibleArea2D" type="Area2D" parent="." index="12" groups=[
+[node name="VisibleArea2D" type="Area2D" parent="." groups=[
 "player",
 ]]
 monitoring = false
 collision_layer = 8
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VisibleArea2D" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisibleArea2D"]
 position = Vector2( 0, -64 )
 shape = SubResource( 11 )
 
-[node name="StunDuration" type="Timer" parent="." index="13"]
+[node name="StunDuration" type="Timer" parent="."]
 wait_time = 0.3
 one_shot = true
+[connection signal="state_changed" from="StateMachine" to="Controls" method="_on_MovementStateMachine_state_changed"]
+[connection signal="state_changed" from="StateMachine" to="CombatStateMachine" method="_on_MovementMachine_state_changed"]
 [connection signal="entered" from="StateMachine/IdleState" to="Pig" method="play" binds= [ "idle" ]]
 [connection signal="entered" from="StateMachine/WalkState" to="Pig" method="play" binds= [ "walk" ]]
 [connection signal="entered" from="StateMachine/JumpState" to="Pig" method="play" binds= [ "jump" ]]
@@ -681,26 +823,37 @@ one_shot = true
 [connection signal="entered" from="StateMachine/DashJumpFallState" to="Pig" method="play" binds= [ "fall" ]]
 [connection signal="entered" from="StateMachine/SingleFallState" to="Pig" method="play" binds= [ "fall" ]]
 [connection signal="entered" from="StateMachine/DashFallState" to="Pig" method="play" binds= [ "fall" ]]
-[connection signal="entered" from="StateMachine/StunState" to="StunDuration" method="start"]
 [connection signal="entered" from="StateMachine/StunState" to="Pig" method="play" binds= [ "stun" ]]
+[connection signal="entered" from="StateMachine/StunState" to="StunDuration" method="start"]
 [connection signal="entered" from="StateMachine/SecondFallState" to="Pig" method="play" binds= [ "fall" ]]
-[connection signal="ready" from="Controls/MoveNotifier" to="Controls/MoveNotifier" method="is_pressed"]
-[connection signal="pressed" from="Controls/LeftNotifier" to="CombatStateMachine" method="set_direction" binds= [ Vector2( -1, 0 ) ]]
+[connection signal="pressed" from="Controls/MoveNotifier" to="StateMachine" method="execute" binds= [ "Move" ]]
+[connection signal="released" from="Controls/MoveNotifier" to="StateMachine" method="execute" binds= [ "Stop" ]]
 [connection signal="pressed" from="Controls/LeftNotifier" to="Pig" method="set_look_direction" binds= [ -1 ]]
-[connection signal="pressed" from="Controls/RightNotifier" to="CombatStateMachine" method="set_direction" binds= [ Vector2( 1, 0 ) ]]
+[connection signal="pressed" from="Controls/LeftNotifier" to="StateMachine" method="set_direction" binds= [ Vector2( -1, 0 ) ]]
+[connection signal="pressed" from="Controls/LeftNotifier" to="CombatStateMachine" method="set_direction" binds= [ Vector2( -1, 0 ) ]]
 [connection signal="pressed" from="Controls/RightNotifier" to="Pig" method="set_look_direction" binds= [ 1 ]]
+[connection signal="pressed" from="Controls/RightNotifier" to="StateMachine" method="set_direction" binds= [ Vector2( 1, 0 ) ]]
+[connection signal="pressed" from="Controls/RightNotifier" to="CombatStateMachine" method="set_direction" binds= [ Vector2( 1, 0 ) ]]
+[connection signal="pressed" from="Controls/JumpNotifier" to="StateMachine" method="execute" binds= [ "Jump" ]]
+[connection signal="released" from="Controls/JumpNotifier" to="StateMachine" method="cancel" binds= [ "Jump" ]]
+[connection signal="pressed" from="Controls/DashNotifier" to="StateMachine" method="execute" binds= [ "Dash" ]]
+[connection signal="released" from="Controls/DashNotifier" to="StateMachine" method="cancel" binds= [ "Dash" ]]
 [connection signal="pressed" from="Controls/AttackNotifier" to="StateMachine" method="execute" binds= [ "Attack" ]]
+[connection signal="pressed" from="Controls/AttackNotifier" to="CombatStateMachine" method="execute" binds= [ "Attack" ]]
 [connection signal="released" from="Controls/AttackNotifier" to="StateMachine" method="cancel" binds= [ "Attack" ]]
+[connection signal="released" from="Controls/AttackNotifier" to="CombatStateMachine" method="cancel" binds= [ "Attack" ]]
+[connection signal="pressed" from="Controls/AttackHeldNotifier" to="CombatStateMachine" method="execute" binds= [ "Charge" ]]
+[connection signal="released" from="Controls/AttackHeldNotifier" to="CombatStateMachine" method="cancel" binds= [ "Charge" ]]
 [connection signal="pressed" from="Controls/JoyLeftNotifier2" to="StateMachine" method="execute" binds= [ "Move" ]]
 [connection signal="released" from="Controls/JoyLeftNotifier2" to="StateMachine" method="execute" binds= [ "Stop" ]]
 [connection signal="pressed" from="Controls/JoyRightNotifier2" to="StateMachine" method="execute" binds= [ "Move" ]]
 [connection signal="released" from="Controls/JoyRightNotifier2" to="StateMachine" method="execute" binds= [ "Stop" ]]
-[connection signal="pressed" from="Controls/JoyLeftNotifier" to="CombatStateMachine" method="set_direction" binds= [ Vector2( -1, 0 ) ]]
-[connection signal="pressed" from="Controls/JoyLeftNotifier" to="StateMachine" method="set_direction" binds= [ Vector2( -1, 0 ) ]]
 [connection signal="pressed" from="Controls/JoyLeftNotifier" to="Pig" method="set_look_direction" binds= [ -1 ]]
-[connection signal="pressed" from="Controls/JoyRightNotifier" to="CombatStateMachine" method="set_direction" binds= [ Vector2( 1, 0 ) ]]
-[connection signal="pressed" from="Controls/JoyRightNotifier" to="StateMachine" method="set_direction" binds= [ Vector2( 1, 0 ) ]]
+[connection signal="pressed" from="Controls/JoyLeftNotifier" to="StateMachine" method="set_direction" binds= [ Vector2( -1, 0 ) ]]
+[connection signal="pressed" from="Controls/JoyLeftNotifier" to="CombatStateMachine" method="set_direction" binds= [ Vector2( -1, 0 ) ]]
 [connection signal="pressed" from="Controls/JoyRightNotifier" to="Pig" method="set_look_direction" binds= [ 1 ]]
+[connection signal="pressed" from="Controls/JoyRightNotifier" to="StateMachine" method="set_direction" binds= [ Vector2( 1, 0 ) ]]
+[connection signal="pressed" from="Controls/JoyRightNotifier" to="CombatStateMachine" method="set_direction" binds= [ Vector2( 1, 0 ) ]]
 [connection signal="finished" from="CombatStateMachine/IdleState/Attack" to="ComboResetTime" method="start"]
 [connection signal="finished" from="CombatStateMachine/IdleState/Attack/Cut" to="Pig" method="play" binds= [ "idle" ]]
 [connection signal="finished" from="CombatStateMachine/IdleState/Attack/Cut" to="AttackAnimator" method="stop"]
@@ -714,9 +867,9 @@ one_shot = true
 [connection signal="finished" from="CombatStateMachine/IdleState/Attack/Dice" to="AttackAnimator" method="stop"]
 [connection signal="started" from="CombatStateMachine/IdleState/Attack/Dice" to="Pig" method="play" binds= [ "dice" ]]
 [connection signal="started" from="CombatStateMachine/IdleState/Attack/Dice" to="AttackAnimator" method="play" binds= [ "dice" ]]
+[connection signal="finished" from="CombatStateMachine/IdleState/Charge" to="CombatStateMachine/IdleState/Charge/HitBox" method="disable"]
 [connection signal="finished" from="CombatStateMachine/IdleState/Charge" to="Pig" method="play" binds= [ "idle" ]]
 [connection signal="finished" from="CombatStateMachine/IdleState/Charge" to="ChargeBar" method="hide"]
-[connection signal="finished" from="CombatStateMachine/IdleState/Charge" to="CombatStateMachine/IdleState/Charge/HitBox" method="disable"]
 [connection signal="finished" from="CombatStateMachine/IdleState/Charge" to="AttackAnimator" method="stop"]
 [connection signal="started" from="CombatStateMachine/IdleState/Charge" to="AttackAnimator" method="play" binds= [ "charge" ]]
 [connection signal="finished" from="CombatStateMachine/JumpState/Attack" to="AttackAnimator" method="stop"]
@@ -726,6 +879,7 @@ one_shot = true
 [connection signal="damage_inflicted" from="HurtBox" to="Health" method="damage"]
 [connection signal="hurt" from="HurtBox" to="StateMachine" method="change_state_to" binds= [ "Stun" ]]
 [connection signal="died" from="Health" to="." method="queue_free"]
+[connection signal="area_entered" from="PickupArea" to="PickupArea" method="_on_area_entered"]
 [connection signal="timeout" from="ComboResetTime" to="CombatStateMachine/IdleState/Attack" method="reset"]
 [connection signal="timeout" from="StunDuration" to="StateMachine" method="set" binds= [ "can_execute_command", true ]]
 [connection signal="timeout" from="StunDuration" to="StateMachine" method="change_state_to" binds= [ "Idle" ]]
