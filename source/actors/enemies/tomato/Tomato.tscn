@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://actors/physics/PlatformActor.gd" type="Script" id=1]
 [ext_resource path="res://actors/enemies/tomato/Brain.gd" type="Script" id=2]
@@ -25,6 +25,8 @@
 [ext_resource path="res://actors/enemies/tomato/ChasingSightArea.tscn" type="PackedScene" id=23]
 [ext_resource path="res://levels/Spawner.gd" type="Script" id=24]
 [ext_resource path="res://actors/enemies/tomato/TomatoExplodingParticles.tscn" type="PackedScene" id=25]
+[ext_resource path="res://interface/HealthBar/HealthBar.gd" type="Script" id=26]
+[ext_resource path="res://interface/HealthBar.tscn" type="PackedScene" id=27]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 50, 40 )
@@ -110,6 +112,30 @@ tracks/3/keys = {
 "update": 0,
 "values": [ Vector2( 0, 0 ), Vector2( 0, -180 ), Vector2( 0, -180 ), Vector2( 0, 0 ) ]
 }
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 1, 0.164706, 0.164706, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 1, 1, 1, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 1, 0.956863, 0.956863, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 1, 1, 1, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="Tomato" type="KinematicBody2D"]
 collision_layer = 0
@@ -258,13 +284,31 @@ shape = SubResource( 6 )
 
 [node name="AttackAnimator" type="AnimationPlayer" parent="."]
 anims/squash = SubResource( 7 )
+
+[node name="HealthBar" type="ProgressBar" parent="." instance=ExtResource( 27 )]
+visible = false
+margin_left = -90.0
+margin_right = 90.0
+margin_bottom = 30.0
+custom_styles/fg = SubResource( 8 )
+custom_styles/bg = SubResource( 9 )
+value = 50.0
+percent_visible = false
+script = ExtResource( 26 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+health_path = NodePath("../Brain/Health")
+
+[node name="Timer" type="Timer" parent="HealthBar"]
+one_shot = true
 [connection signal="timeout" from="Brain/IdleTime" to="Brain" method="_on_IdleTime_timeout"]
 [connection signal="timeout" from="Brain/WanderTime" to="Brain" method="_on_WanderTime_timeout"]
 [connection signal="timeout" from="Brain/StunTime" to="Brain" method="_on_StunTime_timeout"]
 [connection signal="died" from="Brain/Health" to="Character/Pivot/Body/ParticlesSpawner" method="spawn"]
 [connection signal="spawned" from="Character/Pivot/Body/ParticlesSpawner" to="." method="queue_free"]
-[connection signal="state_changed" from="StateMachine" to="CombatStateMachine" method="change_state_to"]
 [connection signal="state_changed" from="StateMachine" to="Brain" method="_on_StateMachine_state_changed"]
+[connection signal="state_changed" from="StateMachine" to="CombatStateMachine" method="change_state_to"]
 [connection signal="entered" from="StateMachine/IdleState" to="Character" method="play" binds= [ "idle" ]]
 [connection signal="entered" from="StateMachine/WalkState" to="Character" method="play" binds= [ "walk (copy)" ]]
 [connection signal="entered" from="StateMachine/ChaseState" to="Character" method="play" binds= [ "chase" ]]
@@ -272,12 +316,15 @@ anims/squash = SubResource( 7 )
 [connection signal="state_changed" from="CombatStateMachine" to="Brain" method="_on_CombatStateMachine_state_changed"]
 [connection signal="started" from="CombatStateMachine/SquashState/Attack" to="AttackAnimator" method="play" binds= [ "squash" ]]
 [connection signal="damage_inflicted" from="HurtBox" to="Brain/Health" method="damage"]
+[connection signal="hurt" from="HurtBox" to="HealthBar" method="show"]
 [connection signal="hurt" from="HurtBox" to="StateMachine" method="change_state_to" binds= [ "Stun" ]]
 [connection signal="area_exited" from="OuterAttackRange" to="Brain" method="_on_OuterAttackRange_area_exited"]
 [connection signal="area_entered" from="InnerAttackRange" to="Brain" method="_on_InnerAttackRange_area_entered"]
 [connection signal="chase_direction_changed" from="ChasingSightArea" to="Brain" method="_on_ChasingSightArea_chase_direction_changed"]
 [connection signal="spotted" from="ChasingSightArea" to="Brain" method="_on_ChasingSightArea_spotted"]
 [connection signal="animation_changed" from="AttackAnimator" to="Brain" method="_on_AttackAnimator_animation_changed"]
+[connection signal="draw" from="HealthBar" to="HealthBar/Timer" method="start"]
+[connection signal="timeout" from="HealthBar/Timer" to="HealthBar" method="hide"]
 
 [editable path="Character"]
 
