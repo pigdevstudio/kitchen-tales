@@ -16,15 +16,15 @@ func execute():
 
 
 func cancel():
-	for child in get_children():
-		if child.has_method("disabled"):
-			child.disable()
 	start_cooldown()
 
 
 func start_cooldown():
 	emit_signal("finished")
 	cooldown_timer.start(cooldown)
+	for child in get_children():
+		if child.has_method("disable"):
+			child.disable()
 
 
 func _on_Cooldown_timeout():
