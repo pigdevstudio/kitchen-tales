@@ -5,6 +5,9 @@
 [ext_resource path="res://actors/enemies/onion/GasCloud.gd" type="Script" id=4]
 [ext_resource path="res://actors/enemies/onion/OnionGasCloudHit.tres" type="Resource" id=5]
 
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 100, 60 )
+
 [sub_resource type="Animation" id=1]
 resource_name = "damage"
 loop = true
@@ -31,7 +34,7 @@ tracks/0/keys = {
 resource_name = "spawn"
 step = 0.05
 tracks/0/type = "value"
-tracks/0/path = NodePath("CollisionShape2D:disabled")
+tracks/0/path = NodePath("Sprite:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -39,28 +42,16 @@ tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:self_modulate")
+tracks/1/type = "method"
+tracks/1/path = NodePath("AnimationPlayer")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/2/type = "method"
-tracks/2/path = NodePath("AnimationPlayer")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
 "times": PoolRealArray( 1 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
@@ -68,13 +59,13 @@ tracks/2/keys = {
 "method": "play"
 } ]
 }
-tracks/3/type = "method"
-tracks/3/path = NodePath("LifeTime")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
+tracks/2/type = "method"
+tracks/2/path = NodePath("LifeTime")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
 "times": PoolRealArray( 1 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
@@ -82,52 +73,28 @@ tracks/3/keys = {
 "method": "start"
 } ]
 }
-tracks/4/type = "value"
-tracks/4/path = NodePath("HitBox/CollisionShape2D:disabled")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
 
 [sub_resource type="Animation" id=3]
 resource_name = "vanish"
 tracks/0/type = "value"
-tracks/0/path = NodePath("CollisionShape2D:disabled")
+tracks/0/path = NodePath("Sprite:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
-tracks/2/type = "method"
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
 "times": PoolRealArray( 1 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
@@ -136,27 +103,26 @@ tracks/2/keys = {
 } ]
 }
 
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 110, 60 )
-
-[node name="GasCloud" type="Area2D"]
+[node name="GasCloud" type="Node2D"]
 position = Vector2( 0, -10 )
-collision_layer = 2
-collision_mask = 0
 script = ExtResource( 4 )
+
+[node name="HitBox" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, -50 )
+hit = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource( 4 )
+disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "spawn"
+playback_process_mode = 0
 anims/damage = SubResource( 1 )
 anims/spawn = SubResource( 2 )
 anims/vanish = SubResource( 3 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -50 )
-shape = SubResource( 4 )
-
 [node name="Sprite" type="Sprite" parent="."]
-self_modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 10, -50 )
 scale = Vector2( 0.25, 0.25 )
 z_index = -1
@@ -166,13 +132,4 @@ texture = ExtResource( 1 )
 wait_time = 3.0
 one_shot = true
 autostart = true
-
-[node name="HitBox" parent="." instance=ExtResource( 3 )]
-position = Vector2( 0, -50 )
-hit = ExtResource( 5 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-shape = SubResource( 4 )
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="area_exited" from="." to="." method="_on_area_exited"]
 [connection signal="timeout" from="LifeTime" to="." method="_on_LifeTime_timeout"]
