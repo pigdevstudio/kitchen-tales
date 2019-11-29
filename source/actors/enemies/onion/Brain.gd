@@ -34,7 +34,7 @@ func _on_StateMachine_state_changed(new_state):
 			get_parent().queue_free()
 
 
-func _on_CombateStateMachine_state_changed(new_state):
+func _on_CombatStateMachine_state_changed(new_state):
 	match new_state:
 		"Stun":
 			combat_state_machine.execute("Attack")
