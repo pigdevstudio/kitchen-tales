@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://interface/pop_label/PopLabel.gd" type="Script" id=1]
+[ext_resource path="res://screens/splash_screen/default-font-36.tres" type="DynamicFont" id=2]
+
+[node name="PopLabel" type="Label"]
+margin_right = 80.0
+margin_bottom = 32.0
+rect_pivot_offset = Vector2( 40, 16 )
+custom_fonts/font = ExtResource( 2 )
+align = 1
+valign = 1
+autowrap = true
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="."]

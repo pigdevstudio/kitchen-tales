@@ -29,7 +29,7 @@ __meta__ = {
 "_edit_horizontal_guides_": [  ],
 "_edit_vertical_guides_": [ 2504.0 ]
 }
-waves_scenes = PoolStringArray( "res://levels/blackspoon_arena/waves/Wave1.tscn", "res://levels/blackspoon_arena/waves/Wave2.tscn" )
+waves_scenes = PoolStringArray( "res://levels/blackspoon_arena/waves/Wave1.tscn", "res://levels/blackspoon_arena/waves/Wave2.tscn", "res://levels/blackspoon_arena/waves/Wave3.tscn" )
 
 [node name="Buccerino" parent="." instance=ExtResource( 11 )]
 position = Vector2( -912, 560 )
@@ -120,6 +120,7 @@ editor_draw_drag_margin = true
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
+autostart = true
 
 [node name="Void" parent="." instance=ExtResource( 12 )]
 position = Vector2( 2048, 1280 )

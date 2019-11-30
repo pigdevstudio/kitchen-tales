@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://actors/enemies/carrot/CarrotCharacter.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/physics/StateMachine.tscn" type="PackedScene" id=2]
@@ -21,8 +21,9 @@
 [ext_resource path="res://actors/enemies/carrot/CarrotExplodingParticles.tscn" type="PackedScene" id=19]
 [ext_resource path="res://levels/Spawner.gd" type="Script" id=20]
 [ext_resource path="res://actors/enemies/carrot/carrot_sight_area.tres" type="Shape2D" id=21]
-[ext_resource path="res://interface/HealthBar/HealthBar.gd" type="Script" id=22]
+[ext_resource path="res://actors/enemies/Score.tscn" type="PackedScene" id=22]
 [ext_resource path="res://interface/HealthBar.tscn" type="PackedScene" id=23]
+[ext_resource path="res://interface/ScoreLabelSpawner.gd" type="Script" id=24]
 
 [sub_resource type="Animation" id=10]
 resource_name = "throw_dirt"
@@ -72,30 +73,6 @@ tracks/2/keys = {
 [sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 40, 50 )
 
-[sub_resource type="StyleBoxFlat" id=8]
-bg_color = Color( 1, 0.164706, 0.164706, 1 )
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color( 1, 1, 1, 1 )
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
-[sub_resource type="StyleBoxFlat" id=9]
-bg_color = Color( 1, 0.956863, 0.956863, 1 )
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color( 1, 1, 1, 1 )
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
 [node name="Carrot" type="Node2D"]
 
 [node name="Character" parent="." instance=ExtResource( 1 )]
@@ -105,6 +82,7 @@ z_index = -1
 position = Vector2( 0, -106 )
 script = ExtResource( 20 )
 spawnling_scene = ExtResource( 19 )
+container = "Level"
 
 [node name="StateMachine" parent="." instance=ExtResource( 2 )]
 
@@ -178,6 +156,7 @@ cooldown = 1.0
 [node name="DirtSpawner" type="Position2D" parent="CombatStateMachine/AlertState/Attack"]
 script = ExtResource( 14 )
 spawnling_scene = ExtResource( 15 )
+container = "Level"
 
 [node name="StunState" type="Node2D" parent="CombatStateMachine"]
 script = ExtResource( 11 )
@@ -219,43 +198,43 @@ anims/throw_dirt = SubResource( 10 )
 position = Vector2( 0, -50 )
 shape = SubResource( 11 )
 
-[node name="HealthBar" type="ProgressBar" parent="." instance=ExtResource( 23 )]
+[node name="HealthBar" parent="." instance=ExtResource( 23 )]
 visible = false
 margin_left = -90.0
 margin_top = -160.0
 margin_right = 90.0
 margin_bottom = -130.0
-custom_styles/fg = SubResource( 8 )
-custom_styles/bg = SubResource( 9 )
-value = 50.0
-percent_visible = false
-script = ExtResource( 22 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 health_path = NodePath("../Brain/Health")
 
 [node name="Timer" type="Timer" parent="HealthBar"]
 one_shot = true
+
+[node name="ScoreLabelSpawner" type="Position2D" parent="."]
+position = Vector2( 0, -44 )
+script = ExtResource( 24 )
+
+[node name="Score" parent="ScoreLabelSpawner" instance=ExtResource( 22 )]
 [connection signal="spawned" from="Character/Pivot/Body/ParticlesSpawner" to="." method="queue_free"]
 [connection signal="state_changed" from="StateMachine" to="Brain" method="_on_StateMachine_state_changed"]
 [connection signal="state_changed" from="StateMachine" to="CombatStateMachine" method="change_state_to"]
 [connection signal="entered" from="StateMachine/HiddenState" to="Character" method="play_backwards" binds= [ "show" ]]
 [connection signal="started" from="StateMachine/AlertState/Hide" to="StateMachine" method="change_state_to" binds= [ "Hidden" ]]
 [connection signal="entered" from="StateMachine/StandState" to="Character" method="play" binds= [ "show" ]]
-[connection signal="entered" from="StateMachine/StunState" to="AttackAnimator" method="stop"]
 [connection signal="entered" from="StateMachine/StunState" to="Character" method="play" binds= [ "stun" ]]
+[connection signal="entered" from="StateMachine/StunState" to="AttackAnimator" method="stop"]
 [connection signal="started" from="StateMachine/StunState/Hide" to="StateMachine" method="change_state_to" binds= [ "Hidden" ]]
 [connection signal="started" from="StateMachine/StunState/Alert" to="StateMachine" method="change_state_to" binds= [ "Alert" ]]
+[connection signal="entered" from="StateMachine/DeadState" to="Character" method="play" binds= [ "stun" ]]
 [connection signal="entered" from="StateMachine/DeadState" to="AttackAnimator" method="stop"]
 [connection signal="entered" from="StateMachine/DeadState" to="Brain/StunTimer" method="start"]
-[connection signal="entered" from="StateMachine/DeadState" to="Character" method="play" binds= [ "stun" ]]
 [connection signal="area_shape_entered" from="SightArea" to="SightArea" method="_on_area_shape_entered"]
 [connection signal="spotted" from="SightArea" to="Brain" method="_on_Sight_spotted"]
 [connection signal="direction_changed" from="CombatStateMachine/AlertState/Attack" to="CombatStateMachine/AlertState/Attack/DirtSpawner" method="set_direction"]
-[connection signal="started" from="CombatStateMachine/AlertState/Attack" to="AttackAnimator" method="play" binds= [ "throw_dirt" ]]
 [connection signal="started" from="CombatStateMachine/AlertState/Attack" to="Character" method="play" binds= [ "throw_dirt" ]]
+[connection signal="started" from="CombatStateMachine/AlertState/Attack" to="AttackAnimator" method="play" binds= [ "throw_dirt" ]]
+[connection signal="died" from="Brain/Health" to="ScoreLabelSpawner/Score" method="score"]
 [connection signal="died" from="Brain/Health" to="Character/Pivot/Body/ParticlesSpawner" method="spawn"]
+[connection signal="died" from="Brain/Health" to="ScoreLabelSpawner" method="spawn"]
 [connection signal="timeout" from="Brain/HideTimer" to="StateMachine" method="execute" binds= [ "Show" ]]
 [connection signal="timeout" from="Brain/StunTimer" to="StateMachine" method="execute" binds= [ "Alert" ]]
 [connection signal="timeout" from="Brain/AlertTimer" to="StateMachine" method="change_state_to" binds= [ "Alert" ]]

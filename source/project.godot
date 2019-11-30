@@ -49,6 +49,10 @@ run/main_scene="res://screens/splash_screen/SplashScreen.tscn"
 boot_splash/image="res://screens/splash_screen/splash_image.png"
 config/icon="res://icon.png"
 
+[autoload]
+
+PlayerData="*res://actors/player/PlayerData.tscn"
+
 [debug]
 
 gdscript/warnings/unused_variable=false

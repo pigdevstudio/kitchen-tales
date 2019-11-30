@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.753275, 0.3328 ), -2.61371, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0.451128, 1 )
+colors = PoolColorArray( 0.890196, 0.843137, 0.956863, 1, 0.898039, 0.854902, 0.960784, 0 )
+
+[node name="ExplodingParticles" type="CPUParticles2D"]
+z_index = -1
+amount = 32
+lifetime = 2.0
+speed_scale = 4.0
+explosiveness = 1.0
+randomness = 0.63
+emission_shape = 1
+emission_sphere_radius = 24.0
+spread = 180.0
+initial_velocity = 150.0
+initial_velocity_random = 0.55
+scale_amount = 16.0
+scale_amount_random = 0.7
+scale_amount_curve = SubResource( 1 )
+color_ramp = SubResource( 2 )
+
+[node name="ExplodingTime" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true
+[connection signal="ready" from="." to="." method="set_emitting" binds= [ true ]]
+[connection signal="timeout" from="ExplodingTime" to="." method="queue_free"]

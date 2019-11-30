@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://interface/HealthBar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/blackspoon_arena/BlackspoonArena.tscn" type="PackedScene" id=2]
-[ext_resource path="res://levels/blackspoon_arena/waves/Wave3.tscn" type="PackedScene" id=3]
+[ext_resource path="res://screens/splash_screen/splash_screen_theme.tres" type="Theme" id=4]
+[ext_resource path="res://interface/Interface.gd" type="Script" id=5]
 
 [sub_resource type="Animation" id=1]
 resource_name = "fade"
@@ -23,18 +24,19 @@ tracks/0/keys = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
+"_edit_horizontal_guides_": [ 72.0 ],
 "_edit_use_anchors_": false
 }
 
 [node name="Level" parent="." instance=ExtResource( 2 )]
-
-[node name="Wave3" parent="Level" instance=ExtResource( 3 )]
 
 [node name="InterfaceLayer" type="CanvasLayer" parent="."]
 
 [node name="Interface" type="Control" parent="InterfaceLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 4 )
+script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -45,12 +47,27 @@ margin_top = 32.0
 margin_right = 480.0
 margin_bottom = 72.0
 
+[node name="ScoreLabel" type="Label" parent="InterfaceLayer/Interface"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -384.0
+margin_top = 24.0
+margin_right = -106.0
+margin_bottom = 70.0
+rect_rotation = 0.600338
+text = "Score: %s"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Fade" type="ColorRect" parent="InterfaceLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0, 0, 0, 0 )
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
