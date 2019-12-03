@@ -1,4 +1,6 @@
-[gd_resource type="Animation" format=2]
+[gd_resource type="Animation" load_steps=2 format=2]
+
+[ext_resource path="res://actors/sound_effects/melee/sfx_wpn_sword1.tres" type="AudioStream" id=1]
 
 [resource]
 resource_name = "dash"
@@ -170,4 +172,18 @@ tracks/13/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 210.0 ]
+}
+tracks/14/type = "audio"
+tracks/14/path = NodePath("SFX")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 1 )
+} ],
+"times": PoolRealArray( 0 )
 }

@@ -43,7 +43,7 @@ func update_enemies_status():
 			continue
 		health.max_health *= difficulty
 		health.set_current(health.max_health)
-	for hitbox in get_tree().get_nodes_in_group("hitbox"):
-		if hitbox.is_in_group("player"):
-			continue
-		hitbox.hit.damage *= difficulty
+#	for hitbox in get_tree().get_nodes_in_group("hitbox"):
+#		if hitbox.is_in_group("player"):
+#			continue
+#		hitbox.hit.damage *= difficulty

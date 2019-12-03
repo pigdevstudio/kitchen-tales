@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://actors/player/buccerino/CutoutCharacter.gd" type="Script" id=1]
 [ext_resource path="res://actors/player/buccerino/animations/setup.tres" type="Animation" id=2]
@@ -12,6 +12,10 @@
 [ext_resource path="res://actors/player/buccerino/buccerino-new.svg" type="Texture" id=10]
 [ext_resource path="res://actors/player/buccerino/hat.png" type="Texture" id=11]
 [ext_resource path="res://actors/player/buccerino/cleaver.png" type="Texture" id=12]
+[ext_resource path="res://actors/sound_effects/melee/sfx_wpn_sword2.tres" type="AudioStream" id=13]
+[ext_resource path="res://actors/sound_effects/melee/sfx_wpn_sword1.tres" type="AudioStream" id=14]
+[ext_resource path="res://actors/sound_effects/melee/sfx_wpn_sword3.tres" type="AudioStream" id=15]
+[ext_resource path="res://actors/sound_effects/melee/sfx_wpn_punch3.tres" type="AudioStream" id=16]
 
 [sub_resource type="Animation" id=1]
 resource_name = "charge"
@@ -280,6 +284,20 @@ tracks/21/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ -315.0, -315.0, -315.0, -315.0 ]
+}
+tracks/22/type = "audio"
+tracks/22/path = NodePath("SFX")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 16 )
+} ],
+"times": PoolRealArray( 0 )
 }
 
 [sub_resource type="Animation" id=2]
@@ -732,6 +750,20 @@ tracks/16/keys = {
 "update": 0,
 "values": [ 1.0 ]
 }
+tracks/17/type = "audio"
+tracks/17/path = NodePath("SFX")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 14 )
+} ],
+"times": PoolRealArray( 0 )
+}
 
 [sub_resource type="Animation" id=4]
 length = 0.5
@@ -939,6 +971,20 @@ tracks/16/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 1.0 ]
+}
+tracks/17/type = "audio"
+tracks/17/path = NodePath("SFX")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 13 )
+} ],
+"times": PoolRealArray( 0.32 )
 }
 
 [sub_resource type="Animation" id=5]
@@ -1708,6 +1754,20 @@ tracks/16/keys = {
 "update": 0,
 "values": [ 1.0 ]
 }
+tracks/17/type = "audio"
+tracks/17/path = NodePath("SFX")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 15 )
+} ],
+"times": PoolRealArray( 0.15 )
+}
 
 [sub_resource type="Animation" id=9]
 length = 0.4
@@ -1941,6 +2001,20 @@ tracks/18/keys = {
 "args": [ "fall", 0, 1.0, false ],
 "method": "play"
 } ]
+}
+tracks/19/type = "audio"
+tracks/19/path = NodePath("SFX")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 16 )
+} ],
+"times": PoolRealArray( 0 )
 }
 
 [sub_resource type="Animation" id=10]
@@ -2261,7 +2335,7 @@ anims/hurt = ExtResource( 5 )
 position = Vector2( 0, -24 )
 
 [node name="LegLeft" type="Sprite" parent="Pivot"]
-position = Vector2( 14.25, 0.517328 )
+position = Vector2( 24, 0 )
 texture = ExtResource( 10 )
 offset = Vector2( 0, 6.816 )
 region_enabled = true
@@ -2269,7 +2343,8 @@ region_rect = Rect2( 224, 91, 22, 37 )
 region_filter_clip = true
 
 [node name="LegRight" type="Sprite" parent="Pivot"]
-position = Vector2( -13.25, 0.517328 )
+position = Vector2( -16.8889, 1.77777 )
+rotation = 0.785396
 texture = ExtResource( 10 )
 offset = Vector2( 0, 6.816 )
 region_enabled = true
@@ -2277,7 +2352,8 @@ region_rect = Rect2( 192, 91, 22, 37 )
 region_filter_clip = true
 
 [node name="Body" type="Sprite" parent="Pivot"]
-position = Vector2( 0, -6.14934 )
+position = Vector2( 0, -4.76837e-07 )
+rotation = 0.261799
 texture = ExtResource( 10 )
 offset = Vector2( 1, -21.184 )
 region_enabled = true
@@ -2285,7 +2361,8 @@ region_rect = Rect2( 176, 6, 74, 74 )
 
 [node name="Head" type="Sprite" parent="Pivot/Body"]
 show_behind_parent = true
-position = Vector2( 0, -45.3333 )
+position = Vector2( -0.999998, -42.0613 )
+rotation = -0.142221
 texture = ExtResource( 10 )
 offset = Vector2( 1.66667, -27.7893 )
 region_enabled = true
@@ -2306,7 +2383,7 @@ region_rect = Rect2( 160, 144, 82, 20 )
 
 [node name="ArmRight" type="Sprite" parent="Pivot/Body"]
 position = Vector2( -32.3333, -24 )
-rotation = 0.261799
+rotation = 0.523599
 texture = ExtResource( 10 )
 offset = Vector2( 0, 8 )
 region_enabled = true
@@ -2315,8 +2392,8 @@ region_filter_clip = true
 
 [node name="ArmLeft" type="Sprite" parent="Pivot/Body"]
 show_behind_parent = true
-position = Vector2( 35.6667, -24 )
-rotation = -0.261799
+position = Vector2( 34.4959, -25.8076 )
+rotation = -0.785398
 z_index = -1
 texture = ExtResource( 10 )
 offset = Vector2( 0, 8 )
@@ -2326,16 +2403,21 @@ region_filter_clip = true
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Pivot/Body/ArmLeft"]
 position = Vector2( -0.394093, 10.0567 )
-rotation = 0.523599
+rotation = -5.49779
 remote_path = NodePath("../../../Cleaver")
 update_position = false
 update_rotation = false
 update_scale = false
 
 [node name="Cleaver" type="Sprite" parent="Pivot"]
-position = Vector2( 50, -26 )
-rotation = 0.785397
+position = Vector2( 40, -16 )
+rotation = 0.261799
 z_index = -1
 texture = ExtResource( 12 )
 offset = Vector2( 14.5, -14.1201 )
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 16 )
+volume_db = -8.0
+bus = "SFX"
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://actors/enemies/tomato/tomato.svg" type="Texture" id=1]
+[ext_resource path="res://actors/sound_effects/damage/sfx_damage_hit3.tres" type="AudioStream" id=2]
 
 [sub_resource type="Animation" id=1]
 resource_name = "SETUP"
@@ -1798,6 +1799,20 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Color( 1.7, 1.7, 1.7, 1 ), Color( 1, 1, 1, 1 ), Color( 1.7, 1.7, 1.7, 1 ), Color( 1, 1, 1, 1 ), Color( 1.7, 1.7, 1.7, 1 ), Color( 1, 1, 1, 1 ) ]
 }
+tracks/2/type = "audio"
+tracks/2/path = NodePath("SFX")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 2 )
+} ],
+"times": PoolRealArray( 0 )
+}
 
 [node name="TomatoCharacter" type="Position2D"]
 
@@ -1819,20 +1834,19 @@ anims/hurt = SubResource( 10 )
 [node name="Pivot" type="Position2D" parent="."]
 
 [node name="Body" type="Sprite" parent="Pivot"]
-position = Vector2( 0, -44 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 16, 48, 111, 88 )
 
 [node name="Hair" type="Sprite" parent="Pivot/Body"]
-position = Vector2( -4.14815, -44 )
+position = Vector2( -4.14815, -88 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -6 )
 region_enabled = true
 region_rect = Rect2( 35, 149, 77, 59 )
 
 [node name="Face" type="Sprite" parent="Pivot/Body"]
-position = Vector2( 12.7407, 8.66663 )
+position = Vector2( 12.7407, -28.6667 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -4 )
 region_enabled = true
@@ -1840,19 +1854,23 @@ region_rect = Rect2( 176, 16, 64, 20 )
 
 [node name="HandLeft" type="Sprite" parent="Pivot/Body"]
 show_behind_parent = true
-position = Vector2( 56, 1.5 )
+position = Vector2( 56, -42.5 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 208, 144, 26, 26 )
 
 [node name="HandRight" type="Sprite" parent="Pivot/Body"]
-position = Vector2( -56, 1.5 )
+position = Vector2( -56, -42.5 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 144, 144, 26, 26 )
 
 [node name="Shine" type="Sprite" parent="Pivot/Body"]
-position = Vector2( 32, -20.5 )
+position = Vector2( 32, -64.5 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 101, 16, 18, 18 )
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 2 )
+bus = "SFX"

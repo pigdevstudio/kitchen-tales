@@ -1,7 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://actors/enemies/onion/onion.svg" type="Texture" id=1]
 [ext_resource path="res://actors/enemies/CutoutCharacter.gd" type="Script" id=2]
+[ext_resource path="res://actors/sound_effects/damage/sfx_damage_hit10.tres" type="AudioStream" id=3]
+[ext_resource path="res://actors/sound_effects/damage/sfx_damage_hit8.tres" type="AudioStream" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "SETUP"
@@ -965,6 +967,20 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Color( 1.7, 1.7, 1.7, 1 ), Color( 1, 1, 1, 1 ), Color( 1.7, 1.7, 1.7, 1 ), Color( 1, 1, 1, 1 ), Color( 1.7, 1.7, 1.7, 1 ), Color( 1, 1, 1, 1 ) ]
 }
+tracks/2/type = "audio"
+tracks/2/path = NodePath("SFX")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 4 )
+} ],
+"times": PoolRealArray( 0 )
+}
 
 [node name="OnionCharacter" type="Position2D"]
 script = ExtResource( 2 )
@@ -990,8 +1006,8 @@ region_rect = Rect2( 16, 48, 111, 88 )
 
 [node name="Hair" type="Sprite" parent="Pivot/Body"]
 show_behind_parent = true
-position = Vector2( -8.03723, -43.2929 )
-rotation = -0.303729
+position = Vector2( -4.14815, -43.2929 )
+rotation = -0.178022
 texture = ExtResource( 1 )
 offset = Vector2( 0, -6 )
 region_enabled = true
@@ -1024,7 +1040,7 @@ region_enabled = true
 region_rect = Rect2( 64, 160, 10, 64 )
 
 [node name="Face" type="Sprite" parent="Pivot/Body"]
-position = Vector2( 14.1549, 3.66603 )
+position = Vector2( 12.7407, 8.66663 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -4 )
 region_enabled = true
@@ -1048,3 +1064,7 @@ position = Vector2( 32, -20.5 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 101, 16, 18, 18 )
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+bus = "SFX"

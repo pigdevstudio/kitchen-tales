@@ -1,4 +1,6 @@
-[gd_resource type="Animation" format=2]
+[gd_resource type="Animation" load_steps=2 format=2]
+
+[ext_resource path="res://actors/sound_effects/jumping/sfx_movement_jump13.tres" type="AudioStream" id=1]
 
 [resource]
 resource_name = "jump"
@@ -194,4 +196,18 @@ tracks/15/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ -405.0 ]
+}
+tracks/16/type = "audio"
+tracks/16/path = NodePath("SFX")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 1 )
+} ],
+"times": PoolRealArray( 0 )
 }

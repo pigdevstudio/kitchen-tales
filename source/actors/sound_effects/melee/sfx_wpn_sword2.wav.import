@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/sfx_wpn_sword2.wav-e3d6183b50dae888c7de69239e658685.sample"
+
+[deps]
+
+source_file="res://actors/sound_effects/melee/sfx_wpn_sword2.wav"
+dest_files=[ "res://.import/sfx_wpn_sword2.wav-e3d6183b50dae888c7de69239e658685.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

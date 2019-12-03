@@ -1,0 +1,6 @@
+[gd_resource type="AudioStreamRandomPitch" load_steps=2 format=2]
+
+[ext_resource path="res://actors/sound_effects/damage/sfx_damage_hit6.wav" type="AudioStream" id=1]
+
+[resource]
+audio_stream = ExtResource( 1 )

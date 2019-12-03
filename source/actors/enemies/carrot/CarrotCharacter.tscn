@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://actors/enemies/CutoutCharacter.gd" type="Script" id=1]
 [ext_resource path="res://actors/enemies/carrot/carrot.svg" type="Texture" id=2]
+[ext_resource path="res://actors/sound_effects/damage/sfx_damage_hit8.tres" type="AudioStream" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "SETUP"
@@ -1450,6 +1451,20 @@ tracks/1/keys = {
 "update": 1,
 "values": [ Rect2( 170, 40, 50, 30 ), Rect2( 170, 10, 50, 30 ) ]
 }
+tracks/2/type = "audio"
+tracks/2/path = NodePath("SFX")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 3 )
+} ],
+"times": PoolRealArray( 0 )
+}
 
 [node name="Carrot" type="Position2D"]
 script = ExtResource( 1 )
@@ -1519,3 +1534,7 @@ position = Vector2( -23.5, -11 )
 texture = ExtResource( 2 )
 region_enabled = true
 region_rect = Rect2( 160, 179, 25, 26 )
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+bus = "SFX"
