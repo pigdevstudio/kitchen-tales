@@ -2,5 +2,7 @@
 
 [ext_resource path="res://actors/enemies/Score.gd" type="Script" id=1]
 
-[node name="Score" type="Node"]
+[node name="Score" type="Node" groups=[
+"score",
+]]
 script = ExtResource( 1 )

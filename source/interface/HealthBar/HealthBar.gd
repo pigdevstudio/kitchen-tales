@@ -24,4 +24,5 @@ func set_health(new_health):
 
 
 func _on_Health_changed(new_health):
-	value = new_health
+	value = health.current
+	max_value = health.max_health

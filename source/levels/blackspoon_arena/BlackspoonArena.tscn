@@ -32,7 +32,7 @@ __meta__ = {
 waves_scenes = PoolStringArray( "res://levels/blackspoon_arena/waves/Wave1.tscn", "res://levels/blackspoon_arena/waves/Wave2.tscn", "res://levels/blackspoon_arena/waves/Wave3.tscn" )
 
 [node name="Buccerino" parent="." instance=ExtResource( 11 )]
-position = Vector2( -912, 560 )
+position = Vector2( -912, 768 )
 z_index = 2
 
 [node name="CameraRig" type="RemoteTransform2D" parent="Buccerino"]
@@ -48,7 +48,7 @@ tile_data = PoolIntArray( -458763, -536870900, 0, -458762, 10, 0, -458761, 10, 0
 
 [node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.8, 0.8 )
-motion_mirroring = Vector2( 1920, 300 )
+motion_mirroring = Vector2( 1920, 0 )
 
 [node name="Crowd4" type="Sprite" parent="ParallaxBackground/ParallaxLayer5"]
 position = Vector2( 960, 140 )
@@ -109,7 +109,7 @@ position = Vector2( 960, 672 )
 texture = ExtResource( 10 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( -912, 560 )
+position = Vector2( -912, 768 )
 current = true
 limit_left = -1410
 limit_top = -1030
@@ -120,7 +120,6 @@ editor_draw_drag_margin = true
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
-autostart = true
 
 [node name="Void" parent="." instance=ExtResource( 12 )]
 position = Vector2( 2048, 1280 )
@@ -139,4 +138,10 @@ position = Vector2( 2048, 1024 )
 [node name="MovingPlatformPath2" parent="Platforms" instance=ExtResource( 15 )]
 position = Vector2( 2048, 184 )
 curve = SubResource( 2 )
+
+[node name="AnimationPlayer" parent="Platforms/MovingPlatformPath2/PathFollow2D" index="1"]
+playback_speed = 0.5
+[connection signal="ready" from="." to="." method="spawn_wave"]
 [connection signal="timeout" from="Timer" to="." method="spawn_wave"]
+
+[editable path="Platforms/MovingPlatformPath2"]

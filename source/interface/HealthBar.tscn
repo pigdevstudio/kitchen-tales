@@ -2,7 +2,6 @@
 
 [ext_resource path="res://interface/HealthBar/HealthBar.gd" type="Script" id=1]
 
-
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 1, 0.164706, 0.164706, 1 )
 border_width_left = 4
