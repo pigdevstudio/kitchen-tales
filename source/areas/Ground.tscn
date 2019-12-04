@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=2]
-
-[ext_resource path="res://utility/VisibleCollisionPolygon2D.gd" type="Script" id=1]
-
-[node name="Ground" type="CollisionPolygon2D"]
-polygon = PoolVector2Array( 0, 0, 0, 320, 1920, 320, 1920, 0 )
-script = ExtResource( 1 )

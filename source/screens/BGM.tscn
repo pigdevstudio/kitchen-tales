@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://levels/blackspoon_arena/awake10_megaWall.ogg" type="AudioStream" id=1]
+[ext_resource path="res://screens/MusicFader.gd" type="Script" id=2]
+
+[node name="BGM" type="AudioStreamPlayer"]
+pause_mode = 2
+stream = ExtResource( 1 )
+volume_db = -8.0
+bus = "BGM"
+script = ExtResource( 2 )
+
+[node name="Tween" type="Tween" parent="."]

@@ -8,7 +8,7 @@
 
 [sub_resource type="Animation" id=1]
 resource_name = "wave_started"
-length = 5.0
+length = 4.5
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("DimmingRect:color")
@@ -17,7 +17,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 4.5, 5 ),
+"times": PoolRealArray( 0, 0.5, 4.1, 4.35 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 0.705882 ), Color( 0, 0, 0, 0.705882 ), Color( 0, 0, 0, 0 ) ]
@@ -29,7 +29,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5, 1.5, 4.5, 5 ),
+"times": PoolRealArray( 0, 0.5, 1.5, 4.1, 4.35 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
@@ -65,7 +65,7 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 3.5 ),
+"times": PoolRealArray( 0, 4.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [  ],
@@ -145,9 +145,10 @@ anims/wave_started = SubResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-color = Color( 0, 0, 0, 0.705882 )
+color = Color( 0, 0, 0, 0 )
 
 [node name="NewWaveLabel" type="Label" parent="InterfaceLayer/Interface"]
+modulate = Color( 1, 1, 1, 0 )
 light_mask = 2
 anchor_left = 0.5
 anchor_top = 0.5
@@ -163,7 +164,7 @@ custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0.478431, 0.392157, 0.968627, 1 )
 custom_constants/shadow_offset_x = 15
 custom_constants/shadow_offset_y = 15
-text = "Ready?"
+text = "Start!"
 align = 1
 valign = 1
 __meta__ = {

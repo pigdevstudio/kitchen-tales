@@ -52,6 +52,7 @@ config/icon="res://icon.png"
 [autoload]
 
 PlayerData="*res://actors/player/PlayerData.tscn"
+BGM="*res://screens/BGM.tscn"
 
 [debug]
 

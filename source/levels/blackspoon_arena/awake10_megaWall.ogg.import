@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/awake10_megaWall.ogg-15fc4e217a1aedfee8c3ab7364f90484.oggstr"
+
+[deps]
+
+source_file="res://levels/blackspoon_arena/awake10_megaWall.ogg"
+dest_files=[ "res://.import/awake10_megaWall.ogg-15fc4e217a1aedfee8c3ab7364f90484.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
