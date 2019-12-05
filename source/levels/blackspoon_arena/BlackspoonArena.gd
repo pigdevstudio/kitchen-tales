@@ -9,7 +9,7 @@ signal wave_started(wave_name)
 signal wave_finished(wave_name)
 export(PoolStringArray) var waves_scenes
 
-var _current_wave = 0
+var _current_wave = 2
 var wave_count = 1
 var difficulty = 1
 
