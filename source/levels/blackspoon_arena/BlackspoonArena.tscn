@@ -31,6 +31,9 @@ __meta__ = {
 }
 waves_scenes = PoolStringArray( "res://levels/blackspoon_arena/waves/Wave1.tscn", "res://levels/blackspoon_arena/waves/Wave2.tscn", "res://levels/blackspoon_arena/waves/Wave3.tscn" )
 
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
 [node name="Buccerino" parent="." instance=ExtResource( 11 )]
 position = Vector2( -912, 768 )
 z_index = 2
@@ -117,9 +120,6 @@ limit_right = 7169
 limit_bottom = 1280
 editor_draw_limits = true
 editor_draw_drag_margin = true
-
-[node name="Timer" type="Timer" parent="."]
-one_shot = true
 
 [node name="Void" parent="." instance=ExtResource( 12 )]
 position = Vector2( 2048, 1280 )

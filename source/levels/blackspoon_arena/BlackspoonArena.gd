@@ -13,6 +13,8 @@ var _current_wave = 0
 var wave_count = 1
 var difficulty = 1
 
+onready var timer = $Timer
+
 func spawn_wave():
 	var wave = load(waves_scenes[_current_wave]).instance()
 	emit_signal("wave_started", "Wave %s" % wave_count)
@@ -24,10 +26,11 @@ func spawn_wave():
 
 func _on_Wave_tree_exited(wave_name):
 	emit_signal("wave_finished", wave_name)
-	increase_difficulty()
+	if wave_count > 4:
+		increase_difficulty()
 	_current_wave += 1
 	_current_wave = clamp(_current_wave, 0, waves_scenes.size() -1)
-	$Timer.start()
+	timer.start()
 
 
 func increase_difficulty():
@@ -43,7 +46,3 @@ func update_enemies_status():
 			continue
 		health.max_health *= difficulty
 		health.set_current(health.max_health)
-#	for hitbox in get_tree().get_nodes_in_group("hitbox"):
-#		if hitbox.is_in_group("player"):
-#			continue
-#		hitbox.hit.damage *= difficulty

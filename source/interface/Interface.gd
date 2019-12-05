@@ -10,6 +10,14 @@ func _ready():
 	_on_PlayerData_updated()
 
 
+func _unhandled_input(event):
+	if event.is_action_pressed("pause"):
+		if get_tree().paused:
+			$AnimationPlayer.play("unpause")
+		else:
+			$AnimationPlayer.play("pause")
+			
+		
 func _on_PlayerData_updated():
 	$ScoreLabel.text = "Score: %s" % PlayerData.score
 

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=16 format=2]
+[gd_resource type="Theme" load_steps=17 format=2]
 
 [ext_resource path="res://interface/theme/checkbox-checked.png" type="Texture" id=1]
 [ext_resource path="res://screens/splash_screen/default-font-36.tres" type="DynamicFont" id=2]
@@ -43,6 +43,19 @@ corner_radius_top_left = 32
 corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0.423529, 0.376471, 0.705882, 1 )
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color( 1, 1, 1, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_top = 8.0
 
 [sub_resource type="DynamicFont" id=10]
 use_mipmaps = true
@@ -89,6 +102,7 @@ HSlider/styles/grabber_area = SubResource( 8 )
 HSlider/styles/grabber_disabled = SubResource( 8 )
 HSlider/styles/grabber_highlight = SubResource( 8 )
 HSlider/styles/slider = SubResource( 9 )
+Panel/styles/panel = SubResource( 11 )
 ProgressBar/colors/font_color = Color( 0.94, 0.94, 0.94, 1 )
 ProgressBar/colors/font_color_shadow = Color( 0, 0, 0, 1 )
 ProgressBar/fonts/font = null

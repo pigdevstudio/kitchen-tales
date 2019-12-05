@@ -1,0 +1,188 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://screens/controls_screen/theme.tres" type="Theme" id=1]
+[ext_resource path="res://screens/splash_screen/splash_screen_theme.tres" type="Theme" id=2]
+[ext_resource path="res://screens/controls_screen/controller.png" type="Texture" id=3]
+[ext_resource path="res://screens/play_screen/PlayScreen.tscn" type="PackedScene" id=4]
+[ext_resource path="res://screens/splash_screen/background.png" type="Texture" id=5]
+[ext_resource path="res://screens/splash_screen/title-font-200.tres" type="DynamicFont" id=6]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Button
+
+export (PackedScene) var next_scene
+
+func _ready():
+	connect(\"button_up\", self, \"load_next_scene\")
+
+
+func load_next_scene():
+	var animator = $\"../Fade/AnimationPlayer\"
+	animator.play_backwards(\"fade\")
+	yield(animator, \"animation_finished\")
+	get_tree().change_scene_to(next_scene)
+"
+
+[sub_resource type="Animation" id=2]
+resource_name = "fade"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
+}
+
+[node name="DisclaimerScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false,
+"_edit_vertical_guides_": [ 1240.0, 1400.0, 686.0, 523.0 ]
+}
+
+[node name="Background" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 5 )
+
+[node name="Title" type="Label" parent="."]
+margin_top = 184.0
+margin_right = 1920.0
+margin_bottom = 384.0
+rect_pivot_offset = Vector2( 960, 0 )
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0.423529, 0.376471, 0.705882, 1 )
+text = "controls"
+align = 1
+valign = 2
+
+[node name="Agree" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -280.0
+margin_top = 280.0
+margin_right = 280.0
+margin_bottom = 370.0
+theme = ExtResource( 1 )
+text = "OK!"
+script = SubResource( 1 )
+next_scene = ExtResource( 4 )
+
+[node name="Controller" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -128.0
+margin_top = -92.0
+margin_right = 128.0
+margin_bottom = 164.0
+rect_scale = Vector2( 1.5, 1.5 )
+rect_pivot_offset = Vector2( 128, 128 )
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 4
+
+[node name="MoveLine" type="Line2D" parent="."]
+position = Vector2( 900, 494 )
+points = PoolVector2Array( 8, 168, 8, 184, -232, 184 )
+width = 5.0
+default_color = Color( 1, 1, 1, 1 )
+texture_mode = 3080292
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Label" type="Label" parent="MoveLine"]
+margin_left = -236.0
+margin_top = 142.0
+margin_right = -133.0
+margin_bottom = 187.0
+text = "Move"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AttackLine" type="Line2D" parent="."]
+position = Vector2( 998, 258 )
+points = PoolVector2Array( 10, 264, 10, 200, 200, 200 )
+width = 5.0
+default_color = Color( 1, 1, 1, 1 )
+texture_mode = 3080292
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Label" type="Label" parent="AttackLine"]
+margin_left = 72.0
+margin_top = 158.0
+margin_right = 202.0
+margin_bottom = 203.0
+text = "Attack"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="JumpLine" type="Line2D" parent="."]
+position = Vector2( 1034, 390 )
+points = PoolVector2Array( 8, 196, 8, 224, 264, 224 )
+width = 5.0
+default_color = Color( 1, 1, 1, 1 )
+texture_mode = 3080292
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Label" type="Label" parent="JumpLine"]
+margin_left = 158.0
+margin_top = 182.0
+margin_right = 266.0
+margin_bottom = 227.0
+text = "Jump"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DashLine" type="Line2D" parent="."]
+position = Vector2( 1116, 338 )
+points = PoolVector2Array( -24, 200, 200, 200 )
+width = 5.0
+default_color = Color( 1, 1, 1, 1 )
+texture_mode = 3080292
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Label" type="Label" parent="DashLine"]
+margin_left = 104.0
+margin_top = 158.0
+margin_right = 202.0
+margin_bottom = 203.0
+text = "Dash"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Fade" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Fade"]
+autoplay = "fade"
+anims/fade = SubResource( 2 )
+[connection signal="ready" from="." to="Agree" method="grab_focus"]

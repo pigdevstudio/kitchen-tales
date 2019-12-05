@@ -83,7 +83,7 @@ margin_bottom = 76.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Play"
-scene_path = "res://screens/play_screen/PlayScreen.tscn"
+scene_path = "res://screens/instructions_screen/Instructions.tscn"
 
 [node name="Options" parent="Buttons" instance=ExtResource( 2 )]
 margin_top = 92.0

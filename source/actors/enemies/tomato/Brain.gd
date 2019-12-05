@@ -88,6 +88,6 @@ func _on_StunTime_timeout():
 	state_machine.change_state_to(_previous_valid_state)
 
 
-func _on_AttackAnimator_animation_changed(old_name, new_name):
-	if old_name == "squash":
-		$"../HurtBox".position = Vector2.ZERO
+func _on_AttackAnimator_animation_finished(anim_name):
+	if anim_name == "squash":
+		$"../CombatStateMachine/SquashState/Attack/HitBox".position = Vector2.ZERO

@@ -77,7 +77,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
-"args": [ "squash (copy)" ],
+"args": [ "squash" ],
 "method": "play"
 } ]
 }
@@ -309,14 +309,14 @@ one_shot = true
 [connection signal="timeout" from="Brain/IdleTime" to="Brain" method="_on_IdleTime_timeout"]
 [connection signal="timeout" from="Brain/WanderTime" to="Brain" method="_on_WanderTime_timeout"]
 [connection signal="timeout" from="Brain/StunTime" to="Brain" method="_on_StunTime_timeout"]
-[connection signal="died" from="Brain/Health" to="Character/Pivot/Body/ParticlesSpawner" method="spawn"]
-[connection signal="died" from="Brain/Health" to="Character/Pivot/Body/ScoreLabelSpawner" method="spawn"]
 [connection signal="died" from="Brain/Health" to="Character/Pivot/Body/ScoreLabelSpawner/Score" method="score"]
+[connection signal="died" from="Brain/Health" to="Character/Pivot/Body/ScoreLabelSpawner" method="spawn"]
+[connection signal="died" from="Brain/Health" to="Character/Pivot/Body/ParticlesSpawner" method="spawn"]
 [connection signal="spawned" from="Character/Pivot/Body/ParticlesSpawner" to="." method="queue_free"]
 [connection signal="state_changed" from="StateMachine" to="Brain" method="_on_StateMachine_state_changed"]
 [connection signal="state_changed" from="StateMachine" to="CombatStateMachine" method="change_state_to"]
 [connection signal="entered" from="StateMachine/IdleState" to="Character" method="play" binds= [ "idle" ]]
-[connection signal="entered" from="StateMachine/WalkState" to="Character" method="play" binds= [ "walk (copy)" ]]
+[connection signal="entered" from="StateMachine/WalkState" to="Character" method="play" binds= [ "walk" ]]
 [connection signal="entered" from="StateMachine/ChaseState" to="Character" method="play" binds= [ "chase" ]]
 [connection signal="entered" from="StateMachine/StunState" to="Character" method="play" binds= [ "hurt" ]]
 [connection signal="state_changed" from="CombatStateMachine" to="Brain" method="_on_CombatStateMachine_state_changed"]
@@ -328,7 +328,7 @@ one_shot = true
 [connection signal="area_entered" from="InnerAttackRange" to="Brain" method="_on_InnerAttackRange_area_entered"]
 [connection signal="chase_direction_changed" from="ChasingSightArea" to="Brain" method="_on_ChasingSightArea_chase_direction_changed"]
 [connection signal="spotted" from="ChasingSightArea" to="Brain" method="_on_ChasingSightArea_spotted"]
-[connection signal="animation_changed" from="AttackAnimator" to="Brain" method="_on_AttackAnimator_animation_changed"]
+[connection signal="animation_finished" from="AttackAnimator" to="Brain" method="_on_AttackAnimator_animation_finished"]
 [connection signal="draw" from="HealthBar" to="HealthBar/Timer" method="start"]
 [connection signal="timeout" from="HealthBar/Timer" to="HealthBar" method="hide"]
 
