@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://interface/HealthBar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/blackspoon_arena/BlackspoonArena.tscn" type="PackedScene" id=2]
@@ -6,6 +6,88 @@
 [ext_resource path="res://screens/splash_screen/splash_screen_theme.tres" type="Theme" id=4]
 [ext_resource path="res://interface/Interface.gd" type="Script" id=5]
 [ext_resource path="res://screens/splash_screen/title-font-200.tres" type="DynamicFont" id=6]
+[ext_resource path="res://screens/play_screen/PlayScreen.gd" type="Script" id=7]
+
+[sub_resource type="Animation" id=6]
+resource_name = "dead"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("DimmingRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 0.627451 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("DiedLabel:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 400, 440 ), Vector2( 571.5, 440 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("DiedLabel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.05 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("RetryButton:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath("RetryButton")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "grab_focus"
+} ]
+}
+tracks/5/type = "method"
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "pause_tree"
+} ]
+}
 
 [sub_resource type="Animation" id=1]
 resource_name = "pause"
@@ -48,6 +130,36 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "reload"
+length = 0.5
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "reload_current"
+} ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Fade:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -185,6 +297,7 @@ tracks/0/keys = {
 [node name="PlayScreen" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 7 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 72.0 ],
 "_edit_use_anchors_": false
@@ -225,7 +338,9 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="InterfaceLayer/Interface"]
+anims/dead = SubResource( 6 )
 anims/pause = SubResource( 1 )
+anims/reload = SubResource( 7 )
 anims/unpause = SubResource( 5 )
 anims/wave_started = SubResource( 2 )
 
@@ -280,16 +395,47 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="DiedLabel" type="Label" parent="InterfaceLayer/Interface"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -560.0
+margin_top = -100.0
+margin_right = 217.0
+margin_bottom = 100.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0.423529, 0.376471, 0.705882, 1 )
+text = "You died"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RetryButton" type="Button" parent="InterfaceLayer/Interface"]
+visible = false
+margin_left = 792.0
+margin_top = 728.0
+margin_right = 1080.0
+margin_bottom = 776.0
+text = "Retry"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Fade" type="ColorRect" parent="InterfaceLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-color = Color( 0, 0, 0, 0 )
+color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="InterfaceLayer/Fade"]
+autoplay = "fade"
 anims/fade = SubResource( 4 )
 [connection signal="wave_started" from="Level" to="InterfaceLayer/Interface" method="_on_Level_wave_started"]
+[connection signal="pressed" from="InterfaceLayer/Interface/RetryButton" to="InterfaceLayer/Interface/AnimationPlayer" method="play" binds= [ "reload" ]]
+[connection signal="animation_finished" from="InterfaceLayer/Fade/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

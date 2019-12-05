@@ -34,3 +34,9 @@ func pause_tree():
 func unpause_tree():
 	get_tree().paused = false
 
+
+func reload_current():
+	PlayerData.score = 0
+	if get_tree().paused:
+		unpause_tree()
+	get_tree().reload_current_scene()

@@ -141,7 +141,6 @@ curve = SubResource( 2 )
 
 [node name="AnimationPlayer" parent="Platforms/MovingPlatformPath2/PathFollow2D" index="1"]
 playback_speed = 0.5
-[connection signal="ready" from="." to="." method="spawn_wave"]
 [connection signal="timeout" from="Timer" to="." method="spawn_wave"]
 
 [editable path="Platforms/MovingPlatformPath2"]
