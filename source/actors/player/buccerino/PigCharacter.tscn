@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://actors/player/buccerino/CutoutCharacter.gd" type="Script" id=1]
 [ext_resource path="res://actors/player/buccerino/animations/setup.tres" type="Animation" id=2]
@@ -17,8 +17,13 @@
 [ext_resource path="res://actors/sound_effects/melee/sfx_wpn_sword3.tres" type="AudioStream" id=15]
 [ext_resource path="res://actors/sound_effects/melee/sfx_wpn_punch3.tres" type="AudioStream" id=16]
 
-[sub_resource type="Animation" id=1]
-resource_name = "charge"
+[sub_resource type="Gradient" id=12]
+colors = PoolColorArray( 0.858824, 0.870588, 0.890196, 1, 0.858824, 0.870588, 0.890196, 0 )
+
+[sub_resource type="Gradient" id=18]
+colors = PoolColorArray( 0.858824, 0.870588, 0.890196, 0, 0.858824, 0.870588, 0.890196, 1 )
+
+[sub_resource type="Animation" id=2]
 length = 0.5
 step = 0.05
 tracks/0/type = "value"
@@ -299,9 +304,22 @@ tracks/22/keys = {
 } ],
 "times": PoolRealArray( 0 )
 }
+tracks/23/type = "method"
+tracks/23/path = NodePath("VFXAnimator")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "throw", -1, 1.0, false ],
+"method": "play"
+} ]
+}
 
-[sub_resource type="Animation" id=2]
-resource_name = "charging"
+[sub_resource type="Animation" id=3]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Pivot/Body/ArmLeft/RemoteTransform2D:position")
 tracks/0/interp = 1
@@ -543,7 +561,7 @@ tracks/19/keys = {
 "values": [ 15.0 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 length = 0.2
 step = 0.05
 tracks/0/type = "value"
@@ -764,9 +782,23 @@ tracks/17/keys = {
 } ],
 "times": PoolRealArray( 0 )
 }
+tracks/18/type = "method"
+tracks/18/path = NodePath("VFXAnimator")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "cut", -1, 1.0, false ],
+"method": "play"
+} ]
+}
 
-[sub_resource type="Animation" id=4]
-length = 0.5
+[sub_resource type="Animation" id=5]
+length = 0.45
 step = 0.01
 tracks/0/type = "value"
 tracks/0/path = NodePath("Pivot/Body/ArmRight:position")
@@ -986,8 +1018,22 @@ tracks/17/keys = {
 } ],
 "times": PoolRealArray( 0.32 )
 }
+tracks/18/type = "method"
+tracks/18/path = NodePath("VFXAnimator")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "dice", -1, 1.0, false ],
+"method": "play"
+} ]
+}
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Pivot/Body/Head:position")
@@ -1134,7 +1180,7 @@ tracks/11/keys = {
 "values": [ -29.1503 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Pivot/Body:position")
 tracks/0/interp = 1
@@ -1328,8 +1374,7 @@ tracks/15/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "samurai_cut"
+[sub_resource type="Animation" id=8]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Pivot/Body/ArmLeft:position")
 tracks/0/interp = 1
@@ -1547,9 +1592,9 @@ tracks/17/keys = {
 "values": [ -59.9999 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 length = 0.25
-step = 0.05
+step = 0.01
 tracks/0/type = "value"
 tracks/0/path = NodePath("Pivot/Body/ArmRight:position")
 tracks/0/interp = 1
@@ -1768,8 +1813,22 @@ tracks/17/keys = {
 } ],
 "times": PoolRealArray( 0.15 )
 }
+tracks/18/type = "method"
+tracks/18/path = NodePath("VFXAnimator")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "slice", -1, 1.0, false ],
+"method": "play"
+} ]
+}
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
 length = 0.4
 step = 0.05
 tracks/0/type = "value"
@@ -2016,8 +2075,22 @@ tracks/19/keys = {
 } ],
 "times": PoolRealArray( 0 )
 }
+tracks/20/type = "method"
+tracks/20/path = NodePath("VFXAnimator")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "spin", -1, 1.0, false ],
+"method": "play"
+} ]
+}
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=11]
 length = 0.3
 step = 0.05
 tracks/0/type = "value"
@@ -2299,6 +2372,102 @@ tracks/22/keys = {
 } ]
 }
 
+[sub_resource type="Animation" id=13]
+resource_name = "cut"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot/WeaponVFX/CutTrail:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "dice"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot/WeaponVFX/DiceTrail:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "slice"
+length = 0.4
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot/WeaponVFX/SliceTrail:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1, 0.25, 0.35 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "spin"
+length = 0.4
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot/WeaponVFX/SpinTrail:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 0.5, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "throw"
+length = 0.5
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot/WeaponVFX/ThrowTrail:points")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1, 0.26, 0.27, 0.43 ),
+"transitions": PoolRealArray( 0.5, 0, 1, 1 ),
+"update": 0,
+"values": [ PoolVector2Array( 108, -40, 46, -40 ), PoolVector2Array( 414, -42, 44, -42 ), PoolVector2Array( 392, -44, 398, -44 ), PoolVector2Array( 52, -60, 408, -42 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Pivot/WeaponVFX/ThrowTrail:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 0.28, 0.46 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
 [node name="Pig" type="Position2D"]
 script = ExtResource( 1 )
 __meta__ = {
@@ -2310,7 +2479,7 @@ __meta__ = {
 position = Vector2( 0, -24 )
 
 [node name="LegLeft" type="Sprite" parent="Pivot"]
-position = Vector2( 16.25, 3.184 )
+position = Vector2( 21.3611, -12.816 )
 texture = ExtResource( 10 )
 offset = Vector2( 0, 6.816 )
 region_enabled = true
@@ -2318,7 +2487,7 @@ region_rect = Rect2( 224, 91, 22, 37 )
 region_filter_clip = true
 
 [node name="LegRight" type="Sprite" parent="Pivot"]
-position = Vector2( -14.5833, 3.184 )
+position = Vector2( -10.5833, -9.26046 )
 texture = ExtResource( 10 )
 offset = Vector2( 0, 6.816 )
 region_enabled = true
@@ -2326,7 +2495,7 @@ region_rect = Rect2( 192, 91, 22, 37 )
 region_filter_clip = true
 
 [node name="Body" type="Sprite" parent="Pivot"]
-position = Vector2( 0, -2.816 )
+position = Vector2( 0, -6.14934 )
 texture = ExtResource( 10 )
 offset = Vector2( 1, -21.184 )
 region_enabled = true
@@ -2334,7 +2503,8 @@ region_rect = Rect2( 176, 6, 74, 74 )
 
 [node name="Head" type="Sprite" parent="Pivot/Body"]
 show_behind_parent = true
-position = Vector2( 0, -45.3333 )
+position = Vector2( 0, -31.1111 )
+rotation = 0.14277
 texture = ExtResource( 10 )
 offset = Vector2( 1.66667, -27.7893 )
 region_enabled = true
@@ -2354,8 +2524,8 @@ region_enabled = true
 region_rect = Rect2( 160, 144, 82, 20 )
 
 [node name="ArmRight" type="Sprite" parent="Pivot/Body"]
-position = Vector2( -35.0476, -31.9047 )
-rotation = 0.56069
+position = Vector2( -8, -25.8507 )
+rotation = 0.261799
 texture = ExtResource( 10 )
 offset = Vector2( 0, 8 )
 region_enabled = true
@@ -2364,8 +2534,8 @@ region_filter_clip = true
 
 [node name="ArmLeft" type="Sprite" parent="Pivot/Body"]
 show_behind_parent = true
-position = Vector2( 35.8096, -33.2381 )
-rotation = -0.654736
+position = Vector2( 44.5556, -30.6667 )
+rotation = 0.568815
 z_index = -1
 texture = ExtResource( 10 )
 offset = Vector2( 0, 8 )
@@ -2382,38 +2552,104 @@ update_rotation = false
 update_scale = false
 
 [node name="Cleaver" type="Sprite" parent="Pivot"]
-position = Vector2( 40, -16 )
-rotation = 0.261799
+position = Vector2( -0.200734, 1.71985 )
+rotation = 0.523599
 z_index = -1
 texture = ExtResource( 12 )
 offset = Vector2( 14.5, -14.1201 )
 
+[node name="WeaponVFX" type="Node2D" parent="Pivot"]
+show_behind_parent = true
+position = Vector2( 0, 24 )
+z_index = -1
+
+[node name="DiceTrail" type="Line2D" parent="Pivot/WeaponVFX"]
+self_modulate = Color( 1, 1, 1, 0 )
+show_behind_parent = true
+position = Vector2( 29.5096, -22.1112 )
+rotation = 1.73456
+points = PoolVector2Array( 4, -26, -36.795, -27.5277, -58.5007, -23.941, -90.7416, -10.5051, -111.486, 11.1667, -125.985, 33.8337, -133.242, 51.2499, -136.88, 66.0408 )
+width = 42.0
+default_color = Color( 1, 1, 1, 1 )
+gradient = SubResource( 12 )
+joint_mode = 2
+
+[node name="CutTrail" type="Line2D" parent="Pivot/WeaponVFX"]
+self_modulate = Color( 1, 1, 1, 0 )
+show_behind_parent = true
+position = Vector2( 0, -24 )
+points = PoolVector2Array( 60, -2, 54, -30, 42, -48, 28, -56, 0, -62, -38, -42, -58, -14 )
+width = 42.0
+default_color = Color( 1, 1, 1, 1 )
+gradient = SubResource( 12 )
+joint_mode = 2
+
+[node name="SliceTrail" type="Line2D" parent="Pivot/WeaponVFX"]
+self_modulate = Color( 1, 1, 1, 4.96705e-08 )
+show_behind_parent = true
+position = Vector2( 0, -24 )
+points = PoolVector2Array( 88, 10, 80, -14, 62, -34, 22, -50, -30, -42, -60, -22 )
+width = 42.0
+default_color = Color( 1, 1, 1, 0 )
+gradient = SubResource( 12 )
+joint_mode = 2
+
+[node name="ThrowTrail" type="Line2D" parent="Pivot/WeaponVFX"]
+self_modulate = Color( 1, 1, 1, 0 )
+show_behind_parent = true
+position = Vector2( 0, -24 )
+points = PoolVector2Array( 52, -60, 408, -42 )
+width = 42.0
+default_color = Color( 1, 1, 1, 1 )
+gradient = SubResource( 12 )
+joint_mode = 2
+
+[node name="SpinTrail" type="Line2D" parent="Pivot/WeaponVFX"]
+self_modulate = Color( 1, 1, 1, 0 )
+show_behind_parent = true
+position = Vector2( 96, -64 )
+rotation = 1.5708
+scale = Vector2( 0.640052, 0.640052 )
+points = PoolVector2Array( 0, 16, -48, 24, -96, 48, -120, 88, -136, 152, -120, 216, -96, 256, -48, 280, -7.66668, 288, 56, 280, 96, 256, 120, 216, 136, 152, 120, 88, 96, 48, 56, 24, 0, 16 )
+width = 50.0
+default_color = Color( 1, 1, 1, 1 )
+gradient = SubResource( 18 )
+joint_mode = 2
+
 [node name="SFX" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 16 )
+stream = ExtResource( 14 )
 volume_db = -8.0
 bus = "SFX"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_default_blend_time = 0.05
 anims/SETUP = ExtResource( 2 )
-anims/charge = SubResource( 1 )
-anims/charging = SubResource( 2 )
-anims/cut = SubResource( 3 )
+anims/charge = SubResource( 2 )
+anims/charging = SubResource( 3 )
+anims/cut = SubResource( 4 )
 anims/dash = ExtResource( 3 )
-anims/dice = SubResource( 4 )
-anims/drift = SubResource( 5 )
-anims/duck = SubResource( 6 )
+anims/dice = SubResource( 5 )
+anims/drift = SubResource( 6 )
+anims/duck = SubResource( 7 )
 anims/fall = ExtResource( 4 )
 anims/hurt = ExtResource( 5 )
 anims/idle = ExtResource( 6 )
 anims/jump = ExtResource( 7 )
-anims/samurai_cut = SubResource( 7 )
-anims/slice = SubResource( 8 )
-anims/spin = SubResource( 9 )
-anims/stun = SubResource( 10 )
+anims/samurai_cut = SubResource( 8 )
+anims/slice = SubResource( 9 )
+anims/spin = SubResource( 10 )
+anims/stun = SubResource( 11 )
 anims/walk = ExtResource( 8 )
 anims/wall = ExtResource( 9 )
 
 [node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
 anims/hurt = ExtResource( 5 )
+
+[node name="VFXAnimator" type="AnimationPlayer" parent="."]
+anims/cut = SubResource( 13 )
+anims/dice = SubResource( 14 )
+anims/slice = SubResource( 15 )
+anims/spin = SubResource( 17 )
+anims/throw = SubResource( 16 )
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]
+[connection signal="animation_finished" from="VFXAnimator" to="." method="_on_VFXAnimator_animation_finished"]

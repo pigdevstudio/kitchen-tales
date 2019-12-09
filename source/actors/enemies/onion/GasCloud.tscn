@@ -6,10 +6,10 @@
 [ext_resource path="res://actors/enemies/onion/GasCloud.gd" type="Script" id=4]
 [ext_resource path="res://actors/enemies/onion/OnionGasCloudHit.tres" type="Resource" id=5]
 
-[sub_resource type="RectangleShape2D" id=8]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 100, 60 )
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=2]
 loop = true
 step = 0.5
 tracks/0/type = "method"
@@ -30,7 +30,7 @@ tracks/0/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=3]
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:self_modulate")
@@ -73,7 +73,7 @@ tracks/2/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=4]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:modulate")
 tracks/0/interp = 1
@@ -101,7 +101,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Shader" id=7]
+[sub_resource type="Shader" id=5]
 code = "shader_type canvas_item;
 
 uniform float tile_factor = 10.0;
@@ -127,18 +127,18 @@ void fragment() {
 	COLOR = texture(TEXTURE, tiled_uvs + wave_uv_offset * amplitude);
 }"
 
-[sub_resource type="ShaderMaterial" id=12]
-shader = SubResource( 7 )
+[sub_resource type="ShaderMaterial" id=6]
+shader = SubResource( 5 )
 shader_param/tile_factor = 0.99
 shader_param/aspect_ratio = 1.0
 shader_param/time_factor = Vector2( 2, 3 )
 shader_param/offset_factor = Vector2( 5, 2 )
 shader_param/amplitude = Vector2( 0.02, 0.02 )
 
-[sub_resource type="Curve" id=13]
+[sub_resource type="Curve" id=7]
 _data = [ Vector2( 0, 0.484674 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.986274 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="Gradient" id=14]
+[sub_resource type="Gradient" id=8]
 offsets = PoolRealArray( 0.643312, 1 )
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
@@ -153,15 +153,15 @@ position = Vector2( -1.75, -49.375 )
 hit = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-shape = SubResource( 8 )
+shape = SubResource( 1 )
 disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "spawn"
 playback_process_mode = 0
-anims/damage = SubResource( 9 )
-anims/spawn = SubResource( 10 )
-anims/vanish = SubResource( 11 )
+anims/damage = SubResource( 2 )
+anims/spawn = SubResource( 3 )
+anims/vanish = SubResource( 4 )
 
 [node name="LifeTime" type="Timer" parent="."]
 wait_time = 3.0
@@ -169,7 +169,7 @@ one_shot = true
 autostart = true
 
 [node name="Sprite" type="Sprite" parent="."]
-material = SubResource( 12 )
+material = SubResource( 6 )
 position = Vector2( 0, -49.375 )
 z_index = -1
 texture = ExtResource( 1 )
@@ -188,24 +188,24 @@ initial_velocity = 80.0
 damping = 24.0
 scale_amount = 2.0
 scale_amount_random = 0.5
-scale_amount_curve = SubResource( 13 )
-color_ramp = SubResource( 14 )
+scale_amount_curve = SubResource( 7 )
+color_ramp = SubResource( 8 )
 
 [node name="CPUParticles2D2" type="CPUParticles2D" parent="Sprite"]
 show_behind_parent = true
-rotation = -3.14159
 amount = 1
 lifetime = 2.0
 randomness = 0.5
 texture = ExtResource( 2 )
 emission_shape = 2
 emission_rect_extents = Vector2( 60, 40 )
+direction = Vector2( -1, 0 )
 spread = 0.0
 gravity = Vector2( 0, 0 )
 initial_velocity = 80.0
 damping = 24.0
 scale_amount = 2.0
 scale_amount_random = 0.5
-scale_amount_curve = SubResource( 13 )
-color_ramp = SubResource( 14 )
+scale_amount_curve = SubResource( 7 )
+color_ramp = SubResource( 8 )
 [connection signal="timeout" from="LifeTime" to="." method="_on_LifeTime_timeout"]

@@ -29,3 +29,8 @@ func _on_AnimationPlayer_animation_started(anim_name):
 	if not anim_name == "charge":
 		remote_transform.update_position = true
 		remote_transform.update_rotation = true
+
+
+func _on_VFXAnimator_animation_finished(anim_name):
+	for vfx in $Pivot/WeaponVFX.get_children():
+		vfx.self_modulate.a = 0.0

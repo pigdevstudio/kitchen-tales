@@ -15,7 +15,7 @@
 [ext_resource path="res://actors/physics/Stop.tscn" type="PackedScene" id=13]
 [ext_resource path="res://actors/enemies/tomato/states/Chase.gd" type="Script" id=14]
 [ext_resource path="res://actors/enemies/tomato/states/Stun.gd" type="Script" id=15]
-[ext_resource path="res://levels/Spawner.gd" type="Script" id=16]
+[ext_resource path="res://objects/Spawner.gd" type="Script" id=16]
 [ext_resource path="res://actors/combat/CombateStateMachine.tscn" type="PackedScene" id=17]
 [ext_resource path="res://actors/physics/State.gd" type="Script" id=18]
 [ext_resource path="res://actors/enemies/onion/GasCloud.tscn" type="PackedScene" id=19]
@@ -25,6 +25,7 @@
 [ext_resource path="res://actors/enemies/tomato/ChasingSightArea.tscn" type="PackedScene" id=23]
 [ext_resource path="res://interface/ScoreLabelSpawner.gd" type="Script" id=24]
 [ext_resource path="res://actors/enemies/onion/OnionExplodingParticles.tscn" type="PackedScene" id=25]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 50, 40 )

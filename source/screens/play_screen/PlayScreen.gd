@@ -10,4 +10,10 @@ func _on_player_died():
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "fade":
-		$Level.spawn_wave()
+		$InterfaceLayer/Interface/AnimationPlayer.play("wave_started")
+
+
+func _input(event):
+	if event.is_action_pressed("restart"):
+		PlayerData.reset()
+		get_tree().change_scene("res://screens/splash_screen/SplashScreen.tscn")

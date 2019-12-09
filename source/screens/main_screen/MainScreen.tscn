@@ -79,22 +79,23 @@ __meta__ = {
 
 [node name="Play" parent="Buttons" instance=ExtResource( 2 )]
 margin_right = 360.0
-margin_bottom = 76.0
+margin_bottom = 122.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Play"
-scene_path = "res://screens/instructions_screen/Instructions.tscn"
+scene_path = "res://screens/controls_screen/ControlsScreen.tscn"
 
 [node name="Options" parent="Buttons" instance=ExtResource( 2 )]
-margin_top = 92.0
+margin_top = 138.0
 margin_right = 360.0
-margin_bottom = 168.0
+margin_bottom = 260.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Options"
 scene_path = "res://screens/options_screen/OptionsScreen.tscn"
 
 [node name="Credits" parent="Buttons" instance=ExtResource( 2 )]
+visible = false
 margin_top = 184.0
 margin_right = 360.0
 margin_bottom = 260.0

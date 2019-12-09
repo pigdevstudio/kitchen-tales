@@ -5,7 +5,7 @@ func _on_command_started(command):
 		"Jump":
 			state_machine.change_state_to("SecondJump") 
 		"Dash":
-			state_machine.change_state_to("Dash") 
+			state_machine.change_state_to("JumpDash") 
 		"WallSlide":
 			state_machine.change_state_to("WallSlide")
 

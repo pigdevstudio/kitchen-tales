@@ -9,7 +9,7 @@ signal wave_started(wave_name)
 signal wave_finished(wave_name)
 export(PoolStringArray) var waves_scenes
 
-var _current_wave = 2
+var _current_wave = 0
 var wave_count = 1
 var difficulty = 1
 
@@ -17,7 +17,7 @@ onready var timer = $Timer
 
 func spawn_wave():
 	var wave = load(waves_scenes[_current_wave]).instance()
-	emit_signal("wave_started", "Wave %s" % wave_count)
+#	emit_signal("wave_started", "Wave %s" % wave_count)
 	add_child(wave)
 	wave.connect("tree_exited", self, "_on_Wave_tree_exited", [wave.name])
 	wave_count += 1
@@ -25,12 +25,13 @@ func spawn_wave():
 
 
 func _on_Wave_tree_exited(wave_name):
-	emit_signal("wave_finished", wave_name)
-	if wave_count > 4:
+#	emit_signal("wave_finished", wave_name)
+	emit_signal("wave_finished", "Wave %s" % wave_count)
+	if wave_count > 3:
 		increase_difficulty()
 	_current_wave += 1
 	_current_wave = clamp(_current_wave, 0, waves_scenes.size() -1)
-	timer.start()
+#	timer.start()
 
 
 func increase_difficulty():

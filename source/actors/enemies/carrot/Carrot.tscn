@@ -19,11 +19,12 @@
 [ext_resource path="res://actors/combat/Health.tscn" type="PackedScene" id=17]
 [ext_resource path="res://actors/combat/HurtBox.tscn" type="PackedScene" id=18]
 [ext_resource path="res://actors/enemies/carrot/CarrotExplodingParticles.tscn" type="PackedScene" id=19]
-[ext_resource path="res://levels/Spawner.gd" type="Script" id=20]
+[ext_resource path="res://objects/Spawner.gd" type="Script" id=20]
 [ext_resource path="res://actors/enemies/carrot/carrot_sight_area.tres" type="Shape2D" id=21]
 [ext_resource path="res://actors/enemies/Score.tscn" type="PackedScene" id=22]
 [ext_resource path="res://interface/HealthBar.tscn" type="PackedScene" id=23]
 [ext_resource path="res://interface/ScoreLabelSpawner.gd" type="Script" id=24]
+
 
 [sub_resource type="Animation" id=1]
 resource_name = "throw_dirt"

@@ -9,7 +9,7 @@ var current = max_health setget set_current, get_current
 export (int) var max_health = 10
 
 func _ready():
-	set_current(max_health)
+	self.current = max_health
 
 
 func set_current(new_value):

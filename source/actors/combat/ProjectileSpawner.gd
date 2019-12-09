@@ -1,4 +1,4 @@
-extends "res://levels/Spawner.gd"
+extends "res://objects/Spawner.gd"
 
 export (Vector2) var direction = Vector2.RIGHT setget set_direction
 

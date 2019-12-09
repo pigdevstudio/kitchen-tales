@@ -12,4 +12,4 @@ func _on_body_entered(body):
 	var health = body.find_node("Health")
 	
 	if health:
-		health.set_current(0)
+		health.current = 0

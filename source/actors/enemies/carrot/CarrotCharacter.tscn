@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://actors/enemies/CutoutCharacter.gd" type="Script" id=1]
 [ext_resource path="res://actors/enemies/carrot/carrot.svg" type="Texture" id=2]
@@ -968,6 +968,18 @@ tracks/17/keys = {
 "update": 0,
 "values": [ 0.0, 0.0, 0.0, 0.0 ]
 }
+tracks/18/type = "value"
+tracks/18/path = NodePath("CPUParticles2D:emitting")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
 
 [sub_resource type="Animation" id=5]
 length = 0.3
@@ -1466,6 +1478,13 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 )
 }
 
+[sub_resource type="Curve" id=8]
+_data = [ Vector2( 0, 0.396476 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.959676 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=9]
+offsets = PoolRealArray( 0.458599, 0.703822 )
+colors = PoolColorArray( 0.445312, 0.350754, 0.321808, 1, 0.368627, 0.345098, 0.313726, 0 )
+
 [node name="Carrot" type="Position2D"]
 script = ExtResource( 1 )
 
@@ -1538,3 +1557,19 @@ region_rect = Rect2( 160, 179, 25, 26 )
 [node name="SFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
 bus = "SFX"
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2( -4, 48 )
+z_index = -2
+emitting = false
+lifetime = 2.0
+speed_scale = 1.25
+explosiveness = 0.95
+direction = Vector2( 0, -1 )
+spread = 15.0
+flatness = 1.0
+gravity = Vector2( 0, 1800 )
+initial_velocity = 900.0
+scale_amount = 30.0
+scale_amount_curve = SubResource( 8 )
+color_ramp = SubResource( 9 )
