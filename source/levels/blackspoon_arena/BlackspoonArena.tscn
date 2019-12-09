@@ -46,9 +46,6 @@ __meta__ = {
 }
 waves_scenes = PoolStringArray( "res://levels/blackspoon_arena/waves/Wave1.tscn", "res://levels/blackspoon_arena/waves/Wave2.tscn", "res://levels/blackspoon_arena/waves/Wave3.tscn", "res://levels/blackspoon_arena/waves/Wave4.tscn", "res://levels/blackspoon_arena/waves/Wave5.tscn" )
 
-[node name="Timer" type="Timer" parent="."]
-one_shot = true
-
 [node name="Buccerino" parent="." instance=ExtResource( 11 )]
 position = Vector2( -912, 768 )
 z_index = 2
@@ -169,4 +166,3 @@ self_modulate = Color( 0.596078, 0.596078, 0.596078, 1 )
 position = Vector2( 2000, 1128 )
 z_index = -1
 texture = ExtResource( 10 )
-[connection signal="timeout" from="Timer" to="." method="spawn_wave"]

@@ -74,7 +74,7 @@ margin_bottom = 370.0
 theme = ExtResource( 1 )
 text = "OK!"
 script = SubResource( 1 )
-next_scene = "res://levels/blackspoon_arena/BlackspoonArena.tscn"
+next_scene = "res://screens/play_screen/PlayScreen.tscn"
 
 [node name="Controller" type="TextureRect" parent="."]
 anchor_left = 0.5
