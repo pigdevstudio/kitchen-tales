@@ -10,7 +10,7 @@ onready var animator = $AnimationPlayer
 func _ready():
 	PlayerData.connect("updated", self, "_on_PlayerData_updated")
 	_on_PlayerData_updated()
-#	_on_Level_wave_started("Wave 1")
+	_on_Level_wave_finished("Wave 1")
 
 
 func _unhandled_input(event):
@@ -25,11 +25,6 @@ func _unhandled_input(event):
 
 func _on_PlayerData_updated():
 	$ScoreLabel.text = "Score: %s" % PlayerData.score
-
-
-func _on_Level_wave_started(wave_name):
-	$NewWaveLabel.text = wave_name.capitalize()
-	$AnimationPlayer.play("wave_started")
 
 
 func pause_tree():

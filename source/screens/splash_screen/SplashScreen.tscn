@@ -535,9 +535,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -320.0
-margin_top = 50.0
+margin_top = -160.0
 margin_right = 300.0
-margin_bottom = 290.0
+margin_bottom = 80.0
 rect_pivot_offset = Vector2( 310, 95 )
 custom_fonts/font = ExtResource( 7 )
 custom_colors/font_color = Color( 0.423529, 0.376471, 0.705882, 1 )
@@ -575,9 +575,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -210.0
-margin_top = -100.0
+margin_top = 50.0
 margin_right = 180.0
-margin_bottom = 43.0
+margin_bottom = 193.0
 rect_pivot_offset = Vector2( 195, 71 )
 custom_fonts/font = SubResource( 3 )
 text = "studio"
@@ -592,7 +592,6 @@ mode = 3
 range_item_cull_mask = 4
 
 [node name="Avatar" type="TextureRect" parent="."]
-modulate = Color( 1, 1, 1, 0 )
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -601,8 +600,9 @@ margin_left = -660.0
 margin_top = -170.0
 margin_right = -360.0
 margin_bottom = 130.0
+rect_rotation = 10.0
 rect_pivot_offset = Vector2( 150, 150 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 expand = true
 
 [node name="Links" type="MarginContainer" parent="."]
@@ -626,7 +626,6 @@ custom_constants/separation = 80
 alignment = 1
 
 [node name="GitHub" type="Button" parent="Links/HBoxContainer"]
-self_modulate = Color( 1, 1, 1, 0 )
 margin_right = 526.0
 margin_bottom = 100.0
 mouse_default_cursor_shape = 2
@@ -638,7 +637,6 @@ script = ExtResource( 11 )
 link = "https://github.com/pigdevstudio"
 
 [node name="YouTube" type="Button" parent="Links/HBoxContainer"]
-self_modulate = Color( 1, 1, 1, 0 )
 margin_left = 606.0
 margin_right = 1132.0
 margin_bottom = 100.0
@@ -650,7 +648,6 @@ script = ExtResource( 11 )
 link = "https://youtube.com/pigdevstudio"
 
 [node name="Itchio" type="Button" parent="Links/HBoxContainer"]
-modulate = Color( 1, 1, 1, 0 )
 margin_left = 1212.0
 margin_right = 1740.0
 margin_bottom = 100.0
@@ -666,7 +663,7 @@ link = "https://pigdev.itch.io"
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-color = Color( 0, 0, 0, 1 )
+color = Color( 0, 0, 0, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

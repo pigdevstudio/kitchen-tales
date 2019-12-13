@@ -13,8 +13,6 @@ var _current_wave = 0
 var wave_count = 1
 var difficulty = 1
 
-onready var timer = $Timer
-
 func spawn_wave():
 	var wave = load(waves_scenes[_current_wave]).instance()
 	add_child(wave)
