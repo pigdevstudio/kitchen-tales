@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/PDKT_Dash-001.wav-65c1ee330bc777beedb2c7cbd9d17519.sample"
+
+[deps]
+
+source_file="res://actors/sound_effects/stunkels/PDKT_Dash-001.wav"
+dest_files=[ "res://.import/PDKT_Dash-001.wav-65c1ee330bc777beedb2c7cbd9d17519.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

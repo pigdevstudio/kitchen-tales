@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/PDKT_Jump-002.wav-c2cc633d9be8dda726a48a7fac6df118.sample"
+
+[deps]
+
+source_file="res://actors/sound_effects/stunkels/PDKT_Jump-002.wav"
+dest_files=[ "res://.import/PDKT_Jump-002.wav-c2cc633d9be8dda726a48a7fac6df118.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
