@@ -6,6 +6,7 @@ Description:
 """
 
 signal state_changed(new_state)
+signal direction_changed(new_direction)
 
 var direction = Vector2.RIGHT setget set_direction
 
@@ -53,6 +54,7 @@ func change_state_to(new_state_name):
 
 func set_direction(new_direction):
 	direction = new_direction
+	emit_signal("direction_changed", direction)
 	for state in get_children():
 		state.set_direction(direction)
 
