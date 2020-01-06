@@ -58,7 +58,6 @@ BGM="*res://screens/BGM.tscn"
 
 gdscript/warnings/enable=false
 gdscript/warnings/unused_variable=false
-gdscript/warnings/unused_class_variable=false
 gdscript/warnings/unused_argument=false
 gdscript/warnings/unused_signal=false
 
