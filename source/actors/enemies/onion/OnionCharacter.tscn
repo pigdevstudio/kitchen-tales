@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://actors/enemies/onion/onion.svg" type="Texture" id=1]
 [ext_resource path="res://actors/enemies/CutoutCharacter.gd" type="Script" id=2]
@@ -766,7 +766,47 @@ tracks/11/keys = {
 }
 
 [sub_resource type="Animation" id=5]
-resource_name = "walk"
+resource_name = "tackle"
+length = 0.35
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot/Body:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.15, 0.3, 0.35 ),
+"transitions": PoolRealArray( 2, 2, -1.93187, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -32 ), Vector2( 16, -48 ), Vector2( 64, -56 ), Vector2( 0, -32 ), Vector2( 0, -43.5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Pivot/Body:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.15, 0.35 ),
+"transitions": PoolRealArray( 1, 0.5, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 30.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Pivot/Body:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.15, 0.3, 0.35 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 0.727273 ), Vector2( 1, 1 ), Vector2( 1, 0.727273 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=6]
 length = 0.5
 loop = true
 step = 0.05
@@ -939,8 +979,7 @@ tracks/13/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "hurt"
+[sub_resource type="Animation" id=7]
 length = 0.25
 step = 0.05
 tracks/0/type = "value"
@@ -991,23 +1030,24 @@ anims/SETUP = SubResource( 1 )
 anims/chase = SubResource( 2 )
 anims/idle = SubResource( 3 )
 anims/stun = SubResource( 4 )
-anims/walk = SubResource( 5 )
+anims/tackle = SubResource( 5 )
+anims/walk = SubResource( 6 )
 
 [node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
-anims/hurt = SubResource( 6 )
+anims/hurt = SubResource( 7 )
 
 [node name="Pivot" type="Position2D" parent="."]
 
 [node name="Body" type="Sprite" parent="Pivot"]
-position = Vector2( 0, -44 )
+position = Vector2( 0, -43.5 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 16, 48, 111, 88 )
 
 [node name="Hair" type="Sprite" parent="Pivot/Body"]
 show_behind_parent = true
-position = Vector2( -4.14815, -43.2929 )
-rotation = -0.178022
+position = Vector2( -8.03723, -43.2929 )
+rotation = -0.303729
 texture = ExtResource( 1 )
 offset = Vector2( 0, -6 )
 region_enabled = true
@@ -1040,7 +1080,7 @@ region_enabled = true
 region_rect = Rect2( 64, 160, 10, 64 )
 
 [node name="Face" type="Sprite" parent="Pivot/Body"]
-position = Vector2( 12.7407, 8.66663 )
+position = Vector2( 14.1549, 3.66603 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -4 )
 region_enabled = true
