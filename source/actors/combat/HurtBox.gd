@@ -4,17 +4,17 @@ signal damage_inflicted(amount)
 signal hurt()
 signal hit_landed(hit)
 
-export(float) var knock_invincible_time = 0.25
+export(float) var recover_time = 0.25
 
-onready var knock_timer = $KnockTimer
+onready var recover_timer = $RecoverTimer
 var is_invincible = false setget set_invincible
 
 func get_hurt(hit):
 	if is_invincible:
 		return
-	if not knock_timer.is_stopped():
+	if not recover_timer.is_stopped():
 		return
-	knock_timer.start(knock_invincible_time)
+	recover_timer.start(recover_time)
 	disable()
 	emit_signal("hurt")
 	emit_signal("damage_inflicted", hit.damage)
