@@ -19,6 +19,8 @@ func _physics_process(delta):
 
 
 func set_duration(new_duration):
+	if new_duration <= 0.0:
+		return
 	duration = new_duration
 	duration_timer.wait_time = duration
 	trail.lifetime = duration_timer.wait_time * 0.5

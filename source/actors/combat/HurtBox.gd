@@ -4,11 +4,18 @@ signal damage_inflicted(amount)
 signal hurt()
 signal hit_landed(hit)
 
+export(float) var knock_invincible_time = 0.25
+
+onready var knock_timer = $KnockTimer
 var is_invincible = false setget set_invincible
 
 func get_hurt(hit):
 	if is_invincible:
 		return
+	if not knock_timer.is_stopped():
+		return
+	knock_timer.start(knock_invincible_time)
+	disable()
 	emit_signal("hurt")
 	emit_signal("damage_inflicted", hit.damage)
 
@@ -22,3 +29,17 @@ func _on_area_shape_entered(area_id, area, area_shape, self_shape):
 
 func set_invincible(enable):
 	is_invincible = enable
+
+
+func disable():
+	for child in get_children():
+		if not child is CollisionShape2D or not child is CollisionPolygon2D:
+			continue
+		child.disabled = true
+
+
+func enable():
+	for child in get_children():
+		if not child is CollisionShape2D or not child is CollisionPolygon2D:
+			continue
+		child.disabled = false
