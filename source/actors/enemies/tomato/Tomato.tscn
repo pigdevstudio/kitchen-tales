@@ -20,7 +20,7 @@
 [ext_resource path="res://actors/physics/State.gd" type="Script" id=18]
 [ext_resource path="res://actors/combat/Attack.tscn" type="PackedScene" id=19]
 [ext_resource path="res://actors/combat/HitBox.tscn" type="PackedScene" id=20]
-[ext_resource path="res://actors/enemies/tomato/TomatoSqushHit.tres" type="Resource" id=21]
+[ext_resource path="res://actors/enemies/tomato/TomatoSquashHit.tres" type="Resource" id=21]
 [ext_resource path="res://actors/combat/HurtBox.tscn" type="PackedScene" id=22]
 [ext_resource path="res://actors/enemies/tomato/ChasingSightArea.tscn" type="PackedScene" id=23]
 [ext_resource path="res://objects/Spawner.gd" type="Script" id=24]
@@ -28,6 +28,7 @@
 [ext_resource path="res://actors/enemies/Score.tscn" type="PackedScene" id=26]
 [ext_resource path="res://interface/HealthBar.tscn" type="PackedScene" id=27]
 [ext_resource path="res://interface/ScoreLabelSpawner.gd" type="Script" id=28]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 50, 40 )

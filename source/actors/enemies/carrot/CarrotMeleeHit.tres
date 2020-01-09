@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource( 1 )
-damage = 5
+damage = 1
 team = "enemy"

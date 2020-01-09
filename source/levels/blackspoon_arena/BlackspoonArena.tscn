@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://levels/blackspoon_arena/BlackspoonArena.gd" type="Script" id=1]
 [ext_resource path="res://actors/player/buccerino/Buccerino.tscn" type="PackedScene" id=2]
@@ -15,7 +15,6 @@
 [ext_resource path="res://objects/void/Void.tscn" type="PackedScene" id=13]
 [ext_resource path="res://objects/platforms/StaticPlatform.tscn" type="PackedScene" id=14]
 [ext_resource path="res://objects/platforms/MovingPlatform.tscn" type="PackedScene" id=15]
-[ext_resource path="res://actors/enemies/onion/Onion.tscn" type="PackedScene" id=16]
 
 [sub_resource type="LineShape2D" id=1]
 
@@ -167,6 +166,3 @@ self_modulate = Color( 0.596078, 0.596078, 0.596078, 1 )
 position = Vector2( 2000, 1128 )
 z_index = -1
 texture = ExtResource( 12 )
-
-[node name="Onion" parent="." instance=ExtResource( 16 )]
-position = Vector2( 136, 880 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://actors/enemies/CutoutCharacter.gd" type="Script" id=1]
 [ext_resource path="res://actors/enemies/carrot/carrot.svg" type="Texture" id=2]
@@ -750,6 +750,227 @@ tracks/17/keys = {
 }
 
 [sub_resource type="Animation" id=4]
+resource_name = "punch"
+length = 0.4
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Pivot:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.05, 0.2, 0.4 ),
+"transitions": PoolRealArray( 0.5, 1, 1, 0.5 ),
+"update": 0,
+"values": [ 0.0, 0.0, 0.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Pivot/Body:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.05, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 76 ), Vector2( 0, 76 ), Vector2( 0, 76 ), Vector2( 0, 76 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Pivot/Body:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.05, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -7.4238, 9.16217, 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Pivot/Body/Hair:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.05, 0.2, 0.25, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -149 ), Vector2( 0, -149 ), Vector2( 0, -149 ), Vector2( 0, -149 ), Vector2( 0, -149 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Pivot/Body/Hair:rotation_degrees")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.05, 0.2, 0.25, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 18.7315, 18.7315, 68.1649, 0.0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Pivot/Body/Hair/Sprite:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.05, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 2.1636, 2 ), Vector2( 2.1636, 2 ), Vector2( 2.1636, 2 ), Vector2( 2.1636, 2 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Pivot/Body/Hair/Sprite:rotation_degrees")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.05, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 0.0, 0.0 ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Pivot/Body/Hair/Sprite2:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 0.05, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 2.1636, 2 ), Vector2( 2.1636, 2 ), Vector2( 2.1636, 2 ), Vector2( 2.1636, 2 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Pivot/Body/Hair/Sprite2:rotation_degrees")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 0.05, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ -38.2222, -38.2222, -38.2222, -38.2222 ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Pivot/Body/Hair/Sprite3:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 0.05, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 2.1636, 2 ), Vector2( 2.1636, 2 ), Vector2( 2.1636, 2 ), Vector2( 2.1636, 2 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Pivot/Body/Hair/Sprite3:rotation_degrees")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 0.05, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ -75.0, -75.0, -75.0, -75.0 ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Pivot/Body/Face:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 0.05, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 8, -105 ), Vector2( 8, -105 ), Vector2( 8, -105 ), Vector2( 8, -105 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("Pivot/Body/Face:rotation_degrees")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0, 0.05, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 0.0, 0.0 ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("Pivot/HandLeft:position")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0, 0.05, 0.2, 0.4 ),
+"transitions": PoolRealArray( 0.5, 1, 1, 0.5 ),
+"update": 0,
+"values": [ Vector2( 24.5, -11 ), Vector2( 24.5, -11 ), Vector2( 24.5, -11 ), Vector2( 24.5, -11 ) ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("Pivot/HandLeft:rotation_degrees")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0, 0.05, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 0.0, 0.0 ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("Pivot/HandRight:position")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0, 0.05, 0.2, 0.25, 0.4 ),
+"transitions": PoolRealArray( 0.5, 1, 1, 1, 0.5 ),
+"update": 0,
+"values": [ Vector2( -23.5, -11 ), Vector2( -50, -20 ), Vector2( 60, -20 ), Vector2( 70, -40 ), Vector2( -23.5, -11 ) ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath("Pivot/HandRight:rotation_degrees")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 0, 0.05, 0.2, 0.25, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 0.0, 0.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=5]
 length = 0.5
 step = 0.05
 tracks/0/type = "value"
@@ -981,7 +1202,7 @@ tracks/18/keys = {
 "values": [ false, true, false ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 length = 0.3
 step = 0.05
 tracks/0/type = "value"
@@ -1215,7 +1436,7 @@ tracks/18/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 length = 0.5
 step = 0.05
 tracks/0/type = "value"
@@ -1435,8 +1656,7 @@ tracks/17/keys = {
 "values": [ 0.0, 0.0, 0.0, 0.0 ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "hurt"
+[sub_resource type="Animation" id=8]
 length = 0.3
 step = 0.05
 tracks/0/type = "value"
@@ -1478,10 +1698,10 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 )
 }
 
-[sub_resource type="Curve" id=8]
+[sub_resource type="Curve" id=9]
 _data = [ Vector2( 0, 0.396476 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.959676 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="Gradient" id=9]
+[sub_resource type="Gradient" id=10]
 offsets = PoolRealArray( 0.458599, 0.703822 )
 colors = PoolColorArray( 0.445312, 0.350754, 0.321808, 1, 0.368627, 0.345098, 0.313726, 0 )
 
@@ -1492,17 +1712,19 @@ script = ExtResource( 1 )
 anims/SETUP = SubResource( 1 )
 anims/hide = SubResource( 2 )
 anims/mock = SubResource( 3 )
-anims/show = SubResource( 4 )
-anims/stun = SubResource( 5 )
-anims/throw_dirt = SubResource( 6 )
+anims/punch = SubResource( 4 )
+anims/show = SubResource( 5 )
+anims/stun = SubResource( 6 )
+anims/throw_dirt = SubResource( 7 )
 
 [node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
-anims/hurt = SubResource( 7 )
+anims/hurt = SubResource( 8 )
 
 [node name="Pivot" type="Position2D" parent="."]
 
 [node name="Body" type="Sprite" parent="Pivot"]
 position = Vector2( 0, 76 )
+rotation = 0.079955
 texture = ExtResource( 2 )
 offset = Vector2( 0, -76 )
 region_enabled = true
@@ -1511,6 +1733,7 @@ region_rect = Rect2( 17, 16, 63, 152 )
 [node name="Hair" type="Position2D" parent="Pivot/Body"]
 show_behind_parent = true
 position = Vector2( 0, -149 )
+rotation = 0.793134
 
 [node name="Sprite" type="Sprite" parent="Pivot/Body/Hair"]
 position = Vector2( 2.1636, 2 )
@@ -1549,7 +1772,7 @@ region_enabled = true
 region_rect = Rect2( 208, 179, 25, 26 )
 
 [node name="HandRight" type="Sprite" parent="Pivot"]
-position = Vector2( -23.5, -11 )
+position = Vector2( 38.8333, -30.3333 )
 texture = ExtResource( 2 )
 region_enabled = true
 region_rect = Rect2( 160, 179, 25, 26 )
@@ -1571,5 +1794,5 @@ flatness = 1.0
 gravity = Vector2( 0, 1800 )
 initial_velocity = 900.0
 scale_amount = 30.0
-scale_amount_curve = SubResource( 8 )
-color_ramp = SubResource( 9 )
+scale_amount_curve = SubResource( 9 )
+color_ramp = SubResource( 10 )

@@ -49,3 +49,18 @@ func _on_StateMachine_state_changed(new_state):
 		"Hidden":
 			$HideTimer.start()
 			hurt_box.set_invincible(true)
+
+
+func _on_PunchSightArea_spotted(spot_direction):
+	if state_machine.current_state_name == "StandState":
+		state_machine.change_state_to("Hide")
+	if not combat_state_machine.current_state_name == "StandState":
+		combat_state_machine.change_state_to("Stand")
+	$AlertTimer.stop()
+	combat_state_machine.execute("Attack")
+
+
+func _on_PunchTimer_timeout():
+	if not combat_state_machine.current_state_name == "StandState":
+		return
+	combat_state_machine.execute("Attack")
