@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://actors/physics/PlatformActor.gd" type="Script" id=1]
 [ext_resource path="res://actors/enemies/tomato/Brain.gd" type="Script" id=2]
@@ -28,7 +28,8 @@
 [ext_resource path="res://actors/enemies/Score.tscn" type="PackedScene" id=26]
 [ext_resource path="res://interface/HealthBar.tscn" type="PackedScene" id=27]
 [ext_resource path="res://interface/ScoreLabelSpawner.gd" type="Script" id=28]
-
+[ext_resource path="res://actors/ActorProvider.gd" type="Script" id=29]
+[ext_resource path="res://actors/ActorProvider.tscn" type="PackedScene" id=30]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 50, 40 )
@@ -83,7 +84,7 @@ tracks/1/keys = {
 } ]
 }
 tracks/2/type = "method"
-tracks/2/path = NodePath("StateMachine")
+tracks/2/path = NodePath("MovementStateMachine")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -151,6 +152,7 @@ shape = SubResource( 1 )
 
 [node name="Brain" type="Node" parent="."]
 script = ExtResource( 2 )
+state_machine_path = NodePath("../MovementStateMachine")
 
 [node name="IdleTime" type="Timer" parent="Brain"]
 one_shot = true
@@ -180,58 +182,68 @@ script = ExtResource( 28 )
 [node name="Score" parent="Character/Pivot/Body/ScoreLabelSpawner" instance=ExtResource( 26 )]
 value = 270
 
-[node name="StateMachine" parent="." instance=ExtResource( 6 )]
+[node name="MovementActorProvider" type="Node" parent="." instance=ExtResource( 30 )]
+script = ExtResource( 29 )
+actor_path = NodePath("..")
+receiver_path = NodePath("../MovementStateMachine")
 
-[node name="IdleState" parent="StateMachine" instance=ExtResource( 7 )]
+[node name="MovementStateMachine" parent="." instance=ExtResource( 6 )]
+
+[node name="IdleState" parent="MovementStateMachine" instance=ExtResource( 7 )]
 script = ExtResource( 8 )
 
-[node name="Move" parent="StateMachine/IdleState" instance=ExtResource( 9 )]
+[node name="Move" parent="MovementStateMachine/IdleState" instance=ExtResource( 9 )]
 speed = 300.0
 
-[node name="Gravity" parent="StateMachine/IdleState" instance=ExtResource( 10 )]
+[node name="Gravity" parent="MovementStateMachine/IdleState" instance=ExtResource( 10 )]
 actor_path = NodePath("../../..")
 
-[node name="Chase" type="Node" parent="StateMachine/IdleState"]
+[node name="Chase" type="Node" parent="MovementStateMachine/IdleState"]
 script = ExtResource( 11 )
 
-[node name="WalkState" parent="StateMachine" instance=ExtResource( 7 )]
+[node name="WalkState" parent="MovementStateMachine" instance=ExtResource( 7 )]
 script = ExtResource( 12 )
 
-[node name="Move" parent="StateMachine/WalkState" instance=ExtResource( 9 )]
+[node name="Move" parent="MovementStateMachine/WalkState" instance=ExtResource( 9 )]
 speed = 300.0
 
-[node name="Stop" parent="StateMachine/WalkState" instance=ExtResource( 13 )]
+[node name="Stop" parent="MovementStateMachine/WalkState" instance=ExtResource( 13 )]
 
-[node name="Gravity" parent="StateMachine/WalkState" instance=ExtResource( 10 )]
+[node name="Gravity" parent="MovementStateMachine/WalkState" instance=ExtResource( 10 )]
 actor_path = NodePath("../../..")
 
-[node name="Chase" type="Node" parent="StateMachine/WalkState"]
+[node name="Chase" type="Node" parent="MovementStateMachine/WalkState"]
 script = ExtResource( 11 )
 
-[node name="ChaseState" parent="StateMachine" instance=ExtResource( 7 )]
+[node name="ChaseState" parent="MovementStateMachine" instance=ExtResource( 7 )]
 script = ExtResource( 14 )
 
-[node name="Move" parent="StateMachine/ChaseState" instance=ExtResource( 9 )]
+[node name="Move" parent="MovementStateMachine/ChaseState" instance=ExtResource( 9 )]
 speed = 600.0
 
-[node name="Stop" parent="StateMachine/ChaseState" instance=ExtResource( 13 )]
+[node name="Stop" parent="MovementStateMachine/ChaseState" instance=ExtResource( 13 )]
 
-[node name="Squash" type="Node" parent="StateMachine/ChaseState"]
+[node name="Squash" type="Node" parent="MovementStateMachine/ChaseState"]
 script = ExtResource( 11 )
 
-[node name="Gravity" parent="StateMachine/ChaseState" instance=ExtResource( 10 )]
+[node name="Gravity" parent="MovementStateMachine/ChaseState" instance=ExtResource( 10 )]
 actor_path = NodePath("../../..")
 
-[node name="StunState" parent="StateMachine" instance=ExtResource( 7 )]
+[node name="StunState" parent="MovementStateMachine" instance=ExtResource( 7 )]
 script = ExtResource( 15 )
 
-[node name="SquashState" parent="StateMachine" instance=ExtResource( 7 )]
+[node name="SquashState" parent="MovementStateMachine" instance=ExtResource( 7 )]
 script = ExtResource( 16 )
 
-[node name="Stop" parent="StateMachine/SquashState" instance=ExtResource( 13 )]
+[node name="Stop" parent="MovementStateMachine/SquashState" instance=ExtResource( 13 )]
 
-[node name="Move" parent="StateMachine/SquashState" instance=ExtResource( 9 )]
+[node name="Move" parent="MovementStateMachine/SquashState" instance=ExtResource( 9 )]
 speed = 1200.0
+
+[node name="CombatActorProvider" type="Node" parent="." instance=ExtResource( 30 )]
+script = ExtResource( 29 )
+actor_path = NodePath("..")
+receiver_path = NodePath("../CombatStateMachine")
 
 [node name="CombatStateMachine" parent="." instance=ExtResource( 17 )]
 
@@ -311,20 +323,20 @@ one_shot = true
 [connection signal="timeout" from="Brain/WanderTime" to="Brain" method="_on_WanderTime_timeout"]
 [connection signal="timeout" from="Brain/StunTime" to="Brain" method="_on_StunTime_timeout"]
 [connection signal="died" from="Brain/Health" to="Character/Pivot/Body/ParticlesSpawner" method="spawn"]
-[connection signal="died" from="Brain/Health" to="Character/Pivot/Body/ScoreLabelSpawner" method="spawn"]
 [connection signal="died" from="Brain/Health" to="Character/Pivot/Body/ScoreLabelSpawner/Score" method="score"]
+[connection signal="died" from="Brain/Health" to="Character/Pivot/Body/ScoreLabelSpawner" method="spawn"]
 [connection signal="spawned" from="Character/Pivot/Body/ParticlesSpawner" to="." method="queue_free"]
-[connection signal="state_changed" from="StateMachine" to="Brain" method="_on_StateMachine_state_changed"]
-[connection signal="state_changed" from="StateMachine" to="CombatStateMachine" method="change_state_to"]
-[connection signal="entered" from="StateMachine/IdleState" to="Character" method="play" binds= [ "idle" ]]
-[connection signal="entered" from="StateMachine/WalkState" to="Character" method="play" binds= [ "walk" ]]
-[connection signal="entered" from="StateMachine/ChaseState" to="Character" method="play" binds= [ "chase" ]]
-[connection signal="entered" from="StateMachine/StunState" to="Character" method="play" binds= [ "hurt" ]]
+[connection signal="state_changed" from="MovementStateMachine" to="CombatStateMachine" method="change_state_to"]
+[connection signal="state_changed" from="MovementStateMachine" to="Brain" method="_on_StateMachine_state_changed"]
+[connection signal="entered" from="MovementStateMachine/IdleState" to="Character" method="play" binds= [ "idle" ]]
+[connection signal="entered" from="MovementStateMachine/WalkState" to="Character" method="play" binds= [ "walk" ]]
+[connection signal="entered" from="MovementStateMachine/ChaseState" to="Character" method="play" binds= [ "chase" ]]
+[connection signal="entered" from="MovementStateMachine/StunState" to="Character" method="play" binds= [ "hurt" ]]
 [connection signal="state_changed" from="CombatStateMachine" to="Brain" method="_on_CombatStateMachine_state_changed"]
 [connection signal="started" from="CombatStateMachine/SquashState/Attack" to="AttackAnimator" method="play" binds= [ "squash" ]]
 [connection signal="damage_inflicted" from="HurtBox" to="Brain/Health" method="damage"]
 [connection signal="hurt" from="HurtBox" to="HealthBar" method="show"]
-[connection signal="hurt" from="HurtBox" to="StateMachine" method="change_state_to" binds= [ "Stun" ]]
+[connection signal="hurt" from="HurtBox" to="MovementStateMachine" method="change_state_to" binds= [ "Stun" ]]
 [connection signal="area_exited" from="OuterAttackRange" to="Brain" method="_on_OuterAttackRange_area_exited"]
 [connection signal="area_entered" from="InnerAttackRange" to="Brain" method="_on_InnerAttackRange_area_entered"]
 [connection signal="chase_direction_changed" from="ChasingSightArea" to="Brain" method="_on_ChasingSightArea_chase_direction_changed"]

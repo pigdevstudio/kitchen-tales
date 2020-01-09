@@ -6,7 +6,7 @@ signal exited
 var active = false setget set_active
 export(Resource) var transition
 
-onready var actor = get_parent().actor setget set_actor
+onready var actor setget set_actor
 onready var state_machine = get_parent()
 
 func _ready():
