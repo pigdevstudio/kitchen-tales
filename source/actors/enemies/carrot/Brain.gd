@@ -15,6 +15,9 @@ onready var sight_area = get_node(sight_area_path)
 export(NodePath) var hurt_box_path = "../HurtBox"
 onready var hurt_box = get_node(hurt_box_path)
 
+export(NodePath) var punch_sigh_path = "../PunchSightArea"
+onready var punch_sight = get_node("../PunchSightArea")
+
 func _ready():
 	character.set_look_direction(-1)
 
@@ -64,3 +67,8 @@ func _on_PunchTimer_timeout():
 	if not combat_state_machine.current_state_name == "StandState":
 		return
 	combat_state_machine.execute("Attack")
+
+
+func _on_PunchSightArea_area_exited(area):
+	if area.is_in_group(punch_sight.target_group):
+		state_machine.execute("Hide")

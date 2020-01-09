@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://actors/enemies/carrot/CarrotCharacter.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/physics/StateMachine.tscn" type="PackedScene" id=2]
@@ -25,7 +25,6 @@
 [ext_resource path="res://interface/HealthBar.tscn" type="PackedScene" id=23]
 [ext_resource path="res://interface/ScoreLabelSpawner.gd" type="Script" id=24]
 [ext_resource path="res://actors/enemies/carrot/CarrotMeleeHit.tres" type="Resource" id=25]
-[ext_resource path="res://actors/ActorProvider.gd" type="Script" id=26]
 [ext_resource path="res://actors/ActorProvider.tscn" type="PackedScene" id=27]
 [ext_resource path="res://actors/combat/HitBox.tscn" type="PackedScene" id=28]
 [ext_resource path="res://actors/enemies/SightArea.tscn" type="PackedScene" id=29]
@@ -144,8 +143,7 @@ script = ExtResource( 20 )
 spawnling_scene = ExtResource( 19 )
 container = "Level"
 
-[node name="MovementActorProvider" type="Node" parent="." instance=ExtResource( 27 )]
-script = ExtResource( 26 )
+[node name="MovementActorProvider" parent="." instance=ExtResource( 27 )]
 actor_path = NodePath("..")
 receiver_path = NodePath("../MovementStateMachine")
 
@@ -201,8 +199,7 @@ shape = ExtResource( 21 )
 enabled = true
 cast_to = Vector2( -50, -50 )
 
-[node name="CombatActorProvider" type="Node" parent="." instance=ExtResource( 27 )]
-script = ExtResource( 26 )
+[node name="CombatActorProvider" parent="." instance=ExtResource( 27 )]
 actor_path = NodePath("..")
 receiver_path = NodePath("../CombatStateMachine")
 
@@ -305,8 +302,8 @@ script = ExtResource( 24 )
 [node name="Shape" parent="PunchSightArea" index="0"]
 shape = SubResource( 5 )
 [connection signal="spawned" from="Character/Pivot/Body/ParticlesSpawner" to="." method="queue_free"]
-[connection signal="state_changed" from="MovementStateMachine" to="Brain" method="_on_StateMachine_state_changed"]
 [connection signal="state_changed" from="MovementStateMachine" to="CombatStateMachine" method="change_state_to"]
+[connection signal="state_changed" from="MovementStateMachine" to="Brain" method="_on_StateMachine_state_changed"]
 [connection signal="entered" from="MovementStateMachine/HiddenState" to="Character" method="play_backwards" binds= [ "show" ]]
 [connection signal="started" from="MovementStateMachine/AlertState/Hide" to="MovementStateMachine" method="change_state_to" binds= [ "Hidden" ]]
 [connection signal="entered" from="MovementStateMachine/StandState" to="Character" method="play" binds= [ "show" ]]
@@ -323,9 +320,9 @@ shape = SubResource( 5 )
 [connection signal="direction_changed" from="CombatStateMachine/AlertState/Attack" to="CombatStateMachine/AlertState/Attack/DirtSpawner" method="set_direction"]
 [connection signal="started" from="CombatStateMachine/AlertState/Attack" to="AttackAnimator" method="play" binds= [ "throw_dirt" ]]
 [connection signal="started" from="CombatStateMachine/AlertState/Attack" to="Character" method="play" binds= [ "throw_dirt" ]]
+[connection signal="died" from="Brain/Health" to="Character/Pivot/Body/ParticlesSpawner" method="spawn"]
 [connection signal="died" from="Brain/Health" to="ScoreLabelSpawner" method="spawn"]
 [connection signal="died" from="Brain/Health" to="ScoreLabelSpawner/Score" method="score"]
-[connection signal="died" from="Brain/Health" to="Character/Pivot/Body/ParticlesSpawner" method="spawn"]
 [connection signal="timeout" from="Brain/HideTimer" to="MovementStateMachine" method="execute" binds= [ "Show" ]]
 [connection signal="timeout" from="Brain/StunTimer" to="MovementStateMachine" method="execute" binds= [ "Alert" ]]
 [connection signal="timeout" from="Brain/AlertTimer" to="MovementStateMachine" method="change_state_to" binds= [ "Alert" ]]
@@ -336,6 +333,7 @@ shape = SubResource( 5 )
 [connection signal="hurt" from="HurtBox" to="MovementStateMachine" method="change_state_to" binds= [ "Stun" ]]
 [connection signal="draw" from="HealthBar" to="HealthBar/Timer" method="start"]
 [connection signal="timeout" from="HealthBar/Timer" to="HealthBar" method="hide"]
+[connection signal="area_exited" from="PunchSightArea" to="Brain" method="_on_PunchSightArea_area_exited"]
 [connection signal="spotted" from="PunchSightArea" to="Brain" method="_on_PunchSightArea_spotted"]
 
 [editable path="Character"]
