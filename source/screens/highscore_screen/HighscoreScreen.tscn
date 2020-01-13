@@ -79,7 +79,6 @@ __meta__ = {
 [node name="HighScoreList" parent="Panel/MarginContainer" instance=ExtResource( 6 )]
 
 [node name="NewHighScoreInterface" type="VBoxContainer" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -102,8 +101,10 @@ text = "Insert your name"
 margin_top = 49.0
 margin_right = 328.0
 margin_bottom = 104.0
+max_length = 10
 
 [node name="Fade" type="ColorRect" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
