@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://screens/highscore_screen/HighScoreList.gd" type="Script" id=1]
+
+[node name="HighScoreList" type="VBoxContainer"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 670.0
+margin_bottom = 730.0
+script = ExtResource( 1 )

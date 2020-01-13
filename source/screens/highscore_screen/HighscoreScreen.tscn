@@ -1,0 +1,119 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://screens/splash_screen/splash_screen_theme.tres" type="Theme" id=1]
+[ext_resource path="res://screens/splash_screen/title-font-200.tres" type="DynamicFont" id=2]
+[ext_resource path="res://screens/splash_screen/background.png" type="Texture" id=3]
+[ext_resource path="res://screens/highscore_screen/NewHighScore.gd" type="Script" id=4]
+[ext_resource path="res://screens/highscore_screen/HighscoreScreen.gd" type="Script" id=5]
+[ext_resource path="res://screens/highscore_screen/HighScoreList.tscn" type="PackedScene" id=6]
+
+[sub_resource type="Animation" id=1]
+resource_name = "fade"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
+}
+
+[node name="HighscoreScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="."]
+anchor_right = 1.0
+margin_top = 70.0
+margin_bottom = 270.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.423529, 0.376471, 0.705882, 1 )
+text = "highscore"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -345.0
+margin_top = -250.0
+margin_right = 345.0
+margin_bottom = 500.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HighScoreList" parent="Panel/MarginContainer" instance=ExtResource( 6 )]
+
+[node name="NewHighScoreInterface" type="VBoxContainer" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -164.0
+margin_top = 260.0
+margin_right = 164.0
+margin_bottom = 364.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Instruction" type="Label" parent="NewHighScoreInterface"]
+margin_right = 328.0
+margin_bottom = 45.0
+text = "Insert your name"
+
+[node name="LineEdit" type="LineEdit" parent="NewHighScoreInterface"]
+margin_top = 49.0
+margin_right = 328.0
+margin_bottom = 104.0
+
+[node name="Fade" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Fade"]
+autoplay = "fade"
+anims/fade = SubResource( 1 )
+[connection signal="text_entered" from="NewHighScoreInterface/LineEdit" to="." method="_on_LineEdit_text_entered"]
+[connection signal="text_entered" from="NewHighScoreInterface/LineEdit" to="NewHighScoreInterface" method="_on_LineEdit_text_entered"]
