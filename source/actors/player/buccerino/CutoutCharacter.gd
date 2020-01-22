@@ -21,18 +21,3 @@ func play(animation):
 			return
 	if animator.has_animation(animation):
 		animator.play(animation, blend)
-
-
-func _on_AnimationPlayer_animation_started(anim_name):
-	if anim_name == "wall":
-		pivot.scale.x = -1.0
-	else:
-		pivot.scale.x = 1.0
-	if not anim_name == "charge":
-		remote_transform.update_position = true
-		remote_transform.update_rotation = true
-
-
-func _on_VFXAnimator_animation_finished(anim_name):
-	for vfx in $Pivot/WeaponVFX.get_children():
-		vfx.self_modulate.a = 0.0
