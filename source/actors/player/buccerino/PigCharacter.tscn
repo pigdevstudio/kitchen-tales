@@ -2441,7 +2441,7 @@ remote_path = NodePath("../../../Cleaver")
 update_scale = false
 
 [node name="Cleaver" type="Sprite" parent="Pivot"]
-position = Vector2( 28.842, 1.81501 )
+position = Vector2( 28.842, 1.815 )
 rotation = 1.73456
 z_index = -1
 texture = ExtResource( 12 )
@@ -2504,6 +2504,7 @@ position = Vector2( 40, -144 )
 emitting = false
 amount = 24
 lifetime = 0.3
+one_shot = true
 texture = ExtResource( 12 )
 direction = Vector2( 1, 1 )
 spread = 0.0
