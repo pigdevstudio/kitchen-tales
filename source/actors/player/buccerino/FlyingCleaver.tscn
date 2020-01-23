@@ -33,6 +33,7 @@ colors = PoolColorArray( 1, 1, 1, 0.113725, 1, 1, 1, 0 )
 script = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
+rotation = 3.80134
 texture = ExtResource( 3 )
 
 [node name="HitBox" parent="." instance=ExtResource( 2 )]
@@ -60,7 +61,8 @@ texture = ExtResource( 3 )
 direction = Vector2( -1, 0 )
 spread = 0.0
 gravity = Vector2( 0, 0 )
-initial_velocity = 100.0
+initial_velocity = 300.0
+angular_velocity = 720.0
 color_ramp = SubResource( 3 )
 [connection signal="timeout" from="Duration" to="." method="_on_Duration_timeout"]
 [connection signal="timeout" from="ReturnDuration" to="." method="_on_ReturnDuration_timeout"]
