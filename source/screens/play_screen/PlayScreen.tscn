@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://interface/HealthBar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/blackspoon_arena/BlackspoonArena.tscn" type="PackedScene" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://interface/Interface.gd" type="Script" id=5]
 [ext_resource path="res://screens/splash_screen/title-font-200.tres" type="DynamicFont" id=6]
 [ext_resource path="res://screens/play_screen/PlayScreen.gd" type="Script" id=7]
-[ext_resource path="res://actors/enemies/tomato/Tomato.tscn" type="PackedScene" id=8]
 
 [sub_resource type="Animation" id=1]
 resource_name = "dead"
@@ -450,9 +449,6 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="InterfaceLayer/Fade"]
 autoplay = "fade"
 anims/fade = SubResource( 7 )
-
-[node name="Tomato" parent="." instance=ExtResource( 8 )]
-position = Vector2( -408, 752 )
 [connection signal="wave_finished" from="Level" to="InterfaceLayer/Interface" method="_on_Level_wave_finished"]
 [connection signal="pressed" from="InterfaceLayer/Interface/RetryButton" to="InterfaceLayer/Interface/AnimationPlayer" method="play" binds= [ "reload" ]]
 [connection signal="animation_finished" from="InterfaceLayer/Fade/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
