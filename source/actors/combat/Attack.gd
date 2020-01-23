@@ -6,17 +6,21 @@ signal heated
 onready var cooldown_timer = $Cooldown
 export (float) var cooldown = 0.1
 
+var _executed = false
+
 func execute():
 	if not enabled:
 		return
 	if not cooldown_timer.is_stopped():
 		emit_signal("heated")
 		return
+	_executed = true
 	emit_signal("started")
 
 
 func cancel():
-	start_cooldown()
+	if _executed:
+		start_cooldown()
 
 
 func start_cooldown():
@@ -28,4 +32,5 @@ func start_cooldown():
 
 
 func _on_Cooldown_timeout():
+	_executed = false
 	emit_signal("cooled")

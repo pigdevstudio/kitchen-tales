@@ -2,11 +2,16 @@ extends Node2D
 
 export(NodePath) var cleaver_sprite_path
 onready var cleaver_sprite = get_node(cleaver_sprite_path)
+
 export(PackedScene) var flying_cleaver_scene
 export(float) var throw_strength = 0.0
+
 var throw_direction = Vector2.RIGHT setget set_direction
 
+
 func throw():
+	if throw_strength == 0.0:
+		return
 	var flying_cleaver_instance = flying_cleaver_scene.instance()
 	flying_cleaver_instance.global_position = global_position
 	flying_cleaver_instance.connect("returned", self, "_on_cleaver_instance_returned")
