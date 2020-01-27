@@ -277,7 +277,6 @@ shape = SubResource( 6 )
 [connection signal="missed" from="ChasingSightArea" to="Brain" method="_on_ChasingSightArea_missed"]
 [connection signal="spotted" from="ChasingSightArea" to="Brain" method="_on_ChasingSightArea_spotted"]
 [connection signal="animation_finished" from="AttackAnimator" to="Brain" method="_on_AttackAnimator_animation_finished"]
-[connection signal="animation_started" from="AttackAnimator" to="Brain" method="_on_AttackAnimator_animation_started"]
 [connection signal="draw" from="HealthBar" to="HealthBar/Timer" method="start"]
 [connection signal="timeout" from="HealthBar/Timer" to="HealthBar" method="hide"]
 [connection signal="spotted" from="TackleSightArea" to="Brain" method="_on_TackleSightArea_spotted"]

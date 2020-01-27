@@ -15,16 +15,13 @@ onready var sight = get_node(sight_path)
 export(NodePath) var tackle_sight_path = "../TackleSightArea"
 onready var tackle_sight = get_node(tackle_sight_path)
 
-var _previous_valid_state = "Idle"
 
 func _on_StateMachine_state_changed(new_state):
-	if not new_state in ["Stun", "Tackle"]:
-		_previous_valid_state = new_state
-	
 	match new_state:
 		"Idle":
 			$IdleTime.start()
 			sight.update_sight()
+			tackle_sight.update_sight()
 		"Walk":
 			$WanderTime.start()
 		"Chase":
@@ -70,7 +67,7 @@ func update_directions(direction):
 
 
 func _on_StunTime_timeout():
-	state_machine.change_state_to(_previous_valid_state)
+	state_machine.change_state_to("Idle")
 
 
 func _on_ChasingSightArea_missed():
@@ -85,10 +82,6 @@ func _on_TackleSightArea_spotted(spot_direction):
 	state_machine.change_state_to("Tackle")
 	state_machine.execute("Stop")
 	combat_state_machine.execute("Attack")
-
-
-func _on_AttackAnimator_animation_started(anim_name):
-	pass
 
 
 func _on_AttackAnimator_animation_finished(anim_name):
