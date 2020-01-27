@@ -18,7 +18,7 @@ onready var tackle_sight = get_node(tackle_sight_path)
 var _previous_valid_state = "Idle"
 
 func _on_StateMachine_state_changed(new_state):
-	if not new_state == "Stun":
+	if not new_state in ["Stun", "Tackle"]:
 		_previous_valid_state = new_state
 	
 	match new_state:
