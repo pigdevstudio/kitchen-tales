@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://objects/recipes/Recipe.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+title = "Tomato Soup"
+ingredients = PoolStringArray( "tomato", "onion", "onion" )
+preparations = PoolStringArray( "dice", "dice", "slice" )
+amounts = PoolIntArray( 2, 1, 1 )

@@ -1,5 +1,7 @@
 extends Node
 
+signal died(death)
+
 export(NodePath) var state_machine_path = "../StateMachine"
 onready var state_machine = get_node(state_machine_path)
 
@@ -11,6 +13,9 @@ onready var character = get_node(character_path)
 
 export(NodePath) var sight_path = "../ChasingSightArea"
 onready var sight = get_node(sight_path)
+
+export(String) var type = "tomato"
+export(Resource) var death = preload("res://actors/enemies/Dead.tres")
 
 var _previous_valid_state = "Idle"
 var _squash_playback_time = 0.0
@@ -101,3 +106,11 @@ func _on_AttackAnimator_animation_finished(anim_name):
 	if anim_name == "squash":
 		$"../CombatStateMachine/SquashState/Attack/HitBox".position = Vector2.ZERO
 
+
+func _on_HurtBox_hit_landed(hit):
+	if $Health.current == 0.0:
+		death = death.duplicate()
+		death.type = type.to_lower()
+		death.cause = hit.type.to_lower()
+		death.who = get_parent()
+		emit_signal("died", death)

@@ -1,6 +1,8 @@
 extends Node
 
-export(NodePath) var state_machine_path = "../StateMachine"
+signal died(death)
+
+export(NodePath) var state_machine_path = "../MovementStateMachine"
 onready var state_machine = get_node(state_machine_path)
 
 export(NodePath) var combat_state_machine_path = "../CombatStateMachine"
@@ -14,6 +16,9 @@ onready var sight = get_node(sight_path)
 
 export(NodePath) var tackle_sight_path = "../TackleSightArea"
 onready var tackle_sight = get_node(tackle_sight_path)
+
+export(String) var type = "onion"
+export(Resource) var death = preload("res://actors/enemies/Dead.tres")
 
 
 func _on_StateMachine_state_changed(new_state):
@@ -74,10 +79,6 @@ func _on_ChasingSightArea_missed():
 	state_machine.execute("Stop")
 
 
-func _on_Health_died():
-	state_machine.change_state_to("Dead")
-
-
 func _on_TackleSightArea_spotted(spot_direction):
 	state_machine.change_state_to("Tackle")
 	state_machine.execute("Stop")
@@ -88,3 +89,12 @@ func _on_AttackAnimator_animation_finished(anim_name):
 	if anim_name == "tackle":
 		tackle_sight.update_sight()
 		state_machine.change_state_to("Idle")
+
+
+func _on_HurtBox_hit_landed(hit):
+	if $Health.current == 0.0:
+		death = death.duplicate()
+		death.type = type.to_lower()
+		death.cause = hit.type.to_lower()
+		death.who = get_parent()
+		emit_signal("died", death)

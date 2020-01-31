@@ -6,3 +6,4 @@
 script = ExtResource( 1 )
 damage = 4
 team = "player"
+type = "dice"

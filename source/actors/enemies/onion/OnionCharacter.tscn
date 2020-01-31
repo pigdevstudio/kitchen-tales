@@ -1046,8 +1046,8 @@ region_rect = Rect2( 16, 48, 111, 88 )
 
 [node name="Hair" type="Sprite" parent="Pivot/Body"]
 show_behind_parent = true
-position = Vector2( -8.03723, -43.2929 )
-rotation = -0.303729
+position = Vector2( -4.14815, -43.2929 )
+rotation = -0.178022
 texture = ExtResource( 1 )
 offset = Vector2( 0, -6 )
 region_enabled = true
@@ -1080,7 +1080,7 @@ region_enabled = true
 region_rect = Rect2( 64, 160, 10, 64 )
 
 [node name="Face" type="Sprite" parent="Pivot/Body"]
-position = Vector2( 14.1549, 3.66603 )
+position = Vector2( 12.7407, 8.66663 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -4 )
 region_enabled = true

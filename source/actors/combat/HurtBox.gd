@@ -23,8 +23,8 @@ func get_hurt(hit):
 func _on_area_shape_entered(area_id, area, area_shape, self_shape):
 	var hit = area.hit
 	if not is_in_group(hit.team):
-		emit_signal("hit_landed", hit)
 		get_hurt(hit)
+		emit_signal("hit_landed", hit)
 
 
 func set_invincible(enable):

@@ -14,6 +14,7 @@ var wave_count = 1
 var difficulty = 1
 
 func spawn_wave():
+	return
 	var wave = load(waves_scenes[_current_wave]).instance()
 	add_child(wave)
 	wave.connect("tree_exited", self, "_on_Wave_tree_exited", [wave.name])

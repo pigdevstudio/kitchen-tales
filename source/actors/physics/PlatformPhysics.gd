@@ -1,8 +1,8 @@
 class_name PlatformPhysics
 extends Node
 
-export (NodePath) var actor_path = ".."
-onready var actor = get_node(actor_path) setget set_actor
+export (NodePath) var actor_path
+onready var actor
 
 export (bool) var enabled = false setget set_enabled
 

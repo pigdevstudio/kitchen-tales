@@ -44,7 +44,6 @@ radius = 321.403
 
 [sub_resource type="Animation" id=5]
 resource_name = "tackle"
-length = 1.5
 step = 0.05
 tracks/0/type = "method"
 tracks/0/path = NodePath("Character")
@@ -91,7 +90,6 @@ shape = SubResource( 1 )
 
 [node name="Brain" type="Node" parent="."]
 script = ExtResource( 2 )
-state_machine_path = NodePath("../MovementStateMachine")
 
 [node name="IdleTime" type="Timer" parent="Brain"]
 one_shot = true
@@ -176,9 +174,6 @@ script = ExtResource( 15 )
 [node name="DeadState" parent="MovementStateMachine" instance=ExtResource( 7 )]
 script = ExtResource( 15 )
 
-[node name="Gravity" parent="MovementStateMachine/DeadState" instance=ExtResource( 10 )]
-actor_path = NodePath("../../../../Onion")
-
 [node name="CombatActorProvider" parent="." instance=ExtResource( 29 )]
 actor_path = NodePath("..")
 receiver_path = NodePath("../CombatStateMachine")
@@ -254,23 +249,21 @@ shape = SubResource( 6 )
 [connection signal="timeout" from="Brain/IdleTime" to="Brain" method="_on_IdleTime_timeout"]
 [connection signal="timeout" from="Brain/WanderTime" to="Brain" method="_on_WanderTime_timeout"]
 [connection signal="timeout" from="Brain/StunTime" to="Brain" method="_on_StunTime_timeout"]
-[connection signal="died" from="Brain/Health" to="Character/Pivot/Body/ExplodingParticleSpawner" method="spawn"]
-[connection signal="died" from="Brain/Health" to="Character/Pivot/Body/ScoreLabelSpawner" method="spawn"]
 [connection signal="died" from="Brain/Health" to="Character/Pivot/Body/ScoreLabelSpawner/Score" method="score"]
-[connection signal="died" from="Brain/Health" to="Brain" method="_on_Health_died"]
-[connection signal="spawned" from="Character/Pivot/Body/ExplodingParticleSpawner" to="." method="queue_free"]
-[connection signal="state_changed" from="MovementStateMachine" to="CombatStateMachine" method="change_state_to"]
+[connection signal="died" from="Brain/Health" to="Character/Pivot/Body/ScoreLabelSpawner" method="spawn"]
+[connection signal="died" from="Brain/Health" to="Character/Pivot/Body/ExplodingParticleSpawner" method="spawn"]
 [connection signal="state_changed" from="MovementStateMachine" to="Brain" method="_on_StateMachine_state_changed"]
+[connection signal="state_changed" from="MovementStateMachine" to="CombatStateMachine" method="change_state_to"]
 [connection signal="entered" from="MovementStateMachine/IdleState" to="Character" method="play" binds= [ "idle" ]]
 [connection signal="entered" from="MovementStateMachine/WalkState" to="Character" method="play" binds= [ "walk" ]]
 [connection signal="entered" from="MovementStateMachine/ChaseState" to="Character" method="play" binds= [ "chase" ]]
-[connection signal="entered" from="MovementStateMachine/TackleState" to="Character" method="play" binds= [ "chase" ]]
 [connection signal="entered" from="MovementStateMachine/StunState" to="Character" method="play" binds= [ "stun" ]]
 [connection signal="state_changed" from="CombatStateMachine" to="Brain" method="_on_CombatStateMachine_state_changed"]
 [connection signal="started" from="CombatStateMachine/TackleState/Attack" to="AttackAnimator" method="play" binds= [ "tackle" ]]
-[connection signal="started" from="CombatStateMachine/StunState/Attack" to="CombatStateMachine/StunState/Attack/GasCloudSpawner" method="spawn"]
 [connection signal="started" from="CombatStateMachine/StunState/Attack" to="CombatStateMachine/StunState/Attack" method="start_cooldown"]
+[connection signal="started" from="CombatStateMachine/StunState/Attack" to="CombatStateMachine/StunState/Attack/GasCloudSpawner" method="spawn"]
 [connection signal="damage_inflicted" from="HurtBox" to="Brain/Health" method="damage"]
+[connection signal="hit_landed" from="HurtBox" to="Brain" method="_on_HurtBox_hit_landed"]
 [connection signal="hurt" from="HurtBox" to="MovementStateMachine" method="change_state_to" binds= [ "Stun" ]]
 [connection signal="hurt" from="HurtBox" to="HealthBar" method="show"]
 [connection signal="chase_direction_changed" from="ChasingSightArea" to="Brain" method="_on_ChasingSightArea_chase_direction_changed"]

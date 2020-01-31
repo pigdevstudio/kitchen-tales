@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://screens/controls_screen/montserrat_24.tres" type="DynamicFont" id=1]
+
+[node name="IngredientItem" type="HBoxContainer"]
+margin_right = 500.0
+margin_bottom = 31.0
+custom_constants/separation = 25
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Ingredient" type="Label" parent="."]
+margin_right = 150.0
+margin_bottom = 31.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/line_spacing = 0
+custom_constants/shadow_offset_y = 0
+text = "Tomato"
+align = 2
+
+[node name="Preparation" type="Label" parent="."]
+margin_left = 175.0
+margin_right = 325.0
+margin_bottom = 31.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/line_spacing = 0
+custom_constants/shadow_offset_y = 0
+text = "Diced"
+align = 1
+
+[node name="Amount" type="Label" parent="."]
+margin_left = 350.0
+margin_right = 500.0
+margin_bottom = 31.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/line_spacing = 0
+custom_constants/shadow_offset_y = 0
+text = "3"

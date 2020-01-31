@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://levels/blackspoon_arena/BlackspoonArena.gd" type="Script" id=1]
 [ext_resource path="res://actors/player/buccerino/Buccerino.tscn" type="PackedScene" id=2]
@@ -15,6 +15,10 @@
 [ext_resource path="res://objects/void/Void.tscn" type="PackedScene" id=13]
 [ext_resource path="res://objects/platforms/StaticPlatform.tscn" type="PackedScene" id=14]
 [ext_resource path="res://objects/platforms/MovingPlatform.tscn" type="PackedScene" id=15]
+[ext_resource path="res://actors/enemies/onion/Onion.tscn" type="PackedScene" id=16]
+[ext_resource path="res://actors/enemies/tomato/Tomato.tscn" type="PackedScene" id=17]
+[ext_resource path="res://levels/blackspoon_arena/RecipeWave.gd" type="Script" id=18]
+[ext_resource path="res://objects/recipes/TomatoSoupRecipe.tres" type="Resource" id=19]
 
 [sub_resource type="LineShape2D" id=1]
 
@@ -166,3 +170,21 @@ self_modulate = Color( 0.596078, 0.596078, 0.596078, 1 )
 position = Vector2( 2000, 1128 )
 z_index = -1
 texture = ExtResource( 12 )
+
+[node name="TomatoSoupWave" type="Node2D" parent="."]
+script = ExtResource( 18 )
+recipe = ExtResource( 19 )
+
+[node name="Tomato" parent="TomatoSoupWave" instance=ExtResource( 17 )]
+position = Vector2( 816, 800 )
+
+[node name="Tomato2" parent="TomatoSoupWave" instance=ExtResource( 17 )]
+position = Vector2( 4576, 264 )
+
+[node name="Onion" parent="TomatoSoupWave" instance=ExtResource( 16 )]
+position = Vector2( 3032, 768 )
+
+[node name="Onion2" parent="TomatoSoupWave" instance=ExtResource( 16 )]
+position = Vector2( 5944, 218 )
+
+[editable path="TomatoSoupWave/Onion2"]
