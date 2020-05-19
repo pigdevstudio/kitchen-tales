@@ -1,7 +1,6 @@
-[gd_scene load_steps=60 format=2]
+[gd_scene load_steps=59 format=2]
 
 [ext_resource path="res://actors/physics/Move.tscn" type="PackedScene" id=1]
-[ext_resource path="res://actors/player/PlayerStateTransition.tres" type="Resource" id=2]
 [ext_resource path="res://actors/physics/State.tscn" type="PackedScene" id=3]
 [ext_resource path="res://actors/physics/Stun.gd" type="Script" id=4]
 [ext_resource path="res://actors/player/controllers/JoyNotifier.tscn" type="PackedScene" id=5]
@@ -315,7 +314,6 @@ script = ExtResource( 17 )
 
 [node name="IdleState" parent="MovementStateMachine" instance=ExtResource( 3 )]
 script = ExtResource( 34 )
-transition = ExtResource( 2 )
 
 [node name="Move" parent="MovementStateMachine/IdleState" instance=ExtResource( 1 )]
 direction = Vector2( 1, 0 )
@@ -333,7 +331,6 @@ actor_path = NodePath("../../..")
 
 [node name="WalkState" parent="MovementStateMachine" instance=ExtResource( 3 )]
 script = ExtResource( 30 )
-transition = ExtResource( 2 )
 
 [node name="Stop" parent="MovementStateMachine/WalkState" instance=ExtResource( 39 )]
 
@@ -350,7 +347,6 @@ actor_path = NodePath("../../..")
 
 [node name="JumpState" parent="MovementStateMachine" instance=ExtResource( 3 )]
 script = ExtResource( 23 )
-transition = ExtResource( 2 )
 
 [node name="Jump" parent="MovementStateMachine/JumpState" instance=ExtResource( 20 )]
 
@@ -367,7 +363,6 @@ actor_path = NodePath("../../..")
 
 [node name="JumpDashState" parent="MovementStateMachine" instance=ExtResource( 3 )]
 script = ExtResource( 27 )
-transition = ExtResource( 2 )
 
 [node name="Stop" parent="MovementStateMachine/JumpDashState" instance=ExtResource( 39 )]
 
@@ -382,7 +377,6 @@ speed = 0.0
 
 [node name="DashState" parent="MovementStateMachine" instance=ExtResource( 3 )]
 script = ExtResource( 32 )
-transition = ExtResource( 2 )
 
 [node name="Stop" parent="MovementStateMachine/DashState" instance=ExtResource( 39 )]
 
@@ -400,7 +394,6 @@ direction = Vector2( 0, 0 )
 
 [node name="DashJumpState" parent="MovementStateMachine" instance=ExtResource( 3 )]
 script = ExtResource( 26 )
-transition = ExtResource( 2 )
 
 [node name="Fall" parent="MovementStateMachine/DashJumpState" instance=ExtResource( 21 )]
 
@@ -414,7 +407,6 @@ actor_path = NodePath("../../..")
 
 [node name="SecondJumpState" parent="MovementStateMachine" instance=ExtResource( 3 )]
 script = ExtResource( 35 )
-transition = ExtResource( 2 )
 
 [node name="Fall" parent="MovementStateMachine/SecondJumpState" instance=ExtResource( 21 )]
 
@@ -428,7 +420,6 @@ strength = 5000.0
 
 [node name="DashJumpFallState" parent="MovementStateMachine" instance=ExtResource( 3 )]
 script = ExtResource( 24 )
-transition = ExtResource( 2 )
 
 [node name="Stop" parent="MovementStateMachine/DashJumpFallState" instance=ExtResource( 39 )]
 
@@ -442,7 +433,6 @@ speed = 1800.0
 
 [node name="SingleFallState" parent="MovementStateMachine" instance=ExtResource( 3 )]
 script = ExtResource( 25 )
-transition = ExtResource( 2 )
 
 [node name="Fall" parent="MovementStateMachine/SingleFallState" instance=ExtResource( 21 )]
 
@@ -459,7 +449,6 @@ actor_path = NodePath("../../../../Buccerino")
 
 [node name="DashFallState" parent="MovementStateMachine" instance=ExtResource( 3 )]
 script = ExtResource( 31 )
-transition = ExtResource( 2 )
 
 [node name="Stop" parent="MovementStateMachine/DashFallState" instance=ExtResource( 39 )]
 
@@ -472,7 +461,6 @@ actor_path = NodePath("../../..")
 
 [node name="SecondFallState" parent="MovementStateMachine" instance=ExtResource( 3 )]
 script = ExtResource( 33 )
-transition = ExtResource( 2 )
 
 [node name="Fall" parent="MovementStateMachine/SecondFallState" instance=ExtResource( 21 )]
 
@@ -485,7 +473,6 @@ actor_path = NodePath("../../../../Buccerino")
 
 [node name="StunState" parent="MovementStateMachine" instance=ExtResource( 3 )]
 script = ExtResource( 4 )
-transition = ExtResource( 2 )
 
 [node name="CombatActorProvider" parent="." instance=ExtResource( 45 )]
 actor_path = NodePath("..")
@@ -544,6 +531,7 @@ position = Vector2( 103, -63 )
 script = ExtResource( 12 )
 cleaver_sprite_path = NodePath("../../../../Pig/Pivot/Cleaver")
 flying_cleaver_scene = ExtResource( 19 )
+throw_strength = 0.15
 
 [node name="WalkState" type="Node2D" parent="CombatStateMachine"]
 script = ExtResource( 13 )
@@ -704,6 +692,7 @@ rect_pivot_offset = Vector2( 68, 13 )
 custom_styles/fg = SubResource( 12 )
 custom_styles/bg = SubResource( 13 )
 max_value = 1.0
+value = 0.3
 percent_visible = false
 __meta__ = {
 "_edit_use_anchors_": false
@@ -735,13 +724,13 @@ one_shot = true
 [connection signal="entered" from="MovementStateMachine/SingleFallState" to="Pig" method="play" binds= [ "fall" ]]
 [connection signal="entered" from="MovementStateMachine/DashFallState" to="Pig" method="play" binds= [ "fall" ]]
 [connection signal="entered" from="MovementStateMachine/SecondFallState" to="Pig" method="play" binds= [ "fall" ]]
-[connection signal="entered" from="MovementStateMachine/StunState" to="Pig" method="play" binds= [ "stun" ]]
 [connection signal="entered" from="MovementStateMachine/StunState" to="StunDuration" method="start"]
+[connection signal="entered" from="MovementStateMachine/StunState" to="Pig" method="play" binds= [ "stun" ]]
 [connection signal="direction_changed" from="CombatStateMachine" to="CombatStateMachine/IdleState/Charge/CleaverThrow" method="set_direction"]
-[connection signal="exited" from="CombatStateMachine/IdleState" to="ChargeBar" method="set_visible" binds= [ false ]]
 [connection signal="exited" from="CombatStateMachine/IdleState" to="IdleThreshold" method="stop"]
-[connection signal="finished" from="CombatStateMachine/IdleState/Attack" to="ComboResetTime" method="start"]
+[connection signal="exited" from="CombatStateMachine/IdleState" to="ChargeBar" method="set_visible" binds= [ false ]]
 [connection signal="finished" from="CombatStateMachine/IdleState/Attack" to="IdleThreshold" method="start"]
+[connection signal="finished" from="CombatStateMachine/IdleState/Attack" to="ComboResetTime" method="start"]
 [connection signal="finished" from="CombatStateMachine/IdleState/Attack/Cut" to="AttackAnimator" method="stop"]
 [connection signal="started" from="CombatStateMachine/IdleState/Attack/Cut" to="Pig" method="play" binds= [ "cut" ]]
 [connection signal="started" from="CombatStateMachine/IdleState/Attack/Cut" to="AttackAnimator" method="play" binds= [ "cut" ]]
@@ -751,12 +740,12 @@ one_shot = true
 [connection signal="finished" from="CombatStateMachine/IdleState/Attack/Dice" to="AttackAnimator" method="stop"]
 [connection signal="started" from="CombatStateMachine/IdleState/Attack/Dice" to="Pig" method="play" binds= [ "dice" ]]
 [connection signal="started" from="CombatStateMachine/IdleState/Attack/Dice" to="AttackAnimator" method="play" binds= [ "dice" ]]
-[connection signal="finished" from="CombatStateMachine/IdleState/Charge" to="Pig" method="play" binds= [ "charge" ]]
-[connection signal="finished" from="CombatStateMachine/IdleState/Charge" to="ChargeBar" method="hide"]
-[connection signal="finished" from="CombatStateMachine/IdleState/Charge" to="AttackAnimator" method="stop"]
 [connection signal="finished" from="CombatStateMachine/IdleState/Charge" to="CombatStateMachine/IdleState/Charge/CleaverThrow" method="throw"]
-[connection signal="started" from="CombatStateMachine/IdleState/Charge" to="Pig" method="play" binds= [ "charging" ]]
+[connection signal="finished" from="CombatStateMachine/IdleState/Charge" to="ChargeBar" method="hide"]
+[connection signal="finished" from="CombatStateMachine/IdleState/Charge" to="Pig" method="play" binds= [ "charge" ]]
+[connection signal="finished" from="CombatStateMachine/IdleState/Charge" to="AttackAnimator" method="stop"]
 [connection signal="started" from="CombatStateMachine/IdleState/Charge" to="ChargeBar" method="set_visible" binds= [ true ]]
+[connection signal="started" from="CombatStateMachine/IdleState/Charge" to="Pig" method="play" binds= [ "charging" ]]
 [connection signal="started" from="CombatStateMachine/IdleState/Charge" to="AttackAnimator" method="play" binds= [ "charge" ]]
 [connection signal="finished" from="CombatStateMachine/JumpState/Attack" to="AttackAnimator" method="stop"]
 [connection signal="started" from="CombatStateMachine/JumpState/Attack" to="Pig" method="play" binds= [ "spin" ]]
@@ -770,11 +759,11 @@ one_shot = true
 [connection signal="pressed" from="Controls/MoveNotifier" to="MovementStateMachine" method="execute" binds= [ "Move" ]]
 [connection signal="released" from="Controls/MoveNotifier" to="MovementStateMachine" method="execute" binds= [ "Stop" ]]
 [connection signal="pressed" from="Controls/LeftNotifier" to="MovementStateMachine" method="set_direction" binds= [ Vector2( -1, 0 ) ]]
-[connection signal="pressed" from="Controls/LeftNotifier" to="Pig" method="set_look_direction" binds= [ -1 ]]
 [connection signal="pressed" from="Controls/LeftNotifier" to="CombatStateMachine" method="set_direction" binds= [ Vector2( -1, 0 ) ]]
+[connection signal="pressed" from="Controls/LeftNotifier" to="Pig" method="set_look_direction" binds= [ -1 ]]
 [connection signal="pressed" from="Controls/RightNotifier" to="MovementStateMachine" method="set_direction" binds= [ Vector2( 1, 0 ) ]]
-[connection signal="pressed" from="Controls/RightNotifier" to="Pig" method="set_look_direction" binds= [ 1 ]]
 [connection signal="pressed" from="Controls/RightNotifier" to="CombatStateMachine" method="set_direction" binds= [ Vector2( 1, 0 ) ]]
+[connection signal="pressed" from="Controls/RightNotifier" to="Pig" method="set_look_direction" binds= [ 1 ]]
 [connection signal="pressed" from="Controls/JumpNotifier" to="MovementStateMachine" method="execute" binds= [ "Jump" ]]
 [connection signal="released" from="Controls/JumpNotifier" to="MovementStateMachine" method="cancel" binds= [ "Jump" ]]
 [connection signal="pressed" from="Controls/DashNotifier" to="MovementStateMachine" method="execute" binds= [ "Dash" ]]
@@ -788,11 +777,11 @@ one_shot = true
 [connection signal="pressed" from="Controls/JoyRightNotifier2" to="MovementStateMachine" method="execute" binds= [ "Move" ]]
 [connection signal="released" from="Controls/JoyRightNotifier2" to="MovementStateMachine" method="execute" binds= [ "Stop" ]]
 [connection signal="pressed" from="Controls/JoyLeftNotifier" to="MovementStateMachine" method="set_direction" binds= [ Vector2( -1, 0 ) ]]
-[connection signal="pressed" from="Controls/JoyLeftNotifier" to="Pig" method="set_look_direction" binds= [ -1 ]]
 [connection signal="pressed" from="Controls/JoyLeftNotifier" to="CombatStateMachine" method="set_direction" binds= [ Vector2( -1, 0 ) ]]
+[connection signal="pressed" from="Controls/JoyLeftNotifier" to="Pig" method="set_look_direction" binds= [ -1 ]]
 [connection signal="pressed" from="Controls/JoyRightNotifier" to="MovementStateMachine" method="set_direction" binds= [ Vector2( 1, 0 ) ]]
-[connection signal="pressed" from="Controls/JoyRightNotifier" to="Pig" method="set_look_direction" binds= [ 1 ]]
 [connection signal="pressed" from="Controls/JoyRightNotifier" to="CombatStateMachine" method="set_direction" binds= [ Vector2( 1, 0 ) ]]
+[connection signal="pressed" from="Controls/JoyRightNotifier" to="Pig" method="set_look_direction" binds= [ 1 ]]
 [connection signal="damage_inflicted" from="HurtBox" to="Health" method="damage"]
 [connection signal="hurt" from="HurtBox" to="MovementStateMachine" method="change_state_to" binds= [ "Stun" ]]
 [connection signal="died" from="Health" to="." method="queue_free"]

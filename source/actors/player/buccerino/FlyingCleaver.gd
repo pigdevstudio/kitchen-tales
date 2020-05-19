@@ -9,7 +9,7 @@ var return_target = Node2D.new()
 onready var duration_timer = $Duration
 onready var return_timer = $ReturnDuration
 onready var velocity = Vector2.ZERO
-onready var trail = $Trail
+onready var trail = $Sprite/Trail
 
 func _physics_process(delta):
 	if duration_timer.is_stopped():

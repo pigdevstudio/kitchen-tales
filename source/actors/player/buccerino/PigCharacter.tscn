@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://actors/player/buccerino/CutoutCharacter.gd" type="Script" id=1]
 [ext_resource path="res://actors/player/buccerino/animations/setup.tres" type="Animation" id=2]
@@ -18,16 +18,6 @@
 [ext_resource path="res://actors/sound_effects/melee/sfx_wpn_punch3.tres" type="AudioStream" id=16]
 
 [sub_resource type="Gradient" id=1]
-offsets = PoolRealArray( 0, 0.0585366, 1 )
-colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1 )
-
-[sub_resource type="Gradient" id=2]
-colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 0.537255 )
-
-[sub_resource type="Gradient" id=3]
-colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1 )
-
-[sub_resource type="Gradient" id=4]
 colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1 )
 
 [sub_resource type="Animation" id=5]
@@ -776,7 +766,7 @@ tracks/17/keys = {
 "times": PoolRealArray( 0 )
 }
 tracks/18/type = "value"
-tracks/18/path = NodePath("Pivot/WeaponVFX/CutTrail:emitting")
+tracks/18/path = NodePath("Pivot/Cleaver/Trail:emitting")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/imported = false
@@ -1010,7 +1000,7 @@ tracks/17/keys = {
 "times": PoolRealArray( 0.32 )
 }
 tracks/18/type = "value"
-tracks/18/path = NodePath("Pivot/WeaponVFX/DiceTrail:emitting")
+tracks/18/path = NodePath("Pivot/Cleaver/Trail:emitting")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/imported = false
@@ -1803,7 +1793,7 @@ tracks/17/keys = {
 "times": PoolRealArray( 0.15 )
 }
 tracks/18/type = "value"
-tracks/18/path = NodePath("Pivot/WeaponVFX/SliceTrail:emitting")
+tracks/18/path = NodePath("Pivot/Cleaver/Trail:emitting")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/imported = false
@@ -2063,7 +2053,7 @@ tracks/19/keys = {
 "times": PoolRealArray( 0 )
 }
 tracks/20/type = "value"
-tracks/20/path = NodePath("Pivot/WeaponVFX/SpinTrail:emitting")
+tracks/20/path = NodePath("Pivot/SpinTrail:emitting")
 tracks/20/interp = 1
 tracks/20/loop_wrap = true
 tracks/20/imported = false
@@ -2368,7 +2358,7 @@ __meta__ = {
 position = Vector2( 0, -24 )
 
 [node name="LegLeft" type="Sprite" parent="Pivot"]
-position = Vector2( 17.3333, 0.666656 )
+position = Vector2( 24, 0 )
 texture = ExtResource( 10 )
 offset = Vector2( 0, 6.816 )
 region_enabled = true
@@ -2376,8 +2366,8 @@ region_rect = Rect2( 224, 91, 22, 37 )
 region_filter_clip = true
 
 [node name="LegRight" type="Sprite" parent="Pivot"]
-position = Vector2( -22.8889, 5.77774 )
-rotation = 0.83703
+position = Vector2( -16.8889, 1.77777 )
+rotation = 0.785396
 texture = ExtResource( 10 )
 offset = Vector2( 0, 6.816 )
 region_enabled = true
@@ -2385,8 +2375,8 @@ region_rect = Rect2( 192, 91, 22, 37 )
 region_filter_clip = true
 
 [node name="Body" type="Sprite" parent="Pivot"]
-position = Vector2( -4.00006, 5.77779 )
-rotation = 0.425558
+position = Vector2( 0, -4.76837e-07 )
+rotation = 0.261799
 texture = ExtResource( 10 )
 offset = Vector2( 1, -21.184 )
 region_enabled = true
@@ -2395,7 +2385,7 @@ region_rect = Rect2( 176, 6, 74, 74 )
 [node name="Head" type="Sprite" parent="Pivot/Body"]
 show_behind_parent = true
 position = Vector2( -0.999998, -42.0613 )
-rotation = 0.0701121
+rotation = -0.142221
 texture = ExtResource( 10 )
 offset = Vector2( 1.66667, -27.7893 )
 region_enabled = true
@@ -2415,8 +2405,8 @@ region_enabled = true
 region_rect = Rect2( 160, 144, 82, 20 )
 
 [node name="ArmRight" type="Sprite" parent="Pivot/Body"]
-position = Vector2( 16.379, -18.265 )
-rotation = -1.29802
+position = Vector2( -32.3333, -24 )
+rotation = 0.523599
 texture = ExtResource( 10 )
 offset = Vector2( 0, 8 )
 region_enabled = true
@@ -2425,8 +2415,8 @@ region_filter_clip = true
 
 [node name="ArmLeft" type="Sprite" parent="Pivot/Body"]
 show_behind_parent = true
-position = Vector2( 35.6667, -24 )
-rotation = 0.785398
+position = Vector2( 34.4959, -25.8076 )
+rotation = -0.785398
 z_index = -1
 texture = ExtResource( 10 )
 offset = Vector2( 0, 8 )
@@ -2436,87 +2426,51 @@ region_filter_clip = true
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Pivot/Body/ArmLeft"]
 position = Vector2( -0.394093, 10.0567 )
-rotation = 0.523599
+rotation = -5.49779
 remote_path = NodePath("../../../Cleaver")
 update_scale = false
 
 [node name="Cleaver" type="Sprite" parent="Pivot"]
-position = Vector2( 28.842, 1.815 )
-rotation = 1.73456
+position = Vector2( 44.687, -7.09363 )
+rotation = 0.2618
 z_index = -1
 texture = ExtResource( 12 )
 offset = Vector2( 14.5, -14.1201 )
 
-[node name="WeaponVFX" type="Node2D" parent="Pivot"]
+[node name="Trail" type="CPUParticles2D" parent="Pivot/Cleaver"]
+self_modulate = Color( 1, 1, 1, 0.352941 )
 show_behind_parent = true
-position = Vector2( 0, 24 )
-z_index = -1
-
-[node name="CutTrail" type="CPUParticles2D" parent="Pivot/WeaponVFX"]
-position = Vector2( -32, -16 )
+position = Vector2( 14.5, -14.12 )
+scale = Vector2( 1, 1 )
 emitting = false
 amount = 16
-lifetime = 0.14
-one_shot = true
-draw_order = 1
+lifetime = 0.15
+local_coords = false
 texture = ExtResource( 12 )
-direction = Vector2( -1, -1 )
+flag_align_y = true
 spread = 0.0
 gravity = Vector2( 0, 0 )
-initial_velocity = 2200.0
-angular_velocity = -41.54
-orbit_velocity = -5.6
-angle = -69.2
 color_ramp = SubResource( 1 )
 
-[node name="SliceTrail" type="CPUParticles2D" parent="Pivot/WeaponVFX"]
-position = Vector2( -56, -40 )
+[node name="SpinTrail" type="CPUParticles2D" parent="Pivot"]
+self_modulate = Color( 1, 1, 1, 0.352941 )
+show_behind_parent = true
+position = Vector2( -23.158, -117.82 )
+scale = Vector2( 1, 1 )
 emitting = false
-amount = 16
-lifetime = 0.14
-one_shot = true
+amount = 32
+lifetime = 0.4
 draw_order = 1
 texture = ExtResource( 12 )
-direction = Vector2( 0, -1 )
 spread = 0.0
 gravity = Vector2( 0, 0 )
-initial_velocity = 1800.0
-angular_velocity = -800.0
-orbit_velocity = -4.2
-color_ramp = SubResource( 2 )
-
-[node name="DiceTrail" type="CPUParticles2D" parent="Pivot/WeaponVFX"]
-position = Vector2( 56, -184 )
-emitting = false
-lifetime = 0.1
-one_shot = true
-draw_order = 1
-texture = ExtResource( 12 )
-direction = Vector2( 0, 1 )
-spread = 0.0
-gravity = Vector2( 0, 0 )
-initial_velocity = 1800.0
-angle = -99.0
-color_ramp = SubResource( 3 )
-
-[node name="SpinTrail" type="CPUParticles2D" parent="Pivot/WeaponVFX"]
-position = Vector2( 40, -144 )
-emitting = false
-amount = 24
-lifetime = 0.3
-one_shot = true
-texture = ExtResource( 12 )
-direction = Vector2( 1, 1 )
-spread = 0.0
-gravity = Vector2( 0, 0 )
-initial_velocity = 2200.0
-angular_velocity = -720.0
-orbit_velocity = -4.0
-angle = -62.6
-color_ramp = SubResource( 4 )
+initial_velocity = 1400.0
+angular_velocity = -900.0
+orbit_velocity = -2.8
+color_ramp = SubResource( 1 )
 
 [node name="SFX" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 13 )
+stream = ExtResource( 16 )
 volume_db = -8.0
 bus = "SFX"
 

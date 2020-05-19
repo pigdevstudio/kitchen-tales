@@ -5,6 +5,9 @@
 [ext_resource path="res://actors/player/buccerino/cleaver.png" type="Texture" id=3]
 [ext_resource path="res://actors/player/buccerino/FlyingCleaver.gd" type="Script" id=4]
 
+[sub_resource type="Gradient" id=3]
+colors = PoolColorArray( 1, 1, 1, 0.113725, 1, 1, 1, 0 )
+
 [sub_resource type="CircleShape2D" id=1]
 radius = 32.0
 
@@ -26,15 +29,20 @@ tracks/0/keys = {
 "values": [ 0.0, 360.0 ]
 }
 
-[sub_resource type="Gradient" id=3]
-colors = PoolColorArray( 1, 1, 1, 0.113725, 1, 1, 1, 0 )
-
 [node name="FlyingCleaver" type="Node2D"]
 script = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
-rotation = 3.80134
 texture = ExtResource( 3 )
+
+[node name="Trail" type="CPUParticles2D" parent="Sprite"]
+show_behind_parent = true
+amount = 32
+local_coords = false
+texture = ExtResource( 3 )
+flag_align_y = true
+gravity = Vector2( 0, 0 )
+color_ramp = SubResource( 3 )
 
 [node name="HitBox" parent="." instance=ExtResource( 2 )]
 hit = ExtResource( 1 )
@@ -51,18 +59,5 @@ anims/fly = SubResource( 2 )
 one_shot = true
 
 [node name="ReturnDuration" type="Timer" parent="."]
-
-[node name="Trail" type="CPUParticles2D" parent="."]
-show_behind_parent = true
-amount = 64
-local_coords = false
-draw_order = 1
-texture = ExtResource( 3 )
-direction = Vector2( -1, 0 )
-spread = 0.0
-gravity = Vector2( 0, 0 )
-initial_velocity = 300.0
-angular_velocity = 720.0
-color_ramp = SubResource( 3 )
 [connection signal="timeout" from="Duration" to="." method="_on_Duration_timeout"]
 [connection signal="timeout" from="ReturnDuration" to="." method="_on_ReturnDuration_timeout"]
